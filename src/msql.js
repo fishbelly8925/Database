@@ -157,9 +157,21 @@ module.exports = {
         const resource = pool.acquire();
         resource.then(function(c) {
             var sql_totalCredit = c.prepare(s.totalCredit);
+            c.query(sql_totalCredit({ id: id }), function(err, result) {
+                if (err)
+                    throw err;
+                callback(null, JSON.stringify(result));
+                pool.release(c);
+            })
+        })
+    },
+    totalRequiredCredit: function(id, callback) {
+        const resource = pool.acquire();
+        resource.then(function(c) {
+            var sql_totalRequiredCredit = c.prepare(s.totalRequiredCredit);
             var str = id.split("");
             str = '%' + id[0] + id[1];
-            c.query(sql_totalCredit({ id: id, year: str }), function(err, result) {
+            c.query(sql_totalRequiredCredit({ id: id, year: str }), function(err, result) {
                 if (err)
                     throw err;
                 callback(null, JSON.stringify(result));

@@ -62,7 +62,17 @@ exports.updateStudentCosPass = "\
     student_id=:id,cos_code=:code";
 
 exports.totalCredit = "\
-    SELECT SUM(t.cos_credit) as total\
+    select sum(t.cos_credit) as total\
+    from\
+    (\
+        select distinct d.cos_code,d.cos_credit\
+        from student_cos_relation as s,cos_data as d\
+        where s.student_id=:id\
+        and s.cos_code=d.cos_code\
+    ) as t";
+
+exports.totalRequiredCredit = "\
+    SELECT SUM(t.cos_credit) as totalRequire\
     FROM \
     (   \
         SELECT DISTINCT a.cos_code, d.cos_credit\

@@ -30,20 +30,26 @@ m.showCosMapPass('0516003', function(err, result) {
 
 m.a_uploadGrade('./123.csv'); // a_uploadGrade 助理上傳成績
 
-m.totalCredit('0516003',function(err,result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-});  //totalCredit 計算某學生必選修學分數   **目前仍有bug**
+m.totalCredit('0516003', function(err, result) {
+    if (err)
+        throw err;
+    console.log(JSON.parse(result));
+}); // totalCredit 回傳某學生總學分數
 
-m.oldGeneralCredit('0516003',function(err,result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-}); //oldGeneralCredit 計算某學生舊版通識學分數  **目前仍有bug**
+m.totalRequiredCredit('0516003', function(err, result) {
+    if (err)
+        throw err;
+    console.log(JSON.parse(result));
+}); // totalRequiredCredit 計算某學生必選修學分數   **目前仍有bug**
 
-m.Pass('0516003',function(err,result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-}); //Pass 列出此學生通過的課
+m.oldGeneralCredit('0516003', function(err, result) {
+    if (err)
+        throw err;
+    console.log(JSON.parse(result));
+}); // oldGeneralCredit 計算某學生舊版通識學分數  **目前仍有bug**
+
+m.Pass('0516003', function(err, result) {
+    if (err)
+        throw err;
+    console.log(JSON.parse(result));
+}); // Pass 列出此學生通過的課
