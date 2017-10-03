@@ -86,14 +86,14 @@ exports.totalRequiredCredit = "\
                 FROM cos_require as r, cos_name as n\
                 WHERE r.program IN ( SELECT program FROM student WHERE student_id=:id )\
                 AND r.school_year LIKE :year\
-                AND r.cos_cname = n.cos_cname\
+                AND n.cos_cname LIKE CONCAT(r.cos_cname,\'%\')\
                 AND (n.cos_code like \'DCP%\' or n.cos_code like \'IOE%\' or n.cos_cname like \'微積分甲%\' or n.cos_cname like \'物理%\' or n.cos_cname like \'化學%\' )\
             )\
         ) as a\
         JOIN\
         cos_data as d\
         WHERE d.cos_code = a.cos_code\
-    )as t"; //我有bug喔 QAQ
+    )as t";
 
 exports.oldGeneralCredit = '\
     SELECT "公民" as brief,SUM(t.cos_credit) as credit\

@@ -40,7 +40,7 @@ m.totalRequiredCredit('0516003', function(err, result) {
     if (err)
         throw err;
     console.log(JSON.parse(result));
-}); // totalRequiredCredit 計算某學生必選修學分數   **目前仍有bug**
+}); // totalRequiredCredit 計算某學生必選修學分數
 
 m.oldGeneralCredit('0516003', function(err, result) {
     if (err)
