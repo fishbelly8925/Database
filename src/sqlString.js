@@ -161,4 +161,5 @@ exports.Pass = "\
     from cos_data as d, student_cos_relation as s, cos_name as n\
     where s.student_id = :id\
     and d.cos_code = s.cos_code\
-    and d.cos_code = n.cos_code";
+    and d.cos_code = n.cos_code\
+    and (d.cos_code!=\'ART0003\' or d.cos_type=\'藝文賞析\')";
