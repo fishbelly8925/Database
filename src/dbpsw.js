@@ -2,7 +2,7 @@ var Client = require('mariasql');
 var genericPool = require('generic-pool');
 
 const factory = {
-    name: 'mariadb',
+    name: 'cadb',
     create: function() {
         return new Promise(function(resolve, reject) {
             var c = new Client({
@@ -18,14 +18,21 @@ const factory = {
             });
         });
     },
-    destroy: function(client) {
-        client.end();
+    destroy: function(client){
+        return new Promise(function(resolve){
+          client.on('end', function(){
+            resolve();
+          })
+          client.end();
+        })
     }
 };
 
 var opts = {
     max: 30,
-    min: 2
+    min: 2,
+    idleTimeoutMillis: 3600000,
+    evictionRunIntervalMillis:3600000
 };
 
 var pool = genericPool.createPool(factory, opts);

@@ -53,3 +53,5 @@ m.Pass('0516003', function(err, result) {
         throw err;
     console.log(JSON.parse(result));
 }); // Pass 列出此學生通過的課
+
+m.Drain(); // 關閉 connection pool

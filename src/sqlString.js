@@ -39,7 +39,7 @@ exports.showCowMap = "\
     order by a.grade,a.semester,a.cos_cname;";
 
 exports.showCosMapPass = "\
-    select cos_cname from student_cos_relation as sc,cos_name as c \
+    select distinct cos_cname from student_cos_relation as sc,cos_name as c \
     where sc.student_id=:id and sc.cos_code=c.cos_code and \
     (sc.cos_code like \'DCP%\' or sc.cos_code like \'IOE%\' or cos_cname like \'微積分甲%\' or cos_cname like \'物理%\' or cos_cname like \'化學%\' )";
 

@@ -202,5 +202,10 @@ module.exports = {
                 pool.release(c);
             })
         })
+    },
+    Drain:function(){
+        pool.drain().then(function() {
+            pool.clear();
+        });
     }
 };
