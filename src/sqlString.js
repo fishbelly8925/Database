@@ -57,9 +57,9 @@ exports.a_uploadGrade = "\
 
 exports.updateStudentCosPass = "\
     insert into student_cos_relation \
-    value(:id,:code,:year,:semester) \
+    value(:id,:cos_code,:year,:semester,:code) \
     on duplicate key update \
-    student_id=:id,cos_code=:code";
+    student_id=:id,cos_code=:cos_code,year=:year,semester=:semester,code=:code";
 
 exports.totalCredit = "\
     select sum(t.cos_credit) as total\
@@ -156,10 +156,25 @@ exports.oldGeneralCredit = '\
         AND d.brief LIKE "通識%"\
     ) as t'; //我有bug喔 QAQ
 
-exports.Pass = "\
-    select DISTINCT d.cos_code, n.cos_cname, d.cos_type, d.cos_credit,s.year,s.semester\
-    from cos_data as d, student_cos_relation as s, cos_name as n\
-    where s.student_id = :id\
-    and d.cos_code = s.cos_code\
-    and d.cos_code = n.cos_code\
-    and (d.cos_code!=\'ART0003\' or d.cos_type=\'藝文賞析\')";
+exports.Pass="\
+    select DISTINCT a.cos_code, a.cos_cname, a.cos_type,b.type,a.brief,a.brief_new, a.cos_credit,a.year,a.semester\
+    from\
+    (\
+        select DISTINCT d.cos_code, n.cos_cname, d.cos_type,d.brief,d.brief_new, d.cos_credit,s.year,s.semester\
+        from cos_data as d, student_cos_relation as s, cos_name as n\
+        where s.student_id = :id\
+        and d.unique_id = concat(s.year,\'-\',s.semester,\'-\',s.code)\
+        and d.cos_code = n.cos_code\
+    ) as a left outer join\
+    (\
+        select DISTINCT d.cos_code, n.cos_cname, d.cos_type,t.type,d.brief,d.brief_new, d.cos_credit,s.year,s.semester\
+        from cos_data as d, student_cos_relation as s, cos_name as n,cos_type as t,student as sd\
+        where s.student_id = :id\
+        and sd.student_id=:id\
+        and d.unique_id = concat(s.year,\'-\',s.semester,\'-\',s.code)\
+        and n.cos_cname like concat(t.cos_cname,\'%\')\
+        and t.school_year=:year\
+        and t.program=sd.program\
+    ) as b\
+    on b.cos_code=a.cos_code and b.cos_cname=a.cos_cname and b.year=a.year and b.semester=a.semester\
+    order by a.year,a.semester asc";

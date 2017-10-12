@@ -16,6 +16,7 @@ function padLeft(str, len) {
     }
 }
 
+
 module.exports = {
 
     findPerson: function(id, callback) {
@@ -140,7 +141,7 @@ module.exports = {
                             throw err;
                     });
                     if (line[14] == '通過')
-                        c.query(sql_updateStudentCosPass({ id: line[0], code: line[9], year: line[4], semester: line[5] }), function(err) {
+                        c.query(sql_updateStudentCosPass({ id: line[0], cos_code: line[9], year: line[4], semester: line[5] ,code:line[6]}), function(err) {
                             if (err)
                                 throw err;
                         });
@@ -195,7 +196,8 @@ module.exports = {
         const resource = pool.acquire();
         resource.then(function(c) {
             var sql_Pass = c.prepare(s.Pass);
-            c.query(sql_Pass({ id: id }), function(err, result) {
+            var year = '1' + id[0] + id[1];
+            c.query(sql_Pass({ id: id ,year:year}), function(err, result) {
                 if (err)
                     throw err;
                 callback(null, JSON.stringify(result));
