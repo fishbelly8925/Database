@@ -42,16 +42,16 @@ m.totalRequiredCredit('0516003', function(err, result) {
     console.log(JSON.parse(result));
 }); // totalRequiredCredit 計算某學生必選修學分數
 
-m.oldGeneralCredit('0516003', function(err, result) {
-    if (err)
-        throw err;
-    console.log(JSON.parse(result));
-}); // oldGeneralCredit 計算某學生舊版通識學分數  **目前仍有bug**
-
 m.Pass('0516003', function(err, result) {
     if (err)
         throw err;
     console.log(JSON.parse(result));
 }); // Pass 列出此學生通過的課
+
+m.Group('0516003',function(err,result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+}); // Group 列出此學生畢業預審表上 必修、核心、副核心等課程分類
 
 m.Drain(); // 關閉 connection pool

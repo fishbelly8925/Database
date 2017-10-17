@@ -95,68 +95,7 @@ exports.totalRequiredCredit = "\
         WHERE d.cos_code = a.cos_code\
     )as t";
 
-exports.oldGeneralCredit = '\
-    SELECT "公民" as brief,SUM(t.cos_credit) as credit\
-    FROM\
-    (\
-        SELECT DISTINCT d.cos_code, d.cos_credit\
-        FROM student_cos_relation as s, cos_data as d  \
-        WHERE student_id = :id\
-        AND d.cos_code = s.cos_code\
-        AND d.brief LIKE "公民%"\
-    ) as t\
-    union\
-    SELECT "文化" as brief,SUM(t.cos_credit) as credit\
-    FROM\
-    (\
-        SELECT DISTINCT d.cos_code, d.cos_credit\
-        FROM student_cos_relation as s, cos_data as d  \
-        WHERE student_id = :id\
-        AND d.cos_code = s.cos_code\
-        AND d.brief LIKE "文化%"\
-    ) as t\
-    union\
-    SELECT "群己" as brief,SUM(t.cos_credit) as credit\
-    FROM\
-    (\
-        SELECT DISTINCT d.cos_code, d.cos_credit\
-        FROM student_cos_relation as s, cos_data as d  \
-        WHERE student_id = :id\
-        AND d.cos_code = s.cos_code\
-        AND d.brief LIKE "群己%"\
-    ) as t\
-    union\
-    SELECT "自然" as brief,SUM(t.cos_credit) as credit\
-    FROM\
-    (\
-        SELECT DISTINCT d.cos_code, d.cos_credit\
-        FROM student_cos_relation as s, cos_data as d  \
-        WHERE student_id = :id\
-        AND d.cos_code = s.cos_code\
-        AND d.brief LIKE "自然%"\
-    ) as t\
-    union\
-    SELECT "歷史" as brief,SUM(t.cos_credit) as credit\
-    FROM\
-    (\
-        SELECT DISTINCT d.cos_code, d.cos_credit\
-        FROM student_cos_relation as s, cos_data as d  \
-        WHERE student_id = :id\
-        AND d.cos_code = s.cos_code\
-        AND d.brief LIKE "歷史%"\
-    ) as t\
-    union\
-    SELECT "當代世界" as brief,SUM(t.cos_credit) as credit\
-    FROM\
-    (\
-        SELECT DISTINCT d.cos_code, d.cos_credit\
-        FROM student_cos_relation as s, cos_data as d  \
-        WHERE student_id = :id\
-        AND d.cos_code = s.cos_code\
-        AND d.brief LIKE "通識%"\
-    ) as t'; //我有bug喔 QAQ
-
-exports.Pass="\
+Pass="\
     select DISTINCT a.cos_code, a.cos_cname, a.cos_type,b.type,a.brief,a.brief_new, a.cos_credit,a.year,a.semester\
     from\
     (\
@@ -178,3 +117,26 @@ exports.Pass="\
     ) as b\
     on b.cos_code=a.cos_code and b.cos_cname=a.cos_cname and b.year=a.year and b.semester=a.semester\
     order by a.year,a.semester asc";
+exports.Pass=Pass;
+
+exports.Group='\
+    select p.cos_cname,p.cos_ename,p.cos_codes,IFNULL(a.type,\'必修\') as type\
+    from cos_group as p\
+    left outer join\
+    (\
+        select t.cos_cname,t.type,t.school_year\
+        from student as s,cos_type as t\
+        where s.student_id=:id and s.program=t.program\
+        and t.school_year=:year\
+    ) as a\
+    on p.cos_cname=a.cos_cname and a.school_year=:year\
+    where a.type is not null or p.cos_cname in\
+    (\
+        select cos_cname from cos_require as r,student as s\
+        where s.student_id=:id and r.school_year=:year\
+        and r.program=s.program\
+        union\
+        select \'物化生三合一(一)\'\
+        union\
+        select \'物化生三合一(二)\'\
+    );';

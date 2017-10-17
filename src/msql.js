@@ -180,18 +180,6 @@ module.exports = {
             })
         })
     },
-    oldGeneralCredit: function(id, callback) {
-        const resource = pool.acquire();
-        resource.then(function(c) {
-            var sql_oldGeneralCredit = c.prepare(s.oldGeneralCredit);
-            c.query(sql_oldGeneralCredit({ id: id }), function(err, result) {
-                if (err)
-                    throw err;
-                callback(null, JSON.stringify(result));
-                pool.release(c);
-            })
-        })
-    },
     Pass: function(id, callback) {
         const resource = pool.acquire();
         resource.then(function(c) {
@@ -201,6 +189,19 @@ module.exports = {
                 if (err)
                     throw err;
                 callback(null, JSON.stringify(result));
+                pool.release(c);
+            })
+        })
+    },
+    Group: function(id,callback){
+        const resource = pool.acquire();
+        resource.then(function(c){
+            var sql_Group=c.prepare(s.Group);
+            var year='1'+id[0]+id[1];
+            c.query(sql_Group({id:id,year:year}),function(err,result){
+                if(err)
+                    throw err;
+                callback(null,JSON.stringify(result).replace(/\"\[/g,"\[").replace(/\]\"/g,"\]").replace(/\\\"/g,"\""));
                 pool.release(c);
             })
         })
