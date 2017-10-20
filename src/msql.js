@@ -206,6 +206,19 @@ module.exports = {
             })
         })
     },
+    graduateRule: function(id,callback){
+        const resource = pool.acquire();
+        resource.then(function(c){
+            var sql_graduateRule=c.prepare(s.graduateRule);
+            var year='1'+id[0]+id[1];
+            c.query(sql_graduateRule({id:id,year:year}),function(err,result){
+                if(err)
+                    throw err;
+                callback(null,JSON.stringify(result));
+                pool.release(c);
+            })
+        })
+    },
     Drain:function(){
         pool.drain().then(function() {
             pool.clear();

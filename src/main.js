@@ -54,4 +54,10 @@ m.Group('0516003',function(err,result){
 	console.log(JSON.parse(result));
 }); // Group 列出此學生畢業預審表上 必修、核心、副核心等課程分類
 
+m.graduateRule('0316003',function(err,result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+}); // graduateRule 列出此學生畢業標準
+
 m.Drain(); // 關閉 connection pool

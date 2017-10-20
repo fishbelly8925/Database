@@ -96,17 +96,17 @@ exports.totalRequiredCredit = "\
     )as t";
 
 Pass="\
-    select DISTINCT a.cos_code, a.cos_cname, a.cos_type,b.type,a.brief,a.brief_new, a.cos_credit,a.year,a.semester\
+    select DISTINCT a.cos_code, a.cos_cname,a.cos_ename, a.cos_type,a.cos_typeext,b.type,a.brief,a.brief_new, a.cos_credit,a.year,a.semester\
     from\
     (\
-        select DISTINCT d.cos_code, n.cos_cname, d.cos_type,d.brief,d.brief_new, d.cos_credit,s.year,s.semester\
+        select DISTINCT d.cos_code, n.cos_cname,n.cos_ename, d.cos_type,d.cos_typeext,d.brief,d.brief_new, d.cos_credit,s.year,s.semester\
         from cos_data as d, student_cos_relation as s, cos_name as n\
         where s.student_id = :id\
         and d.unique_id = concat(s.year,\'-\',s.semester,\'-\',s.code)\
         and d.cos_code = n.cos_code\
     ) as a left outer join\
     (\
-        select DISTINCT d.cos_code, n.cos_cname, d.cos_type,t.type,d.brief,d.brief_new, d.cos_credit,s.year,s.semester\
+        select DISTINCT d.cos_code, n.cos_cname, d.cos_type,d.cos_typeext,t.type,d.brief,d.brief_new, d.cos_credit,s.year,s.semester\
         from cos_data as d, student_cos_relation as s, cos_name as n,cos_type as t,student as sd\
         where s.student_id = :id\
         and sd.student_id=:id\
@@ -140,3 +140,8 @@ exports.Group='\
         union\
         select \'物化生三合一(二)\'\
     );';
+
+exports.graduateRule='\
+    select r.require_credit,r.pro_credit,r.free_credit,r.core_credit,r.sub_core_credit,r.foreign_credit\
+    from graduate_rule as r,student as s\
+    where s.student_id=:id and s.program=r.program and r.school_year=:year;';
