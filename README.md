@@ -27,3 +27,9 @@
 | Pass(student_id,cb) | return all of someone's passing course |
 | Group(student_id,cb) | return the relation between cos_name,cos_code and cos_type of that student |
 | graduateRule(student_id,cb) | return the graduate rule of this student |
+
+### Assistant
+| function | description |
+| ------- | ----- |
+| studentGraduateList(first and second digit of student_id,cb) | return the students graduate imformation |
+| setStudentGraduate(student_id,graduate_situation) | set the graduate value of this student(1 for pass,0 for not pass) |
