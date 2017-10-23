@@ -141,7 +141,7 @@ module.exports = {
                             throw err;
                     });
                     if (line[14] == '通過')
-                        c.query(sql_updateStudentCosPass({ id: line[0], cos_code: line[9], year: line[4], semester: line[5] ,code:line[6]}), function(err) {
+                        c.query(sql_updateStudentCosPass({ id: line[0], cos_code: line[9], year: line[4], semester: line[5], code: line[6] }), function(err) {
                             if (err)
                                 throw err;
                         });
@@ -185,7 +185,7 @@ module.exports = {
         resource.then(function(c) {
             var sql_Pass = c.prepare(s.Pass);
             var year = '1' + id[0] + id[1];
-            c.query(sql_Pass({ id: id ,year:year}), function(err, result) {
+            c.query(sql_Pass({ id: id, year: year }), function(err, result) {
                 if (err)
                     throw err;
                 callback(null, JSON.stringify(result));
@@ -193,33 +193,57 @@ module.exports = {
             })
         })
     },
-    Group: function(id,callback){
+    Group: function(id, callback) {
         const resource = pool.acquire();
-        resource.then(function(c){
-            var sql_Group=c.prepare(s.Group);
-            var year='1'+id[0]+id[1];
-            c.query(sql_Group({id:id,year:year}),function(err,result){
-                if(err)
+        resource.then(function(c) {
+            var sql_Group = c.prepare(s.Group);
+            var year = '1' + id[0] + id[1];
+            c.query(sql_Group({ id: id, year: year }), function(err, result) {
+                if (err)
                     throw err;
-                callback(null,JSON.stringify(result).replace(/\"\[/g,"\[").replace(/\]\"/g,"\]").replace(/\\\"/g,"\""));
+                callback(null, JSON.stringify(result).replace(/\"\[/g, "\[").replace(/\]\"/g, "\]").replace(/\\\"/g, "\""));
                 pool.release(c);
             })
         })
     },
-    graduateRule: function(id,callback){
+    graduateRule: function(id, callback) {
         const resource = pool.acquire();
-        resource.then(function(c){
-            var sql_graduateRule=c.prepare(s.graduateRule);
-            var year='1'+id[0]+id[1];
-            c.query(sql_graduateRule({id:id,year:year}),function(err,result){
-                if(err)
+        resource.then(function(c) {
+            var sql_graduateRule = c.prepare(s.graduateRule);
+            var year = '1' + id[0] + id[1];
+            c.query(sql_graduateRule({ id: id, year: year }), function(err, result) {
+                if (err)
                     throw err;
-                callback(null,JSON.stringify(result));
+                callback(null, JSON.stringify(result));
                 pool.release(c);
             })
         })
     },
-    Drain:function(){
+    studentGraduateList: function(id, callback) {
+        const resource = pool.acquire();
+        resource.then(function(c) {
+            var sql_studentGraduateList = c.prepare(s.studentGraduateList);
+            var sem = id[0] + id[1];
+            c.query(sql_studentGraduateList({ sem: sem }), function(err, result) {
+                if (err)
+                    throw err;
+                callback(null, JSON.stringify(result));
+                pool.release(c);
+            })
+        })
+    },
+    setStudentGraduate: function(id, graduate) {
+        const resource = pool.acquire();
+        resource.then(function(c) {
+            var sql_setStudentGraduate = c.prepare(s.setStudentGraduate);
+            c.query(sql_setStudentGraduate({ id: id, graduate: graduate }), function(err, result) {
+                if (err)
+                    throw err;
+                pool.release(c);
+            })
+        })
+    },
+    Drain: function() {
         pool.drain().then(function() {
             pool.clear();
         });

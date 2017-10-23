@@ -1,5 +1,5 @@
 exports.findStudent = "\
-    select sname,program,grade from student \
+    select * from student \
     where student_id=:id";
 
 exports.findProfessor = "\
@@ -95,7 +95,7 @@ exports.totalRequiredCredit = "\
         WHERE d.cos_code = a.cos_code\
     )as t";
 
-Pass="\
+exports.Pass = "\
     select DISTINCT a.cos_code, a.cos_cname,a.cos_ename, a.cos_type,a.cos_typeext,b.type,a.brief,a.brief_new, a.cos_credit,a.year,a.semester\
     from\
     (\
@@ -116,10 +116,9 @@ Pass="\
         and t.program=sd.program\
     ) as b\
     on b.cos_code=a.cos_code and b.cos_cname=a.cos_cname and b.year=a.year and b.semester=a.semester\
-    order by a.year,a.semester asc";
-exports.Pass=Pass;
+    order by a.year,a.semester asc";;
 
-exports.Group='\
+exports.Group = '\
     select p.cos_cname,p.cos_ename,p.cos_codes,IFNULL(a.type,\'必修\') as type\
     from cos_group as p\
     left outer join\
@@ -136,12 +135,20 @@ exports.Group='\
         where s.student_id=:id and r.school_year=:year\
         and r.program=s.program\
         union\
-        select \'物化生三合一(一)\'\
+        select \'物化生三選一(一)\'\
         union\
-        select \'物化生三合一(二)\'\
+        select \'物化生三選一(二)\'\
     );';
 
-exports.graduateRule='\
+exports.graduateRule = '\
     select r.require_credit,r.pro_credit,r.free_credit,r.core_credit,r.sub_core_credit,r.foreign_credit\
     from graduate_rule as r,student as s\
     where s.student_id=:id and s.program=r.program and r.school_year=:year;';
+
+exports.studentGraduateList = '\
+    select student_id,sname,program,graduate\
+    from student\
+    where student_id like concat(:sem,\'%\');';
+
+exports.setStudentGraduate='\
+    update student set graduate=:graduate where student_id=:id';

@@ -5,13 +5,11 @@
 
 var m = require('./msql.js');
 
-
 m.findPerson('0516003', function(err, result) {
     if (err)
         throw err;
     console.log(JSON.parse(result));
 }); // findPerson 回傳學生資料
-
 
 m.addEmail('0516003', 'ddddt@test');
 // addEmail(學號,email) 更新此學號學生之email
@@ -59,5 +57,15 @@ m.graduateRule('0316003',function(err,result){
 		throw err;
 	console.log(JSON.parse(result));
 }); // graduateRule 列出此學生畢業標準
+
+m.studentGraduateList('05',function(err,result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+}); // studentGraduateList 列出此學號開頭的學生的畢業資訊（助理端用）
+
+m.setStudentGraduate('0516003',0);
+// setStudentGraduate 設定某學生的畢業狀態(1可畢業,0不可畢業)
+
 
 m.Drain(); // 關閉 connection pool
