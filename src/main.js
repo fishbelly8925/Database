@@ -26,7 +26,7 @@ m.showCosMapPass('0516003', function(err, result) {
     console.log(JSON.parse(result));
 }); // showCosMapPass 某學生在課程地圖上有通過的課
 
-m.a_uploadGrade('./123.csv'); // a_uploadGrade 助理上傳成績
+m.a_uploadGrade('./cos_score.csv'); // a_uploadGrade 助理上傳成績
 
 m.totalCredit('0516003', function(err, result) {
     if (err)
@@ -38,7 +38,7 @@ m.totalRequiredCredit('0516003', function(err, result) {
     if (err)
         throw err;
     console.log(JSON.parse(result));
-}); // totalRequiredCredit 計算某學生必選修學分數
+}); // BUG!!! totalRequiredCredit 計算某學生必選修學分數 
 
 m.Pass('0516003', function(err, result) {
     if (err)
@@ -65,7 +65,7 @@ m.studentGraduateList('05',function(err,result){
 }); // studentGraduateList 列出此學號開頭的學生的畢業資訊（助理端用）
 
 m.setStudentGraduate('0516003',0);
-// setStudentGraduate 設定某學生的畢業狀態(1可畢業,0不可畢業)
+// setStudentGraduate 設定某學生的畢業狀態(1可畢業,0不可畢業)（助理端用）
 
 
 m.Drain(); // 關閉 connection pool
