@@ -75,9 +75,9 @@ module.exports = {
     showCosMap: function(id, callback) {
         const resource = pool.acquire();
         resource.then(function(c) {
-            var sql_showCowMap = c.prepare(s.showCowMap);
+            var sql_showCosMap = c.prepare(s.showCosMap);
             var year = '1' + id[0] + id[1];
-            c.query(sql_showCowMap({ id: id, year: year }), function(err, result) {
+            c.query(sql_showCosMap({ id: id, year: year }), function(err, result) {
                 if (err)
                     throw err;
                 callback(null, JSON.stringify(result));
