@@ -120,20 +120,6 @@ module.exports = {
             })
         })
     },
-    totalRequiredCredit: function(id, callback) {
-        const resource = pool.acquire();
-        resource.then(function(c) {
-            var sql_totalRequiredCredit = c.prepare(s.totalRequiredCredit);
-            var str = id.split("");
-            str = '%' + id[0] + id[1];
-            c.query(sql_totalRequiredCredit({ id: id, year: str }), function(err, result) {
-                if (err)
-                    throw err;
-                callback(null, JSON.stringify(result));
-                pool.release(c);
-            })
-        })
-    },
     Pass: function(id, callback) {
         const resource = pool.acquire();
         resource.then(function(c) {
@@ -190,11 +176,48 @@ module.exports = {
         const resource = pool.acquire();
         resource.then(function(c) {
             var sql_setStudentGraduate = c.prepare(s.setStudentGraduate);
-            c.query(sql_setStudentGraduate({ id: id, graduate: graduate }), function(err, result) {
+            c.query(sql_setStudentGraduate({ id: id, graduate: graduate }), function(err) {
                 if (err)
                     throw err;
                 pool.release(c);
             })
+        })
+    },
+    setStudentGraduateSubmit: function(id, graduate_submit) {
+        const resource = pool.acquire();
+        resource.then(function(c) {
+            var sql_setStudentGraduateSubmit = c.prepare(s.setStudentGraduateSubmit);
+            c.query(sql_setStudentGraduateSubmit({ id: id, graduate_submit: graduate_submit }), function(err) {
+                if (err)
+                    throw err;
+                pool.release(c);
+            })
+        })
+    },
+    bindAccount: function(id,str,type){
+        const resource=pool.acquire();
+        resource.then(function(c){
+            var sql_setGmail=c.prepare(s.setGmail);
+            var sql_setFbId=c.prepare(s.setFbId);
+            var sql_setGithubId=c.prepare(s.setGithubId);
+            if(type==1)
+                c.query(sql_setGmail({ id: id,gmail:str}), function(err, result) {
+                    if (err)
+                        throw err;
+                    pool.release(c);
+                });
+            else if(type==2)
+                c.query(sql_setFbId({ id: id,fb_id:str}), function(err, result) {
+                    if (err)
+                        throw err;
+                    pool.release(c);
+                });
+            else if(type==3)
+                c.query(sql_setGithubId({ id: id,github_id:str}), function(err, result) {
+                    if (err)
+                        throw err;
+                    pool.release(c);
+                });                
         })
     },
     Drain: function() {
