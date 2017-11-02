@@ -25,6 +25,8 @@
 | Pass(student_id,cb) | return all of someone's course score |
 | Group(student_id,cb) | return the relation between cos_name,cos_code and cos_type of that student |
 | graduateRule(student_id,cb) | return the graduate rule of this student |
+| setStudentGraduateSubmit(student_id,graduate_submit) | set the graduate submit status(1 for submit, 0 for not yet) |
+
 
 ### Assistant
 | function | description |
