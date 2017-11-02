@@ -11,6 +11,7 @@
 | ------- | ----- |
 | findPerson(id,cb) | return someone's profile |
 | addEmail(student_id,email) | update student's e-mail |
+| bindAccount(student_id,id or email,type) | type 1: bind gmail, type 2: bind fb, type 3: bind github |
 
 ### Course Map
 | function | description |
