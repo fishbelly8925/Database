@@ -73,13 +73,13 @@ exports.totalCredit = "\
     ) as t";
 
 exports.Pass = "\
-    select DISTINCT a.cos_code, a.cos_cname,a.cos_ename,a.pass_fail,a.score, a.cos_type,a.cos_typeext,b.type,a.brief,a.brief_new, a.cos_credit,a.year,a.semester\
+    select DISTINCT a.cos_code, a.cos_cname,a.cos_ename,a.pass_fail,a.score,a.score_level, a.cos_type,a.cos_typeext,b.type,a.brief,a.brief_new, a.cos_credit,a.year,a.semester\
     from\
     (\
-        select DISTINCT s.pass_fail,s.score,d.cos_code, n.cos_cname,n.cos_ename, d.cos_type,d.cos_typeext,d.brief,d.brief_new, d.cos_credit,s.year,s.semester\
+        select DISTINCT s.pass_fail,s.score,s.score_level,d.cos_code, n.cos_cname,n.cos_ename, d.cos_type,d.cos_typeext,d.brief,d.brief_new, d.cos_credit,s.year,s.semester\
         from cos_data as d,\
         (\
-            select cos_year as year,semester,cos_id as code,cos_code,pass_fail,score,concat(cos_year,\'-\',semester,\'-\',cos_id) as unique_id\
+            select cos_year as year,semester,cos_id as code,cos_code,pass_fail,score,score_level,concat(cos_year,\'-\',semester,\'-\',cos_id) as unique_id\
             from cos_score where student_id=:id\
         ) as s,\
         cos_name as n\
@@ -89,10 +89,10 @@ exports.Pass = "\
         and n.unique_id=d.unique_id\
     ) as a left outer join\
     (\
-        select DISTINCT s.pass_fail,s.score,d.cos_code, n.cos_cname, d.cos_type,d.cos_typeext,t.type,d.brief,d.brief_new, d.cos_credit,s.year,s.semester\
+        select DISTINCT s.pass_fail,s.score,s.score_level,d.cos_code, n.cos_cname, d.cos_type,d.cos_typeext,t.type,d.brief,d.brief_new, d.cos_credit,s.year,s.semester\
         from cos_data as d,\
         (\
-            select cos_year as year,semester,cos_id as code,cos_code,pass_fail,score,concat(cos_year,\'-\',semester,\'-\',cos_id) as unique_id\
+            select cos_year as year,semester,cos_id as code,cos_code,pass_fail,score,score_level,concat(cos_year,\'-\',semester,\'-\',cos_id) as unique_id\
             from cos_score where student_id=:id\
         ) as s,\
         cos_name as n,cos_type as t,student as sd\
