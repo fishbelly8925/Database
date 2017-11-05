@@ -134,7 +134,7 @@ exports.graduateRule = '\
     where s.student_id=:id and s.program=r.program and r.school_year=:year;';
 
 exports.studentGraduateList = '\
-    select student_id,sname,program,graduate\
+    select student_id,sname,program,graduate_submit,graduate\
     from student\
     where student_id like concat(:sem,\'%\');';
 
