@@ -154,10 +154,21 @@ exports.setGithubId='\
     update student set github_id=:github_id where student_id=:id';
 
 exports.offset_single='\
-    select * from offset where student_id=:id;';
+    select os.student_id,os.apply_year,os.apply_semester,\
+    os.cos_code,os.cos_cname,cn.cos_ename,os.credit,os.offset_type,\
+    os.brief,os.cos_type\
+    from offset as os\
+    left outer join (select distinct cos_cname,cos_ename from cos_name) as cn\
+    on cn.cos_cname=os.cos_cname\
+    where student_id=:id;';
 
 exports.offset_all='\
-    select * from offset;';
+    select os.student_id,os.apply_year,os.apply_semester,\
+    os.cos_code,os.cos_cname,cn.cos_ename,os.credit,os.offset_type,\
+    os.brief,os.cos_type\
+    from offset as os\
+    left outer join (select distinct cos_cname,cos_ename from cos_name) as cn\
+    on cn.cos_cname=os.cos_cname;';
 
 exports.on_cos_data='\
     select s.student_id,cd.cos_code,cn.cos_cname,cn.cos_ename\
