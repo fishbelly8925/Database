@@ -220,23 +220,36 @@ module.exports = {
                 });                
         });
     },
-    offset: function(callback){
+    offset: function(id,callback){
         const resource=pool.acquire();
         resource.then(function(c){
-            var sql_offset=c.prepare(s.offset);
-            c.query(sql_offset({}), function(err,result) {
-                if (err)
-                    throw err;
-                callback(null, JSON.stringify(result));
-                pool.release(c);
-            });
+            if(id!='all')
+            {
+                var sql_offset=c.prepare(s.offset_single);
+                c.query(sql_offset({id:id}), function(err,result) {
+                    if (err)
+                        throw err;
+                    callback(null, JSON.stringify(result));
+                    pool.release(c);
+                });
+            }
+            else
+            {
+                var sql_offset=c.prepare(s.offset_all);
+                c.query(sql_offset({}), function(err,result) {
+                    if (err)
+                        throw err;
+                    callback(null, JSON.stringify(result));
+                    pool.release(c);
+                });
+            }
         });
     },
-    on_cos_data: function(callback){
+    on_cos_data: function(id,callback){
         const resource=pool.acquire();
         resource.then(function(c){
             var sql_on_cos_data=c.prepare(s.on_cos_data);
-            c.query(sql_on_cos_data({}),function(err,result){
+            c.query(sql_on_cos_data({id:id}),function(err,result){
                 if(err)
                     throw err;
                 callback(null,JSON.stringify(result));

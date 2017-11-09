@@ -50,17 +50,17 @@ m.graduateRule('0316003',function(err,result){
 	console.log(JSON.parse(result));
 }); // graduateRule 列出此學生畢業標準
 
-m.offset(function(err,result){
+m.offset('all',function(err,result){
 	if(err)
 		throw err;
 	console.log(JSON.parse(result));
-}); // offset 抵免資料
+}); // offset 個人抵免資料 (輸入all顯示全部)
 
-m.on_cos_data(function(err,result){
+m.on_cos_data('0316067',function(err,result){
 	if(err)
 		throw err;
 	console.log(JSON.parse(result));
-}); // on_cos_data 大四當期修課資料
+}); // on_cos_data 大四個人當期修課資料
 
 m.general_cos_rule(function(err,result){
 	if(err)
