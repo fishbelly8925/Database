@@ -218,13 +218,49 @@ module.exports = {
                         throw err;
                     pool.release(c);
                 });                
-        })
+        });
+    },
+    offset: function(callback){
+        const resource=pool.acquire();
+        resource.then(function(c){
+            var sql_offset=c.prepare(s.offset);
+            c.query(sql_offset({}), function(err,result) {
+                if (err)
+                    throw err;
+                callback(null, JSON.stringify(result));
+                pool.release(c);
+            });
+        });
+    },
+    on_cos_data: function(callback){
+        const resource=pool.acquire();
+        resource.then(function(c){
+            var sql_on_cos_data=c.prepare(s.on_cos_data);
+            c.query(sql_on_cos_data({}),function(err,result){
+                if(err)
+                    throw err;
+                callback(null,JSON.stringify(result));
+                pool.release(c);
+            });
+        });
+    },
+    general_cos_rule: function(callback){
+        const resource=pool.acquire();
+        resource.then(function(c){
+            var sql_general_cos_rule=c.prepare(s.general_cos_rule);
+            c.query(sql_general_cos_rule({}),function(err,result){
+                if(err)
+                    throw err;
+                callback(null,JSON.stringify(result));
+                pool.release(c);
+            });
+        });
     },
     Drain: function() {
         pool.drain().then(function() {
             pool.clear();
         });
-    },
+    }
     // p_uploadGrade: function(pt) {
     //     const resource = pool.acquire();
     //     resource.then(function(c) {

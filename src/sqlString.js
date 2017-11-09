@@ -152,3 +152,19 @@ exports.setFbId='\
 
 exports.setGithubId='\
     update student set github_id=:github_id where student_id=:id';
+
+exports.offset='\
+    select * from offset;';
+
+exports.on_cos_data='\
+    select s.student_id,cd.cos_code,cn.cos_cname,cn.cos_ename\
+    from on_cos_data as o left outer join student as s\
+    on o.student_id=s.student_id\
+    left outer join cos_data as cd\
+    on cd.unique_id=concat(o.year,\'-\',o.semester,\'-\',o.code)\
+    left outer join cos_name as cn\
+    on cn.unique_id=cd.unique_id;'
+
+exports.general_cos_rule='\
+    select cos_code,cos_cname,brief,brief_new\
+    from general_cos_rule;'

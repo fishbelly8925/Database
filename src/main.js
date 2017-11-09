@@ -32,7 +32,7 @@ m.totalCredit('0516003', function(err, result) {
     console.log(JSON.parse(result));
 }); // totalCredit 回傳某學生總學分數
 
-m.Pass('0516003', function(err, result) {
+m.Pass('0112221', function(err, result) {
     if (err)
         throw err;
     console.log(JSON.parse(result));
@@ -49,6 +49,24 @@ m.graduateRule('0316003',function(err,result){
 		throw err;
 	console.log(JSON.parse(result));
 }); // graduateRule 列出此學生畢業標準
+
+m.offset(function(err,result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+}); // offset 抵免資料
+
+m.on_cos_data(function(err,result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+}); // on_cos_data 大四當期修課資料
+
+m.general_cos_rule(function(err,result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+}); // general_cos_rule 外系通識規則
 
 m.studentGraduateList('05',function(err,result){
 	if(err)
