@@ -171,7 +171,7 @@ exports.offset_all='\
     on cn.cos_cname=os.cos_cname;';
 
 exports.on_cos_data='\
-    select s.student_id,cd.cos_code,cn.cos_cname,cn.cos_ename\
+    select s.student_id,cd.cos_code,cn.cos_cname,cn.cos_ename,cd.cos_type\
     from on_cos_data as o left outer join student as s\
     on o.student_id=s.student_id\
     left outer join cos_data as cd\
