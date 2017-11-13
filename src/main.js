@@ -32,7 +32,7 @@ m.totalCredit('0516003', function(err, result) {
     console.log(JSON.parse(result));
 }); // totalCredit 回傳某學生總學分數
 
-m.Pass('0112221', function(err, result) {
+m.Pass('0516003', function(err, result) {
     if (err)
         throw err;
     console.log(JSON.parse(result));
@@ -50,7 +50,7 @@ m.graduateRule('0316003',function(err,result){
 	console.log(JSON.parse(result));
 }); // graduateRule 列出此學生畢業標準
 
-m.offset('all',function(err,result){
+m.offset('0316067',function(err,result){
 	if(err)
 		throw err;
 	console.log(JSON.parse(result));
@@ -60,7 +60,7 @@ m.on_cos_data('0316067',function(err,result){
 	if(err)
 		throw err;
 	console.log(JSON.parse(result));
-}); // on_cos_data 大四個人當期修課資料
+}); // on_cos_data 大四個人當期修課資料 (輸入all顯示全部)
 
 m.general_cos_rule(function(err,result){
 	if(err)
@@ -73,6 +73,9 @@ m.studentGraduateList('05',function(err,result){
 		throw err;
 	console.log(JSON.parse(result));
 }); // studentGraduateList 列出此學號開頭的學生的畢業資訊（助理端用）
+
+m.setEnCertificate('0516003',0);
+// setEnCertificate 設定某學生的英檢狀態
 
 m.setStudentGraduate('0516003',0);
 // setStudentGraduate 設定某學生的畢業狀態(1可畢業,0不可畢業)（助理端用）
