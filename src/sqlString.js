@@ -155,19 +155,19 @@ exports.setGithubId='\
 
 exports.offset_single='\
     select os.student_id,os.apply_year,os.apply_semester,\
-    os.cos_code,os.cos_cname,cn.cos_ename,os.credit,os.offset_type,\
+    os.cos_code,os.cos_cname,os.credit,os.offset_type,\
     os.brief,os.cos_type\
     from offset as os\
-    left outer join (select distinct cos_cname,cos_ename from cos_name) as cn\
+    left outer join (select distinct cos_cname from cos_name) as cn\
     on cn.cos_cname=os.cos_cname\
     where student_id=:id;';
 
 exports.offset_all='\
     select os.student_id,os.apply_year,os.apply_semester,\
-    os.cos_code,os.cos_cname,cn.cos_ename,os.credit,os.offset_type,\
+    os.cos_code,os.cos_cname,os.credit,os.offset_type,\
     os.brief,os.cos_type\
     from offset as os\
-    left outer join (select distinct cos_cname,cos_ename from cos_name) as cn\
+    left outer join (select distinct cos_cname from cos_name) as cn\
     on cn.cos_cname=os.cos_cname;';
 
 exports.on_cos_data='\
