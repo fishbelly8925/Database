@@ -126,6 +126,8 @@ exports.Group = '\
         select \'物化生三選一(一)\'\
         union\
         select \'物化生三選一(二)\'\
+        union\
+        select \'導師時間\'\
     );';
 
 exports.graduateRule = '\
@@ -158,17 +160,13 @@ exports.offset_single='\
     os.cos_code,os.cos_cname,os.credit,os.offset_type,\
     os.brief,os.cos_type\
     from offset as os\
-    left outer join (select distinct cos_cname from cos_name) as cn\
-    on cn.cos_cname=os.cos_cname\
     where student_id=:id;';
 
 exports.offset_all='\
     select os.student_id,os.apply_year,os.apply_semester,\
     os.cos_code,os.cos_cname,os.credit,os.offset_type,\
     os.brief,os.cos_type\
-    from offset as os\
-    left outer join (select distinct cos_cname from cos_name) as cn\
-    on cn.cos_cname=os.cos_cname;';
+    from offset as os;';
 
 exports.on_cos_data='\
     select s.student_id,cd.cos_code,cn.cos_cname,cn.cos_ename,cd.cos_type,cd.cos_typeext,cd.brief,cd.brief_new,cd.cos_credit\
