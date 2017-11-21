@@ -1,6 +1,8 @@
 exports.findStudent = "\
-    select * from student \
-    where student_id=:id";
+    select s.student_id,s.sname,s.program,s.grade,s.email,s.graduate,s.graduate_submit,\
+    s.gmail,s.fb_id,s.github_id,e.pass_code as en_certificate\
+    from student as s,en_certificate as e\
+    where s.student_id=:id and e.student_id=:id";
 
 exports.findProfessor = "\
     select teacher_id,tname from teacher\
