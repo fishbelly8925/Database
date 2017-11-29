@@ -75,7 +75,7 @@ exports.totalCredit = "\
     ) as t";
 
 exports.Pass = "\
-    select DISTINCT a.cos_code, a.cos_cname,a.cos_ename,a.pass_fail,a.score,a.score_level, a.cos_type,a.cos_typeext,b.type,a.brief,a.brief_new, a.cos_credit,a.year,a.semester\
+    select DISTINCT a.cos_code, a.cos_cname,a.cos_ename,a.pass_fail,a.score,a.score_level, a.cos_type,a.cos_typeext,b.type,a.brief,a.brief_new, a.cos_credit,a.year,a.semester,c.cos_code_new,c.cos_cname_new,c.offset_type\
     from\
     (\
         select DISTINCT s.pass_fail,s.score,s.score_level,d.cos_code, n.cos_cname,n.cos_ename, d.cos_type,d.cos_typeext,d.brief,d.brief_new, d.cos_credit,s.year,s.semester\
@@ -106,6 +106,11 @@ exports.Pass = "\
         and sd.program like concat(t.program,\'%\')\
     ) as b\
     on b.cos_code=a.cos_code and b.cos_cname=a.cos_cname and b.year=a.year and b.semester=a.semester\
+    left outer join\
+    (\
+        select offset_type,cos_code_old,cos_cname_old,cos_code_new,cos_cname_new from offset where student_id=:id\
+    ) as c\
+    on a.cos_code=c.cos_code_old and a.cos_cname=c.cos_cname_old\
     order by a.year,a.semester asc;";
 
 exports.Group = '\
