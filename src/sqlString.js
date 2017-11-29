@@ -158,16 +158,12 @@ exports.setGithubId='\
     update student set github_id=:github_id where student_id=:id';
 
 exports.offset_single='\
-    select os.student_id,os.apply_year,os.apply_semester,\
-    os.cos_code,os.cos_cname,os.credit,os.offset_type,\
-    os.brief,os.cos_type\
+    select *\
     from offset as os\
     where student_id=:id;';
 
 exports.offset_all='\
-    select os.student_id,os.apply_year,os.apply_semester,\
-    os.cos_code,os.cos_cname,os.credit,os.offset_type,\
-    os.brief,os.cos_type\
+    select *\
     from offset as os;';
 
 exports.on_cos_data='\
@@ -186,3 +182,11 @@ exports.general_cos_rule='\
 
 exports.setEnCertificate='\
     update student set en_certificate=:check where student_id=:id';
+
+exports.insertCosMotion='\
+    insert into cos_motion (student_id,cos_cname,orig_pos,now_pos)\
+    values (:id,:name,:orig,:now)\
+    on duplicate key\
+    update now_pos=:now';
+exports.cosMotion='\
+    select cos_cname,orig_pos,now_pos from cos_motion where student_id=:id';

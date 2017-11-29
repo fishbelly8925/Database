@@ -5,7 +5,7 @@
 
 var m = require('./msql.js');
 
-m.findPerson('0516003', function(err, result) {
+m.findPerson('0516205', function(err, result) {
     if (err)
         throw err;
     console.log(JSON.parse(result));
@@ -32,7 +32,7 @@ m.totalCredit('0516003', function(err, result) {
     console.log(JSON.parse(result));
 }); // totalCredit 回傳某學生總學分數
 
-m.Pass('0516003', function(err, result) {
+m.Pass('0316035', function(err, result) {
     if (err)
         throw err;
     console.log(JSON.parse(result));
@@ -50,7 +50,7 @@ m.graduateRule('0316003',function(err,result){
 	console.log(JSON.parse(result));
 }); // graduateRule 列出此學生畢業標準
 
-m.offset('0316067',function(err,result){
+m.offset('all',function(err,result){
 	if(err)
 		throw err;
 	console.log(JSON.parse(result));
@@ -85,5 +85,15 @@ m.setStudentGraduateSubmit('0516003','1');
 
 m.bindAccount('0516003','test@gmail.com.tw','3');
 // bindAccount   1:set gmail   2:set fb_id   3:set github_id
+
+m.insertCosMotion('0516003','thisame','this is original pos','pddd');
+// insertCosMotion(id,cos_name,original position,now position) 更新課程位置
+
+m.cosMotion('0516003',function(err,result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+});
+// cosMotion(id,callback) 回傳學生修改課程位置
 
 m.Drain(); // 關閉 connection pool
