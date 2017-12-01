@@ -76,8 +76,8 @@ exports.totalCredit = "\
 
 exports.Pass = "\
     select DISTINCT\
-    if(ISNULL(c.cos_code_new),a.cos_code,c.cos_code_new) as cos_code,\
-    if(ISNULL(c.cos_cname_new),a.cos_cname,c.cos_cname_new) as cos_cname,\
+    if(ISNULL(c.cos_code),a.cos_code,c.cos_code) as cos_code,\
+    if(ISNULL(c.cos_cname),a.cos_cname,c.cos_cname) as cos_cname,\
     if(ISNULL(c.cos_code_old),null,c.cos_code_old) as cos_code_old,\
     if(ISNULL(c.cos_cname_old),null,c.cos_cname_old) as cos_cname_old,\
     a.cos_ename,a.pass_fail,a.score,a.score_level, a.cos_type,a.cos_typeext,b.type,a.brief,a.brief_new, a.cos_credit,a.year,a.semester,c.offset_type\
@@ -113,7 +113,7 @@ exports.Pass = "\
     on b.cos_code=a.cos_code and b.cos_cname=a.cos_cname and b.year=a.year and b.semester=a.semester\
     left outer join\
     (\
-        select offset_type,cos_code_old,cos_cname_old,cos_code_new,cos_cname_new from offset where student_id=:id\
+        select offset_type,cos_code_old,cos_cname_old,cos_code,cos_cname from offset where student_id=:id\
     ) as c\
     on a.cos_code=c.cos_code_old and a.cos_cname=c.cos_cname_old\
     order by a.year,a.semester asc;";
