@@ -303,6 +303,17 @@ module.exports = {
             });
         });
     },
+    cosMotionDelete:function(id){
+        const resource=pool.acquire();
+        resource.then(function(c){
+            var sql_cosMotionDelete=c.prepare(s.cosMotionDelete);
+            c.query(sql_cosMotionDelete({id:id}),function(err){
+                if(err)
+                    throw err;
+                pool.release(c);
+            });
+        });
+    },
     Drain: function() {
         pool.drain().then(function() {
             pool.clear();

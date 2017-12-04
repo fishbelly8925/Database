@@ -32,7 +32,7 @@ m.totalCredit('0516003', function(err, result) {
     console.log(JSON.parse(result));
 }); // totalCredit 回傳某學生總學分數
 
-m.Pass('0316035', function(err, result) {
+m.Pass('0216303', function(err, result) {
     if (err)
         throw err;
     console.log(JSON.parse(result));
@@ -86,7 +86,7 @@ m.setStudentGraduateSubmit('0516003','1');
 m.bindAccount('0516003','test@gmail.com.tw','3');
 // bindAccount   1:set gmail   2:set fb_id   3:set github_id
 
-m.insertCosMotion('0516003','thisame','this is original pos','pddd');
+m.insertCosMotion('0516003','test2','a','b');
 // insertCosMotion(id,cos_name,original position,now position) 更新課程位置
 
 m.cosMotion('0516003',function(err,result){
@@ -95,5 +95,8 @@ m.cosMotion('0516003',function(err,result){
 	console.log(JSON.parse(result));
 });
 // cosMotion(id,callback) 回傳學生修改課程位置
+
+m.cosMotionDelete('0516003');
+// cosMotionDelete(id) 刪除學生課程位置紀錄
 
 m.Drain(); // 關閉 connection pool

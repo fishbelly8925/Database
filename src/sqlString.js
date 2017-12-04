@@ -200,3 +200,5 @@ exports.insertCosMotion='\
     update now_pos=:now';
 exports.cosMotion='\
     select cos_cname,orig_pos,now_pos from cos_motion where student_id=:id';
+exports.cosMotionDelete='\
+    delete from cos_motion where student_id=:id';
