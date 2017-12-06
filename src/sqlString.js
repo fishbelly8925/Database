@@ -78,7 +78,9 @@ exports.Pass = "\
     select DISTINCT\
     if(ISNULL(c.cos_code),a.cos_code,c.cos_code) as cos_code,\
     if(ISNULL(c.cos_cname),a.cos_cname,c.cos_cname) as cos_cname,\
-    c.cos_code_old,cos_cname_old,a.cos_ename,a.pass_fail,a.score,a.score_level, a.cos_type,\
+    c.cos_code_old,cos_cname_old,a.cos_ename,a.pass_fail,a.cos_type,\
+    if(a.cos_cname like \'\%導師時間\%\',NULL,a.score) as score,\
+    if(a.cos_cname like \'\%導師時間\%\',NULL,a.score_level) as score_level,\
     if((a.cos_typeext=\'\'&&a.brief like \'體育%\'),\'體育\',a.cos_typeext) as cos_typeext,\
     b.type,a.brief,a.brief_new, a.cos_credit,a.year,a.semester,c.offset_type\
     from\
