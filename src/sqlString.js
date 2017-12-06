@@ -168,13 +168,30 @@ exports.setGithubId='\
     update student set github_id=:github_id where student_id=:id';
 
 exports.offset_single='\
-    select *\
+    select os.student_id,os.apply_year,os.apply_semester,os.cos_code_old,\
+    os.cos_cname_old,os.cos_code,os.cos_cname,os.credit,os.offset_type,os.brief,\
+    os.cos_type,cg.score\
     from offset as os\
-    where student_id=:id;';
+    left outer join\
+    (\
+        select student_id,cos_cname,cos_code,score from cos_score\
+        where student_id =:id and pass_fail=\'通過\'\
+    ) as cg\
+    on cg.student_id=os.student_id and cg.cos_code=os.cos_code_old and cg.cos_cname=os.cos_cname_old\
+    where os.student_id=:id;';
 
 exports.offset_all='\
-    select *\
-    from offset as os;';
+    select os.student_id,os.apply_year,os.apply_semester,os.cos_code_old,\
+    os.cos_cname_old,os.cos_code,os.cos_cname,os.credit,os.offset_type,os.brief,\
+    os.cos_type,cg.score\
+    from offset as os\
+    left outer join\
+    (\
+        select student_id,cos_cname,cos_code,score from cos_score\
+        where student_id =:id and pass_fail=\'通過\'\
+    ) as cg\
+    on cg.student_id=os.student_id and cg.cos_code=os.cos_code_old\
+    and cg.cos_cname=os.cos_cname_old;';
 
 exports.on_cos_data='\
     select s.student_id,cd.cos_code,cn.cos_cname,cn.cos_ename,cd.cos_type,cd.cos_typeext,cd.brief,cd.brief_new,cd.cos_credit\
