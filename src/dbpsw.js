@@ -8,7 +8,7 @@ const factory = {
             var c = new Client({
                 host: 'localhost',
                 user: 'root',
-                password: '',
+                password: 'jack02',
                 db: 'test',
                 charset: 'utf8'
             });

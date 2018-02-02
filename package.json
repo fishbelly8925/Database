@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "generic-pool": "^3.4.1",
     "mariasql": "^0.2.6"
   }
 }

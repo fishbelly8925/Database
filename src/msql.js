@@ -1,5 +1,4 @@
 var Client = require('mariasql');
-var lineReader = require('line-reader');
 var s = require('./sqlString.js');
 var psw = require('./dbpsw');
 
