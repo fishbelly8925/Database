@@ -357,6 +357,30 @@ module.exports = {
             });
         });
     },
+    teacherCosNow:function(id, callback){
+        const resource=pool.acquire();
+        resource.then(function(c){
+            var sql_teacherCosNow=c.prepare(s.teacherCosNow);
+            c.query(sql_teacherCosNow({id: id}), function(err, result){
+                if(err)
+                    throw err;
+                callback(null, JSON.stringify(result));
+                pool.release(c);
+            });
+        });
+    },
+    teacherCosAll:function(id, callback){
+        const resource=pool.acquire();
+        resource.then(function(c){
+            var sql_teacherCosAll=c.prepare(s.teacherCosAll);
+            c.query(sql_teacherCosAll({id: id}), function(err, result){
+                if(err)
+                    throw err;
+                callback(null, JSON.stringify(result));
+                pool.release(c);
+            });
+        });
+    },
     Drain: function() {
         pool.drain().then(function() {
             pool.clear();

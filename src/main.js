@@ -116,4 +116,16 @@ m.qaDelete(0,function(err){
 });
 // qaDelete(id,callback) 刪除編號id的紀錄
 
+m.teacherCosNow('T9229', function(err, result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+}); // teacherCosNow 某老師當學期開課
+
+m.teacherCosAll('T9229', function(err, result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+}); // teacherCosNow 某老師當學期開課
+
 m.Drain(); // 關閉 connection pool
