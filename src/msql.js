@@ -24,8 +24,11 @@ module.exports = {
             resource.then(function(c) {
                 var sql_findStudent = c.prepare(s.findStudent);
                 c.query(sql_findStudent({ id: id }), function(err, result) {
-                    if (err)
-                        throw err;
+                    if (err){
+                        callback(err,undefined);
+                        pool.release(c);
+                        return;
+                    }
                     if (result.info.numRows != 0) {
                         result[0]['status'] = 's';
                         if (id=='0316201'||id=='0316201'||id=='0312512'||id=='0416014'||id=='0416008'||id=='0416081'||id=='0516003'||id=='0516205')
@@ -40,8 +43,11 @@ module.exports = {
             resource.then(function(c) {
                 var sql_findProfessor = c.prepare(s.findProfessor);
                 c.query(sql_findProfessor({ id: id }), function(err, result) {
-                    if (err)
-                        throw err;
+                    if (err){
+                        callback(err,undefined);
+                        pool.release(c);
+                        return;
+                    }
                     if (result.info.numRows != 0)
                         result[0]['status'] = 'p';
                     callback(null, JSON.stringify(result));
@@ -53,8 +59,11 @@ module.exports = {
             resource.then(function(c) {
                 var sql_findAssistant = c.prepare(s.findAssistant);
                 c.query(sql_findAssistant({ id: id }), function(err, result) {
-                    if (err)
-                        throw err;
+                    if (err){
+                        callback(err,undefined);
+                        pool.release(c);
+                        return;
+                    }
                     if (result.info.numRows != 0)
                         result[0]['status'] = 'a';
                     callback(null, JSON.stringify(result));
@@ -80,8 +89,11 @@ module.exports = {
             var sql_showCosMap = c.prepare(s.showCosMap);
             var year = '1' + id[0] + id[1];
             c.query(sql_showCosMap({ id: id, year: year }), function(err, result) {
-                if (err)
-                    throw err;
+                if (err){
+                    callback(err,undefined);
+                    pool.release(c);
+                    return;
+                }
                 callback(null, JSON.stringify(result));
                 pool.release(c);
             });
@@ -92,8 +104,11 @@ module.exports = {
         resource.then(function(c) {
             var sql_showCosMapPass = c.prepare(s.showCosMapPass);
             c.query(sql_showCosMapPass({ id: id }), function(err, result) {
-                if (err)
-                    throw err;
+                if (err){
+                    callback(err,undefined);
+                    pool.release(c);
+                    return;
+                }
                 callback(null, JSON.stringify(result));
                 pool.release(c);
             });
@@ -115,8 +130,11 @@ module.exports = {
         resource.then(function(c) {
             var sql_totalCredit = c.prepare(s.totalCredit);
             c.query(sql_totalCredit({ id: id }), function(err, result) {
-                if (err)
-                    throw err;
+                if (err){
+                    callback(err,undefined);
+                    pool.release(c);
+                    return;
+                }
                 callback(null, JSON.stringify(result));
                 pool.release(c);
             })
@@ -128,8 +146,11 @@ module.exports = {
             var sql_Pass = c.prepare(s.Pass);
             var year = '1' + id[0] + id[1];
             c.query(sql_Pass({ id: id, year: year }), function(err, result) {
-                if (err)
-                    throw err;
+                if (err){
+                    callback(err,undefined);
+                    pool.release(c);
+                    return;
+                }
                 callback(null, JSON.stringify(result));
                 pool.release(c);
             })
@@ -141,8 +162,11 @@ module.exports = {
             var sql_Group = c.prepare(s.Group);
             var year = '1' + id[0] + id[1];
             c.query(sql_Group({ id: id, year: year }), function(err, result) {
-                if (err)
-                    throw err;
+                if (err){
+                    callback(err,undefined);
+                    pool.release(c);
+                    return;
+                }
                 callback(null, JSON.stringify(result).replace(/\"\[/g, "\[").replace(/\]\"/g, "\]").replace(/\\\"/g, "\""));
                 pool.release(c);
             })
@@ -154,8 +178,11 @@ module.exports = {
             var sql_graduateRule = c.prepare(s.graduateRule);
             var year = '1' + id[0] + id[1];
             c.query(sql_graduateRule({ id: id, year: year }), function(err, result) {
-                if (err)
-                    throw err;
+                if (err){
+                    callback(err,undefined);
+                    pool.release(c);
+                    return;
+                }
                 callback(null, JSON.stringify(result));
                 pool.release(c);
             })
@@ -167,8 +194,11 @@ module.exports = {
             var sql_studentGraduateList = c.prepare(s.studentGraduateList);
             var sem = id[0] + id[1];
             c.query(sql_studentGraduateList({ sem: sem }), function(err, result) {
-                if (err)
-                    throw err;
+                if (err){
+                    callback(err,undefined);
+                    pool.release(c);
+                    return;
+                }
                 callback(null, JSON.stringify(result));
                 pool.release(c);
             })
@@ -202,19 +232,19 @@ module.exports = {
             var sql_setGmail = c.prepare(s.setGmail);
             var sql_setFbId = c.prepare(s.setFbId);
             var sql_setGithubId = c.prepare(s.setGithubId);
-            if (type == 1)
+            if (type === 1)
                 c.query(sql_setGmail({ id: id, gmail: str }), function(err, result) {
                     if (err)
                         throw err;
                     pool.release(c);
                 });
-            else if (type == 2)
+            else if (type === 2)
                 c.query(sql_setFbId({ id: id, fb_id: str }), function(err, result) {
                     if (err)
                         throw err;
                     pool.release(c);
                 });
-            else if (type == 3)
+            else if (type === 3)
                 c.query(sql_setGithubId({ id: id, github_id: str }), function(err, result) {
                     if (err)
                         throw err;
@@ -228,16 +258,22 @@ module.exports = {
             if (id != 'all') {
                 var sql_offset = c.prepare(s.offset_single);
                 c.query(sql_offset({ id: id }), function(err, result) {
-                    if (err)
-                        throw err;
+                    if (err){
+                        callback(err,undefined);
+                        pool.release(c);
+                        return;
+                    }
                     callback(null, JSON.stringify(result));
                     pool.release(c);
                 });
             } else {
                 var sql_offset = c.prepare(s.offset_all);
                 c.query(sql_offset({}), function(err, result) {
-                    if (err)
-                        throw err;
+                    if (err){
+                        callback(err,undefined);
+                        pool.release(c);
+                        return;
+                    }
                     callback(null, JSON.stringify(result));
                     pool.release(c);
                 });
@@ -249,8 +285,11 @@ module.exports = {
         resource.then(function(c) {
             var sql_on_cos_data = c.prepare(s.on_cos_data);
             c.query(sql_on_cos_data({ id: id }), function(err, result) {
-                if (err)
-                    throw err;
+                if (err){
+                    callback(err,undefined);
+                    pool.release(c);
+                    return;
+                }
                 callback(null, JSON.stringify(result));
                 pool.release(c);
             });
@@ -261,8 +300,11 @@ module.exports = {
         resource.then(function(c) {
             var sql_general_cos_rule = c.prepare(s.general_cos_rule);
             c.query(sql_general_cos_rule({}), function(err, result) {
-                if (err)
-                    throw err;
+                if (err){
+                    callback(err,undefined);
+                    pool.release(c);
+                    return;
+                }
                 callback(null, JSON.stringify(result));
                 pool.release(c);
             });
@@ -295,8 +337,11 @@ module.exports = {
         resource.then(function(c){
             var sql_cosMotion=c.prepare(s.cosMotion);
             c.query(sql_cosMotion({id:id}),function(err,result){
-                if(err)
-                    throw err;
+                if (err){
+                    callback(err,undefined);
+                    pool.release(c);
+                    return;
+                }
                 callback(null,JSON.stringify(result));
                 pool.release(c);
             });
@@ -319,14 +364,20 @@ module.exports = {
             var sql_qaInsert=c.prepare(s.qaInsert);
             var sql_qaMaxId=c.prepare(s.qaMaxId);
             c.query(sql_qaMaxId({}),function(err,result){
-                if(err)
-                    throw err;
+                if (err){
+                    callback(err,undefined);
+                    pool.release(c);
+                    return;
+                }
                 var id=0;
                 if(result[0]['maxID']!=null)
                     id=parseInt(result[0]['maxID'])+1;
                 c.query(sql_qaInsert({id:id,que:que,ans:ans}),function(err,result){
-                    if(err)
-                        throw err;
+                    if (err){
+                        callback(err,undefined);
+                        pool.release(c);
+                        return;
+                    }
                     callback(null,JSON.stringify(result));
                     pool.release(c);
                 });
@@ -349,8 +400,11 @@ module.exports = {
         resource.then(function(c){
             var sql_qaSearch=c.prepare(s.qaSearch);
             c.query(sql_qaSearch({}),function(err,result){
-                if(err)
-                    throw err;
+                if (err){
+                    callback(err,undefined);
+                    pool.release(c);
+                    return;
+                }
                 callback(null,JSON.stringify(result));
                 pool.release(c);
             });
@@ -361,8 +415,11 @@ module.exports = {
         resource.then(function(c){
             var sql_teacherCosNow=c.prepare(s.teacherCosNow);
             c.query(sql_teacherCosNow({id: id}), function(err, result){
-                if(err)
-                    throw err;
+                if (err){
+                    callback(err,undefined);
+                    pool.release(c);
+                    return;
+                }
                 callback(null, JSON.stringify(result));
                 pool.release(c);
             });
@@ -373,8 +430,11 @@ module.exports = {
         resource.then(function(c){
             var sql_teacherCosAll=c.prepare(s.teacherCosAll);
             c.query(sql_teacherCosAll({id: id}), function(err, result){
-                if(err)
-                    throw err;
+                if (err){
+                    callback(err,undefined);
+                    pool.release(c);
+                    return;
+                }
                 callback(null, JSON.stringify(result));
                 pool.release(c);
             });

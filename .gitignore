@@ -2,3 +2,5 @@ node_modules
 a.sql
 test.sql
 src/dbpsw.js
+test.py
+test.csv

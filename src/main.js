@@ -1,6 +1,5 @@
 // 使用前請先
 // npm install mariasql
-// npm install line-reader
 // npm install generic-pool
 
 var m = require('./msql.js');
@@ -11,7 +10,7 @@ var m = require('./msql.js');
 //     console.log(JSON.parse(result));
 // }); // findPerson 回傳學生資料
 
-// m.addEmail('0516003', 'ddddt@test');
+// m.addEmail('0516003', 'dabct@test');
 // // addEmail(學號,email) 更新此學號學生之email
 
 // m.showCosMap('0516003', function(err, result) {
@@ -44,11 +43,11 @@ var m = require('./msql.js');
 // 	console.log(JSON.parse(result));
 // }); // Group 列出此學生畢業預審表上 必修、核心、副核心等課程分類
 
-m.graduateRule('0516003',function(err,result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-}); // graduateRule 列出此學生畢業標準
+// m.graduateRule('0516003',function(err,result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); // graduateRule 列出此學生畢業標準
 
 // m.offset('all',function(err,result){
 // 	if(err)
@@ -80,13 +79,13 @@ m.graduateRule('0516003',function(err,result){
 // m.setStudentGraduate('0516003',0);
 // // setStudentGraduate 設定某學生的畢業狀態(1可畢業,0不可畢業)（助理端用）
 
-// m.setStudentGraduateSubmit('0516003','1');
+// m.setStudentGraduateSubmit('0516003',1);
 // // setStudentGraduate 設定某學生的畢業預審確認狀態(1可畢業,0不可畢業)
 
-// m.bindAccount('0516003','test@gmail.com.tw','3');
+// m.bindAccount('0516003','test@gmail.com.tw',1);
 // // bindAccount   1:set gmail   2:set fb_id   3:set github_id
 
-// m.insertCosMotion('0516003','test2','a','b');
+// m.insertCosMotion('0516003','test2','a','c');
 // // insertCosMotion(id,cos_name,original position,now position) 更新課程位置
 
 // m.cosMotion('0516003',function(err,result){
@@ -104,28 +103,30 @@ m.graduateRule('0516003',function(err,result){
 // 		throw err;
 // });
 // // qaInsert(question,answer,callback) 新增問答
+
 // m.qaSearch(function(err,result){
 // 	if(err)
 // 		throw err;
 // 	console.log(result);
 // });
-// // qaSearch(callback) 回傳所有問答
+// //qaSearch(callback) 回傳所有問答
+
 // m.qaDelete(0,function(err){
 // 	if(err)
 // 		throw err;
 // });
 // // qaDelete(id,callback) 刪除編號id的紀錄
 
-m.teacherCosNow('T9229', function(err, result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-}); // teacherCosNow 某老師當學期開課
+// m.teacherCosNow('T9229', function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); // teacherCosNow 某老師當學期開課
 
-m.teacherCosAll('T9229', function(err, result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-}); // teacherCosNow 某老師當學期開課
+// m.teacherCosAll('T9229', function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); // teacherCosNow 某老師當學期開課
 
 m.Drain(); // 關閉 connection pool
