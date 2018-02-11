@@ -450,7 +450,7 @@ module.exports = {
                     pool.release(c);
                     return;
                 }
-                for(i in result){
+                for(var i in result){
                     if(result[i].english == '英文授課')
                         result[i].english = true;
                     else

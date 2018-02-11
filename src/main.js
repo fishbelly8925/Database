@@ -129,7 +129,7 @@ var m = require('./msql.js');
 // 	console.log(JSON.parse(result));
 // }); // teacherCosNow(id, callback) 某老師所有開過的課
 
-m.showCosMapIntro('計算機概論', function(err, result){
+m.showCosMapIntro('訊號與系統', function(err, result){
 	if(err)
 		throw err;
 	console.log(JSON.parse(result));
