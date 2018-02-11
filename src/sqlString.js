@@ -263,7 +263,7 @@ exports.teacherCosAll ='\
     )';
 
 exports.showCosMapIntro ='\
-    select tcr.tname, n.cos_cname, n.cos_code, d.num_limit, d. reg_num, d.cos_typeext\
+    select tcr.tname, n.cos_cname, n.cos_code, d.num_limit, d. reg_num, d.cos_typeext as english, d.unique_id\
     from cos_name as n, cos_data as d, teacher_cos_relation as tcr \
     where n.unique_id = d.unique_id \
     AND n.cos_cname LIKE :cos_cname\

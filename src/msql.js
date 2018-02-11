@@ -440,16 +440,22 @@ module.exports = {
             });
         });
     },
-    showCosMapIntro:function(cos_code, callback){
+    showCosMapIntro:function(cos_cname, callback){
         const resource=pool.acquire();
         resource.then(function(c){
             var sql_showCosMapIntro=c.prepare(s.showCosMapIntro);
-            c.query(sql_showCosMapIntro({cos_code: cos_code}), function(err, result){
+            c.query(sql_showCosMapIntro({cos_cname: '%' + cos_cname + '%'}), function(err, result){
                 if(err){
                     callback(err, undefined);
                     pool.release(c);
                     return;
                 }
+                for(i in result){
+                    if(result[i].english == '英文授課')
+                        result[i].english = true;
+                    else
+                        result[i].english = false;
+                }                
                 callback(null, JSON.stringify(result));
                 pool.release(c);
             });
