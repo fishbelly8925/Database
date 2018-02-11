@@ -440,6 +440,21 @@ module.exports = {
             });
         });
     },
+    showCosMapIntro:function(cos_code, callback){
+        const resource=pool.acquire();
+        resource.then(function(c){
+            var sql_showCosMapIntro=c.prepare(s.showCosMapIntro);
+            c.query(sql_showCosMapIntro({cos_code: cos_code}), function(err, result){
+                if(err){
+                    callback(err, undefined);
+                    pool.release(c);
+                    return;
+                }
+                callback(null, JSON.stringify(result));
+                pool.release(c);
+            });
+        });
+    },
     Drain: function() {
         pool.drain().then(function() {
             pool.clear();

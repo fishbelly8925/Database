@@ -117,16 +117,23 @@ var m = require('./msql.js');
 // });
 // // qaDelete(id,callback) 刪除編號id的紀錄
 
-// m.teacherCosNow('T9229', function(err, result){
+/// m.teacherCosNow('T9229', function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
-// }); // teacherCosNow 某老師當學期開課
+// }); // teacherCosNow(id, callback) 某老師當學期開課
 
 // m.teacherCosAll('T9229', function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
-// }); // teacherCosNow 某老師當學期開課
+// }); // teacherCosNow(id, callback) 某老師所有開過的課
+
+m.showCosMapIntro('計算機概論', function(err, result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+});
+// showCosMapIntro(cos_cname, callback) 課程地圖某堂課的資訊
 
 m.Drain(); // 關閉 connection pool
