@@ -277,7 +277,7 @@ exports.showCosMapIntro ='\
     order by a.unique_id DESC';
 
 exports.showCosScoreDetail = "\
-    select cos_code, AVG(score) as avg, AVG(score>=60) as Pavg, COUNT(*) as member, count(score>=60) as passed, MAX(score) as max\
+    select cos_code, AVG(score) as avg, AVG(case when score>=60 then score end) as Pavg, COUNT(*) as member, count(case when score>=60 then 1 end) as passed, MAX(score) as max\
     from cos_score \
     where cos_code = :cos_code\
     AND CONCAT(cos_year, '-' ,semester, '-', cos_id) = :unique_id";
