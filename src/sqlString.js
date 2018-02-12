@@ -275,3 +275,17 @@ exports.showCosMapIntro ='\
     ) AS a\
     ON a.teacher_id LIKE CONCAT("%", tcr.teacher_id, "%")\
     order by a.unique_id DESC';
+
+exports.showCosScoreDetail = "\
+    select cos_code, AVG(score) as avg, AVG(score>=60) as Pavg, COUNT(*) as member, count(score>=60) as passed, MAX(score) as max\
+    from cos_score \
+    where cos_code = :cos_code\
+    AND CONCAT(cos_year, '-' ,semester, '-', cos_id) = :unique_id";
+
+exports.showCosScoreInterval = "\
+    SELECT elt(INTERVAL(MAX(score),0,10,20,30,40,50,60,70,80,90), '<10','10-19','20-29','30-39','40-49','50-59','60-69','70-79','80-89','90-100') as score_level, count(cos_cname) as counts\
+    FROM cos_score\
+    WHERE cos_code = :cos_code\
+    AND CONCAT(cos_year, '-' ,semester, '-', cos_id) = :unique_id\
+    GROUP BY elt(INTERVAL(score,0,10,20,30,40,50,60,70,80,90), '<10','10-19','20-29','30-39','40-49','50-59','60-69','70-79','80-89','90-100')\
+    ORDER BY MAX(score) DESC";

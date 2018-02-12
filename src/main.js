@@ -129,11 +129,25 @@ var m = require('./msql.js');
 // 	console.log(JSON.parse(result));
 // }); // teacherCosNow(id, callback) 某老師所有開過的課
 
-m.showCosMapIntro('計算機概論', function(err, result){
+// m.showCosMapIntro('訊號與系統', function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// });
+// // showCosMapIntro(cos_cname, callback) 課程地圖某堂課的資訊
+
+m.showCosScoreDetail('DCP1187', '105-2-1173', function(err, result){
 	if(err)
 		throw err;
 	console.log(JSON.parse(result));
 });
-// showCosMapIntro(cos_cname, callback) 課程地圖某堂課的資訊
+// showCosScoreDetail(cos_code, unique_id, callback) 某堂課的成績詳細資料
+
+m.showCosScoreInterval('DCP1187', '105-2-1173', function(err, result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+});
+// showCosScoreInterval(cos_code, unique_id, callback) 某堂課的成績區間人數
 
 m.Drain(); // 關閉 connection pool

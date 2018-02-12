@@ -479,6 +479,51 @@ module.exports = {
             });
         });
     },
+    showCosScoreDetail: function(cos_code, unique_id, callback){
+        const resource = pool.acquire();
+        resource.then(function(c){
+            var sql_showCosScoreDetail=c.prepare(s.showCosScoreDetail);
+            c.query(sql_showCosScoreDetail({cos_code: cos_code, unique_id: unique_id}), function(err, result){
+                if(err){
+                    callback(err, undefined);
+                    pool.release(c);
+                    return;
+                }
+                callback(null, JSON.stringify(result));
+                pool.release(c);
+            });
+        });
+    },
+    showCosScoreDetail: function(cos_code, unique_id, callback){
+        const resource = pool.acquire();
+        resource.then(function(c){
+            var sql_showCosScoreDetail=c.prepare(s.showCosScoreDetail);
+            c.query(sql_showCosScoreDetail({cos_code: cos_code, unique_id: unique_id}), function(err, result){
+                if(err){
+                    callback(err, undefined);
+                    pool.release(c);
+                    return;
+                }
+                callback(null, JSON.stringify(result));
+                pool.release(c);
+            });
+        });
+    },
+    showCosScoreInterval: function(cos_code, unique_id, callback){
+        const resource = pool.acquire();
+        resource.then(function(c){
+            var sql_showCosScoreInterval=c.prepare(s.showCosScoreInterval);
+            c.query(sql_showCosScoreInterval({cos_code: cos_code, unique_id: unique_id}), function(err, result){
+                if(err){
+                    callback(err, undefined);
+                    pool.release(c);
+                    return;
+                }
+                callback(null, JSON.stringify(result));
+                pool.release(c);
+            });
+        });
+    },
     Drain: function() {
         pool.drain().then(function() {
             pool.clear();
