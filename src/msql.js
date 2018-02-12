@@ -444,13 +444,31 @@ module.exports = {
         const resource=pool.acquire();
         resource.then(function(c){
             var sql_showCosMapIntro=c.prepare(s.showCosMapIntro);
-            c.query(sql_showCosMapIntro({cos_cname: '%' + cos_cname + '%'}), function(err, result){
+            c.query(sql_showCosMapIntro({cos_cname: cos_cname}), function(err, result){
                 if(err){
                     callback(err, undefined);
                     pool.release(c);
                     return;
                 }
-                for(i in result){
+                // if one course has many teachers 
+                for(let i = 0; i < result.length; i++){
+                    let j = 0
+                    while(1){
+                        if((i+j+1) == result.length)    // the last element
+                            break;
+                        if(result[i].unique_id == result[i+j+1].unique_id)
+                        {
+                            result[i].tname = result[i].tname + ' '+ result[i+j+1].tname;
+                            j++;
+                        }
+                        else break;
+                    }
+                    result.splice(i+1, j);
+                    if((i+1) == result.length)
+                        break;
+                }
+                // if one course is taught in english
+                for(let i in result){
                     if(result[i].english == '英文授課')
                         result[i].english = true;
                     else

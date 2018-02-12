@@ -263,9 +263,15 @@ exports.teacherCosAll ='\
     )';
 
 exports.showCosMapIntro ='\
-    select tcr.tname, n.cos_cname, n.cos_code, d.num_limit, d. reg_num, d.cos_typeext as english, d.unique_id\
-    from cos_name as n, cos_data as d, teacher_cos_relation as tcr \
-    where n.unique_id = d.unique_id \
-    AND n.cos_cname LIKE :cos_cname\
-    AND d.cos_code LIKE "DCP%"\
-    AND tcr.teacher_id = d.teacher_id;'
+    select tcr.tname , a.cos_cname ,a.cos_code, a.num_limit, a.reg_num, a.cos_typeext as english, a.unique_id\
+    from teacher_cos_relation as tcr\
+    JOIN\
+    (\
+        select d.teacher_id, n.cos_code, d.num_limit, d.reg_num, d.cos_typeext, d.unique_id, n.cos_cname\
+        from cos_name as n, cos_data as d \
+        where n.unique_id = d.unique_id \
+        AND n.cos_cname LIKE CONCAT("%", :cos_cname , "%")\
+        AND d.cos_code LIKE "DCP%"\
+    ) AS a\
+    ON a.teacher_id LIKE CONCAT("%", tcr.teacher_id, "%")\
+    order by a.unique_id DESC';
