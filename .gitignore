@@ -4,3 +4,5 @@ test.sql
 src/dbpsw.js
 test.py
 test.csv
+python/test.*
+python/*.csv
