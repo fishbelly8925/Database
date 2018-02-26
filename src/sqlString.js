@@ -120,6 +120,53 @@ exports.Pass = "\
     on a.cos_code=c.cos_code_old and a.cos_cname=c.cos_cname_old\
     order by a.year,a.semester asc;";
 
+exports.PassSpecify = "\
+    select DISTINCT\
+    if(ISNULL(c.cos_code),a.cos_code,c.cos_code) as cos_code,\
+    if(ISNULL(c.cos_cname),a.cos_cname,c.cos_cname) as cos_cname,\
+    c.cos_code_old,cos_cname_old,a.cos_ename,a.pass_fail,a.cos_type,\
+    if(a.score_type=\'通過不通過\',NULL,a.score) as score,\
+    if(a.score_type=\'通過不通過\',NULL,a.score_level) as score_level,\
+    if((a.cos_typeext=\'\'&&a.brief like \'體育%\'),\'體育\',a.cos_typeext) as cos_typeext,\
+    b.type,a.brief,a.brief_new, a.cos_credit,a.year,a.semester,c.offset_type\
+    from\
+    (\
+        select DISTINCT s.score_type,s.pass_fail,s.score,s.score_level,d.cos_code, n.cos_cname,n.cos_ename, d.cos_type,d.cos_typeext,d.brief,d.brief_new, d.cos_credit,s.year,s.semester\
+        from cos_data as d,\
+        (\
+            select score_type,cos_year as year,semester,cos_id as code,cos_code,pass_fail,score,score_level,concat(cos_year,\'-\',semester,\'-\',cos_id) as unique_id\
+            from cos_score where student_id=:id\
+        ) as s,\
+        cos_name as n\
+        where\
+        d.unique_id = concat(s.year,\'-\',s.semester,\'-\',s.code)\
+        and d.cos_code = n.cos_code\
+        and n.unique_id=d.unique_id\
+    ) as a left outer join\
+    (\
+        select DISTINCT s.score_type,s.pass_fail,s.score,s.score_level,d.cos_code, n.cos_cname, d.cos_type,d.cos_typeext,t.type,d.brief,d.brief_new, d.cos_credit,s.year,s.semester\
+        from cos_data as d,\
+        (\
+            select score_type,cos_year as year,semester,cos_id as code,cos_code,pass_fail,score,score_level,concat(cos_year,\'-\',semester,\'-\',cos_id) as unique_id\
+            from cos_score where student_id=:id\
+        ) as s,\
+        cos_name as n,cos_type as t,student as sd\
+        where sd.student_id=:id\
+        and d.unique_id = concat(s.year,\'-\',s.semester,\'-\',s.code)\
+        and n.unique_id=d.unique_id\
+        and n.cos_cname like concat(t.cos_cname,\'%\')\
+        and t.school_year=:year\
+        and sd.program like concat(t.program,\'%\')\
+    ) as b\
+    on b.cos_code=a.cos_code and b.cos_cname=a.cos_cname and b.year=a.year and b.semester=a.semester\
+    left outer join\
+    (\
+        select offset_type,cos_code_old,cos_cname_old,cos_code,cos_cname from offset where student_id=:id\
+    ) as c\
+    on a.cos_code=c.cos_code_old and a.cos_cname=c.cos_cname_old\
+    where a.pass_fail='通過' and a.cos_type=:category\
+    order by a.year,a.semester asc;";
+
 exports.Group = '\
     select p.cos_cname,p.cos_ename,p.cos_codes,IFNULL(a.type,\'必修\') as type\
     from cos_group as p\

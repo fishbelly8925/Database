@@ -140,12 +140,28 @@ module.exports = {
             })
         })
     },
-    Pass: function(id, callback) {
+    Pass: function(id,callback) {
         const resource = pool.acquire();
         resource.then(function(c) {
             var sql_Pass = c.prepare(s.Pass);
             var year = '1' + id[0] + id[1];
             c.query(sql_Pass({ id: id, year: year }), function(err, result) {
+                if (err){
+                    callback(err,undefined);
+                    pool.release(c);
+                    return;
+                }
+                callback(null, JSON.stringify(result));
+                pool.release(c);
+            })
+        })
+    },
+    PassSpecify: function(id,category,callback) {
+        const resource = pool.acquire();
+        resource.then(function(c) {
+            var sql_PassSpecify = c.prepare(s.PassSpecify);
+            var year = '1' + id[0] + id[1];
+            c.query(sql_PassSpecify({id,year,category}), function(err, result) {
                 if (err){
                     callback(err,undefined);
                     pool.release(c);

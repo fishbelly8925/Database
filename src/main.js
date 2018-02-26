@@ -37,6 +37,12 @@ var m = require('./msql.js');
 //     console.log(JSON.parse(result));
 // }); // Pass 列出此學生通過的課
 
+// m.PassSpecify('0516003','通識',function(err, result) {
+//     if (err)
+//         throw err;
+//     console.log(JSON.parse(result));
+// }); // PassSpecify 列出此學生某向度中通過的課
+
 // m.Group('0516003',function(err,result){
 // 	if(err)
 // 		throw err;
@@ -136,18 +142,18 @@ var m = require('./msql.js');
 // });
 // // showCosMapIntro(cos_cname, callback) 課程地圖某堂課的資訊
 
-m.showCosScoreDetail('DCP1187', '105-2-1173', function(err, result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-});
-// showCosScoreDetail(cos_code, unique_id, callback) 某堂課的成績詳細資料
+// m.showCosScoreDetail('DCP1187', '105-2-1173', function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// });
+// // showCosScoreDetail(cos_code, unique_id, callback) 某堂課的成績詳細資料
 
-m.showCosScoreInterval('DCP1187', '105-2-1173', function(err, result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-});
-// showCosScoreInterval(cos_code, unique_id, callback) 某堂課的成績區間人數
+// m.showCosScoreInterval('DCP1187', '105-2-1173', function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// });
+// // showCosScoreInterval(cos_code, unique_id, callback) 某堂課的成績區間人數
 
 m.Drain(); // 關閉 connection pool
