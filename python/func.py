@@ -1,6 +1,7 @@
 import MySQLdb
 import sqlString as sql
 import numpy as np
+from sklearn.cluster import KMeans
 
 conn=MySQLdb.connect(db='test',user='root',passwd='jack02',charset='utf8')
 
@@ -17,7 +18,7 @@ def parseEng(cos):
         cos=cos
     return cos
 
-def findAllCos(): #find all CS cos name
+def findAllCos():
     cursor=conn.cursor()
     cursor.execute(sql.findAllCos)
     temp=cursor.fetchall()
@@ -30,7 +31,7 @@ def findAllCos(): #find all CS cos name
     cursor.close()
     return res
 
-def findAllStudent(): #find all CS student
+def findAllStudent():
     cursor=conn.cursor()
     cursor.execute("select student_id from student")
     temp=cursor.fetchall()
@@ -48,7 +49,7 @@ def changeScore(s):
         return 0
     elif a==40:
         return 4
-    return int(a/10+1)
+    return int(a/5+1)
 
 def findGrades(stds,cos):
     cursor=conn.cursor()
@@ -109,17 +110,37 @@ def predict(sim,grads):
     return pred
 
 def generate(cos,pred,num):
-    sorted_pred=np.sort(pred)
+    sorted_pred=[]
+    for i in pred:
+        sorted_pred.append(np.sort(i)[::-1])
     res=[]
     length=len(sorted_pred)
     for i in range(length):
-        temp=set()
-        for j in range(1,num+1):
-            if sorted_pred[i][-j]==0:
+        temp=[]
+        dup=0
+        for j in range(num):
+            if dup>0:
+                dup-=1
+                print('haha')
+                continue
+            if sorted_pred[i][j]==0:
                 break
-            end=np.where(pred[i]==sorted_pred[i][-j])[0]
+            end=np.where(pred[i]==sorted_pred[i][j])[0]
+            dup=len(end)-1
             for k in end:
-                temp.add(cos[k])
-        res=list(res)
+                temp.append(cos[k])
         res.append(temp)
     return res
+
+def fillEmpty(suggest,pred):
+    clu=KMeans(n_clusters=4).fit(np.nan_to_num(pred))
+    nums=set(clu.labels_)
+    for i in range(len(nums)):
+        temp=0
+        for idx,j in enumerate(clu.labels_):
+            if j == i:
+                if len(suggest[temp]) == 0:
+                    print('Error')
+                if len(suggest[idx]) == 0:
+                    suggest[idx]=suggest[temp]
+                temp=idx
