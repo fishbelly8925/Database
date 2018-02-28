@@ -329,10 +329,25 @@ exports.showCosScoreDetail = "\
     where cos_code = :cos_code\
     AND CONCAT(cos_year, '-' ,semester, '-', cos_id) = :unique_id";
 
+// exports.showCosScoreInterval = "\
+//     SELECT elt(INTERVAL(MAX(score),0,10,20,30,40,50,60,70,80,90), '<10','10-19','20-29','30-39','40-49','50-59','60-69','70-79','80-89','90-100') as score_level, count(cos_cname) as counts\
+//     FROM cos_score\
+//     WHERE cos_code = :cos_code\
+//     AND CONCAT(cos_year, '-' ,semester, '-', cos_id) = :unique_id\
+//     GROUP BY elt(INTERVAL(score,0,10,20,30,40,50,60,70,80,90), '<10','10-19','20-29','30-39','40-49','50-59','60-69','70-79','80-89','90-100')\
+//     ORDER BY MAX(score) DESC";
+
 exports.showCosScoreInterval = "\
-    SELECT elt(INTERVAL(MAX(score),0,10,20,30,40,50,60,70,80,90), '<10','10-19','20-29','30-39','40-49','50-59','60-69','70-79','80-89','90-100') as score_level, count(cos_cname) as counts\
+    SELECT count(case when score is NULL then 1 end) as 'null'\
+    ,count(case when score<10 then score end) as '<10'\
+    ,count(case when score<20 and score>=10 then score end) as '10-19'\
+    ,count(case when score<30 and score>=20 then score end) as '20-29'\
+    ,count(case when score<40 and score>=30 then score end) as '30-39'\
+    ,count(case when score<50 and score>=40 then score end) as '40-49'\
+    ,count(case when score<60 and score>=50 then score end) as '50-59'\
+    ,count(case when score<70 and score>=60 then score end) as '60-69'\
+    ,count(case when score<80 and score>=70 then score end) as '70-79'\
+    ,count(case when score<90 and score>=80 then score end) as '80-89'\
+    ,count(case when score<100 and score>=90 then score end) as '90-100'\
     FROM cos_score\
-    WHERE cos_code = :cos_code\
-    AND CONCAT(cos_year, '-' ,semester, '-', cos_id) = :unique_id\
-    GROUP BY elt(INTERVAL(score,0,10,20,30,40,50,60,70,80,90), '<10','10-19','20-29','30-39','40-49','50-59','60-69','70-79','80-89','90-100')\
-    ORDER BY MAX(score) DESC";
+    WHERE CONCAT(cos_year, '-' ,semester, '-', cos_id) = :unique_id";
