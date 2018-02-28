@@ -535,9 +535,10 @@ module.exports = {
                     pool.release(c);
                     return;
                 }
-                interval=[];
+                var interval=[];
                 for(let i in result[0])
                 	interval.push(Number(result[0][i]));
+                interval.reverse();
                 callback(null, JSON.stringify(interval));
                 pool.release(c);
             });
