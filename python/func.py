@@ -5,6 +5,20 @@ from sklearn.cluster import KMeans
 
 conn=MySQLdb.connect(db='test',user='root',passwd='jack02',charset='utf8')
 
+def findCurrentCos():
+    cursor=conn.cursor()
+    cursor.execute(sql.findCurrentCos)
+    temp=cursor.fetchall()
+    res=set()
+    for i in temp:
+        i=i[0]
+        res.add(parseEng(i))
+    res=list(res)
+    res.sort()
+    cursor.close()
+    return res
+
+
 def parseEng(cos):
     if '英文授課' in cos:
         cos=cos[:-6]
@@ -49,7 +63,7 @@ def changeScore(s):
         return 0
     elif a==40:
         return 4
-    return int(a/5+1)
+    return int(a/10+1)
 
 def findGrades(stds,cos):
     cursor=conn.cursor()
@@ -121,7 +135,6 @@ def generate(cos,pred,num):
         for j in range(num):
             if dup>0:
                 dup-=1
-                print('haha')
                 continue
             if sorted_pred[i][j]==0:
                 break

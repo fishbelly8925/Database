@@ -6,15 +6,17 @@ var psw = require('./dbpsw');
 var pool = psw.dbpsw();
 
 
-function padLeft(str, len) {
-    str = '' + str;
-    if (str.length >= len) {
-        return str;
-    } else {
-        return padLeft("0" + str, len);
-    }
+function parseEng(cos){
+    if(cos.indexOf('英文授課')>-1)
+        cos=cos.substring(0,cos.length-6);
+    else if(cos.indexOf('(英文班')>-1)
+        cos=cos.substring(0,cos.length-5);
+    else if(cos.indexOf('(英文')>-1 || cos.indexOf('（英文')>-1)
+        cos=cos.substring(0,cos.length-4);
+    else if(cos.indexOf('(英')>-1 || cos.indexOf('（英')>-1)
+        cos=cos.substring(0,cos.length-3);
+    return cos;
 }
-
 
 module.exports = {
 
@@ -543,37 +545,62 @@ module.exports = {
             });
         });
     },
+    getRecommend:function(id,callback){
+        const resource=pool.acquire();
+        resource.then(function(c){
+            var semester='106-2%';
+            var sql_getRecommend=c.prepare(s.getRecommend);
+            var sql_findCurrentCos=c.prepare(s.findCurrentCos);
+            var sql_findTeacher=c.prepare(s.findTeacher);
+            var result=[];
+            c.query(sql_getRecommend({id:id}),function(err,reclist){
+                c.query(sql_findCurrentCos({semester}),function(err,cos){
+                    c.query(sql_findTeacher({}),function(err,tea){
+                        //select all recommend cos to variable rec
+                        reclist=reclist[0]['cos_name_list'];
+                        let rec=reclist.split(",");
+
+                        cos=JSON.parse(JSON.stringify(cos));
+                        tea=JSON.parse(JSON.stringify(tea));
+
+                        for(let i=0;i<rec.length;i++){
+                            //select all cos info into variable data
+                            let data=cos.filter(function(c){return parseEng(c.cos_cname)===rec[i]});
+                            
+                            //for every cos data
+                            for(let d_num=0;d_num<data.length;d_num++)
+                            {
+                                //select all teacher who teach the recommend cos
+                                tea_list=data[d_num]['teacher_id'].split(",");
+
+                                //for every teacher
+                                for(let k=0;k<tea_list.length;k++)
+                                    //iterate all teacher list 
+                                    for(let j=0;j<tea.length;j++)
+                                        //select the teacher name
+                                        if(tea_list[k].indexOf(tea[j]['teacher_id'])>-1)
+                                        {
+                                            tea_list[k]=tea[j]['tname'];
+                                            break
+                                        }
+                                delete data[d_num]['teacher_id'];
+                                data[d_num]['teacher']=tea_list.join(',');
+                                data[d_num]['cos_time']=data[d_num]['cos_time'].split('-')[0];
+                                
+                                result.push(data[d_num]);
+                            }
+                        }
+
+                        pool.release(c);
+                        callback(null,JSON.stringify(result));
+                    });
+                });
+            });
+        });
+    },
     Drain: function() {
         pool.drain().then(function() {
             pool.clear();
         });
     }
-    // p_uploadGrade: function(pt) {
-    //     const resource = pool.acquire();
-    //     resource.then(function(c) {
-    //         var sql_p_uploadGrade = c.prepare(s.p_uploadGrade);
-    //         var now = 0,
-    //             num = "";
-    //         lineReader.eachLine(pt, function(line, last) {
-    //             if (now == 0) {
-    //                 var a = line.match(/[0-9]+/g);
-    //                 num = num + a[0] + "-" + a[1] + "-";
-    //             } else if (now == 1) {
-    //                 var a = line.match(/[0-9]+/g);
-    //                 num = num + a[0];
-    //             } else if (/[0-9+]/.test(line.split(',')[2])) {
-    //                 line = line.split(',');
-    //                 c.query(sql_p_uploadGrade({ unique_id: num, id: line[2], score: line[4] }), function(err) {
-    //                     if (err)
-    //                         throw err;
-    //                 });
-    //             }
-    //             if (last) {
-    //                 pool.release(c);
-    //                 return false;
-    //             }
-    //             now++;
-    //         });
-    //     })
-    // },
 };

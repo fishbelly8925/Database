@@ -8,6 +8,9 @@ exports.findProfessor = "\
     select teacher_id,tname from teacher\
     where teacher_id=:id";
 
+exports.findTeacher="\
+    select teacher_id,tname from teacher_cos_relation;"
+
 exports.findAssistant = "\
     select assistant_id,aname from assistant\
     where assistant_id=:id";
@@ -351,3 +354,20 @@ exports.showCosScoreInterval = "\
     ,count(case when score<100 and score>=90 then score end) as '90-100'\
     FROM cos_score\
     WHERE CONCAT(cos_year, '-' ,semester, '-', cos_id) = :unique_id";
+
+exports.getRecommend="\
+    select cos_name_list from rs where student_id=:id;"
+
+exports.findCurrentCos="\
+select distinct cd.unique_id,cn.cos_cname,cd.teacher_id,cd.cos_time,cd.cos_code from \
+(select unique_id,teacher_id,cos_time,cos_code from cos_data where \
+unique_id like :semester \
+and (cos_code like 'DCP%' \
+or cos_code like 'IOC%' \
+or cos_code like 'IOE%' \
+or cos_code like 'ILE%' \
+or cos_code like 'IDS%' \
+or cos_code like 'CCS%' \
+or cos_code like 'ICP%')) as cd, \
+(select unique_id,cos_cname from cos_name where unique_id like :semester) as cn \
+where cd.unique_id=cn.unique_id;"
