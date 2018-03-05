@@ -571,7 +571,7 @@ module.exports = {
                             for(let d_num=0;d_num<data.length;d_num++)
                             {
                                 //select all teacher who teach the recommend cos
-                                tea_list=data[d_num]['teacher_id'].split(",");
+                                var tea_list=data[d_num]['teacher_id'].split(",");
 
                                 //for every teacher
                                 for(let k=0;k<tea_list.length;k++)
