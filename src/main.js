@@ -13,7 +13,7 @@ var m = require('./msql.js');
 // m.addEmail('0516003', 'dabct@test');
 // // addEmail(學號,email) 更新此學號學生之email
 
-// m.showCosMap('0516003', function(err, result) {
+// m.showCosMap('0316204', function(err, result) {
 //     if (err)
 //         throw err;
 //     console.log(JSON.parse(result));
@@ -31,7 +31,7 @@ var m = require('./msql.js');
 //     console.log(JSON.parse(result));
 // }); // totalCredit 回傳某學生總學分數
 
-// m.Pass('0516003', function(err, result) {
+// m.Pass('0316091', function(err, result) {
 //     if (err)
 //         throw err;
 //     console.log(JSON.parse(result));
@@ -135,6 +135,12 @@ var m = require('./msql.js');
 // 	console.log(JSON.parse(result));
 // }); // teacherCosNow(id, callback) 某老師所有開過的課
 
+m.teacherStudents('T9229',function(err,result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+}); // teacherStudents(id,callback) 某老師導生名單
+
 // m.showCosMapIntro('訊號與系統', function(err, result){
 // 	if(err)
 // 		throw err;
@@ -156,10 +162,10 @@ var m = require('./msql.js');
 // });
 // // showCosScoreInterval(cos_code, unique_id, callback) 某堂課的成績區間人數
 
-m.getRecommend('0616008',function(err,result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-}); // getRecomend(student_id,callback) 回傳某學生的推薦課程
+// m.getRecommend('0616008',function(err,result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); // getRecomend(student_id,callback) 回傳某學生的推薦課程
 
 m.Drain(); // 關閉 connection pool

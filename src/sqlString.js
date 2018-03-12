@@ -312,6 +312,13 @@ exports.teacherCosAll ='\
         order by cos_code\
     )';
 
+exports.teacherStudents ='\
+	select s.student_id,s.sname,s.program \
+	from student as s,mentor_list as m,teacher as t \
+	where t.teacher_id=:id \
+	and t.tname=m.tname \
+	and m.student_id=s.student_id;'
+
 exports.showCosMapIntro ='\
     select tcr.tname , a.cos_cname ,a.cos_code, a.num_limit, a.reg_num, a.cos_typeext as english, a.unique_id\
     from teacher_cos_relation as tcr\

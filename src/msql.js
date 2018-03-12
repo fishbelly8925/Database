@@ -458,6 +458,21 @@ module.exports = {
             });
         });
     },
+    teacherStudents:function(id,callback){
+    	const resource=pool.acquire();
+    	resource.then(function(c){
+    		var sql_teacherStudents=c.prepare(s.teacherStudents);
+    		c.query(sql_teacherStudents({id:id}),function(err,result){
+    			if(err){
+    				callback(err,undefined);
+    				pool.release(c);
+    				return;
+    			}
+    			callback(null,JSON.stringify(result));
+    			pool.release(c);
+    		});
+    	});
+    },
     showCosMapIntro:function(cos_cname, callback){
         const resource=pool.acquire();
         resource.then(function(c){
