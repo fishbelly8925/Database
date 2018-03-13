@@ -627,6 +627,21 @@ module.exports = {
             });
         });
     },
+    findTeacherInfo: function(tname, callback){
+        const resource = pool.acquire();
+        resource.then(function(c){
+            var sql_findTeacherInfo=c.prepare(s.findTeacherInfo);
+            c.query(sql_findTeacherInfo({tname: tname}), function(err, result){
+                if(err){
+                    callback(err, undefined);
+                    pool.release(c);
+                    return;
+                }
+                callback(null, JSON.stringify(interval));
+                pool.release(c);
+            });
+        });
+    },
     Drain: function() {
         pool.drain().then(function() {
             pool.clear();

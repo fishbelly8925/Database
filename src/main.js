@@ -168,4 +168,10 @@ m.showCosMapPass('0316248', function(err, result) {
 // 	console.log(JSON.parse(result));
 // }); // getRecomend(student_id,callback) 回傳某學生的推薦課程
 
+m.findTeacherInfo('邱維辰',function(err,result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+}); // getRecomend(student_id,callback) 回傳某學生的推薦課程
+
 m.Drain(); // 關閉 connection pool

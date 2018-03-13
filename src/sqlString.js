@@ -379,3 +379,6 @@ or cos_code like 'CCS%' \
 or cos_code like 'ICP%')) as cd, \
 (select unique_id,cos_cname from cos_name where unique_id like :semester) as cn \
 where cd.unique_id=cn.unique_id;"
+
+exports.findTeacherInfo="\
+    select * from teacher_info where tname = :tname;"
