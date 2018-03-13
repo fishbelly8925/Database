@@ -19,9 +19,9 @@ function parseEng(cos){
 }
 
 function parseHonor(cos){
-	if(cos.indexOf('榮譽班')>-1)
-		cos=cos.substring(0,cos.length-3);
-	return cos
+    if(cos.indexOf('榮譽班')>-1)
+        cos=cos.substring(0,cos.length-3);
+    return cos
 }
 
 module.exports = {
@@ -118,12 +118,12 @@ module.exports = {
                     return;
                 }
                 for(var i in result){
-                	if(result[i]['cos_cname']==='微積分Ａ（一）' || result[i]['cos_cname']==='微積分Ｂ（一）' || result[i]['cos_cname']==='微積分甲（一）')
-                		result[i]['cos_cname']='微積分(一)';
-                	else if(result[i]['cos_cname']==='微積分Ａ（二）' || result[i]['cos_cname']==='微積分Ｂ（二）' || result[i]['cos_cname']==='微積分甲（二）')
-                		result[i]['cos_cname']='微積分(二)';
-                	if(typeof(result[i]['cos_cname'])==='string')
-                		result[i]['cos_cname']=parseHonor(parseEng(result[i]['cos_cname']));
+                    if(result[i]['cos_cname']==='微積分Ａ（一）' || result[i]['cos_cname']==='微積分Ｂ（一）' || result[i]['cos_cname']==='微積分甲（一）')
+                        result[i]['cos_cname']='微積分(一)';
+                    else if(result[i]['cos_cname']==='微積分Ａ（二）' || result[i]['cos_cname']==='微積分Ｂ（二）' || result[i]['cos_cname']==='微積分甲（二）')
+                        result[i]['cos_cname']='微積分(二)';
+                    if(typeof(result[i]['cos_cname'])==='string')
+                        result[i]['cos_cname']=parseHonor(parseEng(result[i]['cos_cname']));
                 }
                 callback(null, JSON.stringify(result));
                 pool.release(c);
@@ -473,19 +473,19 @@ module.exports = {
         });
     },
     teacherStudents:function(id,callback){
-    	const resource=pool.acquire();
-    	resource.then(function(c){
-    		var sql_teacherStudents=c.prepare(s.teacherStudents);
-    		c.query(sql_teacherStudents({id:id}),function(err,result){
-    			if(err){
-    				callback(err,undefined);
-    				pool.release(c);
-    				return;
-    			}
-    			callback(null,JSON.stringify(result));
-    			pool.release(c);
-    		});
-    	});
+        const resource=pool.acquire();
+        resource.then(function(c){
+            var sql_teacherStudents=c.prepare(s.teacherStudents);
+            c.query(sql_teacherStudents({id:id}),function(err,result){
+                if(err){
+                    callback(err,undefined);
+                    pool.release(c);
+                    return;
+                }
+                callback(null,JSON.stringify(result));
+                pool.release(c);
+            });
+        });
     },
     showCosMapIntro:function(cos_cname, callback){
         const resource=pool.acquire();
@@ -568,7 +568,7 @@ module.exports = {
                 }
                 var interval=[];
                 for(let i in result[0])
-                	interval.push(Number(result[0][i]));
+                    interval.push(Number(result[0][i]));
                 callback(null, JSON.stringify(interval));
                 pool.release(c);
             });
@@ -637,7 +637,7 @@ module.exports = {
                     pool.release(c);
                     return;
                 }
-                callback(null, JSON.stringify(interval));
+                callback(null, JSON.stringify(result));
                 pool.release(c);
             });
         });
