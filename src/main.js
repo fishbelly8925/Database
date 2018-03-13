@@ -19,11 +19,11 @@ var m = require('./msql.js');
 //     console.log(JSON.parse(result));
 // }); // showCosMap 課程地圖要顯示的項目以及建議先修課與擋修課程
 
-m.showCosMapPass('0316248', function(err, result) {
-    if (err)
-        throw err;
-    console.log(JSON.parse(result));
-}); // showCosMapPass 某學生在課程地圖上有通過的課
+// m.showCosMapPass('0316248', function(err, result) {
+//     if (err)
+//         throw err;
+//     console.log(JSON.parse(result));
+// }); // showCosMapPass 某學生在課程地圖上有通過的課
 
 // m.totalCredit('0516003', function(err, result) {
 //     if (err)
@@ -172,6 +172,6 @@ m.findTeacherInfo('邱維辰',function(err,result){
 	if(err)
 		throw err;
 	console.log(JSON.parse(result));
-}); // getRecomend(student_id,callback) 回傳某學生的推薦課程
+}); // findTeacherInfo(tname, callback) 回傳某教授info
 
 m.Drain(); // 關閉 connection pool
