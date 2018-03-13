@@ -18,6 +18,12 @@ function parseEng(cos){
     return cos;
 }
 
+function parseHonor(cos){
+	if(cos.indexOf('榮譽班')>-1)
+		cos=cos.substring(0,cos.length-3);
+	return cos
+}
+
 module.exports = {
 
     findPerson: function(id, callback) {
@@ -33,7 +39,7 @@ module.exports = {
                     }
                     if (result.info.numRows != 0) {
                         result[0]['status'] = 's';
-                        if (id=='0316201'||id=='0316201'||id=='0312512'||id=='0416014'||id=='0416008'||id=='0416081'||id=='0516003'||id=='0516205')
+                        if (id=='0316201'||id=='0312512'||id=='0416014'||id=='0416008'||id=='0416081'||id=='0516003'||id=='0516205')
                             result[0]['status'] = 'w';
                     }
                     callback(null, JSON.stringify(result));
@@ -116,6 +122,8 @@ module.exports = {
                 		result[i]['cos_cname']='微積分(一)';
                 	else if(result[i]['cos_cname']==='微積分Ａ（二）' || result[i]['cos_cname']==='微積分Ｂ（二）' || result[i]['cos_cname']==='微積分甲（二）')
                 		result[i]['cos_cname']='微積分(二)';
+                	if(typeof(result[i]['cos_cname'])==='string')
+                		result[i]['cos_cname']=parseHonor(parseEng(result[i]['cos_cname']));
                 }
                 callback(null, JSON.stringify(result));
                 pool.release(c);
