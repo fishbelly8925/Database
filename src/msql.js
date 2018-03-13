@@ -111,6 +111,12 @@ module.exports = {
                     pool.release(c);
                     return;
                 }
+                for(var i in result){
+                	if(result[i]['cos_cname']==='微積分Ａ（一）' || result[i]['cos_cname']==='微積分Ｂ（一）' || result[i]['cos_cname']==='微積分甲（一）')
+                		result[i]['cos_cname']='微積分(一)';
+                	else if(result[i]['cos_cname']==='微積分Ａ（二）' || result[i]['cos_cname']==='微積分Ｂ（二）' || result[i]['cos_cname']==='微積分甲（二）')
+                		result[i]['cos_cname']='微積分(二)';
+                }
                 callback(null, JSON.stringify(result));
                 pool.release(c);
             });
