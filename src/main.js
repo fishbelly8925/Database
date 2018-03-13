@@ -13,17 +13,17 @@ var m = require('./msql.js');
 // m.addEmail('0516003', 'dabct@test');
 // // addEmail(學號,email) 更新此學號學生之email
 
-// m.showCosMap('0316204', function(err, result) {
+// m.showCosMap('0316003', function(err, result) {
 //     if (err)
 //         throw err;
 //     console.log(JSON.parse(result));
 // }); // showCosMap 課程地圖要顯示的項目以及建議先修課與擋修課程
 
-// m.showCosMapPass('0516003', function(err, result) {
-//     if (err)
-//         throw err;
-//     console.log(JSON.parse(result));
-// }); // showCosMapPass 某學生在課程地圖上有通過的課
+m.showCosMapPass('0316248', function(err, result) {
+    if (err)
+        throw err;
+    console.log(JSON.parse(result));
+}); // showCosMapPass 某學生在課程地圖上有通過的課
 
 // m.totalCredit('0516003', function(err, result) {
 //     if (err)
@@ -135,11 +135,11 @@ var m = require('./msql.js');
 // 	console.log(JSON.parse(result));
 // }); // teacherCosNow(id, callback) 某老師所有開過的課
 
-m.teacherStudents('T9229',function(err,result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-}); // teacherStudents(id,callback) 某老師導生名單
+// m.teacherStudents('T9229',function(err,result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); // teacherStudents(id,callback) 某老師導生名單
 
 // m.showCosMapIntro('訊號與系統', function(err, result){
 // 	if(err)

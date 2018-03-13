@@ -53,7 +53,8 @@ exports.showCosMapPass = "\
     on cs.unique_id=c.unique_id\
     where c.cos_code like \'DCP%\' or c.cos_code like \'IOE%\'\
     or cos_cname like \'微積分甲%\' or cos_cname like \'物理%\'\
-    or cos_cname like \'化學%\' or cos_cname like \'生物%\';"
+    or cos_cname like \'化學%\' or cos_cname like \'生物%\'\
+    or cos_cname like \'微積分Ｂ%\' or cos_cname like \'微積分Ａ%\';"
 
 exports.a_uploadGrade = "\
     load data local infile\
