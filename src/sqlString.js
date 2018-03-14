@@ -200,7 +200,11 @@ exports.graduateRule = '\
     from graduate_rule as r,student as s\
     where s.student_id=:id and s.program like concat(r.program,\'%\') and r.school_year=:year;';
 
-exports.studentGraduateList = '\
+exports.studentGraduateList_all = '\
+    select student_id,sname,program,graduate_submit,graduate,email,en_certificate\
+    from student;'
+
+exports.studentGraduateList_single = '\
     select student_id,sname,program,graduate_submit,graduate,email,en_certificate\
     from student\
     where student_id like concat(:sem,\'%\');';
@@ -314,11 +318,11 @@ exports.teacherCosAll ='\
     )';
 
 exports.teacherStudents ='\
-	select s.student_id,s.sname,s.program \
-	from student as s,mentor_list as m,teacher as t \
-	where t.teacher_id=:id \
-	and t.tname=m.tname \
-	and m.student_id=s.student_id;'
+    select s.student_id,s.sname,s.program \
+    from student as s,mentor_list as m,teacher as t \
+    where t.teacher_id=:id \
+    and t.tname=m.tname \
+    and m.student_id=s.student_id;'
 
 exports.showCosMapIntro ='\
     select tcr.tname , a.cos_cname ,a.cos_code, a.num_limit, a.reg_num, a.cos_typeext as english, a.unique_id\

@@ -77,7 +77,7 @@ var m = require('./msql.js');
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
-// }); // studentGraduateList 列出此學號開頭的學生的畢業資訊（助理端用）
+// }); // studentGraduateList 列出此學號開頭的學生的畢業資訊(輸入all顯示全部)(助理端用)
 
 // m.setEnCertificate('0516003',0);
 // // setEnCertificate 設定某學生的英檢狀態

@@ -223,17 +223,31 @@ module.exports = {
     studentGraduateList: function(id, callback) {
         const resource = pool.acquire();
         resource.then(function(c) {
-            var sql_studentGraduateList = c.prepare(s.studentGraduateList);
-            var sem = id[0] + id[1];
-            c.query(sql_studentGraduateList({ sem: sem }), function(err, result) {
-                if (err){
-                    callback(err,undefined);
+            if( id != 'all'){
+                var sql_studentGraduateList_single = c.prepare(s.studentGraduateList_single);
+                var sem = id[0] + id[1];
+                c.query(sql_studentGraduateList_single({ sem: sem }), function(err, result) {
+                    if (err){
+                        callback(err,undefined);
+                        pool.release(c);
+                        return;
+                    }
+                    callback(null, JSON.stringify(result));
                     pool.release(c);
-                    return;
-                }
-                callback(null, JSON.stringify(result));
-                pool.release(c);
-            })
+                })
+            }else{
+                var sql_studentGraduateList_all = c.prepare(s.studentGraduateList_all);
+                c.query(sql_studentGraduateList_all({}), function(err, result) {
+                    if (err){
+                        callback(err,undefined);
+                        pool.release(c);
+                        return;
+                    }
+                    callback(null, JSON.stringify(result));
+                    pool.release(c);
+                })
+            }
+            
         })
     },
     setStudentGraduate: function(id, graduate) {
