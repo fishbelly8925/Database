@@ -4,11 +4,11 @@
 
 var m = require('./msql.js');
 
-// m.findPerson('0516205', function(err, result) {
-//     if (err)
-//         throw err;
-//     console.log(JSON.parse(result));
-// }); // findPerson 回傳學生資料
+m.findPerson('0416322', function(err, result) {
+    if (err)
+        throw err;
+    console.log(JSON.parse(result));
+}); // findPerson 回傳學生資料
 
 // m.addEmail('0516003', 'dabct@test');
 // // addEmail(學號,email) 更新此學號學生之email
@@ -19,7 +19,7 @@ var m = require('./msql.js');
 //     console.log(JSON.parse(result));
 // }); // showCosMap 課程地圖要顯示的項目以及建議先修課與擋修課程
 
-// m.showCosMapPass('0316248', function(err, result) {
+// m.showCosMapPass('0312512', function(err, result) {
 //     if (err)
 //         throw err;
 //     console.log(JSON.parse(result));
