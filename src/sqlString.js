@@ -92,10 +92,10 @@ exports.Pass = "\
     if(a.score_type=\'通過不通過\',NULL,a.score) as score,\
     if(a.score_type=\'通過不通過\',NULL,a.score_level) as score_level,\
     if((a.cos_typeext=\'\'&&a.brief like \'體育%\'),\'體育\',a.cos_typeext) as cos_typeext,\
-    b.type,a.brief,a.brief_new, a.cos_credit,a.year,a.semester,c.offset_type\
+    b.type,a.brief,a.brief_new, a.cos_credit,a.year,a.semester,c.offset_type,tcr.tname\
     from\
     (\
-        select DISTINCT s.score_type,s.pass_fail,s.score,s.score_level,d.cos_code, n.cos_cname,n.cos_ename, s.cos_type,d.cos_typeext,d.brief,d.brief_new, d.cos_credit,s.year,s.semester\
+        select DISTINCT d.teacher_id,s.score_type,s.pass_fail,s.score,s.score_level,d.cos_code, n.cos_cname,n.cos_ename, s.cos_type,d.cos_typeext,d.brief,d.brief_new, d.cos_credit,s.year,s.semester\
         from cos_data as d,\
         (\
             select score_type,cos_type,cos_year as year,semester,cos_id as code,cos_code,pass_fail,score,score_level,concat(cos_year,\'-\',semester,\'-\',cos_id) as unique_id\
@@ -128,6 +128,8 @@ exports.Pass = "\
         select offset_type,cos_code_old,cos_cname_old,cos_code,cos_cname from offset where student_id=:id\
     ) as c\
     on a.cos_code=c.cos_code_old and a.cos_cname=c.cos_cname_old\
+    left outer join teacher_cos_relation as tcr\
+    on a.teacher_id=tcr.teacher_id\
     order by a.year,a.semester asc;";
 
 exports.PassSpecify = "\
