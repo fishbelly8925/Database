@@ -390,7 +390,18 @@ or cos_code like 'IDS%' \
 or cos_code like 'CCS%' \
 or cos_code like 'ICP%')) as cd, \
 (select unique_id,cos_cname from cos_name where unique_id like :semester) as cn \
-where cd.unique_id=cn.unique_id;"
+where cd.unique_id=cn.unique_id";
 
 exports.findTeacherInfo="\
-    select * from teacher_info where tname = :tname;"
+    select * from teacher_info where tname = :tname";
+
+exports.findStudentResearch="\
+    select tname, research_title, memo \
+    from research_student \
+    where student_id = :id";
+
+exports.findTeacherResearch="\
+    select r.student_id, r.class_detail, r.research_title \
+    from research_student as r, student as s \
+    where s.student_id = r.student_id \
+    and r.tname = :tname ";

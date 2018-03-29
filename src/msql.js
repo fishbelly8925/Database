@@ -656,6 +656,36 @@ module.exports = {
             });
         });
     },
+    findStudentResearch: function(id, callback){
+        const resource = pool.acquire();
+        resource.then(function(c){
+            var sql_findStudentResearch=c.prepare(s.findStudentResearch);
+            c.query(sql_findStudentResearch({id: id}), function(err, result){
+                if(err){
+                    callback(err, undefined);
+                    pool.release(c);
+                    return;
+                }
+                callback(null, JSON.stringify(result));
+                pool.release(c);
+            });
+        });
+    },
+    findTeacherResearch: function(tname, callback){
+        const resource = pool.acquire();
+        resource.then(function(c){
+            var sql_findTeacherResearch=c.prepare(s.findTeacherResearch);
+            c.query(sql_findTeacherResearch({tname: tname}), function(err, result){
+                if(err){
+                    callback(err, undefined);
+                    pool.release(c);
+                    return;
+                }
+                callback(null, JSON.stringify(result));
+                pool.release(c);
+            });
+        });
+    },
     Drain: function() {
         pool.drain().then(function() {
             pool.clear();

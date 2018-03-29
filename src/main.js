@@ -4,11 +4,11 @@
 
 var m = require('./msql.js');
 
-m.findPerson('0416322', function(err, result) {
-    if (err)
-        throw err;
-    console.log(JSON.parse(result));
-}); // findPerson 回傳學生資料
+// m.findPerson('0416322', function(err, result) {
+//     if (err)
+//         throw err;
+//     console.log(JSON.parse(result));
+// }); // findPerson 回傳學生資料
 
 // m.addEmail('0516003', 'dabct@test');
 // // addEmail(學號,email) 更新此學號學生之email
@@ -168,10 +168,22 @@ m.findPerson('0416322', function(err, result) {
 // 	console.log(JSON.parse(result));
 // }); // getRecomend(student_id,callback) 回傳某學生的推薦課程
 
-m.findTeacherInfo('邱維辰',function(err,result){
+// m.findTeacherInfo('邱維辰',function(err,result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); // findTeacherInfo(tname, callback) 回傳某教授info
+
+m.findStudentResearch('0316205',function(err,result){
 	if(err)
 		throw err;
 	console.log(JSON.parse(result));
-}); // findTeacherInfo(tname, callback) 回傳某教授info
+}); // findStudentResearch(id, callback) 回傳某學生專題資料
+
+m.findTeacherResearch('彭文志',function(err,result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+}); // findTeacherResearch(tname, callback) 回傳某教授所有專題生和專題題目
 
 m.Drain(); // 關閉 connection pool
