@@ -686,6 +686,39 @@ module.exports = {
             });
         });
     },
+    findTeacherResearchCount: function(callback){
+        const resource=pool.acquire();
+        resource.then(function(c){
+            var sql_findTeacherResearchCount=c.prepare(s.findTeacherResearchCount);
+            c.query(sql_findTeacherResearchCount({}),function(err,result){
+                if(err){
+                    callback(err,undefined);
+                    pool.release(c);
+                    return;
+                }
+                var gradeCnt,temp={},i,res=[];
+                result=JSON.parse(JSON.stringify(result));
+                for(i in result){
+                    gradeCnt={grade:result[i].grade,scount:result[i].scount};
+                    if(i==0){
+                        temp={tname:result[i].tname,gradeCnt:[gradeCnt]};
+                    }
+                    else if(result[i].tname===temp.tname){
+                        temp.gradeCnt.push(gradeCnt);
+                    }
+                    else{
+                        res.push(temp);
+                        temp={tname:result[i].tname,gradeCnt:[gradeCnt]};
+                    }
+                }
+                console.log(res[1]);
+                if(res[res.length-1].tname!==temp.tname)
+                    res.push(temp);
+                callback(null,JSON.stringify(res));
+                pool.release(c);
+            });
+        });
+    },
     Drain: function() {
         pool.drain().then(function() {
             pool.clear();

@@ -405,3 +405,10 @@ exports.findTeacherResearch="\
     from research_student as r, student as s \
     where s.student_id = r.student_id \
     and r.tname = :tname ";
+
+exports.findTeacherResearchCount="\
+    select r.tname,substring(r.student_id,1,2) as 'grade',count(*) as 'scount'\
+    from research_student as r \
+    where r.memo not like concat(\'*\',\'不計\',\'*\') \
+    group by substring(r.student_id,1,2),r.tname \
+    order by r.tname,substring(r.student_id,1,2);";
