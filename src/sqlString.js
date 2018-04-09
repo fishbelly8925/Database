@@ -401,7 +401,7 @@ exports.findStudentResearch="\
     where student_id = :id";
 
 exports.findTeacherResearch="\
-    select r.student_id, r.class_detail, r.research_title \
+    select s.sname, r.student_id, r.class_detail, r.research_title \
     from research_student as r, student as s \
     where s.student_id = r.student_id \
     and r.tname = :tname ";

@@ -180,16 +180,16 @@ var m = require('./msql.js');
 // 	console.log(JSON.parse(result));
 // }); // findStudentResearch(id, callback) 回傳某學生專題資料
 
-// m.findTeacherResearch('彭文志',function(err,result){
-// 	if(err)
-// 		throw err;
-// 	console.log(JSON.parse(result));
-// }); // findTeacherResearch(tname, callback) 回傳某教授所有專題生和專題題目
-
-m.findTeacherResearchCount(function(err,result){
+m.findTeacherResearch('彭文志',function(err,result){
 	if(err)
 		throw err;
 	console.log(JSON.parse(result));
-}); // findTeacherResearchCount(callback) 回傳所有教授各介的學生人數
+}); // findTeacherResearch(tname, callback) 回傳某教授所有專題生和專題題目
+
+// m.findTeacherResearchCount(function(err,result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); // findTeacherResearchCount(callback) 回傳所有教授各介的學生人數
 
 m.Drain(); // 關閉 connection pool
