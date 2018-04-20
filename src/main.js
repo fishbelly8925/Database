@@ -31,7 +31,7 @@ var m = require('./msql.js');
 //     console.log(JSON.parse(result));
 // }); // totalCredit 回傳某學生總學分數
 
-// m.Pass('0316091', function(err, result) {
+// m.Pass('0516068', function(err, result) {
 //     if (err)
 //         throw err;
 //     console.log(JSON.parse(result));
@@ -180,16 +180,37 @@ var m = require('./msql.js');
 // 	console.log(JSON.parse(result));
 // }); // findStudentResearch(id, callback) 回傳某學生專題資料
 
-m.findTeacherResearch('彭文志',function(err,result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-}); // findTeacherResearch(tname, callback) 回傳某教授所有專題生和專題題目
+// m.findTeacherResearch('彭文志',function(err,result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); // findTeacherResearch(tname, callback) 回傳某教授所有專題生和專題題目
 
 // m.findTeacherResearchCount(function(err,result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
 // }); // findTeacherResearchCount(callback) 回傳所有教授各介的學生人數
+
+m.mailCreate({sender_id:'0516003',title:'test~~',receiver_id:'T9229',content:'這是一個測試信件這是一個測試信件'});
+// mailCreate(data) data type 為JSON，新增一則信件，需有以上所有欄位
+
+m.mailDelete('0516003-2018-04-21 02:51:50');
+// mailDelete(mail_id)
+
+m.mailReadSet('0516003-2018-04-21 03:29:10',1);
+// mailReadSet(mail_id,read_bit) set mail read_bit
+
+m.mailReturnSingle('0516003-2018-04-21 03:29:10',function(err,result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+}); // mailReturnSingle(mail_id) 回傳單一mail詳細資訊
+
+m.mailReturnList('T9229',function(err,result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+}); // mailReturnList(receiver_id) 回傳該使用者所收到mail清單（沒有信件內文）
 
 m.Drain(); // 關閉 connection pool
