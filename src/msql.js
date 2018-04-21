@@ -724,11 +724,16 @@ module.exports = {
             data=JSON.parse(data);
         const resource=pool.acquire();
         resource.then(function(c){
-            var sql_mailCreate=c.prepare(s.mailCreate);
-            c.query(sql_mailCreate(data),function(err){
+            var sql_mailCreateSender=c.prepare(s.mailCreateSender);
+            var sql_mailCreateReceiver=c.prepare(s.mailCreateReceiver);
+            c.query(sql_mailCreateSender(data),function(err){
                 if(err)
                     throw err;
-                pool.release(c);
+                c.query(sql_mailCreateReceiver(data),function(err){
+                    if(err)
+                        throw err;
+                    pool.release(c);
+                });
             });
         });
     },
@@ -769,11 +774,26 @@ module.exports = {
             });
         });
     },
-    mailReturnList:function(receiver_id,callback){
+    mailReturnReceiveList:function(receiver_id,callback){
         const resource=pool.acquire();
         resource.then(function(c){
-            var sql_mailReturnList=c.prepare(s.mailReturnList);
-            c.query(sql_mailReturnList({receiver_id}),function(err,result){
+            var sql_mailReturnReceiveList=c.prepare(s.mailReturnReceiveList);
+            c.query(sql_mailReturnReceiveList({receiver_id}),function(err,result){
+                if(err){
+                    callback(err,undefined);
+                    pool.release(c);
+                    return;
+                }
+                callback(null,JSON.stringify(result));
+                pool.release(c);
+            });
+        });
+    },
+    mailReturnSendList:function(sender_id,callback){
+        const resource=pool.acquire();
+        resource.then(function(c){
+            var sql_mailReturnSendList=c.prepare(s.mailReturnSendList);
+            c.query(sql_mailReturnSendList({sender_id}),function(err,result){
                 if(err){
                     callback(err,undefined);
                     pool.release(c);
