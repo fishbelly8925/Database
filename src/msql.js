@@ -804,6 +804,36 @@ module.exports = {
             });
         });
     },
+    returnStudentIdList:function(callback){
+        const resource=pool.acquire();
+        resource.then(function(c){
+            var sql_returnStudentIdList=c.prepare(s.returnStudentIdList);
+            c.query(sql_returnStudentIdList({}),function(err,result){
+                if(err){
+                    callback(err,undefined);
+                    pool.release(c);
+                    return;
+                }
+                callback(null,JSON.stringify(result));
+                pool.release(c);
+            });
+        });
+    },
+    returnTeacherIdList:function(callback){
+        const resource=pool.acquire();
+        resource.then(function(c){
+            var sql_returnTeacherIdList=c.prepare(s.returnTeacherIdList);
+            c.query(sql_returnTeacherIdList({}),function(err,result){
+                if(err){
+                    callback(err,undefined);
+                    pool.release(c);
+                    return;
+                }
+                callback(null,JSON.stringify(result));
+                pool.release(c);
+            });
+        });
+    },
     Drain: function() {
         pool.drain().then(function() {
             pool.clear();

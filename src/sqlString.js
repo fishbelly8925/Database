@@ -478,3 +478,9 @@ exports.mailReturnSendList="\
         select teacher_id as id,tname as name from teacher\
     ) as id\
     where m.receiver_id=id.id;";
+
+exports.returnStudentIdList="\
+    select student_id,sname from student;";
+
+exports.returnTeacherIdList="\
+    select teacher_id,tname from teacher;";

@@ -4,7 +4,7 @@
 
 var m = require('./msql.js');
 
-// m.findPerson('0416322', function(err, result) {
+// m.findPerson('T9229', function(err, result) {
 //     if (err)
 //         throw err;
 //     console.log(JSON.parse(result));
@@ -86,7 +86,7 @@ var m = require('./msql.js');
 // // setStudentGraduate 設定某學生的畢業狀態(1可畢業,0不可畢業)（助理端用）
 
 // m.setStudentGraduateSubmit('0516003',1);
-// // setStudentGraduate 設定某學生的畢業預審確認狀態(1可畢業,0不可畢業)
+// // setStudentGraduateSubmit 設定某學生的畢業預審確認狀態(1可畢業,0不可畢業)
 
 // m.bindAccount('0516003','test@gmail.com.tw',1);
 // // bindAccount   1:set gmail   2:set fb_id   3:set github_id
@@ -123,7 +123,7 @@ var m = require('./msql.js');
 // });
 // // qaDelete(id,callback) 刪除編號id的紀錄
 
-/// m.teacherCosNow('T9229', function(err, result){
+// m.teacherCosNow('T9229', function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
@@ -133,7 +133,7 @@ var m = require('./msql.js');
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
-// }); // teacherCosNow(id, callback) 某老師所有開過的課
+// }); // teacherCosAll(id, callback) 某老師所有開過的課
 
 // m.teacherStudents('T9229',function(err,result){
 // 	if(err)
@@ -190,7 +190,7 @@ var m = require('./msql.js');
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
-// }); // findTeacherResearchCount(callback) 回傳所有教授各介的學生人數
+// }); // findTeacherResearchCount(callback) 回傳所有教授各屆的學生人數
 
 // m.mailCreate({sender_id:'0516003',title:'test~~',receiver_id:'T9229',content:'這是一個測試信件這是一個測試信件'});
 // // mailCreate(data) data type 為JSON，新增一則信件，需有以上所有欄位
@@ -213,10 +213,22 @@ var m = require('./msql.js');
 // 	console.log(JSON.parse(result));
 // }); // mailReturnList(receiver_id) 回傳該使用者所收到mail清單（沒有信件內文）
 
-m.mailReturnSendList('0516003',function(err,result){
+// m.mailReturnSendList('0516003',function(err,result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); // mailReturnList(sender_id) 回傳該使用者所寄發mail清單（沒有信件內文）
+
+m.returnStudentIdList(function(err,result){
 	if(err)
 		throw err;
 	console.log(JSON.parse(result));
-}); // mailReturnList(receiver_id) 回傳該使用者所寄發mail清單（沒有信件內文）
+}); // 回傳學生id,名字對應表
+
+m.returnTeacherIdList(function(err,result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+}); // 回傳教授id,名字對應表
 
 m.Drain(); // 關閉 connection pool
