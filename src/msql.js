@@ -834,6 +834,82 @@ module.exports = {
             });
         });
     },
+    researchApplyFormCreate:function(data,callback){
+        //data need phone,student_id,research_title,tname,email
+        if(typeof(data)==='string')
+            data=JSON.parse(data);
+        const resource=pool.acquire();
+        resource.then(function(c){
+            var sql_addPhone=c.prepare(s.addPhone);
+            var sql_researchApplyFormCreate=c.prepare(s.researchApplyFormCreate);
+            var sql_addEmail=c.prepare(s.addEmail);
+            c.query(sql_addPhone({student_id:data['student_id'],phone:data['phone']}),function(err){
+                if(err)
+                {
+                    throw err;
+                    pool.release(c);
+                    return;
+                }
+                c.query(sql_addEmail({id:data['student_id'],email:data['email']}),function(err){
+                    if(err)
+                    {
+                        throw err;
+                        pool.release(c);
+                        return;
+                    }
+                    c.query(sql_researchApplyFormCreate(data),function(err){
+                        if(err)
+                            throw err;
+                        pool.release(c);
+                    });
+                });
+            });
+        });
+    },
+    researchApplyFormAgree:function(data){
+        //data need research_title,tname
+        if(typeof(data)==='string')
+            data=JSON.parse(data);
+        const resource=pool.acquire();
+        resource.then(function(c){
+            var sql_researchApplyFormAgree=c.prepare(s.researchApplyFormAgree);
+            c.query(sql_researchApplyFormAgree(data),function(err){
+                if(err)
+                    throw err;
+                pool.release(c);
+            });
+        });
+    },
+    researchApplyFormDelete:function(data){
+        //data need research_title,tname
+        if(typeof(data)==='string')
+            data=JSON.parse(data);
+        const resource=pool.acquire();
+        resource.then(function(c){
+            var sql_researchApplyFormDelete=c.prepare(s.researchApplyFormDelete);
+            c.query(sql_researchApplyFormDelete(data),function(err){
+                if(err)
+                    throw err;
+                pool.release(c);
+            });
+        });
+    },
+    researchApplyFormSingleReturn:function(tname,callback){
+        const resource=pool.acquire();
+        resource.then(function(c){
+            var sql_researchApplyFormSingleReturn=c.prepare(s.researchApplyFormSingleReturn);
+            c.query(sql_researchApplyFormSingleReturn({tname}),function(err,result){
+                if(err)
+                {
+                    callback(err,undefined);
+                    pool.release(c);
+                    return;
+                }
+                callback(null,JSON.stringify(result));
+                pool.release(c);
+            });
+        });
+    },
     Drain: function() {
         pool.drain().then(function() {
             pool.clear();

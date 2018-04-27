@@ -484,3 +484,27 @@ exports.returnStudentIdList="\
 
 exports.returnTeacherIdList="\
     select teacher_id,tname from teacher;";
+
+exports.addPhone="\
+    update student set phone=:phone\
+    where student_id=:student_id;"
+
+exports.researchApplyFormCreate="\
+    insert into research_apply_form\
+    values(:student_id,:research_title,:tname,0);"
+
+exports.researchApplyFormAgree="\
+    update research_apply_form set agree=1 \
+    where research_title=:research_title and tname=:tname;"
+
+exports.researchApplyFormDelete="\
+    delete from research_apply_form \
+    where research_title=:research_title and tname=:tname;"
+
+exports.researchApplyFormSingleReturn="\
+    select a.student_id,s.sname,a.research_title,a.tname,a.agree,s.phone,s.email \
+    from research_apply_form as a,\
+    (\
+        select sname,student_id,phone,email from student\
+    ) as s\
+    where s.student_id=a.student_id;";
