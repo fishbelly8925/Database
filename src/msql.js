@@ -894,11 +894,11 @@ module.exports = {
             });
         });
     },
-    researchApplyFormSingleReturn:function(tname,callback){
+    researchApplyFormTeaReturn:function(tname,callback){
         const resource=pool.acquire();
         resource.then(function(c){
-            var sql_researchApplyFormSingleReturn=c.prepare(s.researchApplyFormSingleReturn);
-            c.query(sql_researchApplyFormSingleReturn({tname}),function(err,result){
+            var sql_researchApplyFormTeaReturn=c.prepare(s.researchApplyFormTeaReturn);
+            c.query(sql_researchApplyFormTeaReturn({tname}),function(err,result){
                 if(err)
                 {
                     callback(err,undefined);
@@ -914,7 +914,7 @@ module.exports = {
         const resource=pool.acquire();
         resource.then(function(c){
             var sql_researchApplyFormPersonalReturn=c.prepare(s.researchApplyFormPersonalReturn);
-        c.query(sql_researchApplyFormPersonalReturn({student_id}),function(err,result){
+            c.query(sql_researchApplyFormPersonalReturn({student_id}),function(err,result){
                 if(err)
                 {
                     callback(err,undefined);
@@ -925,6 +925,25 @@ module.exports = {
                     callback(null,false);
                 else
                     callback(null,true);
+                pool.release(c);
+            });
+        });
+    },
+    researchApplyFormSingleReturn:function(data,callback){
+        //data need student_id,research_title,tname
+        if(typeof(data)==='string')
+            data=JSON.parse(data);
+        const resource=pool.acquire();
+        resource.then(function(c){
+            var sql_researchApplyFormSingleReturn=c.prepare(s.researchApplyFormSingleReturn);
+            c.query(sql_researchApplyFormSingleReturn(data),function(err,result){
+                if(err)
+                {
+                    callback(err,undefined);
+                    pool.release(c);
+                    return;
+                }
+                callback(null,parseInt(result[0]['agree']));
                 pool.release(c);
             });
         });
