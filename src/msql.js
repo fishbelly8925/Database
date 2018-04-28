@@ -873,7 +873,7 @@ module.exports = {
         const resource=pool.acquire();
         resource.then(function(c){
             var sql_researchApplyFormSetAgree=c.prepare(s.researchApplyFormSetAgree);
-            c.query(sql_researchApplyFormSetAgree(data),function(err){
+            c.query(sql_researchApplyFormSetAgree(data),function(err,result){
                 if(err)
                     throw err;
                 pool.release(c);
@@ -921,29 +921,7 @@ module.exports = {
                     pool.release(c);
                     return;
                 }
-                if(parseInt(result[0]['cnt'])!=0)
-                    callback(null,false);
-                else
-                    callback(null,true);
-                pool.release(c);
-            });
-        });
-    },
-    researchApplyFormSingleReturn:function(data,callback){
-        //data need student_id,research_title,tname
-        if(typeof(data)==='string')
-            data=JSON.parse(data);
-        const resource=pool.acquire();
-        resource.then(function(c){
-            var sql_researchApplyFormSingleReturn=c.prepare(s.researchApplyFormSingleReturn);
-            c.query(sql_researchApplyFormSingleReturn(data),function(err,result){
-                if(err)
-                {
-                    callback(err,undefined);
-                    pool.release(c);
-                    return;
-                }
-                callback(null,parseInt(result[0]['agree']));
+                callback(null,JSON.stringify(result));
                 pool.release(c);
             });
         });

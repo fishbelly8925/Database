@@ -511,12 +511,9 @@ exports.researchApplyFormTeaReturn="\
     order by a.research_title;";
 
 exports.researchApplyFormPersonalReturn="\
-    select count(*) as cnt\
-    from research_apply_form \
-    where student_id=:student_id and agree!=1;";
-
-exports.researchApplyFormSingleReturn="\
-    select agree from research_apply_form\
-    where student_id=:student_id and \
-    research_title=:research_title and \
-    tname=:tname;";
+    select a.student_id,s.sname,a.research_title,a.tname,a.agree,s.phone,s.email \
+    from research_apply_form as a,\
+    (\
+        select sname,student_id,phone,email from student where student_id=:student_id\
+    ) as s\
+    where s.student_id=a.student_id;";

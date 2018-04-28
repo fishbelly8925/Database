@@ -231,14 +231,14 @@ var m = require('./msql.js');
 // 	console.log(JSON.parse(result));
 // }); // 回傳教授id,名字對應表
 
-// m.researchApplyFormCreate({phone:'0900000000',student_id:'0516005',research_title:'我是專題標題~',tname:'彭文志',email:'wawawa@crayonSinJang'},function(err){
+// m.researchApplyFormCreate({phone:'0900000000',student_id:'0516003',research_title:'我是專題標題2~',tname:'彭文志',email:'wawawa@crayonSinJang'},function(err){
 // 	if(err)
 // 		throw err;
 // 		//老師名字若不存在，就會拋出ERROR
 // });
 
-m.researchApplyFormSetAgree({research_title:'我是專題標題~',tname:'彭文志',agree:3});
-// set research apply form agree bit  0預設 1接受 2審核中 3拒絕
+// m.researchApplyFormSetAgree({research_title:'我是專題標題~',tname:'彭文志',agree:1});
+// // set research apply form agree bit  0預設 1接受 2審核中 3拒絕
 
 // m.researchApplyFormDelete({research_title:'我是專題標題~',tname:'彭文志'});
 // // delete research apply form
@@ -250,16 +250,10 @@ m.researchApplyFormSetAgree({research_title:'我是專題標題~',tname:'彭文�
 // });
 // // 回傳該教授的學生專題申請清單
 
-// m.researchApplyFormPersonalReturn('0516003',function(err,result){
-// 	if(err)
-// 		throw err;
-// 	console.log(result);
-// }); // 回傳此學生是否可以再申請  result = true or false
-
-m.researchApplyFormSingleReturn({student_id:'0516003',research_title:'我是專題標題~',tname:'彭文志'},function(err,result){
+m.researchApplyFormPersonalReturn('0516008',function(err,result){
 	if(err)
 		throw err;
-	console.log(typeof(result));
-}); // 回傳某個學生的某個申請agree狀態
+	console.log(JSON.parse(result));
+}); // 回傳此學生專題申請清單
 
 m.Drain(); // 關閉 connection pool
