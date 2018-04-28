@@ -493,8 +493,8 @@ exports.researchApplyFormCreate="\
     insert into research_apply_form\
     values(:student_id,:research_title,:tname,0);"
 
-exports.researchApplyFormAgree="\
-    update research_apply_form set agree=1 \
+exports.researchApplyFormSetAgree="\
+    update research_apply_form set agree=:agree \
     where research_title=:research_title and tname=:tname;"
 
 exports.researchApplyFormDelete="\
@@ -513,4 +513,4 @@ exports.researchApplyFormSingleReturn="\
 exports.researchApplyFormPersonalReturn="\
     select count(*) as cnt\
     from research_apply_form \
-    where student_id=:student_id and agree=0;";
+    where student_id=:student_id and agree!=1;";

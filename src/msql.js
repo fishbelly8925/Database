@@ -866,14 +866,14 @@ module.exports = {
             });
         });
     },
-    researchApplyFormAgree:function(data){
-        //data need research_title,tname
+    researchApplyFormSetAgree:function(data){
+        //data need research_title,tname,agree
         if(typeof(data)==='string')
             data=JSON.parse(data);
         const resource=pool.acquire();
         resource.then(function(c){
-            var sql_researchApplyFormAgree=c.prepare(s.researchApplyFormAgree);
-            c.query(sql_researchApplyFormAgree(data),function(err){
+            var sql_researchApplyFormSetAgree=c.prepare(s.researchApplyFormSetAgree);
+            c.query(sql_researchApplyFormSetAgree(data),function(err){
                 if(err)
                     throw err;
                 pool.release(c);
