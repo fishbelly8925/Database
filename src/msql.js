@@ -910,6 +910,25 @@ module.exports = {
             });
         });
     },
+    researchApplyFormPersonalReturn:function(student_id,callback){
+        const resource=pool.acquire();
+        resource.then(function(c){
+            var sql_researchApplyFormPersonalReturn=c.prepare(s.researchApplyFormPersonalReturn);
+        c.query(sql_researchApplyFormPersonalReturn({student_id}),function(err,result){
+                if(err)
+                {
+                    callback(err,undefined);
+                    pool.release(c);
+                    return;
+                }
+                if(parseInt(result[0]['cnt'])!=0)
+                    callback(null,false);
+                else
+                    callback(null,true);
+                pool.release(c);
+            });
+        });
+    },
     Drain: function() {
         pool.drain().then(function() {
             pool.clear();

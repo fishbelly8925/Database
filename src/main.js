@@ -243,11 +243,17 @@ var m = require('./msql.js');
 // m.researchApplyFormDelete({research_title:'我是專題標題~',tname:'彭文志'});
 // // delete research apply form
 
-// m.researchApplyFormSingleReturn('彭文志',function(err,result){
-// 	if(err)
-// 		throw err;
-// 	console.log(JSON.parse(result));
-// });
-// // 回傳該教授的學生專題申請清單
+m.researchApplyFormSingleReturn('彭文志',function(err,result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+});
+// 回傳該教授的學生專題申請清單
+
+m.researchApplyFormPersonalReturn('0516003',function(err,result){
+	if(err)
+		throw err;
+	console.log(result);
+}); // 回傳此學生是否可以再申請  result = true or false
 
 m.Drain(); // 關閉 connection pool

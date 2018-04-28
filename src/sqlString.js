@@ -507,4 +507,10 @@ exports.researchApplyFormSingleReturn="\
     (\
         select sname,student_id,phone,email from student\
     ) as s\
-    where s.student_id=a.student_id;";
+    where s.student_id=a.student_id and a.tname=:tname\
+    order by a.research_title;";
+
+exports.researchApplyFormPersonalReturn="\
+    select count(*) as cnt\
+    from research_apply_form \
+    where student_id=:student_id and agree=0;";
