@@ -706,7 +706,7 @@ module.exports = {
                     else if(result[i].tname===temp.tname){
                         temp.gradeCnt.push(gradeCnt);
                     }
-                    else{
+                    else{   
                         res.push(temp);
                         temp={tname:result[i].tname,gradeCnt:[gradeCnt]};
                     }

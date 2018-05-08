@@ -409,7 +409,7 @@ exports.findTeacherResearch="\
 exports.findTeacherResearchCount="\
     select r.tname,substring(r.student_id,1,2) as 'grade',count(*) as 'scount'\
     from research_student as r \
-    where r.memo not like concat(\'*\',\'不計\',\'*\') \
+    where r.student_id in ( select student_id from student ) \
     group by substring(r.student_id,1,2),r.tname \
     order by r.tname,substring(r.student_id,1,2);";
 
@@ -454,7 +454,7 @@ exports.mailReturnReceiveList="\
         union\
         select teacher_id as id,tname as name from teacher\
     ) as id\
-    where m.receiver_id=id.id;";
+    where m.receiver_id=id.id order by m.send_time desc;";
 
 exports.mailReturnSendList="\
     select m.mail_id,m.title,m.sender_id,m.receiver_id,m.read_bit,m.send_time,m.sender,id.name as receiver\
@@ -477,7 +477,7 @@ exports.mailReturnSendList="\
         union\
         select teacher_id as id,tname as name from teacher\
     ) as id\
-    where m.receiver_id=id.id;";
+    where m.receiver_id=id.id order by m.send_time desc;";
 
 exports.returnStudentIdList="\
     select student_id,sname from student;";
