@@ -926,6 +926,22 @@ module.exports = {
             });
         });
     },
+    showGivenGradeStudentResearch:function(grade, callback){
+        const resource=pool.acquire();
+        resource.then(function(c){
+            var sql_showGivenGradeStudentResearch=c.prepare(s.showGivenGradeStudentResearch);
+            c.query(sql_showGivenGradeStudentResearch({grade}), function(err, result){
+                if(err)
+                {
+                    callback(err, undefined);
+                    pool.release(c);
+                    return ;
+                }
+                callback(null, JSON.stringify(result));
+                pool.release(c);
+            });
+        });
+    },
     Drain: function() {
         pool.drain().then(function() {
             pool.clear();

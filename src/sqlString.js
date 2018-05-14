@@ -517,3 +517,20 @@ exports.researchApplyFormPersonalReturn="\
         select sname,student_id,phone,email from student where student_id=:student_id\
     ) as s\
     where s.student_id=a.student_id;";
+
+exports.showGivenGradeStudentResearch="\
+    select  s1.student_id, s1.sname as name, s1.program, t.teacher_id, s1.tname\
+    from teacher as t\
+    right outer join\
+    (\
+        select s.student_id, s.sname, s.program, s.grade, rs.tname\
+        from student as s,\
+        (\
+            select student_id, tname\
+            from research_student\
+            where student_id LIKE concat(:grade, '%')\
+        ) as rs\
+        where s.student_id = rs.student_id\
+    ) as s1\
+    on t.tname = s1.tname\
+"

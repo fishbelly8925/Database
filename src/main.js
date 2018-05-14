@@ -250,10 +250,18 @@ var m = require('./msql.js');
 // });
 // // 回傳該教授的學生專題申請清單
 
-m.researchApplyFormPersonalReturn('0516008',function(err,result){
+// m.researchApplyFormPersonalReturn('0516008',function(err,result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); 
+// // 回傳此學生專題申請清單
+
+m.showGivenGradeStudentResearch('03', function(err, result){
 	if(err)
 		throw err;
 	console.log(JSON.parse(result));
-}); // 回傳此學生專題申請清單
+});
+// 輸入系級，回傳該系級所有學生的專題資訊
 
 m.Drain(); // 關閉 connection pool
