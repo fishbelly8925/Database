@@ -942,6 +942,47 @@ module.exports = {
             });
         });
     },
+    findresearchGroup:function(data, callback){
+        if(typeof(data)==='string')
+            data=JSON.parse(data);
+        const resource=pool.acquire();
+        resource.then(function(c){
+            var sql_findresearchGroup=c.prepare(s.findresearchGroup);
+            c.query(sql_findresearchGroup({research_title: data['research_title'], tname: data['tname']}), function(err, result){
+                if(err)
+                {
+                    callback(err, undefined);
+                    pool.release(c);
+                    return ;
+                }
+                callback(null, JSON.stringify(result));
+                pool.release(c);
+            });
+        });
+    },
+    setResearchPage:function(data){
+        if(typeof(data)==='string')
+            data=JSON.parse(data);
+        const resource=pool.acquire();
+        resource.then(function(c){
+            var sql_setResearchTitle=c.prepare(s.setResearchTitle);
+            var sql_setResearchLink=c.prepare(s.setResearchLink);
+            var sql_setResearchIntro=c.prepare(s.setResearchIntro);
+            c.query(sql_setResearchTitle({student_id: data['student_id'], research_title: data['research_title'], tname: data['tname'], new_title: data['new_title']}), function(err, result){
+                if(err)
+                    throw err;
+            });
+            c.query(sql_setResearchLink({student_id: data['student_id'], research_title: data['research_title'], tname: data['tname'], new_link: data['new_link']}), function(err, result){
+                if(err)
+                    throw err;
+            });
+            c.query(sql_setResearchIntro({student_id: data['student_id'], research_title: data['research_title'], tname: data['tname'], new_intro: data['new_intro']}), function(err, result){
+                if(err)
+                    throw err;
+            });
+            pool.release(c);
+        });
+    },
     Drain: function() {
         pool.drain().then(function() {
             pool.clear();

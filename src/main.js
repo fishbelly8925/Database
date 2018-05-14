@@ -257,11 +257,25 @@ var m = require('./msql.js');
 // }); 
 // // 回傳此學生專題申請清單
 
-m.showGivenGradeStudentResearch('03', function(err, result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-});
-// 輸入系級，回傳該系級所有學生的專題資訊
+// m.showGivenGradeStudentResearch('03', function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// });
+// // 輸入系級，回傳該系級所有學生的專題資訊
+
+// m.findresearchGroup(({tname:'彭文志', research_title:'NCTU CS Bot'}), function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// });
+// // 用教授名稱、專題名稱查詢所有同組專題生的學號
+
+// m.setResearchPage(({student_id:'0516205', tname:'彭文志', research_title:'CA', new_title:'CA', new_link:'b', new_intro:'c'}) , function(err){
+// 	if(err)
+// 		throw err;
+// 	// console.log(JSON.parse(result))
+// });
+// // 用教授名稱、專題名稱更新專題資訊(標題、網址、介紹)
 
 m.Drain(); // 關閉 connection pool

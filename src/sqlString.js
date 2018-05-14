@@ -532,5 +532,28 @@ exports.showGivenGradeStudentResearch="\
         ) as rs\
         where s.student_id = rs.student_id\
     ) as s1\
-    on t.tname = s1.tname\
-"
+    on t.tname = s1.tname";
+
+exports.findresearchGroup="\
+    select student_id \
+    from research_student\
+    where research_title = :research_title\
+    and tname = :tname";
+
+exports.setResearchTitle="\
+    update research_student set research_title = :new_title\
+    where student_id = :student_id\
+    and research_title = :research_title\
+    and tname = :tname";
+
+exports.setResearchLink="\
+    update research_student set link = :new_link\
+    where student_id = :student_id\
+    and research_title = :research_title\
+    and tname = :tname";
+
+exports.setResearchIntro="\
+    update research_student set intro = :new_intro\
+    where student_id = :student_id\
+    and research_title = :research_title\
+    and tname = :tname";
