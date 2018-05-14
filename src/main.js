@@ -238,7 +238,7 @@ var m = require('./msql.js');
 // });
 
 // m.researchApplyFormSetAgree({research_title:'我是專題標題~',tname:'彭文志',agree:1});
-// // set research apply form agree bit  0預設 1接受 2審核中 3拒絕
+// // // set research apply form agree bit  0預設 1接受 2審核中 3拒絕
 
 // m.researchApplyFormDelete({research_title:'我是專題標題~',tname:'彭文志'});
 // // delete research apply form
@@ -264,12 +264,12 @@ var m = require('./msql.js');
 // });
 // // 輸入系級，回傳該系級所有學生的專題資訊
 
-// m.showResearchPage(({student_id:'0316020', tname:'彭文志', research_title:'NCTU CS Bot'}), function(err, result){
+// m.showResearchPage('0316020', function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
 // });
-// // 用教授名稱、專題名稱查詢專題的標題、網址、介紹
+// // 用學號查詢專題的標題、網址、介紹
 
 // m.findResearchGroup(({tname:'彭文志', research_title:'NCTU CS Bot'}), function(err, result){
 // 	if(err)
@@ -284,5 +284,11 @@ var m = require('./msql.js');
 // 	// console.log(JSON.parse(result))
 // });
 // // 用教授名稱、專題名稱更新專題資訊(標題、網址、介紹)
+
+// m.createNewResearch(({student_id:'0516205', tname:'彭文志', research_title:'CA'}), function(err){
+// 	if(err)
+// 		throw err;
+// });
+// // 申請專題同意後，新增此學生專題資料到資料庫
 
 m.Drain(); // 關閉 connection pool

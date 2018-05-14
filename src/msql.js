@@ -942,13 +942,11 @@ module.exports = {
             });
         });
     },
-    showResearchPage:function(data, callback){
-        if(typeof(data)==='string')
-            data=JSON.parse(data);
+    showResearchPage:function(student_id, callback){
         const resource=pool.acquire();
         resource.then(function(c){
             var sql_showResearchPage=c.prepare(s.showResearchPage);
-            c.query(sql_showResearchPage({student_id:data['student_id'], research_title: data['research_title'], tname: data['tname']}), function(err, result){
+            c.query(sql_showResearchPage({student_id: student_id}), function(err, result){
                 if(err)
                 {
                     callback(err, undefined);
@@ -997,6 +995,23 @@ module.exports = {
             c.query(sql_setResearchIntro({student_id: data['student_id'], research_title: data['research_title'], tname: data['tname'], new_intro: data['new_intro']}), function(err, result){
                 if(err)
                     throw err;
+            });
+            pool.release(c);
+        });
+    },
+    createNewResearch:function(data){
+        if(typeof(data) === 'string')
+            data=JSON.parse(data);
+        const resource=pool.acquire();
+        resource.then(function(c){
+            var sql_createNewResearch=c.prepare(s.createNewResearch);
+            c.query(sql_createNewResearch(data), function(err){
+                if(err)
+                {
+                    callback(err, undefined);
+                    pool.release(c);
+                    return ;
+                }
             });
             pool.release(c);
         });

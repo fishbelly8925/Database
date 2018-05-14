@@ -537,9 +537,7 @@ exports.showGivenGradeStudentResearch="\
 exports.showResearchPage="\
     select tname, research_title, link, intro\
     from research_student\
-    where student_id = :student_id\
-    and research_title = :research_title\
-    and tname = :tname";
+    where student_id = :student_id";
 
 exports.findResearchGroup="\
     select student_id \
@@ -564,3 +562,9 @@ exports.setResearchIntro="\
     where student_id = :student_id\
     and research_title = :research_title\
     and tname = :tname";
+
+exports.createNewResearch="\
+    insert into research_student\
+    (student_id, tname, research_title)\
+    values\
+    (:student_id, :tname, :research_title);"
