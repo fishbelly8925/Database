@@ -534,7 +534,14 @@ exports.showGivenGradeStudentResearch="\
     ) as s1\
     on t.tname = s1.tname";
 
-exports.findresearchGroup="\
+exports.showResearchPage="\
+    select tname, research_title, link, intro\
+    from research_student\
+    where student_id = :student_id\
+    and research_title = :research_title\
+    and tname = :tname";
+
+exports.findResearchGroup="\
     select student_id \
     from research_student\
     where research_title = :research_title\

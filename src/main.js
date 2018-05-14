@@ -264,7 +264,14 @@ var m = require('./msql.js');
 // });
 // // 輸入系級，回傳該系級所有學生的專題資訊
 
-// m.findresearchGroup(({tname:'彭文志', research_title:'NCTU CS Bot'}), function(err, result){
+// m.showResearchPage(({student_id:'0316020', tname:'彭文志', research_title:'NCTU CS Bot'}), function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// });
+// // 用教授名稱、專題名稱查詢專題的標題、網址、介紹
+
+// m.findResearchGroup(({tname:'彭文志', research_title:'NCTU CS Bot'}), function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));

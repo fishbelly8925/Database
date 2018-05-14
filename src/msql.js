@@ -942,7 +942,25 @@ module.exports = {
             });
         });
     },
-    findresearchGroup:function(data, callback){
+    showResearchPage:function(data, callback){
+        if(typeof(data)==='string')
+            data=JSON.parse(data);
+        const resource=pool.acquire();
+        resource.then(function(c){
+            var sql_showResearchPage=c.prepare(s.showResearchPage);
+            c.query(sql_showResearchPage({student_id:data['student_id'], research_title: data['research_title'], tname: data['tname']}), function(err, result){
+                if(err)
+                {
+                    callback(err, undefined);
+                    pool.release(c);
+                    return ;
+                }
+                callback(null, JSON.stringify(result));
+                pool.release(c);
+            });
+        });
+    },
+    findResearchGroup:function(data, callback){
         if(typeof(data)==='string')
             data=JSON.parse(data);
         const resource=pool.acquire();
