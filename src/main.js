@@ -189,7 +189,7 @@ var m = require('./msql.js');
 // m.findTeacherResearchCount(function(err,result){
 // 	if(err)
 // 		throw err;
-// 	console.log(JSON.parse(result));
+// 	console.log(JSON.parse(result)[5]);
 // }); // findTeacherResearchCount(callback) 回傳所有教授各屆的學生人數
 
 // m.mailCreate({sender_id:'0516003',title:'test~~',receiver_id:'T9229',content:'這是一個測試信件這是一個測試信件'});
@@ -287,7 +287,7 @@ var m = require('./msql.js');
 // m.createNewResearch(({student_id:'0516205', tname:'彭文志', research_title:'CA'}), function(err){
 // 	if(err)
 // 		throw err;
-// });
-// // // 申請專題同意後，新增此學生專題資料到資料庫
+// 	// 申請專題同意後，新增此學生專題資料到資料庫
+// }); // 回傳此學生專題申請清單
 
 m.Drain(); // 關閉 connection pool

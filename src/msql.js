@@ -1007,10 +1007,7 @@ module.exports = {
             var sql_createNewResearch=c.prepare(s.createNewResearch);
             c.query(sql_createNewResearch(data), function(err){
                 if(err)
-                {
-                    pool.release(c);
-                    return ;
-                }
+                    throw err;
             });
             pool.release(c);
         });
