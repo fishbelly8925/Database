@@ -1008,7 +1008,6 @@ module.exports = {
             c.query(sql_createNewResearch(data), function(err){
                 if(err)
                 {
-                    callback(err, undefined);
                     pool.release(c);
                     return ;
                 }
