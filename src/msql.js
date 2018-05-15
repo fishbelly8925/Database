@@ -963,8 +963,8 @@ module.exports = {
             data=JSON.parse(data);
         const resource=pool.acquire();
         resource.then(function(c){
-            var sql_findresearchGroup=c.prepare(s.findresearchGroup);
-            c.query(sql_findresearchGroup({research_title: data['research_title'], tname: data['tname']}), function(err, result){
+            var sql_findResearchGroup=c.prepare(s.findResearchGroup);
+            c.query(sql_findResearchGroup({research_title: data['research_title'], tname: data['tname']}), function(err, result){
                 if(err)
                 {
                     callback(err, undefined);

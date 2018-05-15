@@ -567,4 +567,5 @@ exports.createNewResearch="\
     insert into research_student\
     (student_id, tname, research_title)\
     values\
-    (:student_id, :tname, :research_title);"
+    (:student_id, :tname, :research_title)";
+    

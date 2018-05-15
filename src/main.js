@@ -281,7 +281,6 @@ var m = require('./msql.js');
 // m.setResearchPage(({student_id:'0516205', tname:'彭文志', research_title:'CA', new_title:'CA', new_link:'b', new_intro:'c'}) , function(err){
 // 	if(err)
 // 		throw err;
-// 	// console.log(JSON.parse(result))
 // });
 // // 用教授名稱、專題名稱更新專題資訊(標題、網址、介紹)
 
@@ -289,6 +288,6 @@ var m = require('./msql.js');
 // 	if(err)
 // 		throw err;
 // });
-// // 申請專題同意後，新增此學生專題資料到資料庫
+// // // 申請專題同意後，新增此學生專題資料到資料庫
 
 m.Drain(); // 關閉 connection pool
