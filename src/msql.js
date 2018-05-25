@@ -681,7 +681,19 @@ module.exports = {
                     pool.release(c);
                     return;
                 }
-                callback(null, JSON.stringify(result));
+                var year=parseInt(result[0]['student_id'].substring(0,2));
+                var idx;
+                for(idx in result)
+                {
+                    if(idx=='info')
+                    {
+                        idx=result.length;
+                        break;
+                    }
+                    if(year-parseInt(result[idx]['student_id'].substring(0,2))>2)
+                        break
+                }
+                callback(null, JSON.stringify(result.slice(0,idx)));
                 pool.release(c);
             });
         });
@@ -1010,6 +1022,35 @@ module.exports = {
                     throw err;
             });
             pool.release(c);
+        });
+    },
+    researchFileCreate:function(data){
+        if(typeof(data) === 'string')
+            data=JSON.parse(data);
+        const resource=pool.acquire();
+        resource.then(function(c){
+            var sql_researchFileCreate=c.prepare(s.researchFileCreate);
+            c.query(sql_researchFileCreate(data), function(err){
+                if(err)
+                    throw err;
+            });
+            pool.release(c);
+        });
+    },
+    researchFileReturn:function({research_title,tname},callback){
+        const resource=pool.acquire();
+        resource.then(function(c){
+            var sql_researchFileReturn=c.prepare(s.researchFileReturn);
+            c.query(sql_researchFileReturn({research_title,tname}), function(err, result){
+                if(err)
+                {
+                    callback(err, undefined);
+                    pool.release(c);
+                    return ;
+                }
+                callback(null, JSON.stringify(result));
+                pool.release(c);
+            });
         });
     },
     Drain: function() {

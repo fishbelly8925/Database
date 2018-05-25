@@ -235,7 +235,7 @@ var m = require('./msql.js');
 // 	if(err)
 // 		throw err;
 // 		//老師名字若不存在，就會拋出ERROR
-// });
+// }); // create research apply form
 
 // m.researchApplyFormSetAgree({research_title:'我是專題標題~',tname:'彭文志',agree:1});
 // // // set research apply form agree bit  0預設 1接受 2審核中 3拒絕
@@ -271,23 +271,36 @@ var m = require('./msql.js');
 // });
 // // 用學號查詢專題的標題、網址、介紹
 
-// m.findResearchGroup(({tname:'彭文志', research_title:'NCTU CS Bot'}), function(err, result){
+// m.findResearchGroup({tname:'彭文志', research_title:'NCTU CS Bot'}, function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
 // });
 // // 用教授名稱、專題名稱查詢所有同組專題生的學號
 
-// m.setResearchPage(({student_id:'0516205', tname:'彭文志', research_title:'CA', new_title:'CA', new_link:'b', new_intro:'c'}) , function(err){
+// m.setResearchPage({student_id:'0516205', tname:'彭文志', research_title:'CA', new_title:'CA', new_link:'b', new_intro:'c'} , function(err){
 // 	if(err)
 // 		throw err;
 // });
 // // 用教授名稱、專題名稱更新專題資訊(標題、網址、介紹)
 
-// m.createNewResearch(({student_id:'0516205', tname:'彭文志', research_title:'CA'}), function(err){
+// m.createNewResearch({ student_id:'0316201',tname : '彭文志', research_title : '嘿'}, function(err){
 // 	if(err)
 // 		throw err;
 // 	// 申請專題同意後，新增此學生專題資料到資料庫
 // }); // 回傳此學生專題申請清單
+
+// m.researchFileCreate({research_title:'名字呦>wO',tname:'教授喔Ow<',file_name:'檔名喔>w<',file_path:'路徑喔OwO',file_type:'型態喔OAO'},function(err){
+// 	if(err)
+// 		throw err;
+// }); // 建立專題檔案紀錄
+// 	// {research_title,tname,file_name,file_path,file_type}
+
+// m.researchFileReturn({research_title:'名字呦>wO',tname:'教授喔Ow<'},function(err,result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); // 回傳專題檔案紀錄
+// 	// {research_title,tname}
 
 m.Drain(); // 關閉 connection pool

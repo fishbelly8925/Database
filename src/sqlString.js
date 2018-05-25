@@ -404,7 +404,7 @@ exports.findTeacherResearch="\
     select s.sname, r.student_id, r.class_detail, r.research_title \
     from research_student as r, student as s \
     where s.student_id = r.student_id \
-    and r.tname = :tname ";
+    and r.tname = :tname order by substring(s.student_id,1,2) desc";
 
 exports.findTeacherResearchCount="\
     select r.tname,substring(r.student_id,1,2) as 'grade',count(*) as 'scount'\
@@ -517,6 +517,15 @@ exports.researchApplyFormPersonalReturn="\
         select sname,student_id,phone,email from student where student_id=:student_id\
     ) as s\
     where s.student_id=a.student_id;";
+
+exports.researchFileCreate="\
+    insert into research_file \
+    values(:research_title,:tname,:file_name,:file_path,:file_type);"
+
+exports.researchFileReturn="\
+    select * from research_file where \
+    research_title=:research_title \
+    and tname=:tname;"
 
 exports.showGivenGradeStudentResearch="\
     select  s1.student_id, s1.sname as name, s1.program, t.teacher_id, s1.tname\
