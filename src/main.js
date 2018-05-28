@@ -31,7 +31,7 @@ var m = require('./msql.js');
 //     console.log(JSON.parse(result));
 // }); // totalCredit 回傳某學生總學分數
 
-// m.Pass('0516068', function(err, result) {
+// m.Pass('0516003', function(err, result) {
 //     if (err)
 //         throw err;
 //     console.log(JSON.parse(result));
@@ -174,11 +174,11 @@ var m = require('./msql.js');
 // 	console.log(JSON.parse(result));
 // }); // findTeacherInfo(tname, callback) 回傳某教授info
 
-// m.findStudentResearch('0316205',function(err,result){
-// 	if(err)
-// 		throw err;
-// 	console.log(JSON.parse(result));
-// }); // findStudentResearch(id, callback) 回傳某學生專題資料
+m.findStudentResearch('0416026',function(err,result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+}); // findStudentResearch(id, callback) 回傳某學生專題資料
 
 // m.findTeacherResearch('彭文志',function(err,result){
 // 	if(err)
@@ -189,7 +189,7 @@ var m = require('./msql.js');
 // m.findTeacherResearchCount(function(err,result){
 // 	if(err)
 // 		throw err;
-// 	console.log(JSON.parse(result)[5]);
+// 	console.log(JSON.parse(result)[9]);
 // }); // findTeacherResearchCount(callback) 回傳所有教授各屆的學生人數
 
 // m.mailCreate({sender_id:'0516003',title:'test~~',receiver_id:'T9229',content:'這是一個測試信件這是一個測試信件'});
@@ -264,43 +264,43 @@ var m = require('./msql.js');
 // });
 // // 輸入系級，回傳該系級所有學生的專題資訊
 
-// m.showResearchPage('0316020', function(err, result){
+// m.showResearchPage('0416029', function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
 // });
 // // 用學號查詢專題的標題、網址、介紹
 
-// m.findResearchGroup({tname:'彭文志', research_title:'NCTU CS Bot'}, function(err, result){
+// m.findResearchGroup({tname:'彭文志', research_title:'聊天機器人', first_second:2}, function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
 // });
-// // 用教授名稱、專題名稱查詢所有同組專題生的學號
+// // 用教授名稱、專題名稱、專題一二查詢所有同組專題生的學號
 
-// m.setResearchPage({student_id:'0516205', tname:'彭文志', research_title:'CA', new_title:'CA', new_link:'b', new_intro:'c'} , function(err){
+// m.setResearchPage({tname:'彭文志', research_title:'CA', first_second:2, new_title:'聊天機器人', new_link:'b', new_intro:'c'} , function(err){
 // 	if(err)
 // 		throw err;
 // });
-// // 用教授名稱、專題名稱更新專題資訊(標題、網址、介紹)
+// // 用教授名稱、專題名稱、專題一二更新專題資訊(標題、網址、介紹)
 
-// m.createNewResearch({ student_id:'0316201',tname : '彭文志', research_title : '嘿'}, function(err){
+// m.createNewResearch({ student_id:'0316201',tname : '彭文志', research_title : '嘿', first_second:2}, function(err){
 // 	if(err)
 // 		throw err;
 // 	// 申請專題同意後，新增此學生專題資料到資料庫
 // }); // 回傳此學生專題申請清單
 
-// m.researchFileCreate({research_title:'名字呦>wO',tname:'教授喔Ow<',file_name:'檔名喔>w<',file_path:'路徑喔OwO',file_type:'型態喔OAO'},function(err){
+// m.researchFileCreate({research_title:'名字呦>wO',tname:'教授喔Ow<',file_name:'檔名喔>w<',first_second:2,file_path:'路徑喔OwO',file_type:'型態喔OAO'},function(err){
 // 	if(err)
 // 		throw err;
-// }); // 建立專題檔案紀錄
+// }); // 建立專題檔案路徑紀錄
 // 	// {research_title,tname,file_name,file_path,file_type}
 
-// m.researchFileReturn({research_title:'名字呦>wO',tname:'教授喔Ow<'},function(err,result){
+// m.researchFileReturn({research_title:'名字呦>wO',tname:'教授喔Ow<',first_second:2},function(err,result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
-// }); // 回傳專題檔案紀錄
+// }); // 回傳專題檔案路徑紀錄
 // 	// {research_title,tname}
 
 m.Drain(); // 關閉 connection pool

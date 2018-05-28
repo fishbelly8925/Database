@@ -396,19 +396,19 @@ exports.findTeacherInfo="\
     select * from teacher_info where tname = :tname";
 
 exports.findStudentResearch="\
-    select tname, research_title, memo \
+    select tname, research_title, memo, first_second\
     from research_student \
     where student_id = :id";
 
 exports.findTeacherResearch="\
-    select s.sname, r.student_id, r.class_detail, r.research_title \
+    select s.sname, r.student_id, r.class_detail, r.research_title, r.first_second\
     from research_student as r, student as s \
     where s.student_id = r.student_id \
     and r.tname = :tname order by substring(s.student_id,1,2) desc";
 
 exports.findTeacherResearchCount="\
     select r.tname,substring(r.student_id,1,2) as 'grade',count(*) as 'scount'\
-    from research_student as r \
+    from (select distinct student_id,tname from research_student) as r \
     where r.student_id in ( select student_id from student ) \
     group by substring(r.student_id,1,2),r.tname \
     order by r.tname,substring(r.student_id,1,2);";
@@ -518,17 +518,8 @@ exports.researchApplyFormPersonalReturn="\
     ) as s\
     where s.student_id=a.student_id;";
 
-exports.researchFileCreate="\
-    insert into research_file \
-    values(:research_title,:tname,:file_name,:file_path,:file_type);"
-
-exports.researchFileReturn="\
-    select * from research_file where \
-    research_title=:research_title \
-    and tname=:tname;"
-
 exports.showGivenGradeStudentResearch="\
-    select  s1.student_id, s1.sname as name, s1.program, t.teacher_id, s1.tname\
+    select distinct s1.student_id, s1.sname as name, s1.program, t.teacher_id, s1.tname\
     from teacher as t\
     right outer join\
     (\
@@ -544,7 +535,7 @@ exports.showGivenGradeStudentResearch="\
     on t.tname = s1.tname";
 
 exports.showResearchPage="\
-    select tname, research_title, link, intro\
+    select tname, research_title, link, intro, first_second, score\
     from research_student\
     where student_id = :student_id";
 
@@ -552,29 +543,45 @@ exports.findResearchGroup="\
     select student_id \
     from research_student\
     where research_title = :research_title\
-    and tname = :tname";
+    and tname = :tname\
+    and first_second = :first_second";
 
 exports.setResearchTitle="\
     update research_student set research_title = :new_title\
-    where student_id = :student_id\
-    and research_title = :research_title\
-    and tname = :tname";
+    where research_title = :research_title\
+    and tname = :tname\
+    and first_second = :first_second";
 
 exports.setResearchLink="\
     update research_student set link = :new_link\
-    where student_id = :student_id\
-    and research_title = :research_title\
-    and tname = :tname";
+    where research_title = :research_title\
+    and tname = :tname\
+    and first_second = :first_second";
 
 exports.setResearchIntro="\
     update research_student set intro = :new_intro\
-    where student_id = :student_id\
-    and research_title = :research_title\
-    and tname = :tname";
+    where research_title = :research_title\
+    and tname = :tname\
+    and first_second = :first_second";
+
+exports.setResearchScore="\
+    update research_student set score = :new_score\
+    where research_title = :research_title\
+    and tname = :tname\
+    and first_second = :first_second";
 
 exports.createNewResearch="\
     insert into research_student\
-    (student_id, tname, research_title)\
+    (student_id, tname, research_title, first_second)\
     values\
-    (:student_id, :tname, :research_title)";
+    (:student_id, :tname, :research_title, :first_second)";
     
+exports.researchFileCreate="\
+    insert into research_file \
+    values(:research_title,:tname,:file_name,:first_second,:file_path,:file_type);"
+
+exports.researchFileReturn="\
+    select * from research_file where \
+    research_title=:research_title \
+    and tname=:tname \
+    and first_second=:first_second;"

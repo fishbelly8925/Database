@@ -976,7 +976,7 @@ module.exports = {
         const resource=pool.acquire();
         resource.then(function(c){
             var sql_findResearchGroup=c.prepare(s.findResearchGroup);
-            c.query(sql_findResearchGroup({research_title: data['research_title'], tname: data['tname']}), function(err, result){
+            c.query(sql_findResearchGroup(data), function(err, result){
                 if(err)
                 {
                     callback(err, undefined);
@@ -996,19 +996,32 @@ module.exports = {
             var sql_setResearchTitle=c.prepare(s.setResearchTitle);
             var sql_setResearchLink=c.prepare(s.setResearchLink);
             var sql_setResearchIntro=c.prepare(s.setResearchIntro);
-            c.query(sql_setResearchTitle({student_id: data['student_id'], research_title: data['research_title'], tname: data['tname'], new_title: data['new_title']}), function(err, result){
+            c.query(sql_setResearchTitle({research_title: data['research_title'], tname: data['tname'], first_second:data['first_second'], new_title: data['new_title']}), function(err, result){
                 if(err)
                     throw err;
             });
-            c.query(sql_setResearchLink({student_id: data['student_id'], research_title: data['research_title'], tname: data['tname'], new_link: data['new_link']}), function(err, result){
+            c.query(sql_setResearchLink({research_title: data['research_title'], tname: data['tname'], first_second:data['first_second'], new_link: data['new_link']}), function(err, result){
                 if(err)
                     throw err;
             });
-            c.query(sql_setResearchIntro({student_id: data['student_id'], research_title: data['research_title'], tname: data['tname'], new_intro: data['new_intro']}), function(err, result){
+            c.query(sql_setResearchIntro({research_title: data['research_title'], tname: data['tname'], first_second:data['first_second'], new_intro: data['new_intro']}), function(err, result){
                 if(err)
                     throw err;
             });
             pool.release(c);
+        });
+    },
+    setResearchScore:function(data){
+        if(typeof(data)==='string')
+            data=JSON.parse(data);
+        const resource=pool.acquire();
+        resource.then(function(c){
+            var sql_setResearchScore=c.prepare(s.setResearchScore);
+            c.query(sql_setResearchScore(data),function(err){
+                if(err)
+                    throw err;
+                pool.release(c);
+            });
         });
     },
     createNewResearch:function(data){
@@ -1037,11 +1050,13 @@ module.exports = {
             pool.release(c);
         });
     },
-    researchFileReturn:function({research_title,tname},callback){
+    researchFileReturn:function(data,callback){
+        if(typeof(data) === 'string')
+            data=JSON.parse(data);
         const resource=pool.acquire();
         resource.then(function(c){
             var sql_researchFileReturn=c.prepare(s.researchFileReturn);
-            c.query(sql_researchFileReturn({research_title,tname}), function(err, result){
+            c.query(sql_researchFileReturn(data), function(err, result){
                 if(err)
                 {
                     callback(err, undefined);
