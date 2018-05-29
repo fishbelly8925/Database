@@ -568,7 +568,8 @@ exports.setResearchScore="\
     update research_student set score = :new_score\
     where research_title = :research_title\
     and tname = :tname\
-    and first_second = :first_second";
+    and first_second = :first_second\
+    and student_id = :student_id";
 
 exports.createNewResearch="\
     insert into research_student\

@@ -284,7 +284,7 @@ m.findStudentResearch('0416026',function(err,result){
 // });
 // // 用教授名稱、專題名稱、專題一二更新專題資訊(標題、網址、介紹)
 
-m.setResearchScore({tname:'彭文志', research_title:'聊天機器人', first_second:2, new_score:100} , function(err){
+m.setResearchScore({student_id:'0416026',tname:'彭文志', research_title:'聊天機器人', first_second:2, new_score:88} , function(err){
 	if(err)
 		throw err;
 }); // 更新專題成績
