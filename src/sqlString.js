@@ -396,7 +396,7 @@ exports.findTeacherInfo="\
     select * from teacher_info where tname = :tname";
 
 exports.findStudentResearch="\
-    select tname, research_title, memo, first_second\
+    select tname, research_title, memo, first_second, score\
     from research_student \
     where student_id = :id";
 
