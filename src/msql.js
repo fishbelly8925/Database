@@ -641,11 +641,11 @@ module.exports = {
             });
         });
     },
-    findTeacherInfo: function(tname, callback){
+    findTeacherInfo: function(teacher_id, callback){
         const resource = pool.acquire();
         resource.then(function(c){
             var sql_findTeacherInfo=c.prepare(s.findTeacherInfo);
-            c.query(sql_findTeacherInfo({tname: tname}), function(err, result){
+            c.query(sql_findTeacherInfo({teacher_id}), function(err, result){
                 if(err){
                     callback(err, undefined);
                     pool.release(c);
@@ -671,11 +671,11 @@ module.exports = {
             });
         });
     },
-    findTeacherResearch: function(tname, callback){
+    findTeacherResearch: function(teacher_id, callback){
         const resource = pool.acquire();
         resource.then(function(c){
             var sql_findTeacherResearch=c.prepare(s.findTeacherResearch);
-            c.query(sql_findTeacherResearch({tname: tname}), function(err, result){
+            c.query(sql_findTeacherResearch({teacher_id}), function(err, result){
                 if(err){
                     callback(err, undefined);
                     pool.release(c);
@@ -906,11 +906,11 @@ module.exports = {
             });
         });
     },
-    researchApplyFormTeaReturn:function(tname,callback){
+    researchApplyFormTeaReturn:function(teacher_id,callback){
         const resource=pool.acquire();
         resource.then(function(c){
             var sql_researchApplyFormTeaReturn=c.prepare(s.researchApplyFormTeaReturn);
-            c.query(sql_researchApplyFormTeaReturn({tname}),function(err,result){
+            c.query(sql_researchApplyFormTeaReturn({teacher_id}),function(err,result){
                 if(err)
                 {
                     callback(err,undefined);
@@ -988,7 +988,7 @@ module.exports = {
             });
         });
     },
-    setResearchPage:function(data){
+    setResearchPage:function(data,callback){
         if(typeof(data)==='string')
             data=JSON.parse(data);
         const resource=pool.acquire();
@@ -999,16 +999,17 @@ module.exports = {
             c.query(sql_setResearchTitle({research_title: data['research_title'], tname: data['tname'], first_second:data['first_second'], new_title: data['new_title']}), function(err, result){
                 if(err)
                     throw err;
+                c.query(sql_setResearchLink({research_title: data['research_title'], tname: data['tname'], first_second:data['first_second'], new_link: data['new_link']}), function(err, result){
+                    if(err)
+                        throw err;
+                    c.query(sql_setResearchIntro({research_title: data['research_title'], tname: data['tname'], first_second:data['first_second'], new_intro: data['new_intro']}), function(err, result){
+                        if(err)
+                            throw err;
+                        callback();
+                        pool.release(c);
+                    });
+                });
             });
-            c.query(sql_setResearchLink({research_title: data['research_title'], tname: data['tname'], first_second:data['first_second'], new_link: data['new_link']}), function(err, result){
-                if(err)
-                    throw err;
-            });
-            c.query(sql_setResearchIntro({research_title: data['research_title'], tname: data['tname'], first_second:data['first_second'], new_intro: data['new_intro']}), function(err, result){
-                if(err)
-                    throw err;
-            });
-            pool.release(c);
         });
     },
     setResearchScore:function(data){

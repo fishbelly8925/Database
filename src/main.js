@@ -168,23 +168,23 @@ var m = require('./msql.js');
 // 	console.log(JSON.parse(result));
 // }); // getRecomend(student_id,callback) 回傳某學生的推薦課程
 
-// m.findTeacherInfo('邱維辰',function(err,result){
+// m.findTeacherInfo('T9229',function(err,result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
 // }); // findTeacherInfo(tname, callback) 回傳某教授info
 
-m.findStudentResearch('0416026',function(err,result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-}); // findStudentResearch(id, callback) 回傳某學生專題資料
-
-// m.findTeacherResearch('彭文志',function(err,result){
+// m.findStudentResearch('0416026',function(err,result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
-// }); // findTeacherResearch(tname, callback) 回傳某教授所有專題生和專題題目
+// }); // findStudentResearch(id, callback) 回傳某學生專題資料
+
+// m.findTeacherResearch('T9229',function(err,result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); // findTeacherResearch(teacher_id, callback) 回傳某教授所有專題生和專題題目
 
 // m.findTeacherResearchCount(function(err,result){
 // 	if(err)
@@ -243,7 +243,7 @@ m.findStudentResearch('0416026',function(err,result){
 // m.researchApplyFormDelete({research_title:'我是專題標題~',tname:'彭文志'});
 // // delete research apply form
 
-// m.researchApplyFormTeaReturn('彭文志',function(err,result){
+// m.researchApplyFormTeaReturn('T9229',function(err,result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
@@ -284,22 +284,16 @@ m.findStudentResearch('0416026',function(err,result){
 // });
 // // 用教授名稱、專題名稱、專題一二更新專題資訊(標題、網址、介紹)
 
-m.setResearchScore({student_id:'0416026',tname:'彭文志', research_title:'聊天機器人', first_second:2, new_score:88} , function(err){
-	if(err)
-		throw err;
-}); // 更新專題成績
+// m.setResearchScore({student_id:'0416026',tname:'彭文志', research_title:'聊天機器人', first_second:2, new_score:88});
+// // 更新專題成績
 
-// m.createNewResearch({ student_id:'0316201',tname : '彭文志', research_title : '嘿', first_second:2}, function(err){
-// 	if(err)
-// 		throw err;
-// 	// 申請專題同意後，新增此學生專題資料到資料庫
-// }); // 回傳此學生專題申請清單
+// m.createNewResearch({ student_id:'0316201',tname : '彭文志', research_title : '嘿', first_second:2});
+// // 申請專題同意後，新增此學生專題資料到資料庫
+// // 回傳此學生專題申請清單
 
-// m.researchFileCreate({research_title:'名字呦>wO',tname:'教授喔Ow<',file_name:'檔名喔>w<',first_second:2,file_path:'路徑喔OwO',file_type:'型態喔OAO'},function(err){
-// 	if(err)
-// 		throw err;
-// }); // 建立專題檔案路徑紀錄
-// 	// {research_title,tname,file_name,file_path,file_type}
+m.researchFileCreate({research_title:'名字呦>wO',tname:'教授喔Ow<',file_name:'檔名喔>w<',first_second:2,file_path:'路徑喔OwO',file_type:'型態喔OAO'});
+// 建立專題檔案路徑紀錄
+// {research_title,tname,file_name,file_path,file_type}
 
 // m.researchFileReturn({research_title:'名字呦>wO',tname:'教授喔Ow<',first_second:2},function(err,result){
 // 	if(err)

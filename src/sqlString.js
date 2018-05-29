@@ -393,7 +393,13 @@ or cos_code like 'ICP%')) as cd, \
 where cd.unique_id=cn.unique_id";
 
 exports.findTeacherInfo="\
-    select * from teacher_info where tname = :tname";
+    select * from \
+    (\
+        select a.teacher_id,t.phone,t.tname,t.email,t.expertise,t.info\
+        from teacher_info as t,teacher as a\
+        where t.tname=a.tname\
+    )\ as t\
+    where t.teacher_id = :teacher_id";
 
 exports.findStudentResearch="\
     select tname, research_title, memo, first_second, score\
@@ -402,9 +408,15 @@ exports.findStudentResearch="\
 
 exports.findTeacherResearch="\
     select s.sname, r.student_id, r.class_detail, r.research_title, r.first_second\
-    from research_student as r, student as s \
+    from \
+    (\
+        select t.teacher_id,r.student_id, r.class_detail, r.research_title, r.first_second\
+        from research_student as r,teacher as t\
+        where r.tname=t.tname\
+    ) as r, student as s \
     where s.student_id = r.student_id \
-    and r.tname = :tname order by substring(s.student_id,1,2) desc";
+    and r.teacher_id = :teacher_id \
+    order by substring(s.student_id,1,2) desc";
 
 exports.findTeacherResearchCount="\
     select r.tname,substring(r.student_id,1,2) as 'grade',count(*) as 'scount'\
@@ -503,11 +515,16 @@ exports.researchApplyFormDelete="\
 
 exports.researchApplyFormTeaReturn="\
     select a.student_id,s.sname,a.research_title,a.tname,a.agree,s.phone,s.email \
-    from research_apply_form as a,\
+    from \
+    (\
+        select t.teacher_id,r.student_id,r.research_title,r.tname,r.agree \
+        from teacher as t,research_apply_form as r\
+        where t.tname=r.tname\
+    ) as a,\
     (\
         select sname,student_id,phone,email from student\
     ) as s\
-    where s.student_id=a.student_id and a.tname=:tname\
+    where s.student_id=a.student_id and a.teacher_id=:teacher_id\
     order by a.research_title;";
 
 exports.researchApplyFormPersonalReturn="\
