@@ -559,10 +559,7 @@ exports.showGivenGradeStudentResearch="\
 exports.showResearchPage="\
     select *\
     from research_student\
-    where student_id = :student_id\
-    and tname = :tname\
-    and research_title = :research_title\
-    and first_second = :first_second";
+    where student_id = :student_id";
 
 exports.findResearchGroup="\
     select student_id \
