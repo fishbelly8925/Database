@@ -186,11 +186,11 @@ var m = require('./msql.js');
 // 	console.log(JSON.parse(result));
 // }); // findTeacherResearch(teacher_id, callback) 回傳某教授所有專題生和專題題目
 
-// m.findTeacherResearchCount(function(err,result){
-// 	if(err)
-// 		throw err;
-// 	console.log(JSON.parse(result)[9]);
-// }); // findTeacherResearchCount(callback) 回傳所有教授各屆的學生人數
+m.findTeacherResearchCount(function(err,result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result)[9]);
+}); // findTeacherResearchCount(callback) 回傳所有教授各屆的學生人數
 
 // m.mailCreate({sender_id:'0516003',title:'test~~',receiver_id:'T9229',content:'這是一個測試信件這是一個測試信件'});
 // // mailCreate(data) data type 為JSON，新增一則信件，需有以上所有欄位

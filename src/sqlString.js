@@ -419,8 +419,13 @@ exports.findTeacherResearch="\
     order by substring(s.student_id,1,2) desc";
 
 exports.findTeacherResearchCount="\
-    select r.tname,substring(r.student_id,1,2) as 'grade',count(*) as 'scount'\
-    from (select distinct student_id,tname from research_student) as r \
+    select r.teacher_id,r.tname,substring(r.student_id,1,2) as 'grade',count(*) as 'scount'\
+    from \
+    (\
+        select distinct r.student_id,r.tname,t.teacher_id \
+        from research_student as r, teacher as t\
+        where r.tname=t.tname\
+    ) as r \
     where r.student_id in ( select student_id from student ) \
     group by substring(r.student_id,1,2),r.tname \
     order by r.tname,substring(r.student_id,1,2);";

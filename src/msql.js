@@ -713,14 +713,14 @@ module.exports = {
                 for(i in result){
                     gradeCnt={grade:result[i].grade,scount:result[i].scount};
                     if(i==0){
-                        temp={tname:result[i].tname,gradeCnt:[gradeCnt]};
+                        temp={tname:result[i].tname,teacher_id:result[i].teacher_id,gradeCnt:[gradeCnt]};
                     }
                     else if(result[i].tname===temp.tname){
                         temp.gradeCnt.push(gradeCnt);
                     }
                     else{   
                         res.push(temp);
-                        temp={tname:result[i].tname,gradeCnt:[gradeCnt]};
+                        temp={tname:result[i].tname,teacher_id:result[i].teacher_id,gradeCnt:[gradeCnt]};
                     }
                 }
                 if(res[res.length-1].tname!==temp.tname)
