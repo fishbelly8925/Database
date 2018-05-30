@@ -503,21 +503,21 @@ exports.addPhone="\
 
 exports.researchApplyFormCreate="\
     insert into research_apply_form\
-    values(:student_id,:research_title,:tname,0);"
+    values(:student_id,:research_title,:tname,0,:first_second);"
 
 exports.researchApplyFormSetAgree="\
     update research_apply_form set agree=:agree \
-    where research_title=:research_title and tname=:tname;"
+    where research_title=:research_title and tname=:tname and first_second=:first_second;"
 
 exports.researchApplyFormDelete="\
     delete from research_apply_form \
-    where research_title=:research_title and tname=:tname;"
+    where research_title=:research_title and tname=:tname and first_second=:first_second;"
 
 exports.researchApplyFormTeaReturn="\
-    select a.student_id,s.sname,a.research_title,a.tname,a.agree,s.phone,s.email \
+    select a.student_id,s.sname,a.research_title,a.tname,a.first_second,a.agree,s.phone,s.email \
     from \
     (\
-        select t.teacher_id,r.student_id,r.research_title,r.tname,r.agree \
+        select t.teacher_id,r.student_id,r.research_title,r.tname,r.agree,r.first_second \
         from teacher as t,research_apply_form as r\
         where t.tname=r.tname\
     ) as a,\
@@ -528,7 +528,7 @@ exports.researchApplyFormTeaReturn="\
     order by a.research_title;";
 
 exports.researchApplyFormPersonalReturn="\
-    select a.student_id,s.sname,a.research_title,a.tname,a.agree,s.phone,s.email \
+    select a.student_id,s.sname,a.research_title,a.tname,a.agree,a.first_second,s.phone,s.email \
     from research_apply_form as a,\
     (\
         select sname,student_id,phone,email from student where student_id=:student_id\
@@ -552,9 +552,12 @@ exports.showGivenGradeStudentResearch="\
     on t.tname = s1.tname";
 
 exports.showResearchPage="\
-    select tname, research_title, link, intro, first_second, score\
+    select *\
     from research_student\
-    where student_id = :student_id";
+    where student_id = :student_id\
+    and tname = :tname\
+    and research_title = :research_title\
+    and first_second = :first_second";
 
 exports.findResearchGroup="\
     select student_id \

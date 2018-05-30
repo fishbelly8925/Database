@@ -954,11 +954,13 @@ module.exports = {
             });
         });
     },
-    showResearchPage:function(student_id, callback){
+    showResearchPage:function(data, callback){
+        if(typeof(data)==='string')
+            data=JSON.parse(data);
         const resource=pool.acquire();
         resource.then(function(c){
             var sql_showResearchPage=c.prepare(s.showResearchPage);
-            c.query(sql_showResearchPage({student_id: student_id}), function(err, result){
+            c.query(sql_showResearchPage(data), function(err, result){
                 if(err)
                 {
                     callback(err, undefined);

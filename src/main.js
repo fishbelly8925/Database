@@ -174,7 +174,7 @@ var m = require('./msql.js');
 // 	console.log(JSON.parse(result));
 // }); // findTeacherInfo(tname, callback) 回傳某教授info
 
-// m.findStudentResearch('0416026',function(err,result){
+// m.findStudentResearch('0416029',function(err,result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
@@ -231,16 +231,16 @@ var m = require('./msql.js');
 // 	console.log(JSON.parse(result));
 // }); // 回傳教授id,名字對應表
 
-// m.researchApplyFormCreate({phone:'0900000000',student_id:'0516003',research_title:'我是專題標題2~',tname:'彭文志',email:'wawawa@crayonSinJang'},function(err){
+// m.researchApplyFormCreate({phone:'0900000000',student_id:'0516003',research_title:'我是專題標題2~',tname:'彭文志',first_second:2,email:'wawawa@crayonSinJang'},function(err){
 // 	if(err)
 // 		throw err;
 // 		//老師名字若不存在，就會拋出ERROR
 // }); // create research apply form
 
-// m.researchApplyFormSetAgree({research_title:'我是專題標題~',tname:'彭文志',agree:1});
+// m.researchApplyFormSetAgree({research_title:'我是專題標題2~',tname:'彭文志',first_second:2,agree:3});
 // // // set research apply form agree bit  0預設 1接受 2審核中 3拒絕
 
-// m.researchApplyFormDelete({research_title:'我是專題標題~',tname:'彭文志'});
+// m.researchApplyFormDelete({research_title:'我是專題標題2~',tname:'彭文志',first_second:2});
 // // delete research apply form
 
 // m.researchApplyFormTeaReturn('T9229',function(err,result){
@@ -250,7 +250,7 @@ var m = require('./msql.js');
 // });
 // // 回傳該教授的學生專題申請清單
 
-// m.researchApplyFormPersonalReturn('0516008',function(err,result){
+// m.researchApplyFormPersonalReturn('0516003',function(err,result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
@@ -264,7 +264,7 @@ var m = require('./msql.js');
 // });
 // // 輸入系級，回傳該系級所有學生的專題資訊
 
-// m.showResearchPage('0416029', function(err, result){
+// m.showResearchPage({student_id:'0516003',tname:'彭文志',research_title:'我是專題標題2~',first_second:2}, function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
@@ -287,13 +287,13 @@ var m = require('./msql.js');
 // m.setResearchScore({student_id:'0416026',tname:'彭文志', research_title:'聊天機器人', first_second:2, new_score:88});
 // // 更新專題成績
 
-// m.createNewResearch({ student_id:'0316201',tname : '彭文志', research_title : '嘿', first_second:2});
+// m.createNewResearch({ student_id:'0516003',tname : '彭文志', research_title : '我是專題標題2~', first_second:2});
 // // 申請專題同意後，新增此學生專題資料到資料庫
 // // 回傳此學生專題申請清單
 
-m.researchFileCreate({research_title:'名字呦>wO',tname:'教授喔Ow<',file_name:'檔名喔>w<',first_second:2,file_path:'路徑喔OwO',file_type:'型態喔OAO'});
-// 建立專題檔案路徑紀錄
-// {research_title,tname,file_name,file_path,file_type}
+// m.researchFileCreate({research_title:'名字呦>wO',tname:'教授喔Ow<',file_name:'檔名喔>w<',first_second:2,file_path:'路徑喔OwO',file_type:'型態喔OAO'});
+// // 建立專題檔案路徑紀錄
+// // {research_title,tname,file_name,file_path,file_type}
 
 // m.researchFileReturn({research_title:'名字呦>wO',tname:'教授喔Ow<',first_second:2},function(err,result){
 // 	if(err)
