@@ -401,16 +401,11 @@ exports.findTeacherInfo="\
     )\ as t\
     where t.teacher_id = :teacher_id";
 
-exports.findStudentResearch="\
-    select tname, research_title, memo, first_second, score\
-    from research_student \
-    where student_id = :id";
-
 exports.findTeacherResearch="\
-    select s.sname, r.student_id, r.class_detail, r.research_title, r.first_second\
+    select s.sname, r.student_id, r.class_detail, r.research_title, r.first_second, r.score\
     from \
     (\
-        select t.teacher_id,r.student_id, r.class_detail, r.research_title, r.first_second\
+        select t.teacher_id,r.student_id, r.class_detail, r.score, r.research_title, r.first_second\
         from research_student as r,teacher as t\
         where r.tname=t.tname\
     ) as r, student as s \

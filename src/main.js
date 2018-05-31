@@ -174,17 +174,11 @@ var m = require('./msql.js');
 // 	console.log(JSON.parse(result));
 // }); // findTeacherInfo(tname, callback) 回傳某教授info
 
-m.findStudentResearch('0416029',function(err,result){
+m.findTeacherResearch('T9229',function(err,result){
 	if(err)
 		throw err;
 	console.log(JSON.parse(result));
-}); // findStudentResearch(id, callback) 回傳某學生專題資料
-
-// m.findTeacherResearch('T9229',function(err,result){
-// 	if(err)
-// 		throw err;
-// 	console.log(JSON.parse(result));
-// }); // findTeacherResearch(teacher_id, callback) 回傳某教授所有專題生和專題題目
+}); // findTeacherResearch(teacher_id, callback) 回傳某教授所有專題生和專題題目
 
 // m.findTeacherResearchCount(function(err,result){
 // 	if(err)

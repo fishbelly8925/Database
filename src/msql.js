@@ -656,21 +656,6 @@ module.exports = {
             });
         });
     },
-    findStudentResearch: function(id, callback){
-        const resource = pool.acquire();
-        resource.then(function(c){
-            var sql_findStudentResearch=c.prepare(s.findStudentResearch);
-            c.query(sql_findStudentResearch({id: id}), function(err, result){
-                if(err){
-                    callback(err, undefined);
-                    pool.release(c);
-                    return;
-                }
-                callback(null, JSON.stringify(result));
-                pool.release(c);
-            });
-        });
-    },
     findTeacherResearch: function(teacher_id, callback){
         const resource = pool.acquire();
         resource.then(function(c){
