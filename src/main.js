@@ -174,11 +174,11 @@ var m = require('./msql.js');
 // 	console.log(JSON.parse(result));
 // }); // findTeacherInfo(tname, callback) 回傳某教授info
 
-m.findTeacherResearch('T9229',function(err,result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-}); // findTeacherResearch(teacher_id, callback) 回傳某教授所有專題生和專題題目
+// m.findTeacherResearch('T9229',function(err,result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); // findTeacherResearch(teacher_id, callback) 回傳某教授所有專題生和專題題目
 
 // m.findTeacherResearchCount(function(err,result){
 // 	if(err)
@@ -225,7 +225,7 @@ m.findTeacherResearch('T9229',function(err,result){
 // 	console.log(JSON.parse(result));
 // }); // 回傳教授id,名字對應表
 
-// m.researchApplyFormCreate({phone:'0900000000',student_id:'0516003',research_title:'我是專題標題2~',tname:'彭文志',first_second:2,email:'wawawa@crayonSinJang'},function(err){
+// m.researchApplyFormCreate({phone:'0900000000',student_id:'0516003',research_title:'我是專題標題2~',tname:'彭文志',first_second:2,email:'wawawa@crayonSinJang', semester:'106-2'},function(err){
 // 	if(err)
 // 		throw err;
 // 		//老師名字若不存在，就會拋出ERROR
@@ -258,12 +258,12 @@ m.findTeacherResearch('T9229',function(err,result){
 // });
 // // 輸入系級，回傳該系級所有學生的專題資訊
 
-m.showResearchPage('0516003', function(err, result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-});
-// 用學號查詢專題的標題、網址、介紹
+// m.showResearchPage('0316003', function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// });
+// // 用學號查詢專題的標題、網址、介紹、年度
 
 // m.findResearchGroup({tname:'彭文志', research_title:'聊天機器人', first_second:2}, function(err, result){
 // 	if(err)

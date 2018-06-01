@@ -402,10 +402,10 @@ exports.findTeacherInfo="\
     where t.teacher_id = :teacher_id";
 
 exports.findTeacherResearch="\
-    select s.sname, r.student_id, r.class_detail, r.research_title, r.first_second, r.score\
+    select s.sname, r.student_id, r.class_detail, r.research_title, r.first_second, r.score, r.semester\
     from \
     (\
-        select t.teacher_id,r.student_id, r.class_detail, r.score, r.research_title, r.first_second\
+        select t.teacher_id,r.student_id, r.class_detail, r.score, r.research_title, r.first_second, r.semester\
         from research_student as r,teacher as t\
         where r.tname=t.tname\
     ) as r, student as s \
@@ -503,7 +503,7 @@ exports.addPhone="\
 
 exports.researchApplyFormCreate="\
     insert into research_apply_form\
-    values(:student_id,:research_title,:tname,0,:first_second);"
+    values(:student_id,:research_title,:tname,0,:first_second, :semester);"
 
 exports.researchApplyFormSetAgree="\
     update research_apply_form set agree=:agree \
@@ -514,10 +514,10 @@ exports.researchApplyFormDelete="\
     where research_title=:research_title and tname=:tname and first_second=:first_second;"
 
 exports.researchApplyFormTeaReturn="\
-    select a.student_id,s.sname,a.research_title,a.tname,a.first_second,a.agree,s.phone,s.email \
+    select a.student_id,s.sname,a.research_title,a.tname,a.first_second,a.agree,s.phone,s.email,a.semester\
     from \
     (\
-        select t.teacher_id,r.student_id,r.research_title,r.tname,r.agree,r.first_second \
+        select t.teacher_id,r.student_id,r.research_title,r.tname,r.agree,r.first_second, r.semester\
         from teacher as t,research_apply_form as r\
         where t.tname=r.tname\
     ) as a,\
@@ -528,10 +528,12 @@ exports.researchApplyFormTeaReturn="\
     order by a.research_title;";
 
 exports.researchApplyFormPersonalReturn="\
-    select a.student_id,s.sname,a.research_title,a.tname,a.agree,a.first_second,s.phone,s.email \
+    select a.student_id,s.sname,a.research_title,a.tname,a.agree,a.first_second,s.phone,s.email,a.semester\
     from research_apply_form as a,\
     (\
-        select sname,student_id,phone,email from student where student_id=:student_id\
+        select sname,student_id,phone,email\
+        from student\
+        where student_id=:student_id\
     ) as s\
     where s.student_id=a.student_id;";
 
