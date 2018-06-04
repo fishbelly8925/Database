@@ -296,4 +296,11 @@ var m = require('./msql.js');
 // }); // 回傳專題檔案路徑紀錄
 // 	// {research_title,tname}
 
+// m.showResearchInfo({research_title:'AI運算平台', tname:'吳凱強', semester:'106-2'}, function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// });
+// // 用專題標題、老師名稱、專題學期回傳專題簡介
+
 m.Drain(); // 關閉 connection pool

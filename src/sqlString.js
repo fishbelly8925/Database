@@ -605,3 +605,10 @@ exports.researchFileReturn="\
     research_title=:research_title \
     and tname=:tname \
     and first_second=:first_second;"
+
+exports.showResearchInfo="\
+    select intro\
+    from research_student\
+    where research_title=:research_title\
+    and tname=:tname\
+    and semester=:semester;"

@@ -1056,6 +1056,24 @@ module.exports = {
             });
         });
     },
+    showResearchInfo:function(data, callback){
+        if(typeof(data) === 'string')
+            data=JSON.parse(data);
+        const resource=pool.acquire();
+        resource.then(function(c){
+            var sql_showResearchInfo=c.prepare(s.showResearchInfo);
+            c.query(sql_showResearchInfo(data), function(err, result){
+                if(err)
+                {
+                    callback(err, undefined);
+                    pool.release(c);
+                    return ;
+                }
+                callback(null, JSON.stringify(result));
+                pool.release(c);
+            });
+        }) ;
+    },
     Drain: function() {
         pool.drain().then(function() {
             pool.clear();
