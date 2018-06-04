@@ -281,7 +281,7 @@ var m = require('./msql.js');
 // m.setResearchScore({student_id:'0416026',tname:'彭文志', research_title:'聊天機器人', first_second:2, new_score:88});
 // // 更新專題成績
 
-// m.createNewResearch({ student_id:'0516003',tname : '彭文志', research_title : '我是專題標題2~', first_second:2});
+// m.createNewResearch({ student_id:'0516003',tname : '彭文志', research_title : '我是專題標題2~', first_second:2, semester: '106-2'});
 // // 申請專題同意後，新增此學生專題資料到資料庫
 // // 回傳此學生專題申請清單
 

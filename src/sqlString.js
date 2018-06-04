@@ -592,9 +592,9 @@ exports.setResearchScore="\
 
 exports.createNewResearch="\
     insert into research_student\
-    (student_id, tname, research_title, first_second)\
+    (student_id, tname, research_title, first_second, semester)\
     values\
-    (:student_id, :tname, :research_title, :first_second)";
+    (:student_id, :tname, :research_title, :first_second, :semester)";
     
 exports.researchFileCreate="\
     insert into research_file \
