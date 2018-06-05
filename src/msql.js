@@ -983,13 +983,13 @@ module.exports = {
             var sql_setResearchTitle=c.prepare(s.setResearchTitle);
             var sql_setResearchLink=c.prepare(s.setResearchLink);
             var sql_setResearchIntro=c.prepare(s.setResearchIntro);
-            c.query(sql_setResearchTitle({research_title: data['research_title'], tname: data['tname'], first_second:data['first_second'], new_title: data['new_title']}), function(err, result){
+            c.query(sql_setResearchTitle({research_title: data['research_title'], tname: data['tname'], first_second:data['first_second'], semester:data['semester'], new_title: data['new_title']}), function(err, result){
                 if(err)
                     throw err;
-                c.query(sql_setResearchLink({research_title: data['research_title'], tname: data['tname'], first_second:data['first_second'], new_link: data['new_link']}), function(err, result){
+                c.query(sql_setResearchLink({research_title: data['research_title'], tname: data['tname'], first_second:data['first_second'], semester:data['semester'], new_link: data['new_link']}), function(err, result){
                     if(err)
                         throw err;
-                    c.query(sql_setResearchIntro({research_title: data['research_title'], tname: data['tname'], first_second:data['first_second'], new_intro: data['new_intro']}), function(err, result){
+                    c.query(sql_setResearchIntro({research_title: data['research_title'], tname: data['tname'], first_second:data['first_second'], semester:data['semester'], new_intro: data['new_intro']}), function(err, result){
                         if(err)
                             throw err;
                         callback();

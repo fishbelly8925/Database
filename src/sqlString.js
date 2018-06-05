@@ -507,11 +507,14 @@ exports.researchApplyFormCreate="\
 
 exports.researchApplyFormSetAgree="\
     update research_apply_form set agree=:agree \
-    where research_title=:research_title and tname=:tname and first_second=:first_second;"
+    where research_title=:research_title and tname=:tname \
+    and first_second=:first_second and semester=:semester;"
 
 exports.researchApplyFormDelete="\
     delete from research_apply_form \
-    where research_title=:research_title and tname=:tname and first_second=:first_second;"
+    where research_title=:research_title and \
+    tname=:tname and first_second=:first_second \
+    and semester=:semester;"
 
 exports.researchApplyFormTeaReturn="\
     select a.student_id,s.sname,a.research_title,a.tname,a.first_second,a.agree,s.phone,s.email,a.semester\
@@ -563,32 +566,37 @@ exports.findResearchGroup="\
     from research_student\
     where research_title = :research_title\
     and tname = :tname\
-    and first_second = :first_second";
+    and first_second = :first_second\
+    and semester = :semester";
 
 exports.setResearchTitle="\
     update research_student set research_title = :new_title\
     where research_title = :research_title\
     and tname = :tname\
-    and first_second = :first_second";
+    and first_second = :first_second\
+    and semester = :semester";
 
 exports.setResearchLink="\
     update research_student set link = :new_link\
     where research_title = :research_title\
     and tname = :tname\
-    and first_second = :first_second";
+    and first_second = :first_second\
+    and semester = :semester";
 
 exports.setResearchIntro="\
     update research_student set intro = :new_intro\
     where research_title = :research_title\
     and tname = :tname\
-    and first_second = :first_second";
+    and first_second = :first_second\
+    and semester = :semester";
 
 exports.setResearchScore="\
     update research_student set score = :new_score\
     where research_title = :research_title\
     and tname = :tname\
     and first_second = :first_second\
-    and student_id = :student_id";
+    and student_id = :student_id\
+    and semester = :semester";
 
 exports.createNewResearch="\
     insert into research_student\
