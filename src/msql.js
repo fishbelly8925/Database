@@ -666,6 +666,12 @@ module.exports = {
                     pool.release(c);
                     return;
                 }
+                if(result.length==0)
+                {
+                    callback(null,"[]");
+                    pool.release(c);
+                    return;
+                }
                 var year=parseInt(result[0]['student_id'].substring(0,2));
                 var idx;
                 for(idx in result)
