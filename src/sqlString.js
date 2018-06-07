@@ -619,6 +619,7 @@ exports.showResearchInfo="\
     from research_student\
     where research_title=:research_title\
     and tname=:tname\
+    and first_second = :first_second\
     and semester=:semester;"
 
 exports.updateResearchTitle="\
