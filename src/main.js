@@ -174,11 +174,11 @@ var m = require('./msql.js');
 // 	console.log(JSON.parse(result));
 // }); // findTeacherInfo(tname, callback) 回傳某教授info
 
-m.findTeacherResearch('T9410',function(err,result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-}); // findTeacherResearch(teacher_id, callback) 回傳某教授所有專題生和專題題目
+// m.findTeacherResearch('T9410',function(err,result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); // findTeacherResearch(teacher_id, callback) 回傳某教授所有專題生和專題題目
 
 // m.findTeacherResearchCount(function(err,result){
 // 	if(err)
@@ -302,5 +302,8 @@ m.findTeacherResearch('T9410',function(err,result){
 // 	console.log	(JSON.parse(result));
 // });
 // // 用專題標題、老師名稱、專題學期回傳專題簡介
+
+m.updateResearchTitle({research_title:'我是專題標題2~', tname:'彭文志', first_second:2, semester:'106-2', new_title:'New Title'});
+// 使用專題標題、老師名稱、專題一二、專題學期，編輯專題標題
 
 m.Drain(); // 關閉 connection pool

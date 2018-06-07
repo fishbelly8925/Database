@@ -620,3 +620,10 @@ exports.showResearchInfo="\
     where research_title=:research_title\
     and tname=:tname\
     and semester=:semester;"
+
+exports.updateResearchTitle="\
+    update research_student set research_title = :new_title\
+    where research_title = :research_title\
+    and tname = :tname\
+    and first_second = :first_second\
+    and semester = :semester"

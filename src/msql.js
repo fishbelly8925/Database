@@ -1078,7 +1078,20 @@ module.exports = {
                 callback(null, JSON.stringify(result));
                 pool.release(c);
             });
-        }) ;
+        });
+    },
+    updateResearchTitle:function(data){
+        if(typeof(data) === 'string')
+            data=JSON.parse(data);
+        const resource=pool.acquire();
+        resource.then(function(c){
+            var sql_updateResearchTitle=c.prepare(s.updateResearchTitle);
+            c.query(sql_updateResearchTitle(data), function(err, result){
+                if(err)
+                    throw err;
+            });
+            pool.release(c);
+        });
     },
     Drain: function() {
         pool.drain().then(function() {
