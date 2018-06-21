@@ -10,6 +10,14 @@ exports.findStudent = "\
     where s.student_id=:id and s.student_id not in\
     (select student_id from en_certificate)";
 
+exports.findCrossStudent = "\
+    select * from student \
+    where student_id = :id and \
+    program != \'資工A\' and \
+    program != \'資工B\' and \
+    program != \'資電\' and \
+    program != \'網多\'";
+
 exports.findProfessor = "\
     select teacher_id,tname from teacher\
     where teacher_id=:id";

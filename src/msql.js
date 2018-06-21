@@ -31,19 +31,36 @@ module.exports = {
             const resource = pool.acquire();
             resource.then(function(c) {
                 var sql_findStudent = c.prepare(s.findStudent);
-                c.query(sql_findStudent({ id: id }), function(err, result) {
-                    if (err){
+                var sql_findCrossStudent = c.prepare(s.findCrossStudent);
+                c.query(sql_findCrossStudent({id}),function(err,result){
+                    if(err){
                         callback(err,undefined);
                         pool.release(c);
                         return;
                     }
-                    if (result.info.numRows != 0) {
-                        result[0]['status'] = 's';
-                        if (id=='0316201'||id=='0312512'||id=='0416014'||id=='0416008'||id=='0416081'||id=='0516003'||id=='0516205')
-                            result[0]['status'] = 'w';
+                    if(result.length)
+                    {
+                        result[0]['status'] = 'c';
+                        callback(null,JSON.stringify(result));
+                        pool.release(c);
                     }
-                    callback(null, JSON.stringify(result));
-                    pool.release(c);
+                    else
+                    {
+                        c.query(sql_findStudent({ id: id }), function(err, result) {
+                            if (err){
+                                callback(err,undefined);
+                                pool.release(c);
+                                return;
+                            }
+                            if (result.info.numRows != 0) {
+                                result[0]['status'] = 's';
+                                if (id=='0316201'||id=='0312512'||id=='0416014'||id=='0416008'||id=='0416081'||id=='0516003'||id=='0516205')
+                                    result[0]['status'] = 'w';
+                            }
+                            callback(null, JSON.stringify(result));
+                            pool.release(c);
+                        })
+                    }
                 })
             });
         } else if (id.match(/^T.*/g)) {
@@ -731,10 +748,16 @@ module.exports = {
             var sql_mailCreateReceiver=c.prepare(s.mailCreateReceiver);
             c.query(sql_mailCreateSender(data),function(err){
                 if(err)
+                {
+                    pool.release(c);
                     throw err;
+                }
                 c.query(sql_mailCreateReceiver(data),function(err){
                     if(err)
+                    {
+                        pool.release(c);
                         throw err;
+                    }
                     pool.release(c);
                 });
             });
@@ -746,7 +769,10 @@ module.exports = {
             var sql_mailDelete=c.prepare(s.mailDelete);
             c.query(sql_mailDelete({mail_id}),function(err){
                 if(err)
+                {
+                    pool.release(c);
                     throw err;
+                }
                 pool.release(c);
             });
         });
@@ -757,7 +783,10 @@ module.exports = {
             var sql_mailReadSet=c.prepare(s.mailReadSet);
             c.query(sql_mailReadSet({mail_id,read_bit}),function(err){
                 if(err)
+                {
+                    pool.release(c);
                     throw err;
+                }
                 pool.release(c);
             });
         });
@@ -838,7 +867,6 @@ module.exports = {
         });
     },
     researchApplyFormCreate:function(data,callback){
-        //data need phone,student_id,research_title,tname,email
         if(typeof(data)==='string')
             data=JSON.parse(data);
         const resource=pool.acquire();
@@ -849,20 +877,21 @@ module.exports = {
             c.query(sql_addPhone({student_id:data['student_id'],phone:data['phone']}),function(err){
                 if(err)
                 {
-                    throw err;
                     pool.release(c);
-                    return;
+                    throw err;
                 }
                 c.query(sql_addEmail({id:data['student_id'],email:data['email']}),function(err){
                     if(err)
                     {
-                        throw err;
                         pool.release(c);
-                        return;
+                        throw err;
                     }
                     c.query(sql_researchApplyFormCreate(data),function(err){
                         if(err)
+                        {
+                            pool.release(c);
                             throw err;
+                        }
                         pool.release(c);
                     });
                 });
@@ -870,7 +899,6 @@ module.exports = {
         });
     },
     researchApplyFormSetAgree:function(data){
-        //data need research_title,tname,agree
         if(typeof(data)==='string')
             data=JSON.parse(data);
         const resource=pool.acquire();
@@ -878,13 +906,15 @@ module.exports = {
             var sql_researchApplyFormSetAgree=c.prepare(s.researchApplyFormSetAgree);
             c.query(sql_researchApplyFormSetAgree(data),function(err,result){
                 if(err)
+                {
+                    pool.release(c);
                     throw err;
+                }
                 pool.release(c);
             });
         });
     },
     researchApplyFormDelete:function(data){
-        //data need research_title,tname
         if(typeof(data)==='string')
             data=JSON.parse(data);
         const resource=pool.acquire();
@@ -892,7 +922,10 @@ module.exports = {
             var sql_researchApplyFormDelete=c.prepare(s.researchApplyFormDelete);
             c.query(sql_researchApplyFormDelete(data),function(err){
                 if(err)
+                {
+                    pool.release(c);
                     throw err;
+                }
                 pool.release(c);
             });
         });
@@ -991,13 +1024,22 @@ module.exports = {
             var sql_setResearchIntro=c.prepare(s.setResearchIntro);
             c.query(sql_setResearchTitle({research_title: data['research_title'], tname: data['tname'], first_second:data['first_second'], semester:data['semester'], new_title: data['new_title']}), function(err, result){
                 if(err)
+                {
+                    pool.release(c);
                     throw err;
+                }
                 c.query(sql_setResearchLink({research_title: data['research_title'], tname: data['tname'], first_second:data['first_second'], semester:data['semester'], new_link: data['new_link']}), function(err, result){
                     if(err)
+                    {
+                        pool.release(c);
                         throw err;
+                    }
                     c.query(sql_setResearchIntro({research_title: data['research_title'], tname: data['tname'], first_second:data['first_second'], semester:data['semester'], new_intro: data['new_intro']}), function(err, result){
                         if(err)
+                        {
+                            pool.release(c);
                             throw err;
+                        }
                         callback();
                         pool.release(c);
                     });
@@ -1013,7 +1055,10 @@ module.exports = {
             var sql_setResearchScore=c.prepare(s.setResearchScore);
             c.query(sql_setResearchScore(data),function(err){
                 if(err)
+                {
+                    pool.release(c);
                     throw err;
+                }
                 pool.release(c);
             });
         });
@@ -1026,9 +1071,12 @@ module.exports = {
             var sql_createNewResearch=c.prepare(s.createNewResearch);
             c.query(sql_createNewResearch(data), function(err){
                 if(err)
+                {
+                    pool.release(c);
                     throw err;
+                }
+                pool.release(c);
             });
-            pool.release(c);
         });
     },
     researchFileCreate:function(data){
@@ -1039,9 +1087,12 @@ module.exports = {
             var sql_researchFileCreate=c.prepare(s.researchFileCreate);
             c.query(sql_researchFileCreate(data), function(err){
                 if(err)
+                {
+                    pool.release(c);
                     throw err;
+                }
+                pool.release(c);
             });
-            pool.release(c);
         });
     },
     researchFileReturn:function(data,callback){
