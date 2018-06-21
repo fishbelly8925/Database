@@ -3,7 +3,7 @@ import sqlString as sql
 import numpy as np
 from sklearn.cluster import KMeans
 
-conn=MySQLdb.connect(db='test',user='root',passwd='jack02',charset='utf8')
+conn=MySQLdb.connect(db='ca',user='root',passwd='jack02',charset='utf8')
 
 def findCurrentCos():
     cursor=conn.cursor()

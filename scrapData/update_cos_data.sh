@@ -2,11 +2,11 @@ curl -o TeacherList https://dcpc.nctu.edu.tw/plug/n/nctup/TeacherList
 python3 ./json_to_csv.py TeacherList
 rm TeacherList
 
-fileName='106-1'
+fileName='106-2'
 acy=${fileName:0:3}
 sem=${fileName:4}
 
-until [ -e $acy-$sem.csv ]
+while [ -e $acy-$sem.csv ]
 do
 	sem=$(($sem+1))
 	if [ ${sem} -gt 3 ];then
