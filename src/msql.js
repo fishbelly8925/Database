@@ -617,6 +617,12 @@ module.exports = {
                 c.query(sql_findCurrentCos({semester}),function(err,cos){
                     c.query(sql_findTeacher({}),function(err,tea){
                         //select all recommend cos to variable rec
+                        if(reclist.length==0)
+                        {
+                            pool.release(c);
+                            callback(null,JSON.stringify([]));
+                            return;
+                        }
                         reclist=reclist[0]['cos_name_list'];
                         let rec=reclist.split(",");
 

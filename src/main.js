@@ -4,11 +4,11 @@
 
 var m = require('./msql.js');
 
-m.findPerson('0410006', function(err, result) {
-    if (err)
-        throw err;
-    console.log(JSON.parse(result));
-}); // findPerson 回傳學生資料
+// m.findPerson('0410006', function(err, result) {
+//     if (err)
+//         throw err;
+//     console.log(JSON.parse(result));
+// }); // findPerson 回傳學生資料
 
 // m.addEmail('0516003', 'dabct@test');
 // // addEmail(學號,email) 更新此學號學生之email
@@ -162,11 +162,11 @@ m.findPerson('0410006', function(err, result) {
 // });
 // // showCosScoreInterval(cos_code, unique_id, callback) 某堂課的成績區間人數
 
-// m.getRecommend('0616008',function(err,result){
-// 	if(err)
-// 		throw err;
-// 	console.log(JSON.parse(result));
-// }); // getRecomend(student_id,callback) 回傳某學生的推薦課程
+m.getRecommend('0216340',function(err,result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+}); // getRecomend(student_id,callback) 回傳某學生的推薦課程
 
 // m.findTeacherInfo('T9229',function(err,result){
 // 	if(err)
