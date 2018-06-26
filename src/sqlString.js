@@ -410,10 +410,10 @@ exports.findTeacherInfo="\
     where t.teacher_id = :teacher_id";
 
 exports.findTeacherResearch="\
-    select s.sname, r.student_id, r.class_detail, r.research_title, r.first_second, r.score, r.semester\
+    select s.sname, r.student_id, r.class_detail, r.research_title, r.first_second, r.score, r.semester, r.comment\
     from \
     (\
-        select t.teacher_id,r.student_id, r.class_detail, r.score, r.research_title, r.first_second, r.semester\
+        select t.teacher_id,r.student_id, r.class_detail, r.score, r.research_title, r.first_second, r.semester, r.comment\
         from research_student as r,teacher as t\
         where r.tname=t.tname\
     ) as r, student as s \
@@ -632,6 +632,22 @@ exports.showResearchInfo="\
 
 exports.updateResearchTitle="\
     update research_student set research_title = :new_title\
+    where research_title = :research_title\
+    and tname = :tname\
+    and first_second = :first_second\
+    and semester = :semester"
+
+exports.showResearchGrade="\
+    select r.tname, r.student_id, r.score, s.sname\
+    from research_student as r,\
+    (\
+        select student_id,sname from student\
+    ) as s\
+    where s.student_id=r.student_id and\
+    semester = :semester"
+
+exports.setResearchComment="\
+    update research_student set comment = :comment\
     where research_title = :research_title\
     and tname = :tname\
     and first_second = :first_second\

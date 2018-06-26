@@ -162,11 +162,11 @@ var m = require('./msql.js');
 // });
 // // showCosScoreInterval(cos_code, unique_id, callback) 某堂課的成績區間人數
 
-m.getRecommend('0216340',function(err,result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-}); // getRecomend(student_id,callback) 回傳某學生的推薦課程
+// m.getRecommend('0216340',function(err,result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); // getRecomend(student_id,callback) 回傳某學生的推薦課程
 
 // m.findTeacherInfo('T9229',function(err,result){
 // 	if(err)
@@ -174,7 +174,7 @@ m.getRecommend('0216340',function(err,result){
 // 	console.log(JSON.parse(result));
 // }); // findTeacherInfo(tname, callback) 回傳某教授info
 
-// m.findTeacherResearch('T9410',function(err,result){
+// m.findTeacherResearch('T9229',function(err,result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
@@ -272,7 +272,7 @@ m.getRecommend('0216340',function(err,result){
 // });
 // // 用教授名稱、專題名稱、專題一二查詢所有同組專題生的學號
 
-// m.setResearchPage({tname:'彭文志', research_title:'CA', first_second:2, semester:'106-2', new_title:'聊天機器人', new_link:'b', new_intro:'c'} , function(err){
+// m.setResearchPage({tname:'吳凱強', research_title:'AI運算平台', first_second:2, semester:'106-2', new_title:'聊天機器人', new_link:'b', new_intro:'c', new_comment:'this is a comment yooooo!'} , function(err){
 // 	if(err)
 // 		throw err;
 // });
@@ -305,5 +305,11 @@ m.getRecommend('0216340',function(err,result){
 
 // m.updateResearchTitle({research_title:'我是專題標題2~', tname:'彭文志', first_second:2, semester:'106-2', new_title:'New Title'});
 // 使用專題標題、老師名稱、專題一二、專題學期，編輯專題標題
+
+// m.showResearchGrade('106-2',function(err,result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); // 回傳專題成績列表:教授名字,學生姓名學號,成績
 
 m.Drain(); // 關閉 connection pool
