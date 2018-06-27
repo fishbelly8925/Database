@@ -647,8 +647,9 @@ exports.showResearchGrade="\
     semester = :semester"
 
 exports.setResearchComment="\
-    update research_student set comment = :comment\
+    update research_student set comment = :new_comment\
     where research_title = :research_title\
     and tname = :tname\
     and first_second = :first_second\
+    and student_id = :student_id\
     and semester = :semester"

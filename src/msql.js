@@ -1028,7 +1028,7 @@ module.exports = {
             var sql_setResearchTitle=c.prepare(s.setResearchTitle);
             var sql_setResearchLink=c.prepare(s.setResearchLink);
             var sql_setResearchIntro=c.prepare(s.setResearchIntro);
-            var sql_setsetResearchComment=c.prepare(s.setResearchComment);
+
             c.query(sql_setResearchTitle({research_title: data['research_title'], tname: data['tname'], first_second:data['first_second'], semester:data['semester'], new_title: data['new_title']}), function(err, result){
                 if(err)
                     throw err;
@@ -1038,24 +1038,26 @@ module.exports = {
                     c.query(sql_setResearchIntro({research_title: data['research_title'], tname: data['tname'], first_second:data['first_second'], semester:data['semester'], new_intro: data['new_intro']}), function(err, result){
                         if(err)
                             throw err;
-                        c.query(sql_setsetResearchComment({research_title: data['research_title'], tname: data['tname'], first_second:data['first_second'], semester:data['semester'], new_comment:data['new_comment']}),function(err,result){
-                            if(err)
-                                throw err;
-                            callback();
-                            pool.release(c);
-                        });
+                        pool.release(c);    
                     });
                 });
             });
         });
     },
-    setResearchScore:function(data){
+    setResearchScoreComment:function(data){
         if(typeof(data)==='string')
             data=JSON.parse(data);
         const resource=pool.acquire();
         resource.then(function(c){
             var sql_setResearchScore=c.prepare(s.setResearchScore);
+            var sql_setResearchComment=c.prepare(s.setResearchComment);
             c.query(sql_setResearchScore(data),function(err){
+                if(err)
+                {
+                    throw err;
+                }
+            });
+            c.query(sql_setResearchComment(data), function(err){
                 if(err)
                 {
                     pool.release(c);

@@ -272,14 +272,14 @@ var m = require('./msql.js');
 // });
 // // 用教授名稱、專題名稱、專題一二查詢所有同組專題生的學號
 
-// m.setResearchPage({tname:'吳凱強', research_title:'AI運算平台', first_second:2, semester:'106-2', new_title:'聊天機器人', new_link:'b', new_intro:'c', new_comment:'this is a comment yooooo!'} , function(err){
+// m.setResearchPage({tname:'吳凱強', research_title:'聊天機器人', first_second:2, semester:'106-2', new_title:'聊天機器人', new_link:'gggg', new_intro:'c'}, function(err){
 // 	if(err)
 // 		throw err;
 // });
 // // 用教授名稱、專題名稱、專題一二更新專題資訊(標題、網址、介紹)
 
-// m.setResearchScore({student_id:'0416026',tname:'彭文志', research_title:'聊天機器人', first_second:2, semester:'106-2', new_score:88});
-// // 更新專題成績
+// m.setResearchScoreComment({student_id:'0416026',tname:'彭文志', research_title:'聊天機器人', first_second:2, semester:'106-2', new_score:88, new_comment:'Yee!'});
+// // 更新專題成績、評語
 
 // m.createNewResearch({ student_id:'0526303',tname : '彭文志', research_title : '我是專題標題2~', first_second:2, semester: '106-2'});
 // // 申請專題同意後，新增此學生專題資料到資料庫
