@@ -637,8 +637,8 @@ exports.updateResearchTitle="\
     and first_second = :first_second\
     and semester = :semester"
 
-exports.showResearchGrade="\
-    select r.tname, r.student_id, r.score, s.sname\
+exports.showResearchGradeComment="\
+    select r.tname, r.student_id, r.score, s.sname, r.comment\
     from research_student as r,\
     (\
         select student_id,sname from student\

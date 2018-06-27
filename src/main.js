@@ -306,10 +306,10 @@ var m = require('./msql.js');
 // m.updateResearchTitle({research_title:'我是專題標題2~', tname:'彭文志', first_second:2, semester:'106-2', new_title:'New Title'});
 // 使用專題標題、老師名稱、專題一二、專題學期，編輯專題標題
 
-// m.showResearchGrade('106-2',function(err,result){
+// m.showResearchGradeComment('106-2',function(err,result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
-// }); // 回傳專題成績列表:教授名字,學生姓名學號,成績
+// }); // 回傳專題成績列表:教授名字,學生姓名學號,成績,評論
 
 m.Drain(); // 關閉 connection pool
