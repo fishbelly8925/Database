@@ -1148,11 +1148,13 @@ module.exports = {
             });
         });
     },
-    showResearchGradeComment:function(semester,callback){
+    showResearchGradeComment:function(data, callback){
+        if(typeof(data) === 'string')
+            data=JSON.parse(data);
         const resource=pool.acquire();
         resource.then(function(c){
             var sql_showResearchGradeComment=c.prepare(s.showResearchGradeComment);
-            c.query(sql_showResearchGradeComment({semester}),function(err,result){
+            c.query(sql_showResearchGradeComment(data), function(err,result){
                 if(err)
                 {
                     callback(err,undefined);
@@ -1160,7 +1162,7 @@ module.exports = {
                     pool.release(c);
                     return;
                 }
-                callback(null,JSON.stringify(result));
+                callback(null, JSON.stringify(result));
                 pool.release(c);
             });
         });
