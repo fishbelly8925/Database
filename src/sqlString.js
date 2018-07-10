@@ -643,8 +643,9 @@ exports.showResearchGradeComment="\
     (\
         select student_id,sname from student\
     ) as s\
-    where s.student_id=r.student_id and\
-    semester = :semester"
+    where s.student_id=r.student_id\
+    and r.semester = :semester\
+    and r.first_second = :first_second"
 
 exports.setResearchComment="\
     update research_student set comment = :new_comment\
