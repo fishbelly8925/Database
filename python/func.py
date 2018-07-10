@@ -5,20 +5,6 @@ from sklearn.cluster import KMeans
 
 conn=MySQLdb.connect(db='ca',user='root',passwd='jack02',charset='utf8')
 
-def findCurrentCos():
-    cursor=conn.cursor()
-    cursor.execute(sql.findCurrentCos)
-    temp=cursor.fetchall()
-    res=set()
-    for i in temp:
-        i=i[0]
-        res.add(parseEng(i))
-    res=list(res)
-    res.sort()
-    cursor.close()
-    return res
-
-
 def parseEng(cos):
     if '英文授課' in cos:
         cos=cos[:-6]
@@ -31,6 +17,19 @@ def parseEng(cos):
     else:
         cos=cos
     return cos
+
+def findCurrentCos():
+    cursor=conn.cursor()
+    cursor.execute(sql.findCurrentCos)
+    temp=cursor.fetchall()
+    res=set()
+    for i in temp:
+        i=i[0]
+        res.add(parseEng(i))
+    res=list(res)
+    res.sort()
+    cursor.close()
+    return res
 
 def findAllCos():
     cursor=conn.cursor()
@@ -107,20 +106,20 @@ def predict(sim,grads):
     std_num=len(grads)
     cos_num=len(grads[0])
     pred=np.zeros((std_num,cos_num))
-    for a in range(std_num):
-        if np.isnan(mean[a]):
+    for std_idx in range(std_num):
+        if np.isnan(mean[std_idx]):
             continue
-        for p in range(cos_num):
-            if ~np.isnan(grads[a][p]):
+        for cos_idx in range(cos_num):
+            if ~np.isnan(grads[std_idx][cos_idx]):
                 continue
-            r=grads[:,p]-mean
-            s=sim[a]*r
+            r=grads[:,cos_idx]-mean
+            s=sim[std_idx]*r
             s=s[~np.isnan(s)].sum()
-            m=sim[a]+r-r
+            m=sim[std_idx]+r-r # +r-r is for some reason which I forget QQ
             m=m[~np.isnan(m)].sum()
             if m==0:
-                continue
-            pred[a][p]=mean[a]+(s/m)
+                continue # pred is default zero, so we don't need to do anything
+            pred[std_idx][cos_idx]=mean[std_idx]+(s/m)
     return pred
 
 def generate(cos,pred,num):
@@ -133,14 +132,14 @@ def generate(cos,pred,num):
         temp=[]
         dup=0
         for j in range(num):
-            if dup>0:
+            if dup>0: # skip this time since the previous duplicate coses which have same predict value
                 dup-=1
                 continue
-            if sorted_pred[i][j]==0:
+            if sorted_pred[i][j]==0:  # if the predict value is zero, then we stop since it doesn't worth to be recommended
                 break
             end=np.where(pred[i]==sorted_pred[i][j])[0]
             dup=len(end)-1
-            for k in end:
+            for k in end: # if more than one coses have same predict value, we use loop to add them and set variable dup
                 temp.append(cos[k])
         res.append(temp)
     return res
