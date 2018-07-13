@@ -400,14 +400,26 @@ or cos_code like 'ICP%')) as cd, \
 (select unique_id,cos_cname from cos_name where unique_id like :semester) as cn \
 where cd.unique_id=cn.unique_id";
 
-exports.findTeacherInfo="\
-    select * from \
+exports.findTeacherResearchCountAndInfo="\
+    select *\
+    from\
     (\
-        select a.teacher_id,t.phone,t.tname,t.email,t.expertise,t.info\
-        from teacher_info as t,teacher as a\
-        where t.tname=a.tname\
-    )\ as t\
-    where t.teacher_id = :teacher_id";
+        select r.teacher_id,r.tname,substring(r.student_id,1,2) as 'grade',count(*) as 'scount'\
+        from \
+        (\
+            select distinct r.student_id,r.tname,t.teacher_id \
+            from research_student as r, teacher as t\
+            where r.tname=t.tname\
+        ) as r \
+        where r.student_id in ( select student_id from student ) \
+        group by substring(r.student_id,1,2),r.tname \
+        order by r.tname,substring(r.student_id,1,2)\
+    ) as o,\
+    (\
+        select phone,tname,email,expertise,info\
+        from teacher_info\
+    ) as t\
+    where o.tname=t.tname;"
 
 exports.findTeacherResearch="\
     select s.sname, r.student_id, r.class_detail, r.research_title, r.first_second, r.score, r.semester, r.comment\
@@ -420,18 +432,6 @@ exports.findTeacherResearch="\
     where s.student_id = r.student_id \
     and r.teacher_id = :teacher_id \
     order by substring(s.student_id,1,2) desc";
-
-exports.findTeacherResearchCount="\
-    select r.teacher_id,r.tname,substring(r.student_id,1,2) as 'grade',count(*) as 'scount'\
-    from \
-    (\
-        select distinct r.student_id,r.tname,t.teacher_id \
-        from research_student as r, teacher as t\
-        where r.tname=t.tname\
-    ) as r \
-    where r.student_id in ( select student_id from student ) \
-    group by substring(r.student_id,1,2),r.tname \
-    order by r.tname,substring(r.student_id,1,2);";
 
 exports.mailCreateSender="\
     insert into mail(mail_id,title,sender_id,receiver_id,content) \
@@ -654,3 +654,8 @@ exports.setResearchComment="\
     and first_second = :first_second\
     and student_id = :student_id\
     and semester = :semester"
+
+exports.mentorReturn="\
+    select tname\
+    from mentor_list\
+    where student_id=:id;"

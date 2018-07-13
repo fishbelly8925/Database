@@ -168,23 +168,17 @@ var m = require('./msql.js');
 // 	console.log(JSON.parse(result));
 // }); // getRecomend(student_id,callback) 回傳某學生的推薦課程
 
-// m.findTeacherInfo('T9229',function(err,result){
-// 	if(err)
-// 		throw err;
-// 	console.log(JSON.parse(result));
-// }); // findTeacherInfo(tname, callback) 回傳某教授info
-
 // m.findTeacherResearch('T9229',function(err,result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
 // }); // findTeacherResearch(teacher_id, callback) 回傳某教授所有專題生和專題題目
 
-// m.findTeacherResearchCount(function(err,result){
-// 	if(err)
-// 		throw err;
-// 	console.log(JSON.parse(result)[9]);
-// }); // findTeacherResearchCount(callback) 回傳所有教授各屆的學生人數
+m.findTeacherResearchCountAndInfo(function(err,result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+}); // findTeacherResearchCount(callback) 回傳所有教授各屆的學生人數
 
 // m.mailCreate({sender_id:'0516003',title:'test~~',receiver_id:'T9229',content:'這是一個測試信件這是一個測試信件'});
 // // mailCreate(data) data type 為JSON，新增一則信件，需有以上所有欄位
@@ -306,10 +300,16 @@ var m = require('./msql.js');
 // m.updateResearchTitle({research_title:'我是專題標題2~', tname:'彭文志', first_second:2, semester:'106-2', new_title:'New Title'});
 // 使用專題標題、老師名稱、專題一二、專題學期，編輯專題標題
 
-m.showResearchGradeComment({semester: '106-2', first_second: 2}, function(err,result){
+// m.showResearchGradeComment({semester: '106-2', first_second: 2}, function(err,result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); // 回傳專題成績列表:教授名字,學生姓名學號,成績,評論
+
+m.mentorReturn('0516003',function(err,result){
 	if(err)
 		throw err;
 	console.log(JSON.parse(result));
-}); // 回傳專題成績列表:教授名字,學生姓名學號,成績,評論
+}); // 輸入學生學號，回傳該學生導師
 
 m.Drain(); // 關閉 connection pool

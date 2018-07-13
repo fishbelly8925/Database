@@ -664,21 +664,6 @@ module.exports = {
             });
         });
     },
-    findTeacherInfo: function(teacher_id, callback){
-        const resource = pool.acquire();
-        resource.then(function(c){
-            var sql_findTeacherInfo=c.prepare(s.findTeacherInfo);
-            c.query(sql_findTeacherInfo({teacher_id}), function(err, result){
-                if(err){
-                    callback(err, undefined);
-                    pool.release(c);
-                    return;
-                }
-                callback(null, JSON.stringify(result));
-                pool.release(c);
-            });
-        });
-    },
     findTeacherResearch: function(teacher_id, callback){
         const resource = pool.acquire();
         resource.then(function(c){
@@ -712,11 +697,11 @@ module.exports = {
             });
         });
     },
-    findTeacherResearchCount: function(callback){
+    findTeacherResearchCountAndInfo: function(callback){
         const resource=pool.acquire();
         resource.then(function(c){
-            var sql_findTeacherResearchCount=c.prepare(s.findTeacherResearchCount);
-            c.query(sql_findTeacherResearchCount({}),function(err,result){
+            var sql_findTeacherResearchCountAndInfo=c.prepare(s.findTeacherResearchCountAndInfo);
+            c.query(sql_findTeacherResearchCountAndInfo({}),function(err,result){
                 if(err){
                     callback(err,undefined);
                     pool.release(c);
@@ -727,14 +712,20 @@ module.exports = {
                 for(i in result){
                     gradeCnt={grade:result[i].grade,scount:result[i].scount};
                     if(i==0){
-                        temp={tname:result[i].tname,teacher_id:result[i].teacher_id,gradeCnt:[gradeCnt]};
+                        temp={tname:result[i].tname, teacher_id:result[i].teacher_id,
+                            phone:result[i].phone, email:result[i].email,
+                            expertise:result[i].expertise,
+                            info:result[i].info, gradeCnt:[gradeCnt]};
                     }
                     else if(result[i].tname===temp.tname){
                         temp.gradeCnt.push(gradeCnt);
                     }
                     else{   
                         res.push(temp);
-                        temp={tname:result[i].tname,teacher_id:result[i].teacher_id,gradeCnt:[gradeCnt]};
+                        temp={tname:result[i].tname, teacher_id:result[i].teacher_id,
+                            phone:result[i].phone, email:result[i].email,
+                            expertise:result[i].expertise,
+                            info:result[i].info, gradeCnt:[gradeCnt]};
                     }
                 }
                 if(res[res.length-1].tname!==temp.tname)
@@ -1163,6 +1154,23 @@ module.exports = {
                     return;
                 }
                 callback(null, JSON.stringify(result));
+                pool.release(c);
+            });
+        });
+    },
+    mentorReturn:function(id,callback){
+        const resource = pool.acquire();
+        resource.then(function(c){
+            var sql_mentorReturn = c.prepare(s.mentorReturn);
+            c.query(sql_mentorReturn({id}),function(err,result){
+                if(err)
+                {
+                    callback(err,undefined);
+                    throw err;
+                    pool.release(c);
+                    return;
+                }
+                callback(null,JSON.stringify(result));
                 pool.release(c);
             });
         });
