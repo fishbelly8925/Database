@@ -1,7 +1,7 @@
 exports.findStudent = "\
     select s.student_id,s.sname,s.program,s.grade,s.email,s.graduate,s.graduate_submit,\
     s.gmail,s.fb_id,s.github_id,e.pass_code as en_certificate\
-    from student as s,en_certificate as e\
+    from student as s, en_certificate as e\
     where s.student_id=:id and e.student_id=:id\
     union\
     select s.student_id,s.sname,s.program,s.grade,s.email,s.graduate,s.graduate_submit,\
@@ -11,19 +11,21 @@ exports.findStudent = "\
     (select student_id from en_certificate)";
 
 exports.findCrossStudent = "\
-    select * from student \
-    where student_id = :id and \
-    program != \'資工A\' and \
-    program != \'資工B\' and \
-    program != \'資電\' and \
-    program != \'網多\'";
+    select * \
+    from student \
+    where student_id = :id \
+    and program != \'資工A\' \
+    and program != \'資工B\' \
+    and program != \'資電\' \
+    and program != \'網多\'";
 
 exports.findProfessor = "\
     select teacher_id,tname from teacher\
     where teacher_id=:id";
 
 exports.findTeacher="\
-    select teacher_id,tname from teacher_cos_relation;"
+    select teacher_id,tname \
+    from teacher_cos_relation;"
 
 exports.findAssistant = "\
     select assistant_id,aname from assistant\
@@ -35,25 +37,26 @@ exports.addEmail = "\
 
 exports.showCosMap = "\
     select a.cos_cname, a.grade, a.semester, b.pre_cos_cname as suggest, c.pre_cos_cname as pre \
-    from (\
+    from\
+    (\
         select c.cos_cname,c.grade,c.semester \
         from cos_require as c, student as s \
         where s.student_id=:id and c.school_year=:year and s.program like concat(c.program,\'%\') \
         order by grade, semester\
-        ) as a \
+    ) as a \
     left outer join \
-        (\
+    (\
         select pre_cos_cname, after_cos_cname \
         from cos_suggest as c, student as s \
         where s.student_id=:id and s.program like concat(c.program,\'%\') and c.school_year=:year\
-        ) as b \
+    ) as b \
     on a.cos_cname=b.after_cos_cname \
-    left outer join \
-        (\
+    left outer join\
+    (\
         select pre_cos_cname, after_cos_cname \
         from cos_pre as c, student as s \
         where s.student_id=:id and s.program like concat(c.program,\'%\') and c.school_year=:year\
-        ) as c \
+    ) as c \
     on a.cos_cname=c.after_cos_cname \
     order by a.grade,a.semester,a.cos_cname;";
 
@@ -63,7 +66,8 @@ exports.showCosMapPass = "\
     (\
         select cos_code,concat(cos_year,\'-\',semester,\'-\',cos_id) as unique_id\
         from cos_score where student_id=:id and pass_fail=\'通過\'\
-    ) as cs left outer join cos_name as c\
+    ) as cs \
+    left outer join cos_name as c\
     on cs.unique_id=c.unique_id\
     where c.cos_code like \'DCP%\' or c.cos_code like \'IOE%\'\
     or cos_cname like \'微積分甲%\' or cos_cname like \'物理%\'\
@@ -387,18 +391,29 @@ exports.getRecommend="\
     select cos_name_list from rs where student_id=:id;"
 
 exports.findCurrentCos="\
-select distinct cd.unique_id,cn.cos_cname,cd.teacher_id,cd.cos_time,cd.cos_code from \
-(select unique_id,teacher_id,cos_time,cos_code from cos_data where \
-unique_id like :semester \
-and (cos_code like 'DCP%' \
-or cos_code like 'IOC%' \
-or cos_code like 'IOE%' \
-or cos_code like 'ILE%' \
-or cos_code like 'IDS%' \
-or cos_code like 'CCS%' \
-or cos_code like 'ICP%')) as cd, \
-(select unique_id,cos_cname from cos_name where unique_id like :semester) as cn \
-where cd.unique_id=cn.unique_id";
+    select distinct cd.unique_id,cn.cos_cname,cd.teacher_id,cd.cos_time,cd.cos_code \
+    from \
+    (\
+        select unique_id, teacher_id, cos_time, cos_code \
+        from cos_data \
+        where unique_id like :semester \
+        and \
+        (\
+            cos_code like 'DCP%' \
+            or cos_code like 'IOC%' \
+            or cos_code like 'IOE%' \
+            or cos_code like 'ILE%' \
+            or cos_code like 'IDS%' \
+            or cos_code like 'CCS%' \
+            or cos_code like 'ICP%' \
+        )\
+    ) as cd, \
+    (\
+        select unique_id,cos_cname\
+        from cos_name\ 
+        where unique_id like :semester\
+    ) as cn\
+    where cd.unique_id=cn.unique_id";
 
 exports.findTeacherResearchCountAndInfo="\
     select *\
@@ -474,7 +489,8 @@ exports.mailReturnReceiveList="\
         union\
         select teacher_id as id,tname as name from teacher\
     ) as id\
-    where m.receiver_id=id.id order by m.send_time desc;";
+    where m.receiver_id=id.id\
+    order by m.send_time desc;";
 
 exports.mailReturnSendList="\
     select m.mail_id,m.title,m.sender_id,m.receiver_id,m.read_bit,m.send_time,m.sender,id.name as receiver\
@@ -497,7 +513,8 @@ exports.mailReturnSendList="\
         union\
         select teacher_id as id,tname as name from teacher\
     ) as id\
-    where m.receiver_id=id.id order by m.send_time desc;";
+    where m.receiver_id=id.id\
+    order by m.send_time desc;";
 
 exports.returnStudentIdList="\
     select student_id,sname from student;";
