@@ -4,8 +4,8 @@
 
 var m = require('./msql.js');
 
-// m.findPerson('0410006', function(err, result) {
-//     if (err)
+// m.findPerson('0410006', function(err, result){
+//     if(err)
 //         throw err;
 //     console.log(JSON.parse(result));
 // }); // findPerson 回傳學生資料
@@ -13,32 +13,32 @@ var m = require('./msql.js');
 // m.addEmail('0516003', 'dabct@test');
 // // addEmail(學號, email) 更新此學號學生之email
 
-// m.showCosMap('0316003', function(err, result) {
-//     if (err)
+// m.showCosMap('0316003', function(err, result){
+//     if(err)
 //         throw err;
 //     console.log(JSON.parse(result));
 // }); // showCosMap 課程地圖要顯示的項目以及建議先修課與擋修課程
 
-// m.showCosMapPass('0312512', function(err, result) {
-//     if (err)
+// m.showCosMapPass('0312512', function(err, result){
+//     if(err)
 //         throw err;
 //     console.log(JSON.parse(result));
 // }); // showCosMapPass 某學生在課程地圖上有通過的課
 
-// m.totalCredit('0516003', function(err, result) {
-//     if (err)
+// m.totalCredit('0516003', function(err, result){
+//     if(err)
 //         throw err;
 //     console.log(JSON.parse(result));
 // }); // totalCredit 回傳某學生總學分數
 
-// m.Pass('0316014', function(err, result) {
-//     if (err)
+// m.Pass('0316014', function(err, result){
+//     if(err)
 //         throw err;
 //     console.log(JSON.parse(result));
 // }); // Pass 列出此學生通過的課
 
-// m.PassSpecify('0516003', '通識', function(err, result) {
-//     if (err)
+// m.PassSpecify('0516003', '通識', function(err, result){
+//     if(err)
 //         throw err;
 //     console.log(JSON.parse(result));
 // }); // PassSpecify 列出此學生某向度中通過的課
@@ -280,22 +280,22 @@ m.findTeacherResearchCountAndInfo(function(err, result){
 // // 回傳此學生專題申請清單
 
 // m.researchFileCreate({research_title:'名字呦>wO', tname:'教授喔Ow<', file_name:'檔名喔>w<', first_second:2, file_path:'路徑喔OwO', file_type:'型態喔OAO'});
-// // 建立專題檔案路徑紀錄
-// // {research_title, tname, file_name, file_path, file_type}
+// 建立專題檔案路徑紀錄
+// {research_title, tname, file_name, file_path, file_type}
 
 // m.researchFileReturn({research_title:'名字呦>wO', tname:'教授喔Ow<', first_second:2}, function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
 // }); // 回傳專題檔案路徑紀錄
-// 	// {research_title, tname}
+// 	//{research_title, tname}
 
 // m.showResearchInfo({research_title:'AI運算平台', tname:'吳凱強', first_second:1, semester:'106-2'}, function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log	(JSON.parse(result));
 // });
-// // // 用專題標題、老師名稱、專題一二、專題學期回傳專題簡介
+// 用專題標題、老師名稱、專題一二、專題學期回傳專題簡介
 
 // m.updateResearchTitle({research_title:'我是專題標題2~', tname:'彭文志', first_second:2, semester:'106-2', new_title:'New Title'});
 // 使用專題標題、老師名稱、專題一二、專題學期，編輯專題標題
