@@ -8,19 +8,19 @@ var pool = psw.dbpsw();
 
 function parseEng(cos){
     if(cos.indexOf('英文授課')>-1)
-        cos=cos.substring(0,cos.length-6);
+        cos=cos.substring(0, cos.length-6);
     else if(cos.indexOf('(英文班')>-1)
-        cos=cos.substring(0,cos.length-5);
+        cos=cos.substring(0, cos.length-5);
     else if(cos.indexOf('(英文')>-1 || cos.indexOf('（英文')>-1)
-        cos=cos.substring(0,cos.length-4);
+        cos=cos.substring(0, cos.length-4);
     else if(cos.indexOf('(英')>-1 || cos.indexOf('（英')>-1)
-        cos=cos.substring(0,cos.length-3);
+        cos=cos.substring(0, cos.length-3);
     return cos;
 }
 
 function parseHonor(cos){
     if(cos.indexOf('榮譽班')>-1)
-        cos=cos.substring(0,cos.length-3);
+        cos=cos.substring(0, cos.length-3);
     return cos
 }
 
@@ -32,23 +32,23 @@ module.exports = {
             resource.then(function(c) {
                 var sql_findStudent = c.prepare(s.findStudent);
                 var sql_findCrossStudent = c.prepare(s.findCrossStudent);
-                c.query(sql_findCrossStudent({id}),function(err,result){
+                c.query(sql_findCrossStudent({id}), function(err, result){
                     if(err){
-                        callback(err,undefined);
+                        callback(err, undefined);
                         pool.release(c);
                         return;
                     }
                     if(result.length)
                     {
                         result[0]['status'] = 'c';
-                        callback(null,JSON.stringify(result));
+                        callback(null, JSON.stringify(result));
                         pool.release(c);
                     }
                     else
                     {
                         c.query(sql_findStudent({ id: id }), function(err, result) {
                             if (err){
-                                callback(err,undefined);
+                                callback(err, undefined);
                                 pool.release(c);
                                 return;
                             }
@@ -69,7 +69,7 @@ module.exports = {
                 var sql_findProfessor = c.prepare(s.findProfessor);
                 c.query(sql_findProfessor({ id: id }), function(err, result) {
                     if (err){
-                        callback(err,undefined);
+                        callback(err, undefined);
                         pool.release(c);
                         return;
                     }
@@ -85,7 +85,7 @@ module.exports = {
                 var sql_findAssistant = c.prepare(s.findAssistant);
                 c.query(sql_findAssistant({ id: id }), function(err, result) {
                     if (err){
-                        callback(err,undefined);
+                        callback(err, undefined);
                         pool.release(c);
                         return;
                     }
@@ -96,7 +96,7 @@ module.exports = {
                 });
             })
         }
-    },
+    }, 
     addEmail: function(id, email) {
         const resource = pool.acquire();
         resource.then(function(c) {
@@ -107,7 +107,7 @@ module.exports = {
                 pool.release(c);
             });
         })
-    },
+    }, 
     showCosMap: function(id, callback) {
         const resource = pool.acquire();
         resource.then(function(c) {
@@ -115,7 +115,7 @@ module.exports = {
             var year = '1' + id[0] + id[1];
             c.query(sql_showCosMap({ id: id, year: year }), function(err, result) {
                 if (err){
-                    callback(err,undefined);
+                    callback(err, undefined);
                     pool.release(c);
                     return;
                 }
@@ -123,14 +123,14 @@ module.exports = {
                 pool.release(c);
             });
         })
-    },
+    }, 
     showCosMapPass: function(id, callback) {
         const resource = pool.acquire();
         resource.then(function(c) {
             var sql_showCosMapPass = c.prepare(s.showCosMapPass);
             c.query(sql_showCosMapPass({ id: id }), function(err, result) {
                 if (err){
-                    callback(err,undefined);
+                    callback(err, undefined);
                     pool.release(c);
                     return;
                 }
@@ -146,7 +146,7 @@ module.exports = {
                 pool.release(c);
             });
         });
-    },
+    }, 
     a_uploadGrade: function(pt) {
         const resource = pool.acquire();
         resource.then(function(c) {
@@ -157,14 +157,14 @@ module.exports = {
                 pool.release(c);
             }));
         });
-    },
+    }, 
     totalCredit: function(id, callback) {
         const resource = pool.acquire();
         resource.then(function(c) {
             var sql_totalCredit = c.prepare(s.totalCredit);
             c.query(sql_totalCredit({ id: id }), function(err, result) {
                 if (err){
-                    callback(err,undefined);
+                    callback(err, undefined);
                     pool.release(c);
                     return;
                 }
@@ -172,15 +172,15 @@ module.exports = {
                 pool.release(c);
             })
         })
-    },
-    Pass: function(id,callback) {
+    }, 
+    Pass: function(id, callback) {
         const resource = pool.acquire();
         resource.then(function(c) {
             var sql_Pass = c.prepare(s.Pass);
             var year = '1' + id[0] + id[1];
             c.query(sql_Pass({ id: id, year: year }), function(err, result) {
                 if (err){
-                    callback(err,undefined);
+                    callback(err, undefined);
                     pool.release(c);
                     return;
                 }
@@ -188,15 +188,15 @@ module.exports = {
                 pool.release(c);
             })
         })
-    },
-    PassSpecify: function(id,category,callback) {
+    }, 
+    PassSpecify: function(id, category, callback) {
         const resource = pool.acquire();
         resource.then(function(c) {
             var sql_PassSpecify = c.prepare(s.PassSpecify);
             var year = '1' + id[0] + id[1];
-            c.query(sql_PassSpecify({id,year,category}), function(err, result) {
+            c.query(sql_PassSpecify({id, year, category}), function(err, result) {
                 if (err){
-                    callback(err,undefined);
+                    callback(err, undefined);
                     pool.release(c);
                     return;
                 }
@@ -204,7 +204,7 @@ module.exports = {
                 pool.release(c);
             })
         })
-    },
+    }, 
     Group: function(id, callback) {
         const resource = pool.acquire();
         resource.then(function(c) {
@@ -212,7 +212,7 @@ module.exports = {
             var year = '1' + id[0] + id[1];
             c.query(sql_Group({ id: id, year: year }), function(err, result) {
                 if (err){
-                    callback(err,undefined);
+                    callback(err, undefined);
                     pool.release(c);
                     return;
                 }
@@ -220,7 +220,7 @@ module.exports = {
                 pool.release(c);
             })
         })
-    },
+    }, 
     graduateRule: function(id, callback) {
         const resource = pool.acquire();
         resource.then(function(c) {
@@ -228,7 +228,7 @@ module.exports = {
             var year = '1' + id[0] + id[1];
             c.query(sql_graduateRule({ id: id, year: year }), function(err, result) {
                 if (err){
-                    callback(err,undefined);
+                    callback(err, undefined);
                     pool.release(c);
                     return;
                 }
@@ -236,7 +236,7 @@ module.exports = {
                 pool.release(c);
             })
         })
-    },
+    }, 
     studentGraduateList: function(id, callback) {
         const resource = pool.acquire();
         resource.then(function(c) {
@@ -245,7 +245,7 @@ module.exports = {
                 var sem = id[0] + id[1];
                 c.query(sql_studentGraduateList_single({ sem: sem }), function(err, result) {
                     if (err){
-                        callback(err,undefined);
+                        callback(err, undefined);
                         pool.release(c);
                         return;
                     }
@@ -256,7 +256,7 @@ module.exports = {
                 var sql_studentGraduateList_all = c.prepare(s.studentGraduateList_all);
                 c.query(sql_studentGraduateList_all({}), function(err, result) {
                     if (err){
-                        callback(err,undefined);
+                        callback(err, undefined);
                         pool.release(c);
                         return;
                     }
@@ -266,7 +266,7 @@ module.exports = {
             }
             
         })
-    },
+    }, 
     setStudentGraduate: function(id, graduate) {
         const resource = pool.acquire();
         resource.then(function(c) {
@@ -277,7 +277,7 @@ module.exports = {
                 pool.release(c);
             })
         })
-    },
+    }, 
     setStudentGraduateSubmit: function(id, graduate_submit) {
         const resource = pool.acquire();
         resource.then(function(c) {
@@ -288,7 +288,7 @@ module.exports = {
                 pool.release(c);
             })
         })
-    },
+    }, 
     bindAccount: function(id, str, type) {
         const resource = pool.acquire();
         resource.then(function(c) {
@@ -314,7 +314,7 @@ module.exports = {
                     pool.release(c);
                 });
         });
-    },
+    }, 
     offset: function(id, callback) {
         const resource = pool.acquire();
         resource.then(function(c) {
@@ -322,7 +322,7 @@ module.exports = {
                 var sql_offset = c.prepare(s.offset_single);
                 c.query(sql_offset({ id: id }), function(err, result) {
                     if (err){
-                        callback(err,undefined);
+                        callback(err, undefined);
                         pool.release(c);
                         return;
                     }
@@ -333,7 +333,7 @@ module.exports = {
                 var sql_offset = c.prepare(s.offset_all);
                 c.query(sql_offset({}), function(err, result) {
                     if (err){
-                        callback(err,undefined);
+                        callback(err, undefined);
                         pool.release(c);
                         return;
                     }
@@ -342,14 +342,14 @@ module.exports = {
                 });
             }
         });
-    },
+    }, 
     on_cos_data: function(id, callback) {
         const resource = pool.acquire();
         resource.then(function(c) {
             var sql_on_cos_data = c.prepare(s.on_cos_data);
             c.query(sql_on_cos_data({ id: id }), function(err, result) {
                 if (err){
-                    callback(err,undefined);
+                    callback(err, undefined);
                     pool.release(c);
                     return;
                 }
@@ -357,14 +357,14 @@ module.exports = {
                 pool.release(c);
             });
         });
-    },
+    }, 
     general_cos_rule: function(callback) {
         const resource = pool.acquire();
         resource.then(function(c) {
             var sql_general_cos_rule = c.prepare(s.general_cos_rule);
             c.query(sql_general_cos_rule({}), function(err, result) {
                 if (err){
-                    callback(err,undefined);
+                    callback(err, undefined);
                     pool.release(c);
                     return;
                 }
@@ -372,7 +372,7 @@ module.exports = {
                 pool.release(c);
             });
         });
-    },
+    }, 
     setEnCertificate: function(id, check) {
         const resource = pool.acquire();
         resource.then(function(c) {
@@ -383,103 +383,103 @@ module.exports = {
                 pool.release(c);
             });
         });
-    },
-    insertCosMotion: function(id,name,orig,now){
+    }, 
+    insertCosMotion: function(id, name, orig, now){
         const resource=pool.acquire();
         resource.then(function(c){
             var sql_insertCosMotion=c.prepare(s.insertCosMotion);
-            c.query(sql_insertCosMotion({id:id,name:name,orig:orig,now:now}),function(err){
+            c.query(sql_insertCosMotion({id:id, name:name, orig:orig, now:now}), function(err){
                 if(err)
                     throw err;
                 pool.release(c);
             });
         });
-    },
-    cosMotion: function(id,callback){
+    }, 
+    cosMotion: function(id, callback){
         const resource=pool.acquire();
         resource.then(function(c){
             var sql_cosMotion=c.prepare(s.cosMotion);
-            c.query(sql_cosMotion({id:id}),function(err,result){
+            c.query(sql_cosMotion({id:id}), function(err, result){
                 if (err){
-                    callback(err,undefined);
+                    callback(err, undefined);
                     pool.release(c);
                     return;
                 }
-                callback(null,JSON.stringify(result));
+                callback(null, JSON.stringify(result));
                 pool.release(c);
             });
         });
-    },
+    }, 
     cosMotionDelete:function(id){
         const resource=pool.acquire();
         resource.then(function(c){
             var sql_cosMotionDelete=c.prepare(s.cosMotionDelete);
-            c.query(sql_cosMotionDelete({id:id}),function(err){
+            c.query(sql_cosMotionDelete({id:id}), function(err){
                 if(err)
                     throw err;
                 pool.release(c);
             });
         });
-    },
-    qaInsert:function(que,ans,callback){
+    }, 
+    qaInsert:function(que, ans, callback){
         const resource=pool.acquire();
         resource.then(function(c){
             var sql_qaInsert=c.prepare(s.qaInsert);
             var sql_qaMaxId=c.prepare(s.qaMaxId);
-            c.query(sql_qaMaxId({}),function(err,result){
+            c.query(sql_qaMaxId({}), function(err, result){
                 if (err){
-                    callback(err,undefined);
+                    callback(err, undefined);
                     pool.release(c);
                     return;
                 }
                 var id=0;
                 if(result[0]['maxID']!=null)
                     id=parseInt(result[0]['maxID'])+1;
-                c.query(sql_qaInsert({id:id,que:que,ans:ans}),function(err,result){
+                c.query(sql_qaInsert({id:id, que:que, ans:ans}), function(err, result){
                     if (err){
-                        callback(err,undefined);
+                        callback(err, undefined);
                         pool.release(c);
                         return;
                     }
-                    callback(null,JSON.stringify(result));
+                    callback(null, JSON.stringify(result));
                     pool.release(c);
                 });
             });
         });
-    },
-    qaDelete:function(id,callback){
+    }, 
+    qaDelete:function(id, callback){
         const resource=pool.acquire();
         resource.then(function(c){
             var sql_qaDelete=c.prepare(s.qaDelete);
-            c.query(sql_qaDelete({id:id}),function(err){
+            c.query(sql_qaDelete({id:id}), function(err){
                 if(err)
                     throw err;
                 pool.release(c);
             });
         });
-    },
+    }, 
     qaSearch:function(callback){
         const resource=pool.acquire();
         resource.then(function(c){
             var sql_qaSearch=c.prepare(s.qaSearch);
-            c.query(sql_qaSearch({}),function(err,result){
+            c.query(sql_qaSearch({}), function(err, result){
                 if (err){
-                    callback(err,undefined);
+                    callback(err, undefined);
                     pool.release(c);
                     return;
                 }
-                callback(null,JSON.stringify(result));
+                callback(null, JSON.stringify(result));
                 pool.release(c);
             });
         });
-    },
+    }, 
     teacherCosNow:function(id, callback){
         const resource=pool.acquire();
         resource.then(function(c){
             var sql_teacherCosNow=c.prepare(s.teacherCosNow);
             c.query(sql_teacherCosNow({id: id}), function(err, result){
                 if (err){
-                    callback(err,undefined);
+                    callback(err, undefined);
                     pool.release(c);
                     return;
                 }
@@ -487,14 +487,14 @@ module.exports = {
                 pool.release(c);
             });
         });
-    },
+    }, 
     teacherCosAll:function(id, callback){
         const resource=pool.acquire();
         resource.then(function(c){
             var sql_teacherCosAll=c.prepare(s.teacherCosAll);
             c.query(sql_teacherCosAll({id: id}), function(err, result){
                 if (err){
-                    callback(err,undefined);
+                    callback(err, undefined);
                     pool.release(c);
                     return;
                 }
@@ -502,22 +502,22 @@ module.exports = {
                 pool.release(c);
             });
         });
-    },
-    teacherStudents:function(id,callback){
+    }, 
+    teacherStudents:function(id, callback){
         const resource=pool.acquire();
         resource.then(function(c){
             var sql_teacherStudents=c.prepare(s.teacherStudents);
-            c.query(sql_teacherStudents({id:id}),function(err,result){
+            c.query(sql_teacherStudents({id:id}), function(err, result){
                 if(err){
-                    callback(err,undefined);
+                    callback(err, undefined);
                     pool.release(c);
                     return;
                 }
-                callback(null,JSON.stringify(result));
+                callback(null, JSON.stringify(result));
                 pool.release(c);
             });
         });
-    },
+    }, 
     showCosMapIntro:function(cos_cname, callback){
         const resource=pool.acquire();
         resource.then(function(c){
@@ -556,7 +556,7 @@ module.exports = {
                 pool.release(c);
             });
         });
-    },
+    }, 
     showCosScoreDetail: function(cos_code, unique_id, callback){
         const resource = pool.acquire();
         resource.then(function(c){
@@ -571,7 +571,7 @@ module.exports = {
                 pool.release(c);
             });
         });
-    },
+    }, 
     showCosScoreDetail: function(cos_code, unique_id, callback){
         const resource = pool.acquire();
         resource.then(function(c){
@@ -586,7 +586,7 @@ module.exports = {
                 pool.release(c);
             });
         });
-    },
+    }, 
     showCosScoreInterval: function(cos_code, unique_id, callback){
         const resource = pool.acquire();
         resource.then(function(c){
@@ -604,8 +604,8 @@ module.exports = {
                 pool.release(c);
             });
         });
-    },
-    getRecommend:function(id,callback){
+    }, 
+    getRecommend:function(id, callback){
         const resource=pool.acquire();
         resource.then(function(c){
             var semester='106-2%';
@@ -613,18 +613,18 @@ module.exports = {
             var sql_findCurrentCos=c.prepare(s.findCurrentCos);
             var sql_findTeacher=c.prepare(s.findTeacher);
             var result=[];
-            c.query(sql_getRecommend({id:id}),function(err,reclist){
-                c.query(sql_findCurrentCos({semester}),function(err,cos){
-                    c.query(sql_findTeacher({}),function(err,tea){
+            c.query(sql_getRecommend({id:id}), function(err, reclist){
+                c.query(sql_findCurrentCos({semester}), function(err, cos){
+                    c.query(sql_findTeacher({}), function(err, tea){
                         //select all recommend cos to variable rec
                         if(reclist.length==0)
                         {
                             pool.release(c);
-                            callback(null,JSON.stringify([]));
+                            callback(null, JSON.stringify([]));
                             return;
                         }
                         reclist=reclist[0]['cos_name_list'];
-                        let rec=reclist.split(",");
+                        let rec=reclist.split(", ");
 
                         cos=JSON.parse(JSON.stringify(cos));
                         tea=JSON.parse(JSON.stringify(tea));
@@ -637,7 +637,7 @@ module.exports = {
                             for(let d_num=0;d_num<data.length;d_num++)
                             {
                                 //select all teacher who teach the recommend cos
-                                var tea_list=data[d_num]['teacher_id'].split(",");
+                                var tea_list=data[d_num]['teacher_id'].split(", ");
 
                                 //for every teacher
                                 for(let k=0;k<tea_list.length;k++)
@@ -650,7 +650,7 @@ module.exports = {
                                             break
                                         }
                                 delete data[d_num]['teacher_id'];
-                                data[d_num]['teacher']=tea_list.join(',');
+                                data[d_num]['teacher']=tea_list.join(', ');
                                 data[d_num]['cos_time']=data[d_num]['cos_time'].split('-')[0];
                                 
                                 result.push(data[d_num]);
@@ -658,12 +658,12 @@ module.exports = {
                         }
 
                         pool.release(c);
-                        callback(null,JSON.stringify(result));
+                        callback(null, JSON.stringify(result));
                     });
                 });
             });
         });
-    },
+    }, 
     findTeacherResearch: function(teacher_id, callback){
         const resource = pool.acquire();
         resource.then(function(c){
@@ -676,11 +676,11 @@ module.exports = {
                 }
                 if(result.length==0)
                 {
-                    callback(null,"[]");
+                    callback(null, "[]");
                     pool.release(c);
                     return;
                 }
-                var year=parseInt(result[0]['student_id'].substring(0,2));
+                var year=parseInt(result[0]['student_id'].substring(0, 2));
                 var idx;
                 for(idx in result)
                 {
@@ -689,32 +689,32 @@ module.exports = {
                         idx=result.length;
                         break;
                     }
-                    if(year-parseInt(result[idx]['student_id'].substring(0,2))>2)
+                    if(year-parseInt(result[idx]['student_id'].substring(0, 2))>2)
                         break
                 }
-                callback(null, JSON.stringify(result.slice(0,idx)));
+                callback(null, JSON.stringify(result.slice(0, idx)));
                 pool.release(c);
             });
         });
-    },
+    }, 
     findTeacherResearchCountAndInfo: function(callback){
         const resource=pool.acquire();
         resource.then(function(c){
             var sql_findTeacherResearchCountAndInfo=c.prepare(s.findTeacherResearchCountAndInfo);
-            c.query(sql_findTeacherResearchCountAndInfo({}),function(err,result){
+            c.query(sql_findTeacherResearchCountAndInfo({}), function(err, result){
                 if(err){
-                    callback(err,undefined);
+                    callback(err, undefined);
                     pool.release(c);
                     return;
                 }
-                var gradeCnt,temp={},i,res=[];
+                var gradeCnt, temp={}, i, res=[];
                 result=JSON.parse(JSON.stringify(result));
                 for(i in result){
-                    gradeCnt={grade:result[i].grade,scount:result[i].scount};
+                    gradeCnt={grade:result[i].grade, scount:result[i].scount};
                     if(i==0){
-                        temp={tname:result[i].tname, teacher_id:result[i].teacher_id,
-                            phone:result[i].phone, email:result[i].email,
-                            expertise:result[i].expertise,
+                        temp={tname:result[i].tname, teacher_id:result[i].teacher_id, 
+                            phone:result[i].phone, email:result[i].email, 
+                            expertise:result[i].expertise, 
                             info:result[i].info, gradeCnt:[gradeCnt]};
                     }
                     else if(result[i].tname===temp.tname){
@@ -722,34 +722,34 @@ module.exports = {
                     }
                     else{   
                         res.push(temp);
-                        temp={tname:result[i].tname, teacher_id:result[i].teacher_id,
-                            phone:result[i].phone, email:result[i].email,
-                            expertise:result[i].expertise,
+                        temp={tname:result[i].tname, teacher_id:result[i].teacher_id, 
+                            phone:result[i].phone, email:result[i].email, 
+                            expertise:result[i].expertise, 
                             info:result[i].info, gradeCnt:[gradeCnt]};
                     }
                 }
                 if(res[res.length-1].tname!==temp.tname)
                     res.push(temp);
-                callback(null,JSON.stringify(res));
+                callback(null, JSON.stringify(res));
                 pool.release(c);
             });
         });
-    },
+    }, 
     mailCreate:function(data){
-        //data need sender_id,title,receiver_id,content
+        //data need sender_id, title, receiver_id, content
         if(typeof(data)==='string')
             data=JSON.parse(data);
         const resource=pool.acquire();
         resource.then(function(c){
             var sql_mailCreateSender=c.prepare(s.mailCreateSender);
             var sql_mailCreateReceiver=c.prepare(s.mailCreateReceiver);
-            c.query(sql_mailCreateSender(data),function(err){
+            c.query(sql_mailCreateSender(data), function(err){
                 if(err)
                 {
                     pool.release(c);
                     throw err;
                 }
-                c.query(sql_mailCreateReceiver(data),function(err){
+                c.query(sql_mailCreateReceiver(data), function(err){
                     if(err)
                     {
                         pool.release(c);
@@ -759,12 +759,12 @@ module.exports = {
                 });
             });
         });
-    },
+    }, 
     mailDelete:function(mail_id){
         const resource=pool.acquire();
         resource.then(function(c){
             var sql_mailDelete=c.prepare(s.mailDelete);
-            c.query(sql_mailDelete({mail_id}),function(err){
+            c.query(sql_mailDelete({mail_id}), function(err){
                 if(err)
                 {
                     pool.release(c);
@@ -773,12 +773,12 @@ module.exports = {
                 pool.release(c);
             });
         });
-    },
-    mailReadSet:function(mail_id,read_bit){
+    }, 
+    mailReadSet:function(mail_id, read_bit){
         const resource=pool.acquire();
         resource.then(function(c){
             var sql_mailReadSet=c.prepare(s.mailReadSet);
-            c.query(sql_mailReadSet({mail_id,read_bit}),function(err){
+            c.query(sql_mailReadSet({mail_id, read_bit}), function(err){
                 if(err)
                 {
                     pool.release(c);
@@ -787,83 +787,83 @@ module.exports = {
                 pool.release(c);
             });
         });
-    },
-    mailReturnSingle:function(mail_id,callback){
+    }, 
+    mailReturnSingle:function(mail_id, callback){
         const resource=pool.acquire();
         resource.then(function(c){
             var sql_mailReturnSingle=c.prepare(s.mailReturnSingle);
-            c.query(sql_mailReturnSingle({mail_id}),function(err,result){
+            c.query(sql_mailReturnSingle({mail_id}), function(err, result){
                 if(err){
-                    callback(err,undefined);
+                    callback(err, undefined);
                     pool.release(c);
                     return;
                 }
-                callback(null,JSON.stringify(result));
+                callback(null, JSON.stringify(result));
                 pool.release(c);
             });
         });
-    },
-    mailReturnReceiveList:function(receiver_id,callback){
+    }, 
+    mailReturnReceiveList:function(receiver_id, callback){
         const resource=pool.acquire();
         resource.then(function(c){
             var sql_mailReturnReceiveList=c.prepare(s.mailReturnReceiveList);
-            c.query(sql_mailReturnReceiveList({receiver_id}),function(err,result){
+            c.query(sql_mailReturnReceiveList({receiver_id}), function(err, result){
                 if(err){
-                    callback(err,undefined);
+                    callback(err, undefined);
                     pool.release(c);
                     return;
                 }
-                callback(null,JSON.stringify(result));
+                callback(null, JSON.stringify(result));
                 pool.release(c);
             });
         });
-    },
-    mailReturnSendList:function(sender_id,callback){
+    }, 
+    mailReturnSendList:function(sender_id, callback){
         const resource=pool.acquire();
         resource.then(function(c){
             var sql_mailReturnSendList=c.prepare(s.mailReturnSendList);
-            c.query(sql_mailReturnSendList({sender_id}),function(err,result){
+            c.query(sql_mailReturnSendList({sender_id}), function(err, result){
                 if(err){
-                    callback(err,undefined);
+                    callback(err, undefined);
                     pool.release(c);
                     return;
                 }
-                callback(null,JSON.stringify(result));
+                callback(null, JSON.stringify(result));
                 pool.release(c);
             });
         });
-    },
+    }, 
     returnStudentIdList:function(callback){
         const resource=pool.acquire();
         resource.then(function(c){
             var sql_returnStudentIdList=c.prepare(s.returnStudentIdList);
-            c.query(sql_returnStudentIdList({}),function(err,result){
+            c.query(sql_returnStudentIdList({}), function(err, result){
                 if(err){
-                    callback(err,undefined);
+                    callback(err, undefined);
                     pool.release(c);
                     return;
                 }
-                callback(null,JSON.stringify(result));
+                callback(null, JSON.stringify(result));
                 pool.release(c);
             });
         });
-    },
+    }, 
     returnTeacherIdList:function(callback){
         const resource=pool.acquire();
         resource.then(function(c){
             var sql_returnTeacherIdList=c.prepare(s.returnTeacherIdList);
-            c.query(sql_returnTeacherIdList({}),function(err,result){
+            c.query(sql_returnTeacherIdList({}), function(err, result){
                 if(err){
-                    callback(err,undefined);
+                    callback(err, undefined);
                     pool.release(c);
                     return;
                 }
-                callback(null,JSON.stringify(result));
+                callback(null, JSON.stringify(result));
                 pool.release(c);
             });
         });
-    },
-    researchApplyFormCreate:function(data,callback){
+    }, 
+    researchApplyFormCreate:function(data, callback){
         if(typeof(data)==='string')
             data=JSON.parse(data);
         const resource=pool.acquire();
@@ -871,19 +871,19 @@ module.exports = {
             var sql_addPhone=c.prepare(s.addPhone);
             var sql_researchApplyFormCreate=c.prepare(s.researchApplyFormCreate);
             var sql_addEmail=c.prepare(s.addEmail);
-            c.query(sql_addPhone({student_id:data['student_id'],phone:data['phone']}),function(err){
+            c.query(sql_addPhone({student_id:data['student_id'], phone:data['phone']}), function(err){
                 if(err)
                 {
                     pool.release(c);
                     throw err;
                 }
-                c.query(sql_addEmail({id:data['student_id'],email:data['email']}),function(err){
+                c.query(sql_addEmail({id:data['student_id'], email:data['email']}), function(err){
                     if(err)
                     {
                         pool.release(c);
                         throw err;
                     }
-                    c.query(sql_researchApplyFormCreate(data),function(err){
+                    c.query(sql_researchApplyFormCreate(data), function(err){
                         if(err)
                         {
                             pool.release(c);
@@ -894,14 +894,14 @@ module.exports = {
                 });
             });
         });
-    },
+    }, 
     researchApplyFormSetAgree:function(data){
         if(typeof(data)==='string')
             data=JSON.parse(data);
         const resource=pool.acquire();
         resource.then(function(c){
             var sql_researchApplyFormSetAgree=c.prepare(s.researchApplyFormSetAgree);
-            c.query(sql_researchApplyFormSetAgree(data),function(err,result){
+            c.query(sql_researchApplyFormSetAgree(data), function(err, result){
                 if(err)
                 {
                     pool.release(c);
@@ -910,14 +910,14 @@ module.exports = {
                 pool.release(c);
             });
         });
-    },
+    }, 
     researchApplyFormDelete:function(data){
         if(typeof(data)==='string')
             data=JSON.parse(data);
         const resource=pool.acquire();
         resource.then(function(c){
             var sql_researchApplyFormDelete=c.prepare(s.researchApplyFormDelete);
-            c.query(sql_researchApplyFormDelete(data),function(err){
+            c.query(sql_researchApplyFormDelete(data), function(err){
                 if(err)
                 {
                     pool.release(c);
@@ -926,39 +926,39 @@ module.exports = {
                 pool.release(c);
             });
         });
-    },
-    researchApplyFormTeaReturn:function(teacher_id,callback){
+    }, 
+    researchApplyFormTeaReturn:function(teacher_id, callback){
         const resource=pool.acquire();
         resource.then(function(c){
             var sql_researchApplyFormTeaReturn=c.prepare(s.researchApplyFormTeaReturn);
-            c.query(sql_researchApplyFormTeaReturn({teacher_id}),function(err,result){
+            c.query(sql_researchApplyFormTeaReturn({teacher_id}), function(err, result){
                 if(err)
                 {
-                    callback(err,undefined);
+                    callback(err, undefined);
                     pool.release(c);
                     return;
                 }
-                callback(null,JSON.stringify(result));
+                callback(null, JSON.stringify(result));
                 pool.release(c);
             });
         });
-    },
-    researchApplyFormPersonalReturn:function(student_id,callback){
+    }, 
+    researchApplyFormPersonalReturn:function(student_id, callback){
         const resource=pool.acquire();
         resource.then(function(c){
             var sql_researchApplyFormPersonalReturn=c.prepare(s.researchApplyFormPersonalReturn);
-            c.query(sql_researchApplyFormPersonalReturn({student_id}),function(err,result){
+            c.query(sql_researchApplyFormPersonalReturn({student_id}), function(err, result){
                 if(err)
                 {
-                    callback(err,undefined);
+                    callback(err, undefined);
                     pool.release(c);
                     return;
                 }
-                callback(null,JSON.stringify(result));
+                callback(null, JSON.stringify(result));
                 pool.release(c);
             });
         });
-    },
+    }, 
     showGivenGradeStudentResearch:function(grade, callback){
         const resource=pool.acquire();
         resource.then(function(c){
@@ -974,7 +974,7 @@ module.exports = {
                 pool.release(c);
             });
         });
-    },
+    }, 
     showResearchPage:function(student_id, callback){
         if(typeof(data)==='string')
             data=JSON.parse(data);
@@ -992,7 +992,7 @@ module.exports = {
                 pool.release(c);
             });
         });
-    },
+    }, 
     findResearchGroup:function(data, callback){
         if(typeof(data)==='string')
             data=JSON.parse(data);
@@ -1010,8 +1010,8 @@ module.exports = {
                 pool.release(c);
             });
         });
-    },
-    setResearchPage:function(data,callback){
+    }, 
+    setResearchPage:function(data, callback){
         if(typeof(data)==='string')
             data=JSON.parse(data);
         const resource=pool.acquire();
@@ -1034,7 +1034,7 @@ module.exports = {
                 });
             });
         });
-    },
+    }, 
     setResearchScoreComment:function(data){
         if(typeof(data)==='string')
             data=JSON.parse(data);
@@ -1042,7 +1042,7 @@ module.exports = {
         resource.then(function(c){
             var sql_setResearchScore=c.prepare(s.setResearchScore);
             var sql_setResearchComment=c.prepare(s.setResearchComment);
-            c.query(sql_setResearchScore(data),function(err){
+            c.query(sql_setResearchScore(data), function(err){
                 if(err)
                 {
                     throw err;
@@ -1057,7 +1057,7 @@ module.exports = {
                 pool.release(c);
             });
         });
-    },
+    }, 
     createNewResearch:function(data){
         if(typeof(data) === 'string')
             data=JSON.parse(data);
@@ -1073,7 +1073,7 @@ module.exports = {
                 pool.release(c);
             });
         });
-    },
+    }, 
     researchFileCreate:function(data){
         if(typeof(data) === 'string')
             data=JSON.parse(data);
@@ -1089,8 +1089,8 @@ module.exports = {
                 pool.release(c);
             });
         });
-    },
-    researchFileReturn:function(data,callback){
+    }, 
+    researchFileReturn:function(data, callback){
         if(typeof(data) === 'string')
             data=JSON.parse(data);
         const resource=pool.acquire();
@@ -1107,7 +1107,7 @@ module.exports = {
                 pool.release(c);
             });
         });
-    },
+    }, 
     showResearchInfo:function(data, callback){
         if(typeof(data) === 'string')
             data=JSON.parse(data);
@@ -1125,7 +1125,7 @@ module.exports = {
                 pool.release(c);
             });
         });
-    },
+    }, 
     updateResearchTitle:function(data){
         if(typeof(data) === 'string')
             data=JSON.parse(data);
@@ -1138,17 +1138,17 @@ module.exports = {
                 pool.release(c);
             });
         });
-    },
+    }, 
     showResearchGradeComment:function(data, callback){
         if(typeof(data) === 'string')
             data=JSON.parse(data);
         const resource=pool.acquire();
         resource.then(function(c){
             var sql_showResearchGradeComment=c.prepare(s.showResearchGradeComment);
-            c.query(sql_showResearchGradeComment(data), function(err,result){
+            c.query(sql_showResearchGradeComment(data), function(err, result){
                 if(err)
                 {
-                    callback(err,undefined);
+                    callback(err, undefined);
                     throw err;
                     pool.release(c);
                     return;
@@ -1157,24 +1157,24 @@ module.exports = {
                 pool.release(c);
             });
         });
-    },
-    mentorReturn:function(id,callback){
+    }, 
+    mentorReturn:function(id, callback){
         const resource = pool.acquire();
         resource.then(function(c){
             var sql_mentorReturn = c.prepare(s.mentorReturn);
-            c.query(sql_mentorReturn({id}),function(err,result){
+            c.query(sql_mentorReturn({id}), function(err, result){
                 if(err)
                 {
-                    callback(err,undefined);
+                    callback(err, undefined);
                     throw err;
                     pool.release(c);
                     return;
                 }
-                callback(null,JSON.stringify(result));
+                callback(null, JSON.stringify(result));
                 pool.release(c);
             });
         });
-    },
+    }, 
     Drain: function() {
         pool.drain().then(function() {
             pool.clear();

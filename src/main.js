@@ -11,7 +11,7 @@ var m = require('./msql.js');
 // }); // findPerson 回傳學生資料
 
 // m.addEmail('0516003', 'dabct@test');
-// // addEmail(學號,email) 更新此學號學生之email
+// // addEmail(學號, email) 更新此學號學生之email
 
 // m.showCosMap('0316003', function(err, result) {
 //     if (err)
@@ -37,91 +37,91 @@ var m = require('./msql.js');
 //     console.log(JSON.parse(result));
 // }); // Pass 列出此學生通過的課
 
-// m.PassSpecify('0516003','通識',function(err, result) {
+// m.PassSpecify('0516003', '通識', function(err, result) {
 //     if (err)
 //         throw err;
 //     console.log(JSON.parse(result));
 // }); // PassSpecify 列出此學生某向度中通過的課
 
-// m.Group('0516003',function(err,result){
-// 	if(err)
-// 		throw err;
-// 	console.log(JSON.parse(result));
+// m.Group('0516003', function(err, result){
+//     if(err)
+//         throw err;
+//     console.log(JSON.parse(result));
 // }); // Group 列出此學生畢業預審表上 必修、核心、副核心等課程分類
 
-// m.graduateRule('0516003',function(err,result){
-// 	if(err)
-// 		throw err;
-// 	console.log(JSON.parse(result));
+// m.graduateRule('0516003', function(err, result){
+//     if(err)
+//         throw err;
+// 	   console.log(JSON.parse(result));
 // }); // graduateRule 列出此學生畢業標準
 
-// m.offset('0316014',function(err,result){
-// 	if(err)
-// 		throw err;
-// 	console.log(JSON.parse(result));
+// m.offset('0316014', function(err, result){
+//     if(err)
+//         throw err;
+// 	   console.log(JSON.parse(result));
 // }); // offset 個人抵免資料 (輸入all顯示全部)
 
-// m.on_cos_data('0316067',function(err,result){
+// m.on_cos_data('0316067', function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
 // }); // on_cos_data 大四個人當期修課資料 (輸入all顯示全部)
 
-// m.general_cos_rule(function(err,result){
+// m.general_cos_rule(function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
 // }); // general_cos_rule 外系通識規則
 
-// m.studentGraduateList('05',function(err,result){
+// m.studentGraduateList('05', function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
 // }); // studentGraduateList 列出此學號開頭的學生的畢業資訊(輸入all顯示全部)(助理端用)
 
-// m.setEnCertificate('0516003',0);
+// m.setEnCertificate('0516003', 0);
 // // setEnCertificate 設定某學生的英檢狀態
 
-// m.setStudentGraduate('0516003',0);
-// // setStudentGraduate 設定某學生的畢業狀態(1可畢業,0不可畢業)（助理端用）
+// m.setStudentGraduate('0516003', 0);
+// // setStudentGraduate 設定某學生的畢業狀態(1可畢業, 0不可畢業)（助理端用）
 
-// m.setStudentGraduateSubmit('0516003',1);
-// // setStudentGraduateSubmit 設定某學生的畢業預審確認狀態(1可畢業,0不可畢業)
+// m.setStudentGraduateSubmit('0516003', 1);
+// // setStudentGraduateSubmit 設定某學生的畢業預審確認狀態(1可畢業, 0不可畢業)
 
-// m.bindAccount('0516003','test@gmail.com.tw',1);
+// m.bindAccount('0516003', 'test@gmail.com.tw', 1);
 // // bindAccount   1:set gmail   2:set fb_id   3:set github_id
 
-// m.insertCosMotion('0516003','test2','a','c');
-// // insertCosMotion(id,cos_name,original position,now position) 更新課程位置
+// m.insertCosMotion('0516003', 'test2', 'a', 'c');
+// // insertCosMotion(id, cos_name, original position, now position) 更新課程位置
 
-// m.cosMotion('0516003',function(err,result){
+// m.cosMotion('0516003', function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
 // });
-// // cosMotion(id,callback) 回傳學生修改課程位置
+// // cosMotion(id, callback) 回傳學生修改課程位置
 
 // m.cosMotionDelete('0516003');
 // // cosMotionDelete(id) 刪除學生課程位置紀錄
 
-// m.qaInsert('aaa','bbb',function(err){
+// m.qaInsert('aaa', 'bbb', function(err){
 // 	if(err)
 // 		throw err;
 // });
-// // qaInsert(question,answer,callback) 新增問答
+// // qaInsert(question, answer, callback) 新增問答
 
-// m.qaSearch(function(err,result){
+// m.qaSearch(function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(result);
 // });
 // //qaSearch(callback) 回傳所有問答
 
-// m.qaDelete(0,function(err){
+// m.qaDelete(0, function(err){
 // 	if(err)
 // 		throw err;
 // });
-// // qaDelete(id,callback) 刪除編號id的紀錄
+// // qaDelete(id, callback) 刪除編號id的紀錄
 
 // m.teacherCosNow('T9229', function(err, result){
 // 	if(err)
@@ -135,11 +135,11 @@ var m = require('./msql.js');
 // 	console.log(JSON.parse(result));
 // }); // teacherCosAll(id, callback) 某老師所有開過的課
 
-// m.teacherStudents('T9229',function(err,result){
+// m.teacherStudents('T9229', function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
-// }); // teacherStudents(id,callback) 某老師導生名單
+// }); // teacherStudents(id, callback) 某老師導生名單
 
 // m.showCosMapIntro('訊號與系統', function(err, result){
 // 	if(err)
@@ -162,83 +162,83 @@ var m = require('./msql.js');
 // });
 // // showCosScoreInterval(cos_code, unique_id, callback) 某堂課的成績區間人數
 
-// m.getRecommend('0216340',function(err,result){
+// m.getRecommend('0216340', function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
-// }); // getRecomend(student_id,callback) 回傳某學生的推薦課程
+// }); // getRecomend(student_id, callback) 回傳某學生的推薦課程
 
-// m.findTeacherResearch('T9229',function(err,result){
+// m.findTeacherResearch('T9229', function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
 // }); // findTeacherResearch(teacher_id, callback) 回傳某教授所有專題生和專題題目
 
-m.findTeacherResearchCountAndInfo(function(err,result){
+m.findTeacherResearchCountAndInfo(function(err, result){
 	if(err)
 		throw err;
 	console.log(JSON.parse(result));
 }); // findTeacherResearchCount(callback) 回傳所有教授各屆的學生人數
 
-// m.mailCreate({sender_id:'0516003',title:'test~~',receiver_id:'T9229',content:'這是一個測試信件這是一個測試信件'});
+// m.mailCreate({sender_id:'0516003', title:'test~~', receiver_id:'T9229', content:'這是一個測試信件這是一個測試信件'});
 // // mailCreate(data) data type 為JSON，新增一則信件，需有以上所有欄位
 
 // m.mailDelete('0516003-2018-04-21 02:51:50');
 // // mailDelete(mail_id)
 
-// m.mailReadSet('0516003-2018-04-21 14:03:44-T9229',1);
-// // mailReadSet(mail_id,read_bit) set mail read_bit
+// m.mailReadSet('0516003-2018-04-21 14:03:44-T9229', 1);
+// // mailReadSet(mail_id, read_bit) set mail read_bit
 
-// m.mailReturnSingle('0516003-2018-04-21 03:29:10',function(err,result){
+// m.mailReturnSingle('0516003-2018-04-21 03:29:10', function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
 // }); // mailReturnSingle(mail_id) 回傳單一mail詳細資訊
 
-// m.mailReturnReceiveList('T9229',function(err,result){
+// m.mailReturnReceiveList('T9229', function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
 // }); // mailReturnList(receiver_id) 回傳該使用者所收到mail清單（沒有信件內文）
 
-// m.mailReturnSendList('0516003',function(err,result){
+// m.mailReturnSendList('0516003', function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
 // }); // mailReturnList(sender_id) 回傳該使用者所寄發mail清單（沒有信件內文）
 
-// m.returnStudentIdList(function(err,result){
+// m.returnStudentIdList(function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
-// }); // 回傳學生id,名字對應表
+// }); // 回傳學生id, 名字對應表
 
-// m.returnTeacherIdList(function(err,result){
+// m.returnTeacherIdList(function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
-// }); // 回傳教授id,名字對應表
+// }); // 回傳教授id, 名字對應表
 
-// m.researchApplyFormCreate({phone:'0900000000',student_id:'0516003',research_title:'我是專題標題2~',tname:'彭文志',first_second:2,email:'wawawa@crayonSinJang', semester:'106-2'},function(err){
+// m.researchApplyFormCreate({phone:'0900000000', student_id:'0516003', research_title:'我是專題標題2~', tname:'彭文志', first_second:2, email:'wawawa@crayonSinJang', semester:'106-2'}, function(err){
 // 	if(err)
 // 		throw err;
 // 		//老師名字若不存在，就會拋出ERROR
 // }); // create research apply form
 
-// m.researchApplyFormSetAgree({research_title:'我是專題標題2~',tname:'彭文志',first_second:2,agree:3,semester:'106-2'});
+// m.researchApplyFormSetAgree({research_title:'我是專題標題2~', tname:'彭文志', first_second:2, agree:3, semester:'106-2'});
 // // // set research apply form agree bit  0預設 1接受 2審核中 3拒絕
 
-// m.researchApplyFormDelete({research_title:'我是專題標題2~',tname:'彭文志',first_second:2,semester:'106-2'});
+// m.researchApplyFormDelete({research_title:'我是專題標題2~', tname:'彭文志', first_second:2, semester:'106-2'});
 // // delete research apply form
 
-// m.researchApplyFormTeaReturn('T9229',function(err,result){
+// m.researchApplyFormTeaReturn('T9229', function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
 // });
 // // 回傳該教授的學生專題申請清單
 
-// m.researchApplyFormPersonalReturn('0516003',function(err,result){
+// m.researchApplyFormPersonalReturn('0516003', function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
@@ -272,23 +272,23 @@ m.findTeacherResearchCountAndInfo(function(err,result){
 // });
 // // 用教授名稱、專題名稱、專題一二更新專題資訊(標題、網址、介紹)
 
-// m.setResearchScoreComment({student_id:'0416026',tname:'彭文志', research_title:'聊天機器人', first_second:2, semester:'106-2', new_score:88, new_comment:'Yee!'});
+// m.setResearchScoreComment({student_id:'0416026', tname:'彭文志', research_title:'聊天機器人', first_second:2, semester:'106-2', new_score:88, new_comment:'Yee!'});
 // // 更新專題成績、評語
 
-// m.createNewResearch({ student_id:'0526303',tname : '彭文志', research_title : '我是專題標題2~', first_second:2, semester: '106-2'});
+// m.createNewResearch({ student_id:'0526303', tname : '彭文志', research_title : '我是專題標題2~', first_second:2, semester: '106-2'});
 // // 申請專題同意後，新增此學生專題資料到資料庫
 // // 回傳此學生專題申請清單
 
-// m.researchFileCreate({research_title:'名字呦>wO',tname:'教授喔Ow<',file_name:'檔名喔>w<',first_second:2,file_path:'路徑喔OwO',file_type:'型態喔OAO'});
+// m.researchFileCreate({research_title:'名字呦>wO', tname:'教授喔Ow<', file_name:'檔名喔>w<', first_second:2, file_path:'路徑喔OwO', file_type:'型態喔OAO'});
 // // 建立專題檔案路徑紀錄
-// // {research_title,tname,file_name,file_path,file_type}
+// // {research_title, tname, file_name, file_path, file_type}
 
-// m.researchFileReturn({research_title:'名字呦>wO',tname:'教授喔Ow<',first_second:2},function(err,result){
+// m.researchFileReturn({research_title:'名字呦>wO', tname:'教授喔Ow<', first_second:2}, function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
 // }); // 回傳專題檔案路徑紀錄
-// 	// {research_title,tname}
+// 	// {research_title, tname}
 
 // m.showResearchInfo({research_title:'AI運算平台', tname:'吳凱強', first_second:1, semester:'106-2'}, function(err, result){
 // 	if(err)
@@ -300,13 +300,13 @@ m.findTeacherResearchCountAndInfo(function(err,result){
 // m.updateResearchTitle({research_title:'我是專題標題2~', tname:'彭文志', first_second:2, semester:'106-2', new_title:'New Title'});
 // 使用專題標題、老師名稱、專題一二、專題學期，編輯專題標題
 
-// m.showResearchGradeComment({semester: '106-2', first_second: 2}, function(err,result){
+// m.showResearchGradeComment({semester: '106-2', first_second: 2}, function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
-// }); // 回傳專題成績列表:教授名字,學生姓名學號,成績,評論
+// }); // 回傳專題成績列表:教授名字, 學生姓名學號, 成績, 評論
 
-m.mentorReturn('0516003',function(err,result){
+m.mentorReturn('0516003', function(err, result){
 	if(err)
 		throw err;
 	console.log(JSON.parse(result));
