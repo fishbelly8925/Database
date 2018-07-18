@@ -256,22 +256,22 @@ module.exports = {
             
         })
     }, 
-    setStudentGraduate: function(id, graduate) {
+    SetStudentGraduateStatus: function(id, graduate) {
         const resource = pool.acquire();
         resource.then(function(c) {
-            var sql_setStudentGraduate = c.prepare(s.setStudentGraduate);
-            c.query(sql_setStudentGraduate({ id: id, graduate: graduate }), function(err) {
+            var sql_SetStudentGraduateStatus = c.prepare(s.SetStudentGraduateStatus);
+            c.query(sql_SetStudentGraduateStatus({ id: id, graduate: graduate }), function(err) {
                 if (err)
                     throw err;
                 pool.release(c);
             })
         })
     }, 
-    setStudentGraduateSubmit: function(id, graduate_submit) {
+    SetGraduateSubmitStatus: function(id, graduate_submit) {
         const resource = pool.acquire();
         resource.then(function(c) {
-            var sql_setStudentGraduateSubmit = c.prepare(s.setStudentGraduateSubmit);
-            c.query(sql_setStudentGraduateSubmit({ id: id, graduate_submit: graduate_submit }), function(err) {
+            var sql_SetGraduateSubmitStatus = c.prepare(s.SetGraduateSubmitStatus);
+            c.query(sql_SetGraduateSubmitStatus({ id: id, graduate_submit: graduate_submit }), function(err) {
                 if (err)
                     throw err;
                 pool.release(c);
@@ -362,11 +362,11 @@ module.exports = {
             });
         });
     }, 
-    setEnCertificate: function(id, check) {
+    SetEnCertificate: function(id, check) {
         const resource = pool.acquire();
         resource.then(function(c) {
-            var sql_setEnCertificate = c.prepare(s.setEnCertificate);
-            c.query(sql_setEnCertificate({ id: id, check: check }), function(err) {
+            var sql_SetEnCertificate = c.prepare(s.SetEnCertificate);
+            c.query(sql_SetEnCertificate({ id: id, check: check }), function(err) {
                 if (err)
                     throw err;
                 pool.release(c);
@@ -410,10 +410,10 @@ module.exports = {
             });
         });
     }, 
-    qaInsert:function(que, ans, callback){
+    CreateQA:function(que, ans, callback){
         const resource=pool.acquire();
         resource.then(function(c){
-            var sql_qaInsert=c.prepare(s.qaInsert);
+            var sql_CreateQA=c.prepare(s.CreateQA);
             var sql_qaMaxId=c.prepare(s.qaMaxId);
             c.query(sql_qaMaxId({}), function(err, result){
                 if (err){
@@ -424,7 +424,7 @@ module.exports = {
                 var id=0;
                 if(result[0]['maxID']!=null)
                     id=parseInt(result[0]['maxID'])+1;
-                c.query(sql_qaInsert({id:id, que:que, ans:ans}), function(err, result){
+                c.query(sql_CreateQA({id:id, que:que, ans:ans}), function(err, result){
                     if (err){
                         callback(err, undefined);
                         pool.release(c);
@@ -436,22 +436,22 @@ module.exports = {
             });
         });
     }, 
-    qaDelete:function(id, callback){
+    DeleteQA:function(id, callback){
         const resource=pool.acquire();
         resource.then(function(c){
-            var sql_qaDelete=c.prepare(s.qaDelete);
-            c.query(sql_qaDelete({id:id}), function(err){
+            var sql_DeleteQA=c.prepare(s.DeleteQA);
+            c.query(sql_DeleteQA({id:id}), function(err){
                 if(err)
                     throw err;
                 pool.release(c);
             });
         });
     }, 
-    qaSearch:function(callback){
+    ShowAllQA:function(callback){
         const resource=pool.acquire();
         resource.then(function(c){
-            var sql_qaSearch=c.prepare(s.qaSearch);
-            c.query(sql_qaSearch({}), function(err, result){
+            var sql_ShowAllQA=c.prepare(s.ShowAllQA);
+            c.query(sql_ShowAllQA({}), function(err, result){
                 if (err){
                     callback(err, undefined);
                     pool.release(c);
@@ -653,11 +653,11 @@ module.exports = {
             });
         });
     }, 
-    findTeacherResearch: function(teacher_id, callback){
+    ShowTeacherResearchStudent: function(teacher_id, callback){
         const resource = pool.acquire();
         resource.then(function(c){
-            var sql_findTeacherResearch=c.prepare(s.findTeacherResearch);
-            c.query(sql_findTeacherResearch({teacher_id}), function(err, result){
+            var sql_ShowTeacherResearchStudent=c.prepare(s.ShowTeacherResearchStudent);
+            c.query(sql_ShowTeacherResearchStudent({teacher_id}), function(err, result){
                 if(err){
                     callback(err, undefined);
                     pool.release(c);
@@ -686,11 +686,11 @@ module.exports = {
             });
         });
     }, 
-    findTeacherResearchCountAndInfo: function(callback){
+    ShowTeacherInfoResearchCnt: function(callback){
         const resource=pool.acquire();
         resource.then(function(c){
-            var sql_findTeacherResearchCountAndInfo=c.prepare(s.findTeacherResearchCountAndInfo);
-            c.query(sql_findTeacherResearchCountAndInfo({}), function(err, result){
+            var sql_ShowTeacherInfoResearchCnt=c.prepare(s.ShowTeacherInfoResearchCnt);
+            c.query(sql_ShowTeacherInfoResearchCnt({}), function(err, result){
                 if(err){
                     callback(err, undefined);
                     pool.release(c);
@@ -724,21 +724,21 @@ module.exports = {
             });
         });
     }, 
-    mailCreate:function(data){
+    CreateMail:function(data){
         //data need sender_id, title, receiver_id, content
         if(typeof(data)==='string')
             data=JSON.parse(data);
         const resource=pool.acquire();
         resource.then(function(c){
-            var sql_mailCreateSender=c.prepare(s.mailCreateSender);
-            var sql_mailCreateReceiver=c.prepare(s.mailCreateReceiver);
-            c.query(sql_mailCreateSender(data), function(err){
+            var sql_CreateMailSender=c.prepare(s.CreateMailSender);
+            var sql_CreateMailReceiver=c.prepare(s.CreateMailReceiver);
+            c.query(sql_CreateMailSender(data), function(err){
                 if(err)
                 {
                     pool.release(c);
                     throw err;
                 }
-                c.query(sql_mailCreateReceiver(data), function(err){
+                c.query(sql_CreateMailReceiver(data), function(err){
                     if(err)
                     {
                         pool.release(c);
@@ -749,11 +749,11 @@ module.exports = {
             });
         });
     }, 
-    mailDelete:function(mail_id){
+    DeleteMail:function(mail_id){
         const resource=pool.acquire();
         resource.then(function(c){
-            var sql_mailDelete=c.prepare(s.mailDelete);
-            c.query(sql_mailDelete({mail_id}), function(err){
+            var sql_DeleteMail=c.prepare(s.DeleteMail);
+            c.query(sql_DeleteMail({mail_id}), function(err){
                 if(err)
                 {
                     pool.release(c);
@@ -763,11 +763,11 @@ module.exports = {
             });
         });
     }, 
-    mailReadSet:function(mail_id, read_bit){
+    SetMailRead:function(mail_id, read_bit){
         const resource=pool.acquire();
         resource.then(function(c){
-            var sql_mailReadSet=c.prepare(s.mailReadSet);
-            c.query(sql_mailReadSet({mail_id, read_bit}), function(err){
+            var sql_SetMailRead=c.prepare(s.SetMailRead);
+            c.query(sql_SetMailRead({mail_id, read_bit}), function(err){
                 if(err)
                 {
                     pool.release(c);
@@ -777,11 +777,11 @@ module.exports = {
             });
         });
     }, 
-    mailReturnSingle:function(mail_id, callback){
+    ShowMailInfo:function(mail_id, callback){
         const resource=pool.acquire();
         resource.then(function(c){
-            var sql_mailReturnSingle=c.prepare(s.mailReturnSingle);
-            c.query(sql_mailReturnSingle({mail_id}), function(err, result){
+            var sql_ShowMailInfo=c.prepare(s.ShowMailInfo);
+            c.query(sql_ShowMailInfo({mail_id}), function(err, result){
                 if(err){
                     callback(err, undefined);
                     pool.release(c);
@@ -792,11 +792,11 @@ module.exports = {
             });
         });
     }, 
-    mailReturnReceiveList:function(receiver_id, callback){
+    ShowMailRcdList:function(receiver_id, callback){
         const resource=pool.acquire();
         resource.then(function(c){
-            var sql_mailReturnReceiveList=c.prepare(s.mailReturnReceiveList);
-            c.query(sql_mailReturnReceiveList({receiver_id}), function(err, result){
+            var sql_ShowMailRcdList=c.prepare(s.ShowMailRcdList);
+            c.query(sql_ShowMailRcdList({receiver_id}), function(err, result){
                 if(err){
                     callback(err, undefined);
                     pool.release(c);
@@ -807,11 +807,11 @@ module.exports = {
             });
         });
     }, 
-    mailReturnSendList:function(sender_id, callback){
+    ShowMailSendList:function(sender_id, callback){
         const resource=pool.acquire();
         resource.then(function(c){
-            var sql_mailReturnSendList=c.prepare(s.mailReturnSendList);
-            c.query(sql_mailReturnSendList({sender_id}), function(err, result){
+            var sql_ShowMailSendList=c.prepare(s.ShowMailSendList);
+            c.query(sql_ShowMailSendList({sender_id}), function(err, result){
                 if(err){
                     callback(err, undefined);
                     pool.release(c);
@@ -852,13 +852,13 @@ module.exports = {
             });
         });
     }, 
-    researchApplyFormCreate:function(data, callback){
+    CreateResearchApplyForm:function(data, callback){
         if(typeof(data)==='string')
             data=JSON.parse(data);
         const resource=pool.acquire();
         resource.then(function(c){
             var sql_addPhone=c.prepare(s.addPhone);
-            var sql_researchApplyFormCreate=c.prepare(s.researchApplyFormCreate);
+            var sql_CreateResearchApplyForm=c.prepare(s.CreateResearchApplyForm);
             var sql_addEmail=c.prepare(s.addEmail);
             c.query(sql_addPhone({student_id:data['student_id'], phone:data['phone']}), function(err){
                 if(err)
@@ -872,7 +872,7 @@ module.exports = {
                         pool.release(c);
                         throw err;
                     }
-                    c.query(sql_researchApplyFormCreate(data), function(err){
+                    c.query(sql_CreateResearchApplyForm(data), function(err){
                         if(err)
                         {
                             pool.release(c);
@@ -884,13 +884,13 @@ module.exports = {
             });
         });
     }, 
-    researchApplyFormSetAgree:function(data){
+    SetResearchApplyFormStatus:function(data){
         if(typeof(data)==='string')
             data=JSON.parse(data);
         const resource=pool.acquire();
         resource.then(function(c){
-            var sql_researchApplyFormSetAgree=c.prepare(s.researchApplyFormSetAgree);
-            c.query(sql_researchApplyFormSetAgree(data), function(err, result){
+            var sql_SetResearchApplyFormStatus=c.prepare(s.SetResearchApplyFormStatus);
+            c.query(sql_SetResearchApplyFormStatus(data), function(err, result){
                 if(err)
                 {
                     pool.release(c);
@@ -900,13 +900,13 @@ module.exports = {
             });
         });
     }, 
-    researchApplyFormDelete:function(data){
+    DeleteResearchApplyForm:function(data){
         if(typeof(data)==='string')
             data=JSON.parse(data);
         const resource=pool.acquire();
         resource.then(function(c){
-            var sql_researchApplyFormDelete=c.prepare(s.researchApplyFormDelete);
-            c.query(sql_researchApplyFormDelete(data), function(err){
+            var sql_DeleteResearchApplyForm=c.prepare(s.DeleteResearchApplyForm);
+            c.query(sql_DeleteResearchApplyForm(data), function(err){
                 if(err)
                 {
                     pool.release(c);
@@ -916,11 +916,11 @@ module.exports = {
             });
         });
     }, 
-    researchApplyFormTeaReturn:function(teacher_id, callback){
+    ShowTeacherResearchApplyFormList:function(teacher_id, callback){
         const resource=pool.acquire();
         resource.then(function(c){
-            var sql_researchApplyFormTeaReturn=c.prepare(s.researchApplyFormTeaReturn);
-            c.query(sql_researchApplyFormTeaReturn({teacher_id}), function(err, result){
+            var sql_ShowTeacherResearchApplyFormList=c.prepare(s.ShowTeacherResearchApplyFormList);
+            c.query(sql_ShowTeacherResearchApplyFormList({teacher_id}), function(err, result){
                 if(err)
                 {
                     callback(err, undefined);
@@ -932,11 +932,11 @@ module.exports = {
             });
         });
     }, 
-    researchApplyFormPersonalReturn:function(student_id, callback){
+    ShowStudentResearchApplyForm:function(student_id, callback){
         const resource=pool.acquire();
         resource.then(function(c){
-            var sql_researchApplyFormPersonalReturn=c.prepare(s.researchApplyFormPersonalReturn);
-            c.query(sql_researchApplyFormPersonalReturn({student_id}), function(err, result){
+            var sql_ShowStudentResearchApplyForm=c.prepare(s.ShowStudentResearchApplyForm);
+            c.query(sql_ShowStudentResearchApplyForm({student_id}), function(err, result){
                 if(err)
                 {
                     callback(err, undefined);
@@ -948,11 +948,11 @@ module.exports = {
             });
         });
     }, 
-    showGivenGradeStudentResearch:function(grade, callback){
+    ShowGivenGradeStudentResearch:function(grade, callback){
         const resource=pool.acquire();
         resource.then(function(c){
-            var sql_showGivenGradeStudentResearch=c.prepare(s.showGivenGradeStudentResearch);
-            c.query(sql_showGivenGradeStudentResearch({grade}), function(err, result){
+            var sql_ShowGivenGradeStudentResearch=c.prepare(s.ShowGivenGradeStudentResearch);
+            c.query(sql_ShowGivenGradeStudentResearch({grade}), function(err, result){
                 if(err)
                 {
                     callback(err, undefined);
@@ -964,13 +964,13 @@ module.exports = {
             });
         });
     }, 
-    showResearchPage:function(student_id, callback){
+    ShowStudentResearchInfo:function(student_id, callback){
         if(typeof(data)==='string')
             data=JSON.parse(data);
         const resource=pool.acquire();
         resource.then(function(c){
-            var sql_showResearchPage=c.prepare(s.showResearchPage);
-            c.query(sql_showResearchPage({student_id}), function(err, result){
+            var sql_ShowStudentResearchInfo=c.prepare(s.ShowStudentResearchInfo);
+            c.query(sql_ShowStudentResearchInfo({student_id}), function(err, result){
                 if(err)
                 {
                     callback(err, undefined);
@@ -982,13 +982,13 @@ module.exports = {
             });
         });
     }, 
-    findResearchGroup:function(data, callback){
+    ShowResearchGroup:function(data, callback){
         if(typeof(data)==='string')
             data=JSON.parse(data);
         const resource=pool.acquire();
         resource.then(function(c){
-            var sql_findResearchGroup=c.prepare(s.findResearchGroup);
-            c.query(sql_findResearchGroup(data), function(err, result){
+            var sql_ShowResearchGroup=c.prepare(s.ShowResearchGroup);
+            c.query(sql_ShowResearchGroup(data), function(err, result){
                 if(err)
                 {
                     callback(err, undefined);
@@ -1000,7 +1000,7 @@ module.exports = {
             });
         });
     }, 
-    setResearchPage:function(data, callback){
+    SetResearchInfo:function(data, callback){
         if(typeof(data)==='string')
             data=JSON.parse(data);
         const resource=pool.acquire();
@@ -1024,7 +1024,7 @@ module.exports = {
             });
         });
     }, 
-    setResearchScoreComment:function(data){
+    SetResearchScoreComment:function(data){
         if(typeof(data)==='string')
             data=JSON.parse(data);
         const resource=pool.acquire();
@@ -1046,13 +1046,13 @@ module.exports = {
             });
         });
     }, 
-    createNewResearch:function(data){
+    CreateNewResearch:function(data){
         if(typeof(data) === 'string')
             data=JSON.parse(data);
         const resource=pool.acquire();
         resource.then(function(c){
-            var sql_createNewResearch=c.prepare(s.createNewResearch);
-            c.query(sql_createNewResearch(data), function(err){
+            var sql_CreateNewResearch=c.prepare(s.CreateNewResearch);
+            c.query(sql_CreateNewResearch(data), function(err){
                 if(err)
                 {
                     pool.release(c);
@@ -1062,13 +1062,13 @@ module.exports = {
             });
         });
     }, 
-    researchFileCreate:function(data){
+    CreateResearchFile:function(data){
         if(typeof(data) === 'string')
             data=JSON.parse(data);
         const resource=pool.acquire();
         resource.then(function(c){
-            var sql_researchFileCreate=c.prepare(s.researchFileCreate);
-            c.query(sql_researchFileCreate(data), function(err){
+            var sql_CreateResearchFile=c.prepare(s.CreateResearchFile);
+            c.query(sql_CreateResearchFile(data), function(err){
                 if(err)
                 {
                     pool.release(c);
@@ -1078,13 +1078,13 @@ module.exports = {
             });
         });
     }, 
-    researchFileReturn:function(data, callback){
+    ShowResearchFilePath:function(data, callback){
         if(typeof(data) === 'string')
             data=JSON.parse(data);
         const resource=pool.acquire();
         resource.then(function(c){
-            var sql_researchFileReturn=c.prepare(s.researchFileReturn);
-            c.query(sql_researchFileReturn(data), function(err, result){
+            var sql_ShowResearchFilePath=c.prepare(s.ShowResearchFilePath);
+            c.query(sql_ShowResearchFilePath(data), function(err, result){
                 if(err)
                 {
                     callback(err, undefined);
@@ -1096,13 +1096,13 @@ module.exports = {
             });
         });
     }, 
-    showResearchInfo:function(data, callback){
+    ShowResearchInfo:function(data, callback){
         if(typeof(data) === 'string')
             data=JSON.parse(data);
         const resource=pool.acquire();
         resource.then(function(c){
-            var sql_showResearchInfo=c.prepare(s.showResearchInfo);
-            c.query(sql_showResearchInfo(data), function(err, result){
+            var sql_ShowResearchInfo=c.prepare(s.ShowResearchInfo);
+            c.query(sql_ShowResearchInfo(data), function(err, result){
                 if(err)
                 {
                     callback(err, undefined);
@@ -1114,26 +1114,26 @@ module.exports = {
             });
         });
     }, 
-    updateResearchTitle:function(data){
+    SetResearchTitle:function(data){
         if(typeof(data) === 'string')
             data=JSON.parse(data);
         const resource=pool.acquire();
         resource.then(function(c){
-            var sql_updateResearchTitle=c.prepare(s.updateResearchTitle);
-            c.query(sql_updateResearchTitle(data), function(err){
+            var sql_SetResearchTitle=c.prepare(s.SetResearchTitle);
+            c.query(sql_SetResearchTitle(data), function(err){
                 if(err)
                     throw err;
                 pool.release(c);
             });
         });
     }, 
-    showResearchGradeComment:function(data, callback){
+    ShowResearchScoreComment:function(data, callback){
         if(typeof(data) === 'string')
             data=JSON.parse(data);
         const resource=pool.acquire();
         resource.then(function(c){
-            var sql_showResearchGradeComment=c.prepare(s.showResearchGradeComment);
-            c.query(sql_showResearchGradeComment(data), function(err, result){
+            var sql_ShowResearchScoreComment=c.prepare(s.ShowResearchScoreComment);
+            c.query(sql_ShowResearchScoreComment(data), function(err, result){
                 if(err)
                 {
                     callback(err, undefined);
