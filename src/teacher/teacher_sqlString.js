@@ -1,11 +1,11 @@
-exports.teacherCosNow = "\
+exports.ShowTeacherCosNow = "\
     select *\
     from cos_name as n\
     where n.cos_code IN\
     (\
         select c.cos_code\
         from cos_data as c\
-        where c.unique_id LIKE '106-1%'\
+        where c.unique_id LIKE '107-1%'\
         and c.teacher_id IN\
         (\
             select tc.teacher_id\
@@ -20,7 +20,7 @@ exports.teacherCosNow = "\
         order by cos_code\
     )";
 
-exports.teacherCosAll = "\
+exports.ShowTeacherCosAll = "\
     select *\
     from cos_name as n\
     where n.cos_code IN\
@@ -41,13 +41,13 @@ exports.teacherCosAll = "\
         order by cos_code\
     )";
 
-exports.teacherStudents ="\
+exports.ShowTeacherMentors ="\
     select s.student_id, s.sname, s.program \
     from student as s, mentor_list as m, teacher as t \
     where t.teacher_id = :id \
     and t.tname = m.tname \
     and m.student_id = s.student_id";
 
-exports.returnTeacherIdList="\
+exports.ShowTeacherIdList="\
     select teacher_id, tname\
     from teacher";

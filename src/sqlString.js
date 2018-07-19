@@ -26,31 +26,6 @@ exports.qaMaxId='\
 exports.qaDelete='\
     delete from qa_record where id=:id';
 
-exports.findCurrentCos = "\
-    select distinct cd.unique_id, cn.cos_cname, cd.teacher_id, cd.cos_time, cd.cos_code \
-    from \
-    (\
-        select unique_id, teacher_id, cos_time, cos_code \
-        from cos_data \
-        where unique_id like :semester \
-        and \
-        (\
-            cos_code like 'DCP%' \
-            or cos_code like 'IOC%' \
-            or cos_code like 'IOE%' \
-            or cos_code like 'ILE%' \
-            or cos_code like 'IDS%' \
-            or cos_code like 'CCS%' \
-            or cos_code like 'ICP%' \
-        )\
-    ) as cd, \
-    (\
-        select unique_id, cos_cname\
-        from cos_name\
-        where unique_id like :semester\
-    ) as cn\
-    where cd.unique_id=cn.unique_id";
-
 exports.findTeacherResearchCountAndInfo="\
     select *\
     from\

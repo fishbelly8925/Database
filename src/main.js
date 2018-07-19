@@ -4,68 +4,68 @@
 
 var m = require('./msql.js');
 
-m.findPerson('0410006', function(err, result){
-    if(err)
-        throw err;
-    console.log(JSON.parse(result));
-}); // findPerson 回傳學生資料
-
-// m.addEmail('0516003', 'dabct@test');
-// // addEmail(學號, email) 更新此學號學生之email
-
-// m.showCosMap('0316003', function(err, result){
+// m.ShowUserInfo('0516003', function(err, result){
 //     if(err)
 //         throw err;
 //     console.log(JSON.parse(result));
-// }); // showCosMap 課程地圖要顯示的項目以及建議先修課與擋修課程
+// }); // ShowUserInfo 回傳學生資料
 
-// m.showCosMapPass('0312512', function(err, result){
+// m.SetUserEmail('0516003', 'dabct@test');
+// // SetUserEmail(學號, email) 更新此學號學生之email
+
+// m.ShowCosMapRule('0316003', function(err, result){
 //     if(err)
 //         throw err;
 //     console.log(JSON.parse(result));
-// }); // showCosMapPass 某學生在課程地圖上有通過的課
+// }); // ShowCosMapRule 課程地圖要顯示的項目以及建議先修課與擋修課程
 
-// m.totalCredit('0516003', function(err, result){
+// m.ShowCosMapPass('0312512', function(err, result){
 //     if(err)
 //         throw err;
 //     console.log(JSON.parse(result));
-// }); // totalCredit 回傳某學生總學分數
+// }); // ShowCosMapPass 某學生在課程地圖上有通過的課
 
-// m.Pass('0316014', function(err, result){
+// m.ShowUserTotalCredit('0516003', function(err, result){
 //     if(err)
 //         throw err;
 //     console.log(JSON.parse(result));
-// }); // Pass 列出此學生通過的課
+// }); // ShowUserTotalCredit 回傳某學生總學分數
 
-// m.PassSpecify('0516003', '通識', function(err, result){
+// m.ShowUserAllScore('0516003', function(err, result){
 //     if(err)
 //         throw err;
 //     console.log(JSON.parse(result));
-// }); // PassSpecify 列出此學生某向度中通過的課
+// }); // ShowUserAllScore 列出此學生通過的課
 
-// m.Group('0516003', function(err, result){
+// m.ShowUserPartScore('0516003', '通識', function(err, result){
 //     if(err)
 //         throw err;
 //     console.log(JSON.parse(result));
-// }); // Group 列出此學生畢業預審表上 必修、核心、副核心等課程分類
+// }); // ShowUserPartScore 列出此學生某向度中通過的課
 
-// m.graduateRule('0516003', function(err, result){
+// m.ShowCosGroup('0516003', function(err, result){
+//     if(err)
+//         throw err;
+//     console.log(JSON.parse(result));
+// }); // ShowCosGroup 列出此學生畢業預審表上 必修、核心、副核心等課程分類
+
+// m.ShowGraduateRule('0516003', function(err, result){
 //     if(err)
 //         throw err;
 // 	   console.log(JSON.parse(result));
-// }); // graduateRule 列出此學生畢業標準
+// }); // ShowGraduateRule 列出此學生畢業標準
 
-// m.offset('0316014', function(err, result){
+// m.ShowUserOffset('0516205', function(err, result){
 //     if(err)
 //         throw err;
 // 	   console.log(JSON.parse(result));
-// }); // offset 個人抵免資料 (輸入all顯示全部)
+// }); // ShowUserOffset 個人抵免資料 (輸入all顯示全部)
 
-// m.on_cos_data('0316067', function(err, result){
+// m.ShowUserOnCos('0316067', function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
-// }); // on_cos_data 大四個人當期修課資料 (輸入all顯示全部)
+// }); // ShowUserOnCos 大四個人當期修課資料 (輸入all顯示全部)
 
 // m.general_cos_rule(function(err, result){
 // 	if(err)
@@ -73,11 +73,11 @@ m.findPerson('0410006', function(err, result){
 // 	console.log(JSON.parse(result));
 // }); // general_cos_rule 外系通識規則
 
-// m.studentGraduateList('05', function(err, result){
+// m.ShowGraduateStudentList('05', function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
-// }); // studentGraduateList 列出此學號開頭的學生的畢業資訊(輸入all顯示全部)(助理端用)
+// }); // ShowGraduateStudentList 列出此學號開頭的學生的畢業資訊(輸入all顯示全部)(助理端用)
 
 // m.setEnCertificate('0516003', 0);
 // // setEnCertificate 設定某學生的英檢狀態
@@ -88,21 +88,21 @@ m.findPerson('0410006', function(err, result){
 // m.setStudentGraduateSubmit('0516003', 1);
 // // setStudentGraduateSubmit 設定某學生的畢業預審確認狀態(1可畢業, 0不可畢業)
 
-// m.bindAccount('0516003', 'test@gmail.com.tw', 1);
-// // bindAccount   1:set gmail   2:set fb_id   3:set github_id
+// m.SetUserOAuth('0516003', 'test@gmail.com.tw', 1);
+// // SetUserOAuth   1:set gmail   2:set fb_id   3:set github_id
 
-// m.insertCosMotion('0516003', 'test2', 'a', 'c');
-// // insertCosMotion(id, cos_name, original position, now position) 更新課程位置
+// m.SetCosMotion('0516003', 'test2', 'a', 'c');
+// // SetCosMotion(id, cos_name, original position, now position) 更新課程位置
 
-// m.cosMotion('0516003', function(err, result){
+// m.ShowCosMotionLocate('0516003', function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
 // });
-// // cosMotion(id, callback) 回傳學生修改課程位置
+// // ShowCosMotionLocate(id, callback) 回傳學生修改課程位置
 
-// m.cosMotionDelete('0516003');
-// // cosMotionDelete(id) 刪除學生課程位置紀錄
+// m.DeleteCosMotion('0516003');
+// // DeleteCosMotion(id) 刪除學生課程位置紀錄
 
 // m.qaInsert('aaa', 'bbb', function(err){
 // 	if(err)
@@ -123,50 +123,50 @@ m.findPerson('0410006', function(err, result){
 // });
 // // qaDelete(id, callback) 刪除編號id的紀錄
 
-// m.teacherCosNow('T9229', function(err, result){
+// m.ShowTeacherCosNow('T9229', function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
-// }); // teacherCosNow(id, callback) 某老師當學期開課
+// }); // ShowTeacherCosNow(id, callback) 某老師當學期開課
 
-// m.teacherCosAll('T9229', function(err, result){
+// m.ShowTeacherCosAll('T9229', function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
-// }); // teacherCosAll(id, callback) 某老師所有開過的課
+// }); // ShowTeacherCosAll(id, callback) 某老師所有開過的課
 
-// m.teacherStudents('T9229', function(err, result){
+// m.ShowTeacherMentors('T9229', function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
-// }); // teacherStudents(id, callback) 某老師導生名單
+// }); // ShowTeacherMentors(id, callback) 某老師導生名單
 
-// m.showCosMapIntro('訊號與系統', function(err, result){
+// m.ShowCosMapIntro('訊號與系統', function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
 // });
-// // showCosMapIntro(cos_cname, callback) 課程地圖某堂課的資訊
+// // ShowCosMapIntro(cos_cname, callback) 課程地圖某堂課的資訊
 
-// m.showCosScoreDetail('DCP3595', '105-2-1191', function(err, result){
+// m.ShowCosScoreDetail('DCP3595', '105-2-1191', function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
 // });
-// // showCosScoreDetail(cos_code, unique_id, callback) 某堂課的成績詳細資料
+// // ShowCosScoreDetail(cos_code, unique_id, callback) 某堂課的成績詳細資料
 
-// m.showCosScoreInterval('DCP3595', '105-2-1191', function(err, result){
+// m.ShowCosScoreInterval('DCP3595', '105-2-1191', function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
 // });
-// // showCosScoreInterval(cos_code, unique_id, callback) 某堂課的成績區間人數
+// // ShowCosScoreInterval(cos_code, unique_id, callback) 某堂課的成績區間人數
 
-// m.getRecommend('0216340', function(err, result){
+// m.ShowRecommendCos('0516003', function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
-// }); // getRecomend(student_id, callback) 回傳某學生的推薦課程
+// }); // ShowRecommendCos(student_id, callback) 回傳某學生的推薦課程
 
 // m.findTeacherResearch('T9229', function(err, result){
 // 	if(err)
@@ -207,13 +207,13 @@ m.findPerson('0410006', function(err, result){
 // 	console.log(JSON.parse(result));
 // }); // mailReturnList(sender_id) 回傳該使用者所寄發mail清單（沒有信件內文）
 
-// m.returnStudentIdList(function(err, result){
+// m.ShowStudentIdList(function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
 // }); // 回傳學生id, 名字對應表
 
-// m.returnTeacherIdList(function(err, result){
+// m.ShowTeacherIdList(function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
@@ -306,7 +306,7 @@ m.findPerson('0410006', function(err, result){
 // 	console.log(JSON.parse(result));
 // }); // 回傳專題成績列表:教授名字, 學生姓名學號, 成績, 評論
 
-// m.mentorReturn('0516003', function(err, result){
+// m.ShowStudentMentor('0516003', function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));

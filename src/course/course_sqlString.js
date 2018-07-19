@@ -1,4 +1,4 @@
-exports.showCosScoreDetail = "\
+exports.ShowCosScoreDetail = "\
     select \
     cos_code, avg(score) as avg,\
     avg(case when score>=60 then score end) as Pavg, count(*) as member,\
@@ -7,7 +7,7 @@ exports.showCosScoreDetail = "\
     where cos_code = :cos_code\
     and concat(cos_year, '-' , semester, '-', cos_id) = :unique_id";
 
-exports.showCosScoreInterval = "\
+exports.ShowCosScoreInterval = "\
     select\
     count(case when score is NULL then 1 end) as 'null',\
     count(case when score<10 then score end) as '<10',\
@@ -23,12 +23,12 @@ exports.showCosScoreInterval = "\
     from cos_score\
     where concat(cos_year, '-' , semester, '-', cos_id) = :unique_id";
 
-exports.cosMotion = "\
+exports.ShowCosMotionLocate = "\
     select cos_cname, orig_pos, now_pos\
     from cos_motion\
     where student_id = :id";
 
-exports.showCosMap = "\
+exports.ShowCosMapRule = "\
     select\
         a.cos_cname, a.grade, a.semester,\
         b.pre_cos_cname as suggest, c.pre_cos_cname as pre \
@@ -61,7 +61,7 @@ exports.showCosMap = "\
     on a.cos_cname = c.after_cos_cname\
     order by a.grade, a.semester, a.cos_cname";
 
-exports.showCosMapPass = "\
+exports.ShowCosMapPass = "\
     select distinct c.cos_cname\
     from\
     (\
@@ -83,7 +83,7 @@ exports.showCosMapPass = "\
     or cos_cname like '微積分Ｂ%'\
     or cos_cname like '微積分Ａ%'";
 
-exports.showCosMapIntro ="\
+exports.ShowCosMapIntro ="\
     select\
         tcr.tname, a.cos_cname , a.cos_code, a.num_limit,\
         a.reg_num, a.cos_typeext as english, a.unique_id\
@@ -101,11 +101,11 @@ exports.showCosMapIntro ="\
     ON a.teacher_id LIKE CONCAT('%', tcr.teacher_id, '%')\
     order by a.unique_id DESC";
 
-exports.insertCosMotion = "\
+exports.SetCosMotion = "\
     insert into cos_motion (student_id, cos_cname, orig_pos, now_pos)\
     values (:id, :name, :orig, :now)\
     on duplicate key update now_pos = :now";
 
-exports.cosMotionDelete = "\
+exports.DeleteCosMotion = "\
     delete from cos_motion\
     where student_id = :id";

@@ -41,7 +41,7 @@ exports.findAssistant = "\
     select assistant_id, aname from assistant\
     where assistant_id=:id";
 
-exports.Pass = "\
+exports.ShowUserAllScore = "\
     select DISTINCT\
         if(ISNULL(c.cos_code), a.cos_code, c.cos_code) as cos_code,\
         if(ISNULL(c.cos_cname), a.cos_cname, c.cos_cname) as cos_cname,\
@@ -113,7 +113,7 @@ exports.Pass = "\
     on a.teacher_id = tcr.teacher_id\
     order by a.year, a.semester asc";
 
-exports.PassSpecify = "\
+exports.ShowUserPartScore = "\
     select DISTINCT\
         if(ISNULL(c.cos_code), a.cos_code, c.cos_code) as cos_code,\
         if(ISNULL(c.cos_cname), a.cos_cname, c.cos_cname) as cos_cname,\
@@ -185,25 +185,50 @@ exports.PassSpecify = "\
     where a.pass_fail = '通過' and a.cos_type = :category\
     order by a.year, a.semester asc";
 
-exports.general_cos_rule = "\
-    select cos_code, cos_cname, brief, brief_new\
-    from general_cos_rule";
+// exports.general_cos_rule = "\
+//     select cos_code, cos_cname, brief, brief_new\
+//     from general_cos_rule";
 
-exports.getRecommend = "\
+exports.ShowRecommendCos = "\
     select cos_name_list\
     from rs\
     where student_id = :id";
 
-exports.returnStudentIdList = "\
+exports.findCurrentCos = "\
+    select distinct cd.unique_id, cn.cos_cname, cd.teacher_id, cd.cos_time, cd.cos_code \
+    from \
+    (\
+        select unique_id, teacher_id, cos_time, cos_code \
+        from cos_data \
+        where unique_id like :semester \
+        and \
+        (\
+            cos_code like 'DCP%' \
+            or cos_code like 'IOC%' \
+            or cos_code like 'IOE%' \
+            or cos_code like 'ILE%' \
+            or cos_code like 'IDS%' \
+            or cos_code like 'CCS%' \
+            or cos_code like 'ICP%' \
+        )\
+    ) as cd, \
+    (\
+        select unique_id, cos_cname\
+        from cos_name\
+        where unique_id like :semester\
+    ) as cn\
+    where cd.unique_id=cn.unique_id";
+
+exports.ShowStudentIdList = "\
     select student_id, sname\
     from student";
 
-exports.mentorReturn = "\
+exports.ShowStudentMentor = "\
     select tname\
     from mentor_list\
     where student_id = :id";
 
-exports.on_cos_data = "\
+exports.ShowUserOnCos = "\
     select\
         s.student_id, cd.cos_code, cn.cos_cname, cn.cos_ename,\
         cd.cos_type, cd.cos_typeext, cd.brief, cd.brief_new,\
@@ -220,7 +245,7 @@ exports.on_cos_data = "\
     on cn.unique_id = cd.unique_id\
     where s.student_id = :id";
 
-exports.offset_single = "\
+exports.ShowUserOffsetSingle = "\
     select\
         os.student_id, os.apply_year, os.apply_semester, os.cos_code_old,\
         os.cos_cname_old, os.cos_code, os.cos_cname, os.credit,\
@@ -237,7 +262,7 @@ exports.offset_single = "\
     and cg.cos_cname = os.cos_cname_old\
     where os.student_id = :id";
 
-exports.offset_all="\
+exports.ShowUserOffsetAll="\
     select\
         os.student_id, os.apply_year, os.apply_semester, os.cos_code_old,\
         os.cos_cname_old, os.cos_code, os.cos_cname, os.credit,\
@@ -253,20 +278,20 @@ exports.offset_all="\
     and cg.cos_code = os.cos_code_old\
     and cg.cos_cname = os.cos_cname_old";
 
-exports.studentGraduateList_all = "\
+exports.ShowGraduateStudentListAll = "\
     select\
         student_id, sname, program, graduate_submit,\
         graduate, email, en_certificate\
     from student";
 
-exports.studentGraduateList_single = "\
+exports.ShowGraduateStudentListSingle = "\
     select\
         student_id, sname, program, graduate_submit,\
         graduate, email, en_certificate\
     from student\
     where student_id like concat(:sem, '%')";
 
-exports.graduateRule = "\
+exports.ShowGraduateRule = "\
     select\
         r.require_credit, r.pro_credit, r.free_credit,\
         r.core_credit, r.sub_core_credit, r.foreign_credit\
@@ -275,7 +300,7 @@ exports.graduateRule = "\
     and s.program like concat(r.program, '%')\
     and r.school_year = :year";
 
-exports.totalCredit = "\
+exports.ShowUserTotalCredit = "\
     select sum(t.cos_credit) as total\
     from\
     (\
@@ -290,7 +315,7 @@ exports.totalCredit = "\
         where s.cos_code = d.cos_code\
     ) as t";
 
-exports.Group = "\
+exports.ShowCosGroup = "\
     select\
         p.cos_cname, p.cos_ename, p.cos_codes,\
         IFNULL(a.type, '必修') as type\
@@ -321,7 +346,7 @@ exports.Group = "\
         select '導師時間'\
     )";
 
-exports.addEmail = "\
+exports.SetUserEmail = "\
     update student\
     set email = :email \
     where student_id = :id";

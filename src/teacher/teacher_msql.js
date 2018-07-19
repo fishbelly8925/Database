@@ -4,11 +4,11 @@ var psw = require('../dbpsw.js');
 var pool = psw.dbpsw();
 
 module.exports = {
-	teacherCosNow:function(id, callback){
-        const resource=pool.acquire();
+	ShowTeacherCosNow:function(id, callback){
+        const resource = pool.acquire();
         resource.then(function(c){
-            var sql_teacherCosNow=c.prepare(s.teacherCosNow);
-            c.query(sql_teacherCosNow({id: id}), function(err, result){
+            var sql_ShowTeacherCosNow = c.prepare(s.ShowTeacherCosNow);
+            c.query(sql_ShowTeacherCosNow({id: id}), function(err, result){
                 if (err){
                     callback(err, undefined);
                     pool.release(c);
@@ -19,11 +19,11 @@ module.exports = {
             });
         });
     },
-    teacherCosAll:function(id, callback){
-        const resource=pool.acquire();
+    ShowTeacherCosAll:function(id, callback){
+        const resource = pool.acquire();
         resource.then(function(c){
-            var sql_teacherCosAll=c.prepare(s.teacherCosAll);
-            c.query(sql_teacherCosAll({id: id}), function(err, result){
+            var sql_ShowTeacherCosAll = c.prepare(s.ShowTeacherCosAll);
+            c.query(sql_ShowTeacherCosAll({id: id}), function(err, result){
                 if (err){
                     callback(err, undefined);
                     pool.release(c);
@@ -34,11 +34,11 @@ module.exports = {
             });
         });
     },
-    teacherStudents:function(id, callback){
-        const resource=pool.acquire();
+    ShowTeacherMentors:function(id, callback){
+        const resource = pool.acquire();
         resource.then(function(c){
-            var sql_teacherStudents=c.prepare(s.teacherStudents);
-            c.query(sql_teacherStudents({id:id}), function(err, result){
+            var sql_ShowTeacherMentors = c.prepare(s.ShowTeacherMentors);
+            c.query(sql_ShowTeacherMentors({id:id}), function(err, result){
                 if(err){
                     callback(err, undefined);
                     pool.release(c);
@@ -49,11 +49,11 @@ module.exports = {
             });
         });
     },
-    returnTeacherIdList:function(callback){
-        const resource=pool.acquire();
+    ShowTeacherIdList:function(callback){
+        const resource = pool.acquire();
         resource.then(function(c){
-            var sql_returnTeacherIdList=c.prepare(s.returnTeacherIdList);
-            c.query(sql_returnTeacherIdList({}), function(err, result){
+            var sql_ShowTeacherIdList = c.prepare(s.ShowTeacherIdList);
+            c.query(sql_ShowTeacherIdList({}), function(err, result){
                 if(err){
                     callback(err, undefined);
                     pool.release(c);

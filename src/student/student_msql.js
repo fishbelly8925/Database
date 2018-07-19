@@ -16,7 +16,7 @@ function parseEng(cos){
 }
 
 module.exports = {
-	findPerson: function(id, callback) {
+	ShowUserInfo: function(id, callback) {
         if (id.match(/^[0-9].*/g)) {
             const resource = pool.acquire();
             resource.then(function(c) {
@@ -87,12 +87,12 @@ module.exports = {
             })
         }
     }, 
-    Pass: function(id, callback) {
+    ShowUserAllScore: function(id, callback) {
         const resource = pool.acquire();
         resource.then(function(c) {
-            var sql_Pass = c.prepare(s.Pass);
+            var sql_ShowUserAllScore = c.prepare(s.ShowUserAllScore);
             var year = '1' + id[0] + id[1];
-            c.query(sql_Pass({ id: id, year: year }), function(err, result) {
+            c.query(sql_ShowUserAllScore({ id: id, year: year }), function(err, result) {
                 if (err){
                     callback(err, undefined);
                     pool.release(c);
@@ -103,10 +103,10 @@ module.exports = {
             })
         })
     },
-    PassSpecify: function(id, category, callback) {
+    ShowUserPartScore: function(id, category, callback) {
         const resource = pool.acquire();
         resource.then(function(c) {
-            var sql_PassSpecify = c.prepare(s.PassSpecify);
+            var sql_PassSpecify = c.prepare(s.ShowUserPartScore);
             var year = '1' + id[0] + id[1];
             c.query(sql_PassSpecify({id, year, category}), function(err, result) {
                 if (err){
@@ -119,73 +119,72 @@ module.exports = {
             })
         })
     },
-    general_cos_rule: function(callback) {
+    // general_cos_rule: function(callback) {
+    //     const resource = pool.acquire();
+    //     resource.then(function(c) {
+    //         var sql_general_cos_rule = c.prepare(s.general_cos_rule);
+    //         c.query(sql_general_cos_rule({}), function(err, result) {
+    //             if (err){
+    //                 callback(err, undefined);
+    //                 pool.release(c);
+    //                 return;
+    //             }
+    //             callback(null, JSON.stringify(result));
+    //             pool.release(c);
+    //         });
+    //     });
+    // },
+    ShowRecommendCos:function(id, callback){
         const resource = pool.acquire();
-        resource.then(function(c) {
-            var sql_general_cos_rule = c.prepare(s.general_cos_rule);
-            c.query(sql_general_cos_rule({}), function(err, result) {
-                if (err){
-                    callback(err, undefined);
-                    pool.release(c);
-                    return;
-                }
-                callback(null, JSON.stringify(result));
-                pool.release(c);
-            });
-        });
-    },
-    getRecommend:function(id, callback){
-        const resource=pool.acquire();
         resource.then(function(c){
-            var semester='106-2%';
-            var sql_getRecommend=c.prepare(s.getRecommend);
-            var sql_findCurrentCos=c.prepare(s.findCurrentCos);
-            var sql_findTeacher=c.prepare(s.findTeacher);
-            var result=[];
-            c.query(sql_getRecommend({id}), function(err, reclist){
+            var semester = '106-2%';
+            var sql_ShowRecommendCos = c.prepare(s.ShowRecommendCos);
+            var sql_findCurrentCos = c.prepare(s.findCurrentCos);
+            var sql_findTeacher = c.prepare(s.findTeacher);
+            var result = [];
+            c.query(sql_ShowRecommendCos({id}), function(err, reclist){
                 c.query(sql_findCurrentCos({semester}), function(err, cos){
                     c.query(sql_findTeacher({}), function(err, tea){
                         //select all recommend cos to variable rec
-                        if(reclist.length==0)
+                        if(reclist.length == 0)
                         {
                             pool.release(c);
                             callback(null, JSON.stringify([]));
                             return;
                         }
-                        reclist=reclist[0]['cos_name_list'];
-                        let rec=reclist.split(", ");
+                        reclist = reclist[0]['cos_name_list'];
+                        let rec = reclist.split(",");
 
-                        cos=JSON.parse(JSON.stringify(cos));
-                        tea=JSON.parse(JSON.stringify(tea));
+                        cos = JSON.parse(JSON.stringify(cos));
+                        tea = JSON.parse(JSON.stringify(tea));
 
-                        for(let i=0;i<rec.length;i++){
+                        for(let i = 0;i<rec.length;i++){
                             //select all cos info into variable data
-                            let data=cos.filter(function(c){return parseEng(c.cos_cname)===rec[i]});
+                            let data = cos.filter(function(c){return parseEng(c.cos_cname)===rec[i]});
                             
                             //for every cos data
-                            for(let d_num=0;d_num<data.length;d_num++)
+                            for(let d_num = 0;d_num<data.length;d_num++)
                             {
                                 //select all teacher who teach the recommend cos
-                                var tea_list=data[d_num]['teacher_id'].split(", ");
+                                var tea_list = data[d_num]['teacher_id'].split(",");
 
                                 //for every teacher
-                                for(let k=0;k<tea_list.length;k++)
+                                for(let k = 0;k<tea_list.length;k++)
                                     //iterate all teacher list 
                                     for(let j=0;j<tea.length;j++)
                                         //select the teacher name
                                         if(tea_list[k].indexOf(tea[j]['teacher_id'])>-1)
                                         {
-                                            tea_list[k]=tea[j]['tname'];
+                                            tea_list[k] = tea[j]['tname'];
                                             break
                                         }
                                 delete data[d_num]['teacher_id'];
-                                data[d_num]['teacher']=tea_list.join(', ');
-                                data[d_num]['cos_time']=data[d_num]['cos_time'].split('-')[0];
+                                data[d_num]['teacher'] = tea_list.join(',');
+                                data[d_num]['cos_time'] = data[d_num]['cos_time'].split('-')[0];
                                 
                                 result.push(data[d_num]);
                             }
                         }
-
                         pool.release(c);
                         callback(null, JSON.stringify(result));
                     });
@@ -193,11 +192,11 @@ module.exports = {
             });
         });
     },
-    returnStudentIdList:function(callback){
-        const resource=pool.acquire();
+    ShowStudentIdList:function(callback){
+        const resource = pool.acquire();
         resource.then(function(c){
-            var sql_returnStudentIdList=c.prepare(s.returnStudentIdList);
-            c.query(sql_returnStudentIdList({}), function(err, result){
+            var sql_ShowStudentIdList = c.prepare(s.ShowStudentIdList);
+            c.query(sql_ShowStudentIdList({}), function(err, result){
                 if(err){
                     callback(err, undefined);
                     pool.release(c);
@@ -208,15 +207,14 @@ module.exports = {
             });
         });
     },
-    mentorReturn:function(id, callback){
+    ShowStudentMentor:function(id, callback){
         const resource = pool.acquire();
         resource.then(function(c){
-            var sql_mentorReturn = c.prepare(s.mentorReturn);
-            c.query(sql_mentorReturn({id}), function(err, result){
+            var sql_ShowStudentMentor = c.prepare(s.ShowStudentMentor);
+            c.query(sql_ShowStudentMentor({id}), function(err, result){
                 if(err)
                 {
                     callback(err, undefined);
-                    throw err;
                     pool.release(c);
                     return;
                 }
@@ -225,11 +223,11 @@ module.exports = {
             });
         });
     },
-    on_cos_data: function(id, callback) {
+    ShowUserOnCos: function(id, callback) {
         const resource = pool.acquire();
-        resource.then(function(c) {
-            var sql_on_cos_data = c.prepare(s.on_cos_data);
-            c.query(sql_on_cos_data({ id: id }), function(err, result) {
+        resource.then(function(c){
+            var sql_ShowUserOnCos = c.prepare(s.ShowUserOnCos);
+            c.query(sql_ShowUserOnCos({ id: id }), function(err, result) {
                 if (err){
                     callback(err, undefined);
                     pool.release(c);
@@ -240,12 +238,12 @@ module.exports = {
             });
         });
     },
-    offset: function(id, callback) {
+    ShowUserOffset: function(id, callback) {
         const resource = pool.acquire();
-        resource.then(function(c) {
+        resource.then(function(c){
             if (id != 'all') {
-                var sql_offset = c.prepare(s.offset_single);
-                c.query(sql_offset({ id: id }), function(err, result) {
+                var sql_ShowUserOffset = c.prepare(s.ShowUserOffsetSingle);
+                c.query(sql_ShowUserOffset({ id: id }), function(err, result) {
                     if (err){
                         callback(err, undefined);
                         pool.release(c);
@@ -255,8 +253,8 @@ module.exports = {
                     pool.release(c);
                 });
             } else {
-                var sql_offset = c.prepare(s.offset_all);
-                c.query(sql_offset({}), function(err, result) {
+                var sql_ShowUserOffset = c.prepare(s.ShowUserOffsetAll);
+                c.query(sql_ShowUserOffset({}), function(err, result) {
                     if (err){
                         callback(err, undefined);
                         pool.release(c);
@@ -268,13 +266,13 @@ module.exports = {
             }
         });
     },
-    studentGraduateList: function(id, callback) {
+    ShowGraduateStudentList: function(id, callback) {
         const resource = pool.acquire();
-        resource.then(function(c) {
+        resource.then(function(c){
             if( id != 'all'){
-                var sql_studentGraduateList_single = c.prepare(s.studentGraduateList_single);
+                var sql_ShowGraduateStudentListSingle = c.prepare(s.ShowGraduateStudentListSingle);
                 var sem = id[0] + id[1];
-                c.query(sql_studentGraduateList_single({ sem: sem }), function(err, result) {
+                c.query(sql_ShowGraduateStudentListSingle({ sem: sem }), function(err, result) {
                     if (err){
                         callback(err, undefined);
                         pool.release(c);
@@ -283,9 +281,9 @@ module.exports = {
                     callback(null, JSON.stringify(result));
                     pool.release(c);
                 })
-            }else{
-                var sql_studentGraduateList_all = c.prepare(s.studentGraduateList_all);
-                c.query(sql_studentGraduateList_all({}), function(err, result) {
+            } else{
+                var sql_ShowGraduateStudentListAll = c.prepare(s.ShowGraduateStudentListAll);
+                c.query(sql_ShowGraduateStudentListAll({}), function(err, result) {
                     if (err){
                         callback(err, undefined);
                         pool.release(c);
@@ -298,12 +296,12 @@ module.exports = {
             
         })
     },
-    graduateRule: function(id, callback) {
+    ShowGraduateRule: function(id, callback) {
         const resource = pool.acquire();
         resource.then(function(c) {
-            var sql_graduateRule = c.prepare(s.graduateRule);
+            var sql_ShowGraduateRule = c.prepare(s.ShowGraduateRule);
             var year = '1' + id[0] + id[1];
-            c.query(sql_graduateRule({ id: id, year: year }), function(err, result) {
+            c.query(sql_ShowGraduateRule({ id: id, year: year }), function(err, result) {
                 if (err){
                     callback(err, undefined);
                     pool.release(c);
@@ -314,11 +312,11 @@ module.exports = {
             })
         })
     },
-    totalCredit: function(id, callback) {
+    ShowUserTotalCredit: function(id, callback) {
         const resource = pool.acquire();
         resource.then(function(c) {
-            var sql_totalCredit = c.prepare(s.totalCredit);
-            c.query(sql_totalCredit({ id: id }), function(err, result) {
+            var sql_ShowUserTotalCredit = c.prepare(s.ShowUserTotalCredit);
+            c.query(sql_ShowUserTotalCredit({ id: id }), function(err, result) {
                 if (err){
                     callback(err, undefined);
                     pool.release(c);
@@ -329,12 +327,12 @@ module.exports = {
             })
         })
     },
-    Group: function(id, callback) {
+    ShowCosGroup: function(id, callback) {
         const resource = pool.acquire();
         resource.then(function(c) {
-            var sql_Group = c.prepare(s.Group);
+            var sql_ShowCosGroup = c.prepare(s.ShowCosGroup);
             var year = '1' + id[0] + id[1];
-            c.query(sql_Group({ id: id, year: year }), function(err, result) {
+            c.query(sql_ShowCosGroup({ id: id, year: year }), function(err, result) {
                 if (err){
                     callback(err, undefined);
                     pool.release(c);
@@ -345,18 +343,18 @@ module.exports = {
             })
         })
     },
-    addEmail: function(id, email) {
+    SetUserEmail: function(id, email) {
         const resource = pool.acquire();
         resource.then(function(c) {
-            var sql_addEmail = c.prepare(s.addEmail);
-            c.query(sql_addEmail({ id: id, email: email }), function(err) {
+            var sql_SetUserEmail = c.prepare(s.SetUserEmail);
+            c.query(sql_SetUserEmail({ id: id, email: email }), function(err) {
                 if (err)
                     throw err;
                 pool.release(c);
             });
         })
     },
-    bindAccount: function(id, str, type) {
+    SetUserOAuth: function(id, str, type) {
         const resource = pool.acquire();
         resource.then(function(c) {
             var sql_setGmail = c.prepare(s.setGmail);

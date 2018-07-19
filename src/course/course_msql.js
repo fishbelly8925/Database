@@ -22,11 +22,11 @@ function parseHonor(cos){
 }
 
 module.exports = {
-	showCosScoreDetail: function(cos_code, unique_id, callback){
+	ShowCosScoreDetail: function(cos_code, unique_id, callback){
         const resource = pool.acquire();
         resource.then(function(c){
-            var sql_showCosScoreDetail=c.prepare(s.showCosScoreDetail);
-            c.query(sql_showCosScoreDetail({cos_code: cos_code, unique_id: unique_id}), function(err, result){
+            var sql_ShowCosScoreDetail = c.prepare(s.ShowCosScoreDetail);
+            c.query(sql_ShowCosScoreDetail({cos_code: cos_code, unique_id: unique_id}), function(err, result){
                 if(err){
                     callback(err, undefined);
                     pool.release(c);
@@ -37,11 +37,11 @@ module.exports = {
             });
         });
     },
-    showCosScoreInterval: function(cos_code, unique_id, callback){
+    ShowCosScoreInterval: function(cos_code, unique_id, callback){
         const resource = pool.acquire();
         resource.then(function(c){
-            var sql_showCosScoreInterval=c.prepare(s.showCosScoreInterval);
-            c.query(sql_showCosScoreInterval({cos_code: cos_code, unique_id: unique_id}), function(err, result){
+            var sql_ShowCosScoreInterval = c.prepare(s.ShowCosScoreInterval);
+            c.query(sql_ShowCosScoreInterval({cos_code: cos_code, unique_id: unique_id}), function(err, result){
                 if(err){
                     callback(err, undefined);
                     pool.release(c);
@@ -55,11 +55,11 @@ module.exports = {
             });
         });
     },
-    cosMotion: function(id, callback){
+    ShowCosMotionLocate: function(id, callback){
         const resource=pool.acquire();
         resource.then(function(c){
-            var sql_cosMotion=c.prepare(s.cosMotion);
-            c.query(sql_cosMotion({id:id}), function(err, result){
+            var sql_ShowCosMotionLocate=c.prepare(s.ShowCosMotionLocate);
+            c.query(sql_ShowCosMotionLocate({id:id}), function(err, result){
                 if (err){
                     callback(err, undefined);
                     pool.release(c);
@@ -70,12 +70,12 @@ module.exports = {
             });
         });
     },
-    showCosMap: function(id, callback) {
+    ShowCosMapRule: function(id, callback) {
         const resource = pool.acquire();
         resource.then(function(c) {
-            var sql_showCosMap = c.prepare(s.showCosMap);
+            var sql_ShowCosMapRule = c.prepare(s.ShowCosMapRule);
             var year = '1' + id[0] + id[1];
-            c.query(sql_showCosMap({ id: id, year: year }), function(err, result) {
+            c.query(sql_ShowCosMapRule({ id: id, year: year }), function(err, result) {
                 if (err){
                     callback(err, undefined);
                     pool.release(c);
@@ -86,11 +86,11 @@ module.exports = {
             });
         })
     },
-    showCosMapPass: function(id, callback) {
+    ShowCosMapPass: function(id, callback) {
         const resource = pool.acquire();
         resource.then(function(c) {
-            var sql_showCosMapPass = c.prepare(s.showCosMapPass);
-            c.query(sql_showCosMapPass({ id: id }), function(err, result) {
+            var sql_ShowCosMapPass = c.prepare(s.ShowCosMapPass);
+            c.query(sql_ShowCosMapPass({ id: id }), function(err, result) {
                 if (err){
                     callback(err, undefined);
                     pool.release(c);
@@ -109,11 +109,11 @@ module.exports = {
             });
         });
     },
-    showCosMapIntro:function(cos_cname, callback){
+    ShowCosMapIntro:function(cos_cname, callback){
         const resource=pool.acquire();
         resource.then(function(c){
-            var sql_showCosMapIntro=c.prepare(s.showCosMapIntro);
-            c.query(sql_showCosMapIntro({cos_cname: cos_cname}), function(err, result){
+            var sql_ShowCosMapIntro = c.prepare(s.ShowCosMapIntro);
+            c.query(sql_ShowCosMapIntro({cos_cname: cos_cname}), function(err, result){
                 if(err){
                     callback(err, undefined);
                     pool.release(c);
@@ -121,7 +121,7 @@ module.exports = {
                 }
                 // if one course has many teachers 
                 for(let i = 0; i < result.length; i++){
-                    let j = 0
+                    let j = 0;
                     while(1){
                         if((i+j+1) == result.length)    // the last element
                             break;
@@ -148,22 +148,22 @@ module.exports = {
             });
         });
     },
-    insertCosMotion: function(id, name, orig, now){
+    SetCosMotion: function(id, name, orig, now){
         const resource=pool.acquire();
         resource.then(function(c){
-            var sql_insertCosMotion=c.prepare(s.insertCosMotion);
-            c.query(sql_insertCosMotion({id:id, name:name, orig:orig, now:now}), function(err){
+            var sql_SetCosMotion = c.prepare(s.SetCosMotion);
+            c.query(sql_SetCosMotion({id:id, name:name, orig:orig, now:now}), function(err){
                 if(err)
                     throw err;
                 pool.release(c);
             });
         });
     },
-    cosMotionDelete:function(id){
+    DeleteCosMotion:function(id){
         const resource=pool.acquire();
         resource.then(function(c){
-            var sql_cosMotionDelete=c.prepare(s.cosMotionDelete);
-            c.query(sql_cosMotionDelete({id:id}), function(err){
+            var sql_DeleteCosMotion = c.prepare(s.DeleteCosMotion);
+            c.query(sql_DeleteCosMotion({id:id}), function(err){
                 if(err)
                     throw err;
                 pool.release(c);
