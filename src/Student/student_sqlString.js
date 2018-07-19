@@ -2,7 +2,8 @@ exports.findStudent = "\
     select\
         s.student_id, s.sname, s.program, s.grade,\
         s.email, s.graduate, s.graduate_submit, s.gmail,\
-        s.fb_id, s.github_id, e.pass_code as en_certificate\
+        s.fb_id, s.github_id,\
+        if(e.pass_code=0,s.en_certificate,e.pass_code) as en_certificate\
     from student as s, en_certificate as e\
     where s.student_id = :id\
     and e.student_id = :id\
