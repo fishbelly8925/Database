@@ -64,7 +64,7 @@ exports.showCosMapPass = "\
     select distinct c.cos_cname\
     from\
     (\
-        select cos_code, concat(cos_year, \'-\', semester, \'-\', cos_id) as unique_id\
+        select cos_code, concat(cos_year, '-', semester, \'-\', cos_id) as unique_id\
         from cos_score where student_id=:id and pass_fail=\'通過\'\
     ) as cs \
     left outer join cos_name as c\
@@ -278,7 +278,7 @@ exports.on_cos_data='\
     on cd.unique_id=concat(o.year, \'-\', o.semester, \'-\', o.code)\
     left outer join cos_name as cn\
     on cn.unique_id=cd.unique_id\
-    where s.student_id=:id;'
+    where s.student_id=:id';
 
 exports.general_cos_rule='\
     select cos_code, cos_cname, brief, brief_new\
@@ -295,7 +295,7 @@ exports.insertCosMotion='\
 exports.cosMotion='\
     select cos_cname, orig_pos, now_pos from cos_motion where student_id=:id';
 exports.cosMotionDelete='\
-    delete from cos_motion where student_id=:id';
+    delete from cos_motion where student_id = :id';
 
 exports.qaSearch='\
     select * from qa_record';
@@ -388,26 +388,27 @@ exports.showCosScoreInterval = "\
     WHERE CONCAT(cos_year, '-' , semester, '-', cos_id) = :unique_id";
 
 exports.getRecommend="\
-    select cos_name_list from rs where student_id=:id;"
+    select cos_name_list \
+    from rs where student_id=:id";
 
 exports.findCurrentCos="\
-    select distinct cd.unique_id, cn.cos_cname, cd.teacher_id, cd.cos_time, cd.cos_code \
-    from \
+    select distinct cd.unique_id, cn.cos_cname, cd.teacher_id, cd.cos_time, cd.cos_code\
+    from\
     (\
-        select unique_id, teacher_id, cos_time, cos_code \
+        select unique_id, teacher_id, cos_time, cos_code\
         from cos_data \
-        where unique_id like :semester \
-        and \
+        where unique_id like :semester\
+        and\
         (\
-            cos_code like 'DCP%' \
-            or cos_code like 'IOC%' \
-            or cos_code like 'IOE%' \
-            or cos_code like 'ILE%' \
-            or cos_code like 'IDS%' \
-            or cos_code like 'CCS%' \
-            or cos_code like 'ICP%' \
+            cos_code like 'DCP%'\
+            or cos_code like 'IOC%'\
+            or cos_code like 'IOE%'\
+            or cos_code like 'ILE%'\
+            or cos_code like 'IDS%'\
+            or cos_code like 'CCS%'\
+            or cos_code like 'ICP%'\
         )\
-    ) as cd, \
+    ) as cd,\
     (\
         select unique_id, cos_cname\
         from cos_name\

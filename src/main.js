@@ -31,7 +31,7 @@ var m = require('./msql.js');
 //     console.log(JSON.parse(result));
 // }); // totalCredit 回傳某學生總學分數
 
-// m.Pass('0316014', function(err, result){
+// m.Pass('0516205', function(err, result){
 //     if(err)
 //         throw err;
 //     console.log(JSON.parse(result));
@@ -55,7 +55,7 @@ var m = require('./msql.js');
 // 	   console.log(JSON.parse(result));
 // }); // graduateRule 列出此學生畢業標準
 
-// m.offset('0316014', function(err, result){
+// m.offset('0516205', function(err, result){
 //     if(err)
 //         throw err;
 // 	   console.log(JSON.parse(result));
@@ -272,7 +272,7 @@ var m = require('./msql.js');
 // });
 // // 用教授名稱、專題名稱、專題一二更新專題資訊(標題、網址、介紹)
 
-// m.setResearchScoreComment({student_id:'0416026', tname:'彭文志', research_title:'聊天機器人', first_second:2, semester:'106-2', new_score:88, new_comment:'Yee!'});
+// m.setResearchScoreComment({student_id:'283u291', tname:'彭文志', research_title:'聊天機器人', first_second:2, semester:'106-2', new_score:88, new_comment:'Yee!'});
 // // 更新專題成績、評語
 
 // m.createNewResearch({ student_id:'0526303', tname : '彭文志', research_title : '我是專題標題2~', first_second:2, semester: '106-2'});

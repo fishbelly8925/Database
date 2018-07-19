@@ -147,17 +147,6 @@ module.exports = {
             });
         });
     }, 
-    a_uploadGrade: function(pt) {
-        const resource = pool.acquire();
-        resource.then(function(c) {
-            var sql_a_uploadGrade = c.prepare(s.a_uploadGrade);
-            c.query(sql_a_uploadGrade({ pt: pt }, function(err) {
-                if (err)
-                    throw err;
-                pool.release(c);
-            }));
-        });
-    }, 
     totalCredit: function(id, callback) {
         const resource = pool.acquire();
         resource.then(function(c) {
@@ -1051,7 +1040,6 @@ module.exports = {
             c.query(sql_setResearchComment(data), function(err){
                 if(err)
                 {
-                    pool.release(c);
                     throw err;
                 }
                 pool.release(c);
@@ -1149,7 +1137,6 @@ module.exports = {
                 if(err)
                 {
                     callback(err, undefined);
-                    throw err;
                     pool.release(c);
                     return;
                 }
@@ -1166,7 +1153,6 @@ module.exports = {
                 if(err)
                 {
                     callback(err, undefined);
-                    throw err;
                     pool.release(c);
                     return;
                 }
