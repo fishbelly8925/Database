@@ -2,7 +2,7 @@
 // npm install mariasql
 // npm install generic-pool
 
-var m = require('./msql.js');
+var m = require('./index_msql.js');
 
 // m.findPerson('0410006', function(err, result){
 //     if(err)

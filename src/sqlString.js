@@ -229,12 +229,6 @@ exports.studentGraduateList_single = '\
     from student\
     where student_id like concat(:sem, \'%\');';
 
-exports.SetStudentGraduateStatus='\
-    update student set graduate=:graduate where student_id=:id';
-
-exports.SetGraduateSubmitStatus='\
-    update student set graduate_submit=:graduate_submit where student_id=:id';
-
 exports.setGmail='\
     update student set gmail=:gmail where student_id=:id';
 
@@ -284,9 +278,6 @@ exports.general_cos_rule='\
     select cos_code, cos_cname, brief, brief_new\
     from general_cos_rule;'
 
-exports.SetEnCertificate='\
-    update student set en_certificate=:check where student_id=:id';
-
 exports.insertCosMotion='\
     insert into cos_motion (student_id, cos_cname, orig_pos, now_pos)\
     values (:id, :name, :orig, :now)\
@@ -294,18 +285,9 @@ exports.insertCosMotion='\
     update now_pos=:now';
 exports.cosMotion='\
     select cos_cname, orig_pos, now_pos from cos_motion where student_id=:id';
+    
 exports.cosMotionDelete='\
     delete from cos_motion where student_id = :id';
-
-exports.ShowAllQA='\
-    select * from qa_record';
-exports.CreateQA='\
-    insert into qa_record (id, que, ans)\
-    values (:id, :que, :ans)';
-exports.qaMaxId='\
-    select max(id) as maxID from qa_record'
-exports.DeleteQA='\
-    delete from qa_record where id=:id';
 
 exports.teacherCosNow ='\
     select *\
@@ -416,107 +398,6 @@ exports.findCurrentCos="\
     ) as cn\
     where cd.unique_id=cn.unique_id";
 
-exports.ShowTeacherInfoResearchCnt="\
-    select *\
-    from\
-    (\
-        select r.teacher_id, r.tname, substring(r.student_id, 1, 2) as 'grade', count(*) as 'scount'\
-        from \
-        (\
-            select distinct r.student_id, r.tname, t.teacher_id \
-            from research_student as r, teacher as t\
-            where r.tname=t.tname\
-        ) as r \
-        where r.student_id in ( select student_id from student ) \
-        group by substring(r.student_id, 1, 2), r.tname \
-        order by r.tname, substring(r.student_id, 1, 2)\
-    ) as o, \
-    (\
-        select phone, tname, email, expertise, info\
-        from teacher_info\
-    ) as t\
-    where o.tname=t.tname;"
-
-exports.ShowTeacherResearchStudent="\
-    select s.sname, r.student_id, r.class_detail, r.research_title, r.first_second, r.score, r.semester, r.comment\
-    from \
-    (\
-        select t.teacher_id, r.student_id, r.class_detail, r.score, r.research_title, r.first_second, r.semester, r.comment\
-        from research_student as r, teacher as t\
-        where r.tname=t.tname\
-    ) as r, student as s \
-    where s.student_id = r.student_id \
-    and r.teacher_id = :teacher_id \
-    order by substring(s.student_id, 1, 2) desc";
-
-exports.CreateMailSender="\
-    insert into mail(mail_id, title, sender_id, receiver_id, content) \
-    values(concat(:sender_id, \'-\', CURRENT_TIMESTAMP, \'-\', :receiver_id), \
-    :title, :sender_id, :receiver_id, :content);";
-
-exports.CreateMailReceiver="\
-    insert into mail(mail_id, title, sender_id, receiver_id, content) \
-    values(concat(:receiver_id, \'-\', CURRENT_TIMESTAMP, \'-\', :sender_id), \
-    :title, :sender_id, :receiver_id, :content);";
-
-exports.DeleteMail="\
-    delete from mail \
-    where mail_id=:mail_id;"
-
-exports.SetMailRead="\
-    update mail set read_bit=:read_bit where mail_id=:mail_id";
-
-exports.ShowMailInfo="\
-    select * from mail where mail_id=:mail_id";
-
-exports.ShowMailRcdList="\
-    select m.mail_id, m.title, m.sender_id, m.receiver_id, m.read_bit, m.send_time, m.sender, id.name as receiver\
-    from\
-    (\
-        select m.mail_id, m.title, m.sender_id, m.receiver_id, m.read_bit, m.send_time, id.name as sender\
-        from\
-        (\
-            select mail_id, title, sender_id, receiver_id, read_bit, send_time from mail where receiver_id=:receiver_id and mail_id like concat(:receiver_id, \'%\')\
-        ) as m, \
-        (\
-            select student_id as id, sname as name from student\
-            union\
-            select teacher_id as id, tname as name from teacher\
-        ) as id\
-        where m.sender_id=id.id\
-    ) as m, \
-    (\
-        select student_id as id, sname as name from student\
-        union\
-        select teacher_id as id, tname as name from teacher\
-    ) as id\
-    where m.receiver_id=id.id\
-    order by m.send_time desc;";
-
-exports.ShowMailSendList="\
-    select m.mail_id, m.title, m.sender_id, m.receiver_id, m.read_bit, m.send_time, m.sender, id.name as receiver\
-    from\
-    (\
-        select m.mail_id, m.title, m.sender_id, m.receiver_id, m.read_bit, m.send_time, id.name as sender\
-        from\
-        (\
-            select mail_id, title, sender_id, receiver_id, read_bit, send_time from mail where sender_id=:sender_id and mail_id like concat(:sender_id, \'%\')\
-        ) as m, \
-        (\
-            select student_id as id, sname as name from student\
-            union\
-            select teacher_id as id, tname as name from teacher\
-        ) as id\
-        where m.sender_id=id.id\
-    ) as m, \
-    (\
-        select student_id as id, sname as name from student\
-        union\
-        select teacher_id as id, tname as name from teacher\
-    ) as id\
-    where m.receiver_id=id.id\
-    order by m.send_time desc;";
-
 exports.returnStudentIdList="\
     select student_id, sname from student;";
 
@@ -526,152 +407,6 @@ exports.returnTeacherIdList="\
 exports.addPhone="\
     update student set phone=:phone\
     where student_id=:student_id;"
-
-exports.CreateResearchApplyForm="\
-    insert into research_apply_form\
-    values(:student_id, :research_title, :tname, 0, :first_second, :semester);"
-
-exports.SetResearchApplyFormStatus="\
-    update research_apply_form set agree=:agree \
-    where research_title=:research_title and tname=:tname \
-    and first_second=:first_second and semester=:semester;"
-
-exports.DeleteResearchApplyForm="\
-    delete from research_apply_form \
-    where research_title=:research_title and \
-    tname=:tname and first_second=:first_second \
-    and semester=:semester;"
-
-exports.ShowTeacherResearchApplyFormList="\
-    select a.student_id, s.sname, a.research_title, a.tname, a.first_second, a.agree, s.phone, s.email, a.semester\
-    from \
-    (\
-        select t.teacher_id, r.student_id, r.research_title, r.tname, r.agree, r.first_second, r.semester\
-        from teacher as t, research_apply_form as r\
-        where t.tname=r.tname\
-    ) as a, \
-    (\
-        select sname, student_id, phone, email from student\
-    ) as s\
-    where s.student_id=a.student_id and a.teacher_id=:teacher_id\
-    order by a.research_title;";
-
-exports.ShowStudentResearchApplyForm="\
-    select a.student_id, s.sname, a.research_title, a.tname, a.agree, a.first_second, s.phone, s.email, a.semester\
-    from research_apply_form as a, \
-    (\
-        select sname, student_id, phone, email\
-        from student\
-        where student_id=:student_id\
-    ) as s\
-    where s.student_id=a.student_id;";
-
-exports.ShowGivenGradeStudentResearch="\
-    select distinct s1.student_id, s1.sname as name, s1.program, t.teacher_id, s1.tname\
-    from teacher as t\
-    right outer join\
-    (\
-        select s.student_id, s.sname, s.program, s.grade, rs.tname\
-        from student as s, \
-        (\
-            select student_id, tname\
-            from research_student\
-            where student_id LIKE concat(:grade, '%')\
-        ) as rs\
-        where s.student_id = rs.student_id\
-    ) as s1\
-    on t.tname = s1.tname";
-
-exports.ShowStudentResearchInfo="\
-    select *\
-    from research_student\
-    where student_id = :student_id";
-
-exports.ShowResearchGroup="\
-    select student_id \
-    from research_student\
-    where research_title = :research_title\
-    and tname = :tname\
-    and first_second = :first_second\
-    and semester = :semester";
-
-exports.setResearchTitle="\
-    update research_student set research_title = :new_title\
-    where research_title = :research_title\
-    and tname = :tname\
-    and first_second = :first_second\
-    and semester = :semester";
-
-exports.setResearchLink="\
-    update research_student set link = :new_link\
-    where research_title = :research_title\
-    and tname = :tname\
-    and first_second = :first_second\
-    and semester = :semester";
-
-exports.setResearchIntro="\
-    update research_student set intro = :new_intro\
-    where research_title = :research_title\
-    and tname = :tname\
-    and first_second = :first_second\
-    and semester = :semester";
-
-exports.setResearchScore="\
-    update research_student set score = :new_score\
-    where research_title = :research_title\
-    and tname = :tname\
-    and first_second = :first_second\
-    and student_id = :student_id\
-    and semester = :semester";
-
-exports.CreateNewResearch="\
-    insert into research_student\
-    (student_id, tname, research_title, first_second, semester)\
-    values\
-    (:student_id, :tname, :research_title, :first_second, :semester)";
-    
-exports.CreateResearchFile="\
-    insert into research_file \
-    values(:research_title, :tname, :file_name, :first_second, :file_path, :file_type);"
-
-exports.ShowResearchFilePath="\
-    select * from research_file where \
-    research_title=:research_title \
-    and tname=:tname \
-    and first_second=:first_second;"
-
-exports.ShowResearchInfo="\
-    select intro\
-    from research_student\
-    where research_title=:research_title\
-    and tname=:tname\
-    and first_second = :first_second\
-    and semester=:semester;"
-
-exports.SetResearchTitle="\
-    update research_student set research_title = :new_title\
-    where research_title = :research_title\
-    and tname = :tname\
-    and first_second = :first_second\
-    and semester = :semester"
-
-exports.ShowResearchScoreComment="\
-    select r.tname, r.student_id, r.score, s.sname, r.comment\
-    from research_student as r, \
-    (\
-        select student_id, sname from student\
-    ) as s\
-    where s.student_id=r.student_id\
-    and r.semester = :semester\
-    and r.first_second = :first_second"
-
-exports.setResearchComment="\
-    update research_student set comment = :new_comment\
-    where research_title = :research_title\
-    and tname = :tname\
-    and first_second = :first_second\
-    and student_id = :student_id\
-    and semester = :semester"
 
 exports.mentorReturn="\
     select tname\
