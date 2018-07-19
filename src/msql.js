@@ -943,11 +943,11 @@ module.exports = {
             });
         });
     }, 
-    researchApplyFormPersonalReturn:function(student_id, callback){
+    researchApplyFormPersonalReturn:function(student_id, first_second, callback){
         const resource=pool.acquire();
         resource.then(function(c){
             var sql_researchApplyFormPersonalReturn=c.prepare(s.researchApplyFormPersonalReturn);
-            c.query(sql_researchApplyFormPersonalReturn({student_id}), function(err, result){
+            c.query(sql_researchApplyFormPersonalReturn({student_id, first_second}), function(err, result){
                 if(err)
                 {
                     callback(err, undefined);

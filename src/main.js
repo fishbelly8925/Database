@@ -174,11 +174,11 @@ var m = require('./msql.js');
 // 	console.log(JSON.parse(result));
 // }); // findTeacherResearch(teacher_id, callback) 回傳某教授所有專題生和專題題目
 
-m.findTeacherResearchCountAndInfo(function(err, result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-}); // findTeacherResearchCount(callback) 回傳所有教授各屆的學生人數
+// m.findTeacherResearchCountAndInfo(function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); // findTeacherResearchCount(callback) 回傳所有教授各屆的學生人數
 
 // m.mailCreate({sender_id:'0516003', title:'test~~', receiver_id:'T9229', content:'這是一個測試信件這是一個測試信件'});
 // // mailCreate(data) data type 為JSON，新增一則信件，需有以上所有欄位
@@ -238,7 +238,7 @@ m.findTeacherResearchCountAndInfo(function(err, result){
 // });
 // // 回傳該教授的學生專題申請清單
 
-// m.researchApplyFormPersonalReturn('0516003', function(err, result){
+// m.researchApplyFormPersonalReturn('0516003', '1' ,function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
@@ -306,10 +306,10 @@ m.findTeacherResearchCountAndInfo(function(err, result){
 // 	console.log(JSON.parse(result));
 // }); // 回傳專題成績列表:教授名字, 學生姓名學號, 成績, 評論
 
-m.mentorReturn('0516003', function(err, result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-}); // 輸入學生學號，回傳該學生導師
+// m.mentorReturn('0516003', function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); // 輸入學生學號，回傳該學生導師
 
 m.Drain(); // 關閉 connection pool

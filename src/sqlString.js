@@ -410,7 +410,7 @@ exports.findCurrentCos="\
     ) as cd, \
     (\
         select unique_id, cos_cname\
-        from cos_name\ 
+        from cos_name\
         where unique_id like :semester\
     ) as cn\
     where cd.unique_id=cn.unique_id";
@@ -563,7 +563,8 @@ exports.researchApplyFormPersonalReturn="\
         from student\
         where student_id=:student_id\
     ) as s\
-    where s.student_id=a.student_id;";
+    where s.student_id=a.student_id\
+    and a.first_second = :first_second";
 
 exports.showGivenGradeStudentResearch="\
     select distinct s1.student_id, s1.sname as name, s1.program, t.teacher_id, s1.tname\
