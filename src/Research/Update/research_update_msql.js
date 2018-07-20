@@ -1,7 +1,6 @@
 var CONST = require('../../constant.js')
 
 var psw = require(CONST.FILE_PATH);
-var Client = require('mariasql');
 var s = require('./research_update_sqlString.js');
 
 var pool = psw.dbpsw();

@@ -10,7 +10,7 @@ var m = require('./msql.js');
 //     console.log(JSON.parse(result));
 // }); // ShowUserInfo 回傳學生資料
 
-// m.SetUserEmail('0516003', 'dabct@test');
+// m.SetUserEmail('0516003', 'da2bct@test');
 // // SetUserEmail(學號, email) 更新此學號學生之email
 
 // m.ShowCosMapRule('0316003', function(err, result){
@@ -88,7 +88,7 @@ var m = require('./msql.js');
 // m.SetGraduateSubmitStatus('0516003', 1);
 // // SetGraduateSubmitStatus 設定某學生的畢業預審確認狀態(1可畢業, 0不可畢業)
 
-// m.SetUserOAuth('0516003', 'test@gmail.com.tw', 1);
+// m.SetUserOAuth('0516003', '456', 3);
 // // SetUserOAuth   1:set gmail   2:set fb_id   3:set github_id
 
 // m.SetCosMotion('0516003', 'test2', 'a', 'c');
