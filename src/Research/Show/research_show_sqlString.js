@@ -4,7 +4,7 @@ exports.ShowTeacherResearchStudent="\
     (\
         select t.teacher_id, r.student_id, r.class_detail, r.score, r.research_title, r.first_second, r.semester, r.comment\
         from research_student as r, teacher as t\
-        where r.tname=t.tname\
+        where r.tname = t.tname\
     ) as r, student as s \
     where s.student_id = r.student_id \
     and r.teacher_id = :teacher_id \
@@ -19,9 +19,13 @@ exports.ShowTeacherInfoResearchCnt="\
         (\
             select distinct r.student_id, r.tname, t.teacher_id \
             from research_student as r, teacher as t\
-            where r.tname=t.tname\
+            where r.tname = t.tname\
         ) as r \
-        where r.student_id in ( select student_id from student ) \
+        where r.student_id IN \
+        (\
+            select student_id \
+            from student \
+        )\
         group by substring(r.student_id, 1, 2), r.tname \
         order by r.tname, substring(r.student_id, 1, 2)\
     ) as o, \
@@ -29,7 +33,7 @@ exports.ShowTeacherInfoResearchCnt="\
         select phone, tname, email, expertise, info\
         from teacher_info\
     ) as t\
-    where o.tname=t.tname;"
+    where o.tname = t.tname";
 
 exports.ShowGivenGradeStudentResearch="\
     select distinct s1.student_id, s1.sname as name, s1.program, t.teacher_id, s1.tname\
@@ -62,25 +66,26 @@ exports.ShowResearchGroup="\
 
 exports.ShowResearchFilePath="\
     select * from research_file where \
-    research_title=:research_title \
-    and tname=:tname \
-    and first_second=:first_second;"
+    research_title = :research_title \
+    and tname = :tname \
+    and first_second = :first_second;"
 
 exports.ShowResearchInfo="\
     select intro\
     from research_student\
-    where research_title=:research_title\
-    and tname=:tname\
+    where research_title = :research_title\
+    and tname = :tname\
     and first_second = :first_second\
-    and semester=:semester;"
+    and semester = :semester;"
 
 exports.ShowResearchScoreComment="\
     select r.tname, r.student_id, r.score, s.sname, r.comment\
     from research_student as r, \
     (\
-        select student_id, sname from student\
+        select student_id, sname \
+        from student \
     ) as s\
-    where s.student_id=r.student_id\
+    where s.student_id = r.student_id\
     and r.semester = :semester\
     and r.first_second = :first_second"
 
@@ -93,9 +98,11 @@ exports.ShowTeacherResearchApplyFormList="\
         where t.tname = r.tname\
     ) as a, \
     (\
-        select sname, student_id, phone, email from student\
+        select sname, student_id, phone, email \
+        from student\
     ) as s\
-    where s.student_id = a.student_id and a.teacher_id=:teacher_id\
+    where s.student_id = a.student_id \
+    and a.teacher_id = :teacher_id \
     order by a.research_title";
 
 exports.ShowStudentResearchApplyForm="\
@@ -106,5 +113,5 @@ exports.ShowStudentResearchApplyForm="\
         from student\
         where student_id = :student_id\
     ) as s\
-    where s.student_id=a.student_id\
+    where s.student_id = a.student_id\
     and first_second = :first_second";

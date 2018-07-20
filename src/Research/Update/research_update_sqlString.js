@@ -33,7 +33,7 @@ exports.setResearchComment="\
     and tname = :tname\
     and first_second = :first_second\
     and student_id = :student_id\
-    and semester = :semester"
+    and semester = :semester";
 
 exports.CreateNewResearch="\
     insert into research_student\
@@ -46,23 +46,32 @@ exports.SetResearchTitle="\
     where research_title = :research_title\
     and tname = :tname\
     and first_second = :first_second\
-    and semester = :semester"
+    and semester = :semester";
 
 exports.CreateResearchFile="\
     insert into research_file \
-    values(:research_title, :tname, :file_name, :first_second, :file_path, :file_type);"
+    values(:research_title, :tname, :file_name, :first_second, :file_path, :file_type)";
 
 exports.CreateResearchApplyForm="\
     insert into research_apply_form\
-    values(:student_id, :research_title, :tname, 0, :first_second, :semester);"
+    values(:student_id, :research_title, :tname, 0, :first_second, :semester)";
+
+exports.AddPhone="\
+    update student set phone = :phone\
+    where student_id = :student_id";
+
+exports.AddEmail="\
+    update student set email = :email \
+    where student_id = :id";
 
 exports.SetResearchApplyFormStatus="\
-    update research_apply_form set agree=:agree \
-    where research_title=:research_title and tname=:tname \
-    and first_second=:first_second and semester=:semester;"
+    update research_apply_form set agree = :agree \
+    where research_title = :research_title and tname = :tname \
+    and first_second = :first_second \
+    and semester = :semester";
 
 exports.DeleteResearchApplyForm="\
     delete from research_apply_form \
-    where research_title=:research_title and \
-    tname=:tname and first_second=:first_second \
-    and semester=:semester;"
+    where research_title = :research_title and \
+    tname = :tname and first_second = :first_second \
+    and semester = :semester";

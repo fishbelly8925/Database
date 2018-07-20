@@ -1,5 +1,7 @@
+var CONST = require('../constant.js')
+
+var psw = require(CONST.FILE_PATH);
 var s = require('./student_sqlString.js');
-var psw = require('../dbpsw');
 
 var pool = psw.dbpsw();
 

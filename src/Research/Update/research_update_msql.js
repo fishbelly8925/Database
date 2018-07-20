@@ -1,7 +1,8 @@
+var CONST = require('../../constant.js')
+
+var psw = require(CONST.FILE_PATH);
 var Client = require('mariasql');
 var s = require('./research_update_sqlString.js');
-var psw = require('../../dbpsw');
-
 
 var pool = psw.dbpsw();
 
@@ -102,16 +103,16 @@ module.exports = {
             data=JSON.parse(data);
         const resource=pool.acquire();
         resource.then(function(c){
-            var sql_addPhone=c.prepare(s.addPhone);
+            var sql_AddPhone=c.prepare(s.AddPhone);
             var sql_CreateResearchApplyForm=c.prepare(s.CreateResearchApplyForm);
-            var sql_addEmail=c.prepare(s.addEmail);
-            c.query(sql_addPhone({student_id:data['student_id'], phone:data['phone']}), function(err){
+            var sql_AddEmail=c.prepare(s.AddEmail);
+            c.query(sql_AddPhone({student_id:data['student_id'], phone:data['phone']}), function(err){
                 if(err)
                 {
                     pool.release(c);
                     throw err;
                 }
-                c.query(sql_SetUserEmail({id:data['student_id'], email:data['email']}), function(err){
+                c.query(sql_AddEmail({id:data['student_id'], email:data['email']}), function(err){
                     if(err)
                     {
                         pool.release(c);

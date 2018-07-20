@@ -219,11 +219,11 @@ var m = require('./msql.js');
 // 	console.log(JSON.parse(result));
 // }); // 回傳教授id, 名字對應表
 
-m.CreateResearchApplyForm({phone:'0900', student_id:'0516003', research_title:'我是專題標題~', tname:'彭文志', first_second:2, email:'wawawa@crayonSinJang', semester:'106-2'}, function(err){
-	if(err)
-		throw err;
-		//老師名字若不存在，就會拋出ERROR
-}); // create research apply form
+// m.CreateResearchApplyForm({phone:'0900', student_id:'0516003', research_title:'我是專題標題~', tname:'彭文志', first_second:2, email:'wawawa@crayonSinJang', semester:'106-2'}, function(err){
+// 	if(err)
+// 		throw err;
+// 		//老師名字若不存在，就會拋出ERROR
+// }); // create research apply form
 
 // m.SetResearchApplyFormStatus({research_title:'我是專題標題2~', tname:'彭文志', first_second:2, agree:3, semester:'106-2'});
 // // // set research apply form agree bit  0預設 1接受 2審核中 3拒絕
@@ -238,11 +238,11 @@ m.CreateResearchApplyForm({phone:'0900', student_id:'0516003', research_title:'�
 // });
 // // 回傳該教授的學生專題申請清單
 
-m.ShowStudentResearchApplyForm('0516003', '2', function(err, result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-}); 
+// m.ShowStudentResearchApplyForm('0516003', '2', function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); 
 // 回傳此學生專題申請清單
 
 // m.ShowGivenGradeStudentResearch('03', function(err, result){

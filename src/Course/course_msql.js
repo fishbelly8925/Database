@@ -1,6 +1,7 @@
-var s = require('./course_sqlString.js');
-var psw = require('../dbpsw');
+var CONST = require('../constant.js')
 
+var s = require('./course_sqlString.js');
+var psw = require(CONST.FILE_PATH);
 var pool = psw.dbpsw();
 
 function parseEng(cos){
