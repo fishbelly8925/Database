@@ -1,4 +1,4 @@
-findAllCos="\
+findAllCos = "\
 	select distinct cn.cos_cname from \
 	(\
 		select unique_id\
@@ -17,7 +17,7 @@ findAllCos="\
 	) as cn\
 	where id.unique_id = cn.unique_id;"
 
-findGrad="\
+findGrad = "\
 	select cn.cos_cname, sc.score \
 	from \
 	(\
@@ -33,16 +33,25 @@ findGrad="\
 	) as cn \
 	where cn.unique_id = concat(sc.cos_year,'-',sc.semester,'-',sc.cos_id);"
 
-findCurrentCos="\
-select distinct cn.cos_cname from \
-(select unique_id from cos_data where \
-unique_id like \'106-2%\' \
-and (cos_code like 'DCP%' \
-or cos_code like 'IOC%' \
-or cos_code like 'IOE%' \
-or cos_code like 'ILE%' \
-or cos_code like 'IDS%' \
-or cos_code like 'CCS%' \
-or cos_code like 'ICP%')) as id, \
-(select unique_id,cos_cname from cos_name) as cn \
-where id.unique_id=cn.unique_id;"
+findCurrentCos = "\
+	select distinct cn.cos_cname\
+	from\
+	(\
+		select unique_id from cos_data\
+		where unique_id like concat(%(sem)s,'%%')\
+		and\
+		(\
+			cos_code like 'DCP%%'\
+			or cos_code like 'IOC%%'\
+			or cos_code like 'IOE%%'\
+			or cos_code like 'ILE%%'\
+			or cos_code like 'IDS%%'\
+			or cos_code like 'CCS%%'\
+			or cos_code like 'ICP%%'\
+		)\
+	) as id ,\
+	(\
+		select unique_id, cos_cname\
+		from cos_name\
+	) as cn\
+	where id.unique_id = cn.unique_id;"

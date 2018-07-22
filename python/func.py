@@ -18,9 +18,9 @@ def parseEng(cos):
         cos=cos
     return cos
 
-def findCurrentCos():
+def findCurrentCos(sem):
     cursor=conn.cursor()
-    cursor.execute(sql.findCurrentCos)
+    cursor.execute(sql.findCurrentCos,{'sem':sem})
     temp=cursor.fetchall()
     res=set()
     for i in temp:
@@ -115,7 +115,7 @@ def predict(sim,grads):
             r=grads[:,cos_idx]-mean
             s=sim[std_idx]*r
             s=s[~np.isnan(s)].sum()
-            m=sim[std_idx]+r-r # +r-r is for some reason which I forget QQ
+            m=sim[std_idx]+r-r # +r-r is for some reason I forget QQ
             m=m[~np.isnan(m)].sum()
             if m==0:
                 continue # pred is default zero, so we don't need to do anything
@@ -156,3 +156,15 @@ def fillEmpty(suggest,pred):
                 if len(suggest[idx]) == 0:
                     suggest[idx]=suggest[temp]
                 temp=idx
+
+def parseCurrentCos(stds, suggest, sem, K):
+    current_cos = findCurrentCos(sem)
+    print(current_cos)
+    result = []
+    for i in range(len(suggest)):
+        temp = list(filter(lambda x: x in current_cos,suggest[i]))
+        if len(temp)>K:
+            temp = temp[0:K]
+        temp.insert(0, stds[i])
+        result.append(temp)
+    return result
