@@ -9,7 +9,7 @@ var Course = require('./Course/course_msql.js');
 var Teacher = require('./Teacher/teacher_msql.js');
 
 function merge(modu){
-    result={}
+    var result = {};
     for(var idx in modu)
         for(var i in modu[idx])
             result[i]=modu[idx][i];
