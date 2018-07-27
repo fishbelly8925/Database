@@ -1,8 +1,8 @@
 exports.ShowTeacherResearchStudent="\
-    select s.sname, r.student_id, r.class_detail, r.research_title, r.first_second, r.score, r.semester, r.comment\
+    select r.intro, s.sname, r.student_id, r.class_detail, r.research_title, r.first_second, r.score, r.semester, r.comment\
     from \
     (\
-        select t.teacher_id, r.student_id, r.class_detail, r.score, r.research_title, r.first_second, r.semester, r.comment\
+        select r.intro, t.teacher_id, r.student_id, r.class_detail, r.score, r.research_title, r.first_second, r.semester, r.comment\
         from research_student as r, teacher as t\
         where r.tname = t.tname\
     ) as r, student as s \
@@ -69,14 +69,6 @@ exports.ShowResearchFilePath="\
     research_title = :research_title \
     and tname = :tname \
     and first_second = :first_second;"
-
-exports.ShowResearchInfo="\
-    select intro\
-    from research_student\
-    where research_title = :research_title\
-    and tname = :tname\
-    and first_second = :first_second\
-    and semester = :semester;"
 
 exports.ShowResearchScoreComment="\
     select r.tname, r.student_id, r.score, s.sname, r.comment\

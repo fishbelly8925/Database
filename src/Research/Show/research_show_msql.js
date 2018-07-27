@@ -146,25 +146,7 @@ module.exports = {
                 pool.release(c);
             });
         });
-    }, 
-    ShowResearchInfo:function(data, callback){
-        if(typeof(data) === 'string')
-            data=JSON.parse(data);
-        const resource=pool.acquire();
-        resource.then(function(c){
-            var sql_ShowResearchInfo=c.prepare(s.ShowResearchInfo);
-            c.query(sql_ShowResearchInfo(data), function(err, result){
-                if(err)
-                {
-                    callback(err, undefined);
-                    pool.release(c);
-                    return ;
-                }
-                callback(null, JSON.stringify(result));
-                pool.release(c);
-            });
-        });
-    }, 
+    },
     ShowResearchScoreComment:function(data, callback){
         if(typeof(data) === 'string')
             data=JSON.parse(data);

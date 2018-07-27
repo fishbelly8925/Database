@@ -290,13 +290,6 @@ var m = require('./msql.js');
 // }); // 回傳專題檔案路徑紀錄
 // 	//{research_title, tname}
 
-// m.ShowResearchInfo({research_title:'AI運算平台', tname:'吳凱強', first_second:1, semester:'106-2'}, function(err, result){
-// 	if(err)
-// 		throw err;
-// 	console.log	(JSON.parse(result));
-// });
-// // 用專題標題、老師名稱、專題一二、專題學期回傳專題簡介
-
 // m.SetResearchTitle({research_title:'我是專題標題2~', tname:'彭文志', first_second:2, semester:'106-2', new_title:'New Title'});
 // 使用專題標題、老師名稱、專題一二、專題學期，編輯專題標題
 
