@@ -218,6 +218,22 @@ module.exports = {
             });
         });
     },
+    ShowStudentMentor:function(id, callback){
+        const resource = pool.acquire();
+        resource.then(function(c){
+            var sql_ShowStudentMentor = c.prepare(s.ShowStudentMentor);
+            c.query(sql_ShowStudentMentor({id}), function(err, result){
+                if(err)
+                {
+                    callback(err, undefined);
+                    pool.release(c);
+                    return;
+                }
+                callback(null, JSON.stringify(result));
+                pool.release(c);
+            });
+        });
+    },
     ShowUserOnCos: function(id, callback) {
         const resource = pool.acquire();
         resource.then(function(c){

@@ -1,33 +1,28 @@
 exports.findStudent = "\
-    select m.tname,s.*\
-    from\
+    select\
+        s.student_id, s.sname, s.program, s.grade,\
+        s.email, s.graduate, s.graduate_submit, s.gmail,\
+        s.fb_id, s.github_id,\
+        if(e.pass_code=0,s.en_certificate,e.pass_code) as en_certificate\
+    from student as s, en_certificate as e\
+    where s.student_id = :id\
+    and e.student_id = :id\
+    union\
+    select\
+        s.student_id, s.sname, s.program, s.grade,\
+        s.email, s.graduate, s.graduate_submit, s.gmail,\
+        s.fb_id, s.github_id, NULL as en_certificate\
+    from student as s\
+    where s.student_id = :id\
+    and s.student_id not in\
     (\
-        select\
-            s.student_id, s.sname, s.program, s.grade,\
-            s.email, s.graduate, s.graduate_submit, s.gmail,\
-            s.fb_id, s.github_id,\
-            if(e.pass_code=0,s.en_certificate,e.pass_code) as en_certificate\
-        from student as s, en_certificate as e\
-        where s.student_id = :id\
-        and e.student_id = :id\
-        union\
-        select\
-            s.student_id, s.sname, s.program, s.grade,\
-            s.email, s.graduate, s.graduate_submit, s.gmail,\
-            s.fb_id, s.github_id, NULL as en_certificate\
-        from student as s\
-        where s.student_id = :id\
-        and s.student_id not in\
-        (\
-            select student_id\
-            from en_certificate\
-        )\
-    )as s,mentor_list as m\
-    where s.student_id = m.student_id;"
+        select student_id\
+        from en_certificate\
+    )";
 
 exports.findStudentFailed = "\
     select concat(s.cos_year,'-',s.semester) as sem,\
-        if(sum(if(s.pass_fail = '不通過', cd.cos_credit, 0))*2 \
+        if(sum(if(s.pass_fail = '不通過', cd.cos_credit, 0)*2 )\
         >= sum(if(1, cd.cos_credit, 0)), 'failed', 'not_failed') as failed\
     from\
     (\
@@ -243,6 +238,11 @@ exports.findCurrentCos = "\
 exports.ShowStudentIdList = "\
     select student_id, sname, program\
     from student";
+
+exports.ShowStudentMentor = "\
+    select tname\
+    from mentor_list\
+    where student_id = :id";
 
 exports.ShowUserOnCos = "\
     select\
