@@ -24,6 +24,7 @@ module.exports = {
             resource.then(function(c) {
                 var sql_findStudent = c.prepare(s.findStudent);
                 var sql_findCrossStudent = c.prepare(s.findCrossStudent);
+                var sql_findStudentFailed = c.prepare(s.findStudentFailed);
                 c.query(sql_findCrossStudent({id}), function(err, result){
                     if(err){
                         callback(err, undefined);
@@ -38,19 +39,27 @@ module.exports = {
                     }
                     else
                     {
-                        c.query(sql_findStudent({ id: id }), function(err, result) {
-                            if (err){
-                                callback(err, undefined);
+                        c.query(sql_findStudentFailed({id}), function(err, failed){
+                            c.query(sql_findStudent({id}), function(err, result) {
+                                if(err){
+                                    callback(err, undefined);
+                                    pool.release(c);
+                                    return;
+                                }
+                                result[0]['failed'] = 'not_failed';
+                                for(let i in failed)
+                                    if(failed[i]['failed'] == 'failed'){
+                                        result[0]['failed'] = 'failed';
+                                        break;
+                                    }
+                                if(result.info.numRows != 0){
+                                    result[0]['status'] = 's';
+                                    if (id=='0316201'||id=='0312512'||id=='0416014'||id=='0416008'||id=='0416081'||id=='0516003'||id=='0516205')
+                                        result[0]['status'] = 'w';
+                                }
+                                callback(null, JSON.stringify(result));
                                 pool.release(c);
-                                return;
-                            }
-                            if (result.info.numRows != 0) {
-                                result[0]['status'] = 's';
-                                if (id=='0316201'||id=='0312512'||id=='0416014'||id=='0416008'||id=='0416081'||id=='0516003'||id=='0516205')
-                                    result[0]['status'] = 'w';
-                            }
-                            callback(null, JSON.stringify(result));
-                            pool.release(c);
+                            })
                         })
                     }
                 })

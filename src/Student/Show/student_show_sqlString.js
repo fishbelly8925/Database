@@ -20,6 +20,21 @@ exports.findStudent = "\
         from en_certificate\
     )";
 
+exports.findStudentFailed = "\
+    select concat(s.cos_year,'-',s.semester) as sem,\
+        if(sum(if(s.pass_fail = '不通過', cd.cos_credit, 0))*2 \
+        >= sum(if(1, cd.cos_credit, 0)), 'failed', 'not_failed') as failed\
+    from\
+    (\
+        select s.student_id, cs.pass_fail, cs.cos_year, cs.semester, cs.cos_id\
+        from student as s, cos_score as cs\
+        where s.student_id = :id\
+        and cs.student_id = :id\
+        and ( cs.pass_fail = '通過' or cs.pass_fail = '不通過' )\
+    ) as s, cos_data as cd\
+    where cd.unique_id = concat(s.cos_year, '-', s.semester, '-', s.cos_id)\
+    group by concat(s.cos_year,'-',s.semester);"
+
 exports.findCrossStudent = "\
     select *\
     from student\
@@ -221,7 +236,7 @@ exports.findCurrentCos = "\
     where cd.unique_id=cn.unique_id";
 
 exports.ShowStudentIdList = "\
-    select student_id, sname\
+    select student_id, sname, program\
     from student";
 
 exports.ShowStudentMentor = "\

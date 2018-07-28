@@ -82,7 +82,7 @@ exports.ShowResearchScoreComment="\
     and r.first_second = :first_second"
 
 exports.ShowTeacherResearchApplyFormList="\
-    select a.student_id, s.sname, a.research_title, a.tname, a.first_second, a.agree, s.phone, s.email, a.semester\
+    select a.student_id, s.sname, s.program,a.research_title, a.tname, a.first_second, a.agree, s.phone, s.email, a.semester\
     from \
     (\
         select t.teacher_id, r.student_id, r.research_title, r.tname, r.agree, r.first_second, r.semester\
@@ -90,7 +90,7 @@ exports.ShowTeacherResearchApplyFormList="\
         where t.tname = r.tname\
     ) as a, \
     (\
-        select sname, student_id, phone, email \
+        select sname, student_id, phone, email, program \
         from student\
     ) as s\
     where s.student_id = a.student_id \
