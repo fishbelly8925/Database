@@ -9,3 +9,4 @@ python/*.csv
 scrapData/update_cos_data.sql
 scrapData/*.csv
 src/constant.js
+src/.DStore
