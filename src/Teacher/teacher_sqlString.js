@@ -49,5 +49,8 @@ exports.ShowTeacherMentors ="\
     and m.student_id = s.student_id";
 
 exports.ShowTeacherIdList="\
-    select teacher_id, tname\
-    from teacher";
+    select t.teacher_id, t.tname, ti.email, count(*) as all_student\
+    from teacher as t, teacher_info as ti,mentor_list as m, student as s\
+    where t.tname = ti.tname\
+    and t.tname = m.tname\
+    group by t.tname";
