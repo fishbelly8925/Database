@@ -50,7 +50,7 @@ exports.ShowTeacherMentors ="\
 
 exports.ShowTeacherIdList="\
     select\
-        f.teacher_id as id, f.tname as name, f.email as email, a.all_students, f.failed_students\
+        f.teacher_id as teacher_id, f.tname as tname, f.email as email, a.all_students, f.failed_students\
     from\
     (\
         select t.teacher_id, t.tname, ti.email, COUNT(final.failed) as failed_students\
