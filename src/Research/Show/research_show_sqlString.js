@@ -1,5 +1,5 @@
 exports.ShowTeacherResearchStudent="\
-    select r.intro, s.sname, r.student_id, r.class_detail, r.research_title, r.first_second, r.score, r.semester, r.comment\
+    select r.teacher_id,r.intro, s.sname, r.student_id, r.class_detail, r.research_title, r.first_second, r.score, r.semester, r.comment\
     from \
     (\
         select r.intro, t.teacher_id, r.student_id, r.class_detail, r.score, r.research_title, r.first_second, r.semester, r.comment\
@@ -82,7 +82,7 @@ exports.ShowResearchScoreComment="\
     and r.first_second = :first_second"
 
 exports.ShowTeacherResearchApplyFormList="\
-    select a.student_id, s.sname, s.program,a.research_title, a.tname, a.first_second, a.agree, s.phone, s.email, a.semester\
+    select a.student_id, s.sname, s.program,a.research_title, a.teacher_id, a.tname, a.first_second, a.agree, s.phone, s.email, a.semester\
     from \
     (\
         select t.teacher_id, r.student_id, r.research_title, r.tname, r.agree, r.first_second, r.semester\
