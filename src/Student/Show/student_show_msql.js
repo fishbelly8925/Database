@@ -353,5 +353,22 @@ module.exports = {
                 pool.release(c);
             })
         })
+    },
+    ShowStudentScore: function(id, callback) {
+        const resource = pool.acquire();
+        resource.then(function(c) {
+            var sql_ShowStudentScore = c.prepare(s.ShowStudentScore);
+            c.query(sql_ShowStudentScore({ id: id}), function(err, result) {
+                if (err){
+                    callback(err, undefined);
+                    pool.release(c);
+                    return;
+                }
+                callback(null, JSON.stringify(result));
+                pool.release(c);
+            })
+        })
     }
+
+    
 }

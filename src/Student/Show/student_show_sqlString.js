@@ -361,3 +361,7 @@ exports.ShowCosGroup = "\
         union\
         select '導師時間'\
     )";
+
+
+exports.ShowStudentScore = "\
+    ";
