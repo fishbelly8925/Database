@@ -354,21 +354,30 @@ module.exports = {
             })
         })
     },
-    ShowStudentScore: function(id, callback) {
+    ShowSemesterScore: function(id, callback) {
         const resource = pool.acquire();
         resource.then(function(c) {
-            var sql_ShowStudentScore = c.prepare(s.ShowStudentScore);
-            c.query(sql_ShowStudentScore({ id: id}), function(err, result) {
-                if (err){
-                    callback(err, undefined);
-                    pool.release(c);
-                    return;
+            var sql_ShowCosScore = c.prepare(s.ShowCosScore);
+            var sql_ShowSemesterScore = c.prepare(s.ShowSemesterScore);
+            c.query(sql_ShowSemesterScore({id}), function(err, result) {
+                c.query(sql_ShowCosScore({id}), function(err, cos){
+                
+                result = JSON.parse(JSON.stringify(result));
+                cos = JSON.parse(JSON.stringify(cos));
+                score = JSON.parse(JSON.stringify(cos,["cn","en","score"]));
+
+                for(let sem_num = 0;sem_num<result.length;sem_num++){
+                    result[sem_num]["score"]=[];
+                    for(let cos_num = 0;cos_num<cos.length;cos_num++){
+                        if(result[sem_num].semester===cos[cos_num].semester){
+                            result[sem_num]["score"].push(score[cos_num]);
+                        }
+                    }
                 }
                 callback(null, JSON.stringify(result));
                 pool.release(c);
+                })
             })
         })
     }
-
-    
 }

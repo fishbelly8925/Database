@@ -4,11 +4,11 @@
 
 var m = require('./msql.js');
 
-m.ShowUserInfo('0516003', function(err, result){
-    if(err)
-        throw err;
-    console.log(JSON.parse(result));
-}); // ShowUserInfo 回傳學生資料
+// m.ShowUserInfo('0516003', function(err, result){
+//     if(err)
+//         throw err;
+//     console.log(JSON.parse(result));
+// }); // ShowUserInfo 回傳學生資料
 
 // m.SetUserEmail('0516003', 'da2bct@test');
 // // SetUserEmail(學號, email) 更新此學號學生之email
@@ -299,10 +299,16 @@ m.ShowUserInfo('0516003', function(err, result){
 // 	console.log(JSON.parse(result));
 // }); // 回傳專題成績列表:教授名字, 學生姓名學號, 成績, 評論
 
-m.ShowStudentMentor('0516003', function(err, result){
+// m.ShowStudentMentor('0516003', function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); // 輸入學生學號，回傳該學生導師
+
+m.ShowSemesterScore('0516003', function(err, result){
 	if(err)
 		throw err;
 	console.log(JSON.parse(result));
-}); // 輸入學生學號，回傳該學生導師
+}); // 輸入學生學號，回傳該學生每學期平均,有無被21,學期平均,各科成績
 
 m.Drain(); // 關閉 connection pool

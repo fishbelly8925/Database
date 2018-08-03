@@ -363,5 +363,26 @@ exports.ShowCosGroup = "\
     )";
 
 
-exports.ShowStudentScore = "\
+exports.ShowCosScore = "\
+    select concat(cs.cos_year,'-',cs.semester) as semester,cs.cos_cname as cn,cn.cos_ename as en,cs.score as score\
+    from cos_score as cs,cos_name as cn\
+    where cs.student_id = :id\
+    and cn.unique_id = concat(cs.cos_year, '-', cs.semester, '-', cs.cos_id)\
+    ";
+
+exports.ShowSemesterScore = "\
+    select concat(s.cos_year,'-',s.semester) as semester,\
+    if(sum(if(s.pass_fail = '不通過', cd.cos_credit, 0)*2 )\
+    >= sum(if(1, cd.cos_credit, 0)), 'true', 'false') as failed\
+    ,sum(s.score*cd.cos_credit)/sum(cd.cos_credit) as avg\
+    from\
+    (\
+        select s.student_id, cs.pass_fail, cs.cos_year, cs.semester, cs.cos_id, cs.score\
+        from student as s, cos_score as cs\
+        where s.student_id = :id\
+        and cs.student_id = :id\
+        and ( cs.pass_fail = '通過' or cs.pass_fail = '不通過' )\
+    ) as s, cos_data as cd\
+    where cd.unique_id = concat(s.cos_year, '-', s.semester, '-', s.cos_id)\
+    group by concat(s.cos_year,'-',s.semester)\
     ";
