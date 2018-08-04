@@ -49,6 +49,11 @@ findCurrentCos = "\
 			or cos_code like 'CCS%%'\
 			or cos_code like 'ICP%%'\
 		)\
+		and\
+		(\
+			cos_code not like 'DCP%%'\
+			or cos_type != '必修'\
+		)\
 	) as id ,\
 	(\
 		select unique_id, cos_cname\

@@ -2,23 +2,34 @@ import torch
 import torch.nn as nn
 import auto_training as at
 import func
+import numpy as np
+import csv
 
-# fake data
-data = torch.FloatTensor([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,1,0,0,0,0,0,
- 0,0,3,0,0,0,0,0,0,0,0,0,2,0,2,0,0,0,0,0,0,0,0,0,
- 0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,1,2,0,0,0,
- 0,0,0,0,0,0,0,0,0,0,0,0,1,0,2,0,0,0,0,2,0,0,0,0,
- 1,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
- 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2,0,0,
- 3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,2,0,0,0,0,2,0,
- 0,2,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,3,3,0,0,0,0,0,
- 0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,2,0,0,
- 0,0,0,0,0,0,0,0])
+sem = input('Enter the semester: ')
+
+# parameter
+INF = 123.0
+
+# prepare data and model
+score = torch.FloatTensor(at.score)
+stds = func.findAllStudent()
+allCos = func.findAllCos()
+currentCos = func.findCurrentCos(sem)
 AutoEncoder = at.AutoEncoder
 
 autoencoder = torch.load('net.pkl')
-encoded,decoded = autoencoder.forward(data)
-print(encoded)
-print(data)
-print(decoded)
-print(at.loss_func(data,decoded))
+
+# start predict
+_, decoded = autoencoder.forward(score)
+decoded = decoded.detach().numpy()
+score = score.numpy()
+decoded[score!=0] = -INF
+res = func.generate(allCos, decoded, 30)
+res = func.parseCurrentCos(stds, res, sem, 7)
+
+
+# write to file
+
+with open('RS_auto.csv','w') as out:
+	writer = csv.writer(out)
+	writer.writerows(res)

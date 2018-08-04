@@ -8,9 +8,9 @@ import numpy as np
 
 # Hyper parameter
 MIN_COS_NUM = 0
-EPOCH = 20
-ITER_TIMES = 5
-BATCH_SIZE = 50
+EPOCH = 10
+ITER_TIMES = 3
+BATCH_SIZE = 30
 LR = 0.005
 DROP_PROB = 0.8
 
@@ -44,6 +44,7 @@ class AutoEncoder(nn.Module):
 			nn.Dropout(DROP_PROB),
 			nn.ELU(),
 			nn.Linear(64,128),
+			nn.Dropout(DROP_PROB),
 			nn.ELU(),
 			nn.Linear(128,len(score[0])),
 			nn.ELU()
