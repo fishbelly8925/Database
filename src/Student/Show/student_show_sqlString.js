@@ -364,7 +364,7 @@ exports.ShowCosGroup = "\
 
 
 exports.ShowCosScore = "\
-    select concat(cs.cos_year,'-',cs.semester) as semester,cs.cos_cname as cn,cn.cos_ename as en,cs.score as score\
+    select concat(cs.cos_year,'-',cs.semester) as semester,cs.cos_cname as cn,cn.cos_ename as en,cs.score as score,cs.pass_fail as pass\
     from cos_score as cs,cos_name as cn\
     where cs.student_id = :id\
     and cn.unique_id = concat(cs.cos_year, '-', cs.semester, '-', cs.cos_id)\
