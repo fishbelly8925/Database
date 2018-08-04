@@ -364,7 +364,7 @@ module.exports = {
                 
                 result = JSON.parse(JSON.stringify(result));
                 cos = JSON.parse(JSON.stringify(cos));
-                score = JSON.parse(JSON.stringify(cos,["cn","en","score","pass"]));
+                var score = JSON.parse(JSON.stringify(cos,["cn","en","score","pass"]));
 
                 for(let sem_num = 0;sem_num<result.length;sem_num++){
                     result[sem_num]["score"]=[];
