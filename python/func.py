@@ -159,7 +159,6 @@ def fillEmpty(suggest,pred):
 
 def parseCurrentCos(stds, suggest, sem, K):
     current_cos = findCurrentCos(sem)
-    print(current_cos)
     result = []
     for i in range(len(suggest)):
         temp = list(filter(lambda x: x in current_cos,suggest[i]))
