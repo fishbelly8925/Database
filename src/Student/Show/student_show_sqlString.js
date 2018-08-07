@@ -368,6 +368,7 @@ exports.ShowCosScore = "\
     from cos_score as cs,cos_name as cn\
     where cs.student_id = :id\
     and cn.unique_id = concat(cs.cos_year, '-', cs.semester, '-', cs.cos_id)\
+    and cs.semester != 3\
     ";
 
 exports.ShowSemesterScore = "\
@@ -382,6 +383,7 @@ exports.ShowSemesterScore = "\
         where s.student_id = :id\
         and cs.student_id = :id\
         and ( cs.pass_fail = '通過' or cs.pass_fail = '不通過' )\
+        and cs.semester != 3\
     ) as s, cos_data as cd\
     where cd.unique_id = concat(s.cos_year, '-', s.semester, '-', s.cos_id)\
     group by concat(s.cos_year,'-',s.semester)\
