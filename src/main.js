@@ -10,8 +10,8 @@ var m = require('./msql.js');
 //     console.log(JSON.parse(result));
 // }); // ShowUserInfo 回傳學生資料
 
-// m.SetUserEmail('0516003', 'da2bct@test');
-// // SetUserEmail(學號, email) 更新此學號學生之email
+//m.SetUserEmail('0516003', 'da2bct@test');
+// SetUserEmail(學號, email) 更新此學號學生之email
 
 // m.ShowCosMapRule('0316003', function(err, result){
 //     if(err)
@@ -305,10 +305,20 @@ var m = require('./msql.js');
 // 	console.log(JSON.parse(result));
 // }); // 輸入學生學號，回傳該學生導師
 
-m.ShowSemesterScore('0516003', function(err, result){
-	if(err)
-		throw err;
+// m.ShowSemesterScore('0516003', function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result)[0]);
+// }); // 輸入學生學號，回傳該學生每學期平均,有無被21,學期平均,各科成績
+
+m.ShowStudentResearchStatus('0516003', function(err, result){
+    if(err)
+        throw err;
 	console.log(JSON.parse(result));
-}); // 輸入學生學號，回傳該學生每學期平均,有無被21,學期平均,各科成績
+});// 輸入學生學號，回傳該學生填專題表時的狀況 
+// 1:代表專題1 (基礎程式設計已過) 2:代表專題2 (已修過專1成績為通過)
+// 3:代表 基礎程式設計成績待審核(還沒資料, 如果沒過之後會被取消) 4:代表重複提交(當學期只能有一個專題/專題申請表)
+// 5:代表 已修過專1專2的白目
+
 
 m.Drain(); // 關閉 connection pool

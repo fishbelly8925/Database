@@ -196,5 +196,21 @@ module.exports = {
                 pool.release(c);
             });
         });
+    },
+    ShowStudentResearchStatus: function(student_id, callback) {
+        const resource = pool.acquire();
+        resource.then(function(c) {
+            var sql_ShowStudentResearchStatus = c.prepare(s.ShowStudentResearchStatus);
+            c.query(sql_ShowStudentResearchStatus({ student_id }), function(err, result) {
+                if (err){
+                    callback(err, undefined);
+                    pool.release(c);
+                    return;
+                }
+                callback(null, JSON.stringify(result));
+                pool.release(c);
+            })
+        })
     }
+
 };

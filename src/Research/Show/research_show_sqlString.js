@@ -107,3 +107,30 @@ exports.ShowStudentResearchApplyForm="\
     ) as s\
     where s.student_id = a.student_id\
     and first_second = :first_second";
+
+exports.ShowStudentResearchStatus="\
+select distinct \
+if(exists\
+    (select c.cos_code\
+    from cos_score c\
+    where c.student_id = cs.student_id and c.cos_code = 'DCP4121' and c.pass_fail != '不通過'),'5',\
+if(exists\
+    (select raf.student_id\
+    from research_apply_form raf\
+    where raf.student_id = cs.student_id and raf.agree != '3'),'4',\
+if(exists\
+    (select c.cos_code\
+    from cos_score c\
+    where c.student_id = cs.student_id and c.cos_code = 'DCP3103' and c.pass_fail = '通過'),'2',\
+if(not exists \
+    (select c.cos_code\
+    from cos_score c\
+    where c.student_id = cs.student_id and (c.cos_code = 'DCP1236' or c.cos_code = 'DCP2106')),'3',\
+if( not exists\
+    (select c.cos_code\
+    from cos_score c\
+    where c.student_id = cs.student_id and (c.cos_code = 'DCP1236' or c.cos_code = 'DCP2106') and c.pass_fail = '通過'),'3','1')))))\
+    as status \
+from cos_score cs \
+where cs.student_id = :student_id\
+";
