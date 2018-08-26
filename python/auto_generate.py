@@ -11,21 +11,23 @@ sem = input('Enter the semester: ')
 INF = 123.0
 
 # prepare data and model
-score = torch.FloatTensor(at.score)
 stds = func.findAllStudent()
 allCos = func.findAllCos()
+score = func.findGrades(stds,allCos)
+score = np.float32(np.nan_to_num(score))
+score = torch.FloatTensor(score)
 currentCos = func.findCurrentCos(sem)
 AutoEncoder = at.AutoEncoder
 
 autoencoder = torch.load('net.pkl')
 
 # start predict
-_, decoded = autoencoder.forward(score)
+_, decoded = autoencoder(score)
 decoded = decoded.detach().numpy()
 score = score.numpy()
 decoded[score!=0] = -INF
 res = func.generate(allCos, decoded, 30)
-res = func.parseCurrentCos(stds, res, sem, 7)
+res = func.parseCurrentCos(stds, res, sem, 5)
 
 
 # write to file

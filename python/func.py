@@ -56,6 +56,18 @@ def findAllStudent():
     cursor.close()
     return res
 
+def findAllStudent_byGrades():
+    cursor=conn.cursor()
+    cursor.execute("select distinct student_id from cos_score")
+    temp=cursor.fetchall()
+    res=set()
+    for i in temp:
+        res.add(i[0])
+    res=list(res)
+    res.sort()
+    cursor.close()
+    return res
+
 def changeScore(s):
     a=s-60
     if a<0:

@@ -18,7 +18,7 @@ stds = func.findAllStudent()
 
 # Find the grades of every students as lists in a list
 grades = func.findGrades(stds, cos)
-print("Finish!")
+print("Finish")
 
 # Compute the similarity between every students
 print("Getting the similarity between student . . .")
@@ -27,7 +27,7 @@ s_len = len(stds)
 for a in range(s_len):
     for b in range(s_len):
         similarity[a][b] = func.getSimilarity(grades[a], grades[b])
-print("Finish!")
+print("Finish")
 
 # Predict the cos score of not pass cos for every student
 print("Predicting cos score and generate recommend. . .")
@@ -38,14 +38,13 @@ suggest = func.generate(cos, pred, 30)
 
 # Fill the empty suggest base on K-Means clustering
 func.fillEmpty(suggest, pred)
-print("Finish!")
+print("Finish")
 
 # Parse the recommend cos with specify semester and K courses
 print("Matching the course name . . .")
 result = func.parseCurrentCos(stds, suggest, sem, K)
-print("Finish!")
+print("Finish")
 
 print("Transfer to csv file . . .")
 result=pd.DataFrame(result)
 result.to_csv('RS.csv',index=False)
-print("Finish!")

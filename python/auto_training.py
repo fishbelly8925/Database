@@ -8,14 +8,14 @@ import numpy as np
 
 # Hyper parameter
 MIN_COS_NUM = 0
-EPOCH = 10
-ITER_TIMES = 3
+EPOCH = 200
+ITER_TIMES = 5
 BATCH_SIZE = 30
-LR = 0.005
-DROP_PROB = 0.8
+LR = 0.0001
+DROP_PROB = 0.2
 
 # Data prepare
-score = func.findGrades(func.findAllStudent(),func.findAllCos())
+score = func.findGrades(func.findAllStudent_byGrades(),func.findAllCos())
 score = np.float32(np.nan_to_num(score))
 cond = np.sum(score!=0,axis=1)>MIN_COS_NUM
 score = score[cond]
@@ -28,25 +28,20 @@ class AutoEncoder(nn.Module):
 		super(AutoEncoder,self).__init__()
 
 		self.encoder = nn.Sequential(
-			nn.Linear(len(score[0]),128),
+			nn.Linear(len(score[0]),500),
 			nn.ELU(),
-			nn.Linear(128,64),
+			nn.Linear(500,200),
 			nn.ELU(),
-			nn.Linear(64,12),
-			nn.ELU(),
-			nn.Linear(12,3),
+			nn.Linear(200,50),
 			nn.ELU()
 		)
 		self.decoder = nn.Sequential(
-			nn.Linear(3,12),
+			nn.Linear(50,200),
 			nn.ELU(),
-			nn.Linear(12,64),
+			nn.Linear(200,500),
 			nn.Dropout(DROP_PROB),
 			nn.ELU(),
-			nn.Linear(64,128),
-			nn.Dropout(DROP_PROB),
-			nn.ELU(),
-			nn.Linear(128,len(score[0])),
+			nn.Linear(500,len(score[0])),
 			nn.ELU()
 		)
 
@@ -63,20 +58,21 @@ def loss_func(x,y):
 
 # Training
 if __name__ == '__main__':
+	loader_len = len(train_loader)
 	for epoch in range(EPOCH):
+		total_loss = 0
 		for step, x in enumerate(train_loader):
 			b_x = x.view(-1, len(score[0]))
 			b_y = x.view(-1, len(score[0]))
-
 			for times in range(ITER_TIMES):
-				encodded, decoded = autoencoder.forward(b_x)
+				encodded, decoded = autoencoder(b_x)
 				loss = loss_func(decoded,b_y)
+				total_loss += loss
 				loss.backward(retain_graph=True)
 				optimizer.step()
 				optimizer.zero_grad()
 				b_y = b_x
 				b_x = decoded
-
-			print('Epoch ',epoch,' | train_lose: {0:4f}'.format(loss.data.numpy()))
+		print('Epoch ',epoch,' | train_lose: {0:4f}'.format(total_loss/ITER_TIMES/loader_len))
 
 	torch.save(autoencoder,'net.pkl')

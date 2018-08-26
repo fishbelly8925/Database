@@ -58,5 +58,6 @@ findCurrentCos = "\
 	(\
 		select unique_id, cos_cname\
 		from cos_name\
+		where cos_cname not like '博士%%'\
 	) as cn\
 	where id.unique_id = cn.unique_id;"
