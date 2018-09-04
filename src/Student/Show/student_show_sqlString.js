@@ -376,7 +376,7 @@ exports.ShowSemesterScore = "\
     if(sum(if(s.pass_fail = '不通過', cd.cos_credit, 0)*2 )\
     >= sum(if(1, cd.cos_credit, 0)), 'true', 'false') as failed\
     ,sum(s.score*cd.cos_credit)/sum(cd.cos_credit) as avg\
-    ,sum(if(s.pass_fail = '通過', cd.cos_credit, 0)) as pass_credit\
+    ,sum(if(s.pass_fail = '通過', cd.cos_credit, 0)) as credit\
     from\
     (\
         select s.student_id, cs.pass_fail, cs.cos_year, cs.semester, cs.cos_id, cs.score\
