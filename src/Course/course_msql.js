@@ -76,6 +76,7 @@ module.exports = {
         resource.then(function(c) {
             var sql_ShowCosMapRule = c.prepare(s.ShowCosMapRule);
             var year = '1' + id[0] + id[1];
+            year = (parseInt(year)+1).toString();
             c.query(sql_ShowCosMapRule({ id: id, year: year }), function(err, result) {
                 if (err){
                     callback(err, undefined);
