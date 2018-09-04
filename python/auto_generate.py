@@ -27,11 +27,13 @@ decoded = decoded.detach().numpy()
 score = score.numpy()
 decoded[score!=0] = -INF
 res = func.generate(allCos, decoded, 30)
-res = func.parseCurrentCos(stds, res, sem, 5)
+res = func.parseCurrentCos(stds, res, sem, 10)
 
 
 # write to file
 
 with open('RS_auto.csv','w') as out:
-	writer = csv.writer(out)
-	writer.writerows(res)
+	for se in res:
+		temp = se[0]+',"'+','.join(se[1:])+'"'
+		print(temp)
+		print(temp, file=out)

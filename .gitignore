@@ -7,6 +7,7 @@ test.csv
 python/test.*
 python/*.csv
 scrapData/update_cos_data.sql
+scrapData/update_cos_data.sh
 scrapData/*.csv
 src/constant.js
 src/.DS_Store
