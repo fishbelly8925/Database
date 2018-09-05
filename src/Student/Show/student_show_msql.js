@@ -223,6 +223,21 @@ module.exports = {
             });
         });
     },
+    ShowGradeStudentIdList:function(grade,callback){
+        const resource = pool.acquire();
+        resource.then(function(c){
+            var sql_ShowGradeStudentIdList = c.prepare(s.ShowGradeStudentIdList);
+            c.query(sql_ShowGradeStudentIdList({grade}), function(err, result){
+                if(err){
+                    callback(err, undefined);
+                    pool.release(c);
+                    return;
+                }
+                callback(null, JSON.stringify(result));
+                pool.release(c);
+            });
+        });
+    },
     ShowStudentMentor:function(id, callback){
         const resource = pool.acquire();
         resource.then(function(c){

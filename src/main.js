@@ -162,11 +162,11 @@ var m = require('./msql.js');
 // });
 // // ShowCosScoreInterval(cos_code, unique_id, callback) 某堂課的成績區間人數
 
-m.ShowRecommendCos('0516003', function(err, result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-}); // ShowRecommendCos(student_id, callback) 回傳某學生的推薦課程
+// m.ShowRecommendCos('0516003', function(err, result){
+// 	if(err)
+// 		throw err;
+// // 	console.log(JSON.parse(result));
+// }); // ShowRecommendCos(student_id, callback) 回傳某學生的推薦課程
 
 // m.ShowTeacherResearchStudent('T9229', function(err, result){
 // 	if(err)
@@ -212,6 +212,12 @@ m.ShowRecommendCos('0516003', function(err, result){
 // 		throw err;
 // 	console.log(JSON.parse(result));
 // }); // 回傳學生id, 名字對應表
+
+m.ShowGradeStudentIdList('01', function(err, result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+}); // 回傳系級學生id, 名字對應表
 
 // m.ShowTeacherIdList(function(err, result){
 // 	if(err)
@@ -311,11 +317,11 @@ m.ShowRecommendCos('0516003', function(err, result){
 // 	console.log(JSON.parse(result)[0]);
 // }); // 輸入學生學號，回傳該學生每學期平均,有無被21,學期平均,各科成績
 
-m.ShowStudentResearchStatus('0516003', function(err, result){
-    if(err)
-        throw err;
-	console.log(JSON.parse(result));
-});// 輸入學生學號，回傳該學生填專題表時的狀況 
+// m.ShowStudentResearchStatus('0516003', function(err, result){
+//     if(err)
+//         throw err;
+// 	console.log(JSON.parse(result));
+// });// 輸入學生學號，回傳該學生填專題表時的狀況 
 // 1:代表專題1 (基礎程式設計已過) 2:代表專題2 (已修過專1成績為通過)
 // 3:代表 基礎程式設計成績待審核(還沒資料, 如果沒過之後會被取消) 4:代表重複提交(當學期只能有一個專題/專題申請表)
 // 5:代表 已修過專1專2的白目

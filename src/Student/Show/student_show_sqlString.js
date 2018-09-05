@@ -239,6 +239,11 @@ exports.ShowStudentIdList = "\
     select student_id, sname, program\
     from student";
 
+exports.ShowGradeStudentIdList = "\
+    select student_id, sname, program\
+    from student\
+    where student_id like concat(:grade,'%')";
+
 exports.ShowStudentMentor = "\
     select tname\
     from mentor_list\
