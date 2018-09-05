@@ -162,17 +162,17 @@ var m = require('./msql.js');
 // });
 // // ShowCosScoreInterval(cos_code, unique_id, callback) 某堂課的成績區間人數
 
-// m.ShowRecommendCos('0516003', function(err, result){
-// 	if(err)
-// 		throw err;
-// 	console.log(JSON.parse(result));
-// }); // ShowRecommendCos(student_id, callback) 回傳某學生的推薦課程
-
-m.ShowTeacherResearchStudent('T9229', function(err, result){
+m.ShowRecommendCos('0516003', function(err, result){
 	if(err)
 		throw err;
 	console.log(JSON.parse(result));
-}); // ShowTeacherResearchStudent(teacher_id, callback) 回傳某教授所有專題生和專題題目
+}); // ShowRecommendCos(student_id, callback) 回傳某學生的推薦課程
+
+// m.ShowTeacherResearchStudent('T9229', function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); // ShowTeacherResearchStudent(teacher_id, callback) 回傳某教授所有專題生和專題題目
 
 // m.ShowTeacherInfoResearchCnt(function(err, result){
 // 	if(err)

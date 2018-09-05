@@ -148,7 +148,7 @@ module.exports = {
     ShowRecommendCos:function(id, callback){
         const resource = pool.acquire();
         resource.then(function(c){
-            var semester = '106-2%';
+            var semester = '107-1%';
             var sql_ShowRecommendCos = c.prepare(s.ShowRecommendCos);
             var sql_findCurrentCos = c.prepare(s.findCurrentCos);
             var sql_findTeacher = c.prepare(s.findTeacher);
@@ -172,7 +172,6 @@ module.exports = {
                         for(let i = 0;i<rec.length;i++){
                             //select all cos info into variable data
                             let data = cos.filter(function(c){return parseEng(c.cos_cname)===rec[i]});
-                            
                             //for every cos data
                             for(let d_num = 0;d_num<data.length;d_num++)
                             {
