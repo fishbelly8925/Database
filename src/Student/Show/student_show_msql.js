@@ -52,6 +52,12 @@ module.exports = {
                                         result[0]['failed'] = 'failed';
                                         break;
                                     }
+                                result[0]['recent_failed'] = 'false';
+                                for(let i in failed)
+                                    if(failed[i]['sem'] == '106-2' && failed[i]['failed'] == 'failed'){
+                                        result[0]['recent_failed'] = 'true';
+                                        break;
+                                    }
                                 if(result.info.numRows != 0){
                                     result[0]['status'] = 's';
                                     if (id=='0316201'||id=='0312512'||id=='0416014'||id=='0416008'||id=='0416081'||id=='0516003'||id=='0516205')
