@@ -39,6 +39,39 @@ module.exports = {
             });
         });
     },
+    ShowGradeTeacherResearchStudent: function(teacher_id, grade, callback){
+        const resource = pool.acquire();
+        resource.then(function(c){
+            var sql_ShowGradeTeacherResearchStudent=c.prepare(s.ShowGradeTeacherResearchStudent);
+            c.query(sql_ShowGradeTeacherResearchStudent({teacher_id,grade}), function(err, result){
+                if(err){
+                    callback(err, undefined);
+                    pool.release(c);
+                    return;
+                }
+                if(result.length==0)
+                {
+                    callback(null, "[]");
+                    pool.release(c);
+                    return;
+                }
+                var year=parseInt(result[0]['student_id'].substring(0, 2));
+                var idx;
+                for(idx in result)
+                {
+                    if(idx=='info')
+                    {
+                        idx=result.length;
+                        break;
+                    }
+                    if(year-parseInt(result[idx]['student_id'].substring(0, 2))>2)
+                        break
+                }
+                callback(null, JSON.stringify(result.slice(0, idx)));
+                pool.release(c);
+            });
+        });
+    },    
     ShowTeacherInfoResearchCnt: function(callback){
         const resource=pool.acquire();
         resource.then(function(c){

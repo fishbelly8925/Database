@@ -10,6 +10,19 @@ exports.ShowTeacherResearchStudent="\
     and r.teacher_id = :teacher_id \
     order by substring(s.student_id, 1, 2) desc";
 
+exports.ShowGradeTeacherResearchStudent="\
+    select r.teacher_id,r.intro, s.sname, r.student_id, r.class_detail, r.research_title, r.first_second, r.score, r.semester, r.comment\
+    from \
+    (\
+        select r.intro, t.teacher_id, r.student_id, r.class_detail, r.score, r.research_title, r.first_second, r.semester, r.comment\
+        from research_student as r, teacher as t\
+        where r.tname = t.tname\
+    ) as r, student as s \
+    where s.student_id = r.student_id \
+    and r.student_id like concat(:grade,'%')\
+    and r.teacher_id = :teacher_id \
+    order by substring(s.student_id, 1, 2) desc";
+    
 exports.ShowTeacherInfoResearchCnt="\
     select *\
     from\
