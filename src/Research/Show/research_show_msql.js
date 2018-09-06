@@ -214,11 +214,11 @@ module.exports = {
             });
         });
     }, 
-    ShowStudentResearchApplyForm:function(student_id, first_second, callback){
+    ShowStudentResearchApplyForm:function(student_id, callback){
         const resource=pool.acquire();
         resource.then(function(c){
             var sql_ShowStudentResearchApplyForm=c.prepare(s.ShowStudentResearchApplyForm);
-            c.query(sql_ShowStudentResearchApplyForm({student_id, first_second}), function(err, result){
+            c.query(sql_ShowStudentResearchApplyForm({student_id}), function(err, result){
                 if(err)
                 {
                     callback(err, undefined);

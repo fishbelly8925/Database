@@ -119,7 +119,7 @@ exports.ShowStudentResearchApplyForm="\
         where student_id = :student_id\
     ) as s\
     where s.student_id = a.student_id\
-    and first_second = :first_second";
+    ";
 
 exports.ShowStudentResearchStatus="\
 select distinct \

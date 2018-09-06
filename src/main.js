@@ -174,11 +174,11 @@ var m = require('./msql.js');
 // 	console.log(JSON.parse(result));
 // }); // ShowTeacherResearchStudent(teacher_id, callback) 回傳某教授所有專題生和專題題目
 
-m.ShowGradeTeacherResearchStudent('T9229', '04',function(err, result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-}); // ShowTeacherResearchStudent(teacher_id, callback) 回傳某教授指定系級的專題生和專題題目
+// m.ShowGradeTeacherResearchStudent('T9229', '04',function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); // ShowTeacherResearchStudent(teacher_id, callback) 回傳某教授指定系級的專題生和專題題目
 
 // m.ShowTeacherInfoResearchCnt(function(err, result){
 // 	if(err)
@@ -250,12 +250,12 @@ m.ShowGradeTeacherResearchStudent('T9229', '04',function(err, result){
 // });
 // // 回傳該教授的學生專題申請清單
 
-// m.ShowStudentResearchApplyForm('0516003', '2', function(err, result){
-// 	if(err)
-// 		throw err;
-// 	console.log(JSON.parse(result));
-// }); 
-// 回傳此學生專題申請清單
+m.ShowStudentResearchApplyForm('0416004', function(err, result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+}); 
+//回傳此學生專題申請清單
 
 // m.ShowGivenGradeStudentResearch('03', function(err, result){
 // 	if(err)
