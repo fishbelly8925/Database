@@ -130,7 +130,7 @@ if(exists\
 if(exists\
     (select raf.student_id\
     from research_apply_form raf\
-    where raf.student_id = cs.student_id and raf.agree != '3'),'4',\
+    where raf.student_id = cs.student_id),'4',\
 if(exists\
     (select c.cos_code\
     from cos_score c\
