@@ -30,7 +30,8 @@ exports.findStudentFailed = "\
         from student as s, cos_score as cs\
         where s.student_id = :id\
         and cs.student_id = :id\
-        and ( cs.pass_fail = '通過' or cs.pass_fail = '不通過' )\
+        and ( cs.pass_fail = '通過' or cs.pass_fail = '不通過' or cs.pass_fail = '修課中或休學')\
+        and cs.semester != 3\
     ) as s, cos_data as cd\
     where cd.unique_id = concat(s.cos_year, '-', s.semester, '-', s.cos_id)\
     group by concat(s.cos_year,'-',s.semester);"
@@ -388,7 +389,7 @@ exports.ShowSemesterScore = "\
         from student as s, cos_score as cs\
         where s.student_id = :id\
         and cs.student_id = :id\
-        and ( cs.pass_fail = '通過' or cs.pass_fail = '不通過' )\
+        and ( cs.pass_fail = '通過' or cs.pass_fail = '不通過' or cs.pass_fail = '修課中或休學')\
         and cs.semester != 3\
     ) as s, cos_data as cd\
     where cd.unique_id = concat(s.cos_year, '-', s.semester, '-', s.cos_id)\

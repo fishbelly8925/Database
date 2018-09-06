@@ -73,7 +73,8 @@ exports.ShowTeacherIdList="\
                         select s.student_id, cs.pass_fail, cs.cos_year, cs.semester, cs.cos_id\
                         from student as s, cos_score as cs\
                         where s.student_id = cs.student_id\
-                        and ( cs.pass_fail = '通過' or cs.pass_fail = '不通過')\
+                        and ( cs.pass_fail = '通過' or cs.pass_fail = '不通過' or cs.pass_fail = '修課中或休學')\
+                        and cs.semester != 3\
                     )as s,\
                     cos_data as cd, mentor_list as m\
                     where cd.unique_id = concat(s.cos_year, '-', s.semester, '-', s.cos_id)\
@@ -130,7 +131,8 @@ exports.ShowTeacherIdList="\
                                 select s.student_id, cs.pass_fail, cs.cos_id\
                                 from student as s, cos_score as cs\
                                 where s.student_id = cs.student_id\
-                                and ( cs.pass_fail = '通過' or cs.pass_fail = '不通過')\
+                                and ( cs.pass_fail = '通過' or cs.pass_fail = '不通過' or cs.pass_fail = '修課中或休學')\
+                                and concat(cs.cos_year,'-',cs.semester) = '106-2'\
                             )as s,\
                             cos_data as cd, mentor_list as m \
                             where cd.unique_id = concat('106-2-', s.cos_id)\
