@@ -122,7 +122,7 @@ exports.ShowStudentResearchApplyForm="\
     ";
 
 exports.ShowStudentResearchStatus="\
-select distinct \
+select distinct cs.student_id,\
 if(exists\
     (select c.cos_code\
     from cos_score c\
