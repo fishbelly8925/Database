@@ -250,12 +250,12 @@ var m = require('./msql.js');
 // });
 // // 回傳該教授的學生專題申請清單
 
-m.ShowStudentResearchApplyForm('0416004', function(err, result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-}); 
-//回傳此學生專題申請清單
+// m.ShowStudentResearchApplyForm('0416004', function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); 
+// //回傳此學生專題申請清單
 
 // m.ShowGivenGradeStudentResearch('03', function(err, result){
 // 	if(err)
@@ -264,12 +264,12 @@ m.ShowStudentResearchApplyForm('0416004', function(err, result){
 // });
 // // 輸入系級，回傳該系級所有學生的專題資訊
 
-// m.ShowStudentResearchInfo('0316003', function(err, result){
-// 	if(err)
-// 		throw err;
-// 	console.log(JSON.parse(result));
-// });
-// // 用學號查詢專題的標題、網址、介紹、年度
+m.ShowStudentResearchInfo('0516003', function(err, result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+});
+// 用學號查詢專題的標題、網址、介紹、年度
 
 // m.ShowResearchGroup({tname:'彭文志', research_title:'聊天機器人', first_second:2, semester:'106-2'}, function(err, result){
 // 	if(err)
@@ -287,9 +287,9 @@ m.ShowStudentResearchApplyForm('0416004', function(err, result){
 // m.SetResearchScoreComment({student_id:'283u291', tname:'彭文志', research_title:'聊天機器人', first_second:2, semester:'106-2', new_score:88, new_comment:'Yee!'});
 // // 更新專題成績、評語
 
-// m.CreateNewResearch({ student_id:'0526303', tname : '彭文志', research_title : '我是專題標題2~', first_second:2, semester: '106-2'});
-// // 申請專題同意後，新增此學生專題資料到資料庫
-// // 回傳此學生專題申請清單
+m.CreateNewResearch({ student_id:'0516003', tname : '彭文志', research_title : 'testyeeeee', first_second:2, semester: '106-1'});
+// 申請專題同意後，新增此學生專題資料到資料庫
+// 回傳此學生專題申請清單
 
 // m.CreateResearchFile({research_title:'名字呦>wO', tname:'教授喔Ow<', file_name:'檔名喔>w<', first_second:2, file_path:'路徑喔OwO', file_type:'型態喔OAO'});
 // 建立專題檔案路徑紀錄

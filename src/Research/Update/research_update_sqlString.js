@@ -39,7 +39,10 @@ exports.CreateNewResearch="\
     insert into research_student\
     (student_id, tname, research_title, first_second, semester)\
     values\
-    (:student_id, :tname, :research_title, :first_second, :semester)";
+    (:student_id, :tname, :research_title, :first_second, :semester)\
+    on duplicate key update\
+    tname = :tname, research_title = :research_title,\
+    first_second = :first_second";
 
 exports.SetResearchTitle="\
     update research_student set research_title = :new_title\
