@@ -244,6 +244,20 @@ module.exports = {
                 pool.release(c);
             })
         })
+    },
+    ShowStudentResearchList: function(data,callback){
+        const resource = pool.acquire();
+        resource.then(function(c){
+            var sql_ShowStudentResearchList = c.prepare(s.ShowStudentResearchList);
+            c.query(sql_ShowStudentResearchList(data), function(err,result){
+                if(err){
+                    callback(err, undefined);
+                    pool.release(c);
+                    return;
+                }
+                callback(null, JSON.stringify(result));
+                pool.release(c);
+            });
+        });
     }
-
 };

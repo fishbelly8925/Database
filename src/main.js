@@ -264,12 +264,12 @@ var m = require('./msql.js');
 // });
 // // 輸入系級，回傳該系級所有學生的專題資訊
 
-m.ShowStudentResearchInfo('0516003', function(err, result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-});
-// 用學號查詢專題的標題、網址、介紹、年度
+// m.ShowStudentResearchInfo('0516003', function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// });
+// // 用學號查詢專題的標題、網址、介紹、年度
 
 // m.ShowResearchGroup({tname:'彭文志', research_title:'聊天機器人', first_second:2, semester:'106-2'}, function(err, result){
 // 	if(err)
@@ -287,9 +287,9 @@ m.ShowStudentResearchInfo('0516003', function(err, result){
 // m.SetResearchScoreComment({student_id:'283u291', tname:'彭文志', research_title:'聊天機器人', first_second:2, semester:'106-2', new_score:88, new_comment:'Yee!'});
 // // 更新專題成績、評語
 
-m.CreateNewResearch({ student_id:'0516003', tname : '彭文志', research_title : 'testyeeeee', first_second:2, semester: '106-1'});
-// 申請專題同意後，新增此學生專題資料到資料庫
-// 回傳此學生專題申請清單
+// m.CreateNewResearch({ student_id:'0516003', tname : '彭文志', research_title : 'testyeeeee', first_second:2, semester: '106-1'});
+// // 申請專題同意後，新增此學生專題資料到資料庫
+// // 回傳此學生專題申請清單
 
 // m.CreateResearchFile({research_title:'名字呦>wO', tname:'教授喔Ow<', file_name:'檔名喔>w<', first_second:2, file_path:'路徑喔OwO', file_type:'型態喔OAO'});
 // 建立專題檔案路徑紀錄
@@ -331,6 +331,12 @@ m.CreateNewResearch({ student_id:'0516003', tname : '彭文志', research_title 
 // 1:代表專題1 (基礎程式設計已過) 2:代表專題2 (已修過專1成績為通過)
 // 3:代表 基礎程式設計成績待審核(還沒資料, 如果沒過之後會被取消) 4:代表重複提交(當學期只能有一個專題/專題申請表)
 // 5:代表 已修過專1專2的白目
+
+m.ShowStudentResearchList({first_second:1, semester:'106-2'},function(err,result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+}); // 回傳某學期的專題清單
 
 
 m.Drain(); // 關閉 connection pool
