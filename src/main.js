@@ -31,7 +31,7 @@ var m = require('./msql.js');
 //     console.log(JSON.parse(result));
 // }); // ShowUserTotalCredit 回傳某學生總學分數
 
-// m.ShowUserAllScore('0516003', function(err, result){
+// m.ShowUserAllScore('0516075', function(err, result){
 //     if(err)
 //         throw err;
 //     console.log(JSON.parse(result));
@@ -49,7 +49,7 @@ var m = require('./msql.js');
 //     console.log(JSON.parse(result));
 // }); // ShowCosGroup 列出此學生畢業預審表上 必修、核心、副核心等課程分類
 
-// m.ShowGraduateRule('0516003', function(err, result){
+// m.ShowGraduateRule('0516075', function(err, result){
 //     if(err)
 //         throw err;
 // 	   console.log(JSON.parse(result));
@@ -168,17 +168,17 @@ var m = require('./msql.js');
 // // 	console.log(JSON.parse(result));
 // }); // ShowRecommendCos(student_id, callback) 回傳某學生的推薦課程
 
-// m.ShowTeacherResearchStudent('T9229', function(err, result){
+// m.ShowTeacherResearchStudent('T0616', function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
-// }); // ShowTeacherResearchStudent(teacher_id, callback) 回傳某教授所有專題生和專題題目
+// }); // ShowTeacherResearchStudent(teacher_id, callback) 回傳某教授所有專題生和專題題目，1表示本系生，0表示外系生
 
-// m.ShowGradeTeacherResearchStudent('T9229', '04',function(err, result){
+// m.ShowGradeTeacherResearchStudent('T0616', '04',function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
-// }); // ShowTeacherResearchStudent(teacher_id, callback) 回傳某教授指定系級的專題生和專題題目
+// }); // ShowTeacherResearchStudent(teacher_id, callback) 回傳某教授指定系級的專題生和專題題目，1表示本系生，0表示外系生
 
 // m.ShowTeacherInfoResearchCnt(function(err, result){
 // 	if(err)
@@ -219,11 +219,11 @@ var m = require('./msql.js');
 // 	console.log(JSON.parse(result));
 // }); // 回傳學生id, 名字對應表
 
-// m.ShowGradeStudentIdList('01', function(err, result){
+// m.ShowGradeStudentIdList('02', function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
-// }); // 回傳系級學生id, 名字對應表
+// }); // 回傳系級學生id, 名字對應表，1表示本系生，0表示外系生
 
 // m.ShowTeacherIdList(function(err, result){
 // 	if(err)
@@ -248,14 +248,14 @@ var m = require('./msql.js');
 // 		throw err;
 // 	console.log(JSON.parse(result));
 // });
-// // 回傳該教授的學生專題申請清單
+// // 回傳該教授的學生專題申請清單，1表示本系生，0表示外系生
 
 // m.ShowStudentResearchApplyForm('0416004', function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
 // }); 
-// //回傳此學生專題申請清單
+// //回傳此學生專題申請清單，1表示本系生，0表示外系生
 
 // m.ShowGivenGradeStudentResearch('03', function(err, result){
 // 	if(err)
@@ -264,12 +264,12 @@ var m = require('./msql.js');
 // });
 // // 輸入系級，回傳該系級所有學生的專題資訊
 
-// m.ShowStudentResearchInfo('0516003', function(err, result){
+// m.ShowStudentResearchInfo('0210529', function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
 // });
-// // 用學號查詢專題的標題、網址、介紹、年度
+// // 用學號查詢專題的標題、網址、介紹、年度，1表示本系生，0表示外系生
 
 // m.ShowResearchGroup({tname:'彭文志', research_title:'聊天機器人', first_second:2, semester:'106-2'}, function(err, result){
 // 	if(err)
@@ -305,11 +305,11 @@ var m = require('./msql.js');
 // m.SetResearchTitle({research_title:'我是專題標題2~', tname:'彭文志', first_second:2, semester:'106-2', new_title:'New Title'});
 // 使用專題標題、老師名稱、專題一二、專題學期，編輯專題標題
 
-// m.ShowResearchScoreComment({semester: '106-2', first_second: 2}, function(err, result){
-// 	if(err)
-// 		throw err;
-// 	console.log(JSON.parse(result));
-// }); // 回傳專題成績列表:教授名字, 學生姓名學號, 成績, 評論
+m.ShowResearchScoreComment({semester: '106-2', first_second: 2}, function(err, result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+}); // 回傳專題成績列表:教授名字, 學生姓名學號, 成績, 評論
 
 // m.ShowStudentMentor('0516003', function(err, result){
 // 	if(err)
@@ -332,11 +332,11 @@ var m = require('./msql.js');
 // 3:代表 基礎程式設計成績待審核(還沒資料, 如果沒過之後會被取消) 4:代表重複提交(當學期只能有一個專題/專題申請表)
 // 5:代表 已修過專1專2的白目
 
-m.ShowStudentResearchList({first_second:1, semester:'106-2'},function(err,result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-}); // 回傳某學期的專題清單
+// m.ShowStudentResearchList({first_second:1, semester:'106-2'},function(err,result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); // 回傳某學期的專題清單
 
 
 m.Drain(); // 關閉 connection pool
