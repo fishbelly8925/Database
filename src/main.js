@@ -80,7 +80,12 @@ var m = require('./msql.js');
 // }); // ShowGraduateStudentList 列出此學號開頭的學生的畢業資訊(輸入all顯示全部)(助理端用)
 
 // m.SetEnCertificate('0516003', 1);
-// // SetEnCertificate 設定某學生的英檢狀態
+// SetEnCertificate 設定某學生的英檢狀態
+// 通過外語榮譽學分(英語)抵免 → 免修 -> 1
+// 通過英檢免試申請 → 一學分都不能底！ 可以修二外當進階英文 -> 2
+// 通過英檢中高級初試(本校團測場次)　→ 一學分都不能底！ 可以修二外當進階英文 -> 3
+// 自行報考通過 → 一學分都不能底！ 可以修二外當進階英文 -> 4
+// NULL → 英文一定要修滿八學分 不能用二外抵 -> 0
 
 // m.SetStudentGraduateStatus('0516003', 1);
 // // SetStudentGraduateStatus 設定某學生的畢業狀態(1可畢業, 0不可畢業)（助理端用）
