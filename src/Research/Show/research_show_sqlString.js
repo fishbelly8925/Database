@@ -35,11 +35,14 @@ exports.ShowTeacherInfoResearchCnt="\
             select distinct r.student_id, r.tname, t.teacher_id \
             from research_student as r, teacher as t\
             where r.tname = t.tname\
+            and substring(class_detail,1,3) = '資工系'\
         ) as r \
         where r.student_id IN \
         (\
             select student_id \
             from student \
+            where enroll_status != '外交子女' \
+            and study_status != '應畢' \
         )\
         group by substring(r.student_id, 1, 2), r.tname \
         order by r.tname, substring(r.student_id, 1, 2)\
