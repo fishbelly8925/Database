@@ -31,11 +31,15 @@ var m = require('./msql.js');
 //     console.log(JSON.parse(result));
 // }); // ShowUserTotalCredit 回傳某學生總學分數
 
-// m.ShowUserAllScore('0516075', function(err, result){
-//     if(err)
-//         throw err;
-//     console.log(JSON.parse(result));
-// }); // ShowUserAllScore 列出此學生通過的課
+m.ShowUserAllScore('0516007', function(err, result){
+    if(err)
+        throw err;
+    console.log(JSON.parse(result));
+}); // ShowUserAllScore 列出此學生通過的課
+// 測試學號
+// 軍訓 0116089
+// 霹靂悠 0516007
+// 轉系抵免 0411276 
 
 // m.ShowUserPartScore('0516003', '通識', function(err, result){
 //     if(err)
@@ -185,11 +189,11 @@ var m = require('./msql.js');
 // 	console.log(JSON.parse(result));
 // }); // ShowTeacherResearchStudent(teacher_id, callback) 回傳某教授指定系級的專題生和專題題目，1表示本系生，0表示外系生
 
-m.ShowTeacherInfoResearchCnt(function(err, result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result)[0]);
-}); // ShowTeacherInfoResearchCnt(callback) 回傳所有教授各屆的學生人數
+// m.ShowTeacherInfoResearchCnt(function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result)[0]);
+// }); // ShowTeacherInfoResearchCnt(callback) 回傳所有教授各屆的學生人數
 
 // m.CreateMail({sender_id:'0516003', title:'test~~', receiver_id:'T9229', content:'這是一個測試信件這是一個測試信件'});
 // // CreateMail(data) data type 為JSON，新增一則信件，需有以上所有欄位
