@@ -41,7 +41,12 @@ exports.ShowTeacherInfoResearchCnt="\
         (\
             select student_id \
             from student \
-            where enroll_status != '外交子女' \
+            where student_id NOT IN \
+            (\
+                select student_id \
+                from student \
+                where student_id LIKE '__4____' \
+            )\
             and study_status != '應畢' \
         )\
         group by substring(r.student_id, 1, 2), r.tname \
