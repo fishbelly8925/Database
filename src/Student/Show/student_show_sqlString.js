@@ -436,11 +436,11 @@ exports.ShowSemesterScore = "\
     select concat(s.cos_year,'-',s.semester) as semester,\
     if(sum(if(s.pass_fail = '不通過', cd.cos_credit, 0)*2 )\
     >= sum(if(1, cd.cos_credit, 0)), 'true', 'false') as failed\
-    ,sum(s.score*cd.cos_credit)/sum(cd.cos_credit) as avg\
+    ,sum(s.score*cd.cos_credit)/sum(if(s.score_type='通過不通過',0,cd.cos_credit)) as avg\
     ,sum(if(s.pass_fail = '通過', cd.cos_credit, 0)) as credit\
     from\
     (\
-        select s.student_id, cs.pass_fail, cs.cos_year, cs.semester, cs.cos_id, cs.score\
+        select s.student_id, cs.pass_fail, cs.cos_year, cs.semester, cs.cos_id, cs.score,cs.score_type\
         from student as s, cos_score as cs\
         where s.student_id = :id\
         and cs.student_id = :id\
