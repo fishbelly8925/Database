@@ -31,11 +31,11 @@ var m = require('./msql.js');
 //     console.log(JSON.parse(result));
 // }); // ShowUserTotalCredit 回傳某學生總學分數
 
-m.ShowUserAllScore('0516007', function(err, result){
-    if(err)
-        throw err;
-    console.log(JSON.parse(result));
-}); // ShowUserAllScore 列出此學生通過的課
+// m.ShowUserAllScore('0516007', function(err, result){
+//     if(err)
+//         throw err;
+//     console.log(JSON.parse(result));
+// }); // ShowUserAllScore 列出此學生通過的課
 // 測試學號
 // 軍訓 0116089
 // 霹靂悠 0516007
@@ -337,8 +337,10 @@ m.ShowUserAllScore('0516007', function(err, result){
 //         throw err;
 // 	console.log(JSON.parse(result));
 // });// 輸入學生學號，回傳該學生填專題表時的狀況 
-// 1:代表專題1 (基礎程式設計已過) 2:代表專題2 (已修過專1成績為通過)
-// 3:代表 基礎程式設計成績待審核(還沒資料, 如果沒過之後會被取消) 4:代表重複提交(當學期只能有一個專題/專題申請表)
+// 1:代表專題1 (基礎程式設計已過) 
+// 2:代表專題2 (已修過專1成績為通過)
+// 3:代表 基礎程式設計成績待審核(還沒資料, 如果沒過之後會被取消) 
+// 4:代表重複提交(當學期只能有一個專題/專題申請表)
 // 5:代表 已修過專1專2的白目
 
 // m.ShowStudentResearchList({first_second:1, semester:'106-2'},function(err,result){

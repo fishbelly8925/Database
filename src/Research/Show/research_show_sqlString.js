@@ -89,7 +89,9 @@ exports.ShowGivenGradeStudentResearch="\
     on t.tname = s1.tname";
 
 exports.ShowStudentResearchInfo="\
-    select *,if(substring(class_detail,1,3)='資工系',1,0) as status\
+    select student_id, tname, research_title, first_second, memo, link, intro,\
+    score, semester, comment, video,\
+    if(substring(class_detail, 1, 3) = '資工系', 1, 0) as status\
     from research_student\
     where student_id = :student_id";
 
