@@ -298,7 +298,9 @@ var m = require('./msql.js');
 
 // m.CreateNewResearch({ student_id:'0516003', tname : '彭文志', research_title : 'testyeeeee', first_second:2, semester: '106-1'});
 // // 申請專題同意後，新增此學生專題資料到資料庫
-// // 回傳此學生專題申請清單
+
+// m.ChangeResearch({ student_id:'0516003', tname : '彭文志', research_title : 'testyeeeee', first_second:2, semester: '106-1'});
+// // 申請換專題，修改此學生專題資料
 
 // m.CreateResearchFile({research_title:'名字呦>wO', tname:'教授喔Ow<', file_name:'檔名喔>w<', first_second:2, file_path:'路徑喔OwO', file_type:'型態喔OAO'});
 // 建立專題檔案路徑紀錄

@@ -68,6 +68,22 @@ module.exports = {
             });
         });
     }, 
+    ChangeResearch:function(data){
+        if(typeof(data) === 'string')
+            data=JSON.parse(data);
+        const resource=pool.acquire();
+        resource.then(function(c){
+            var sql_ChangeResearch=c.prepare(s.ChangeResearch);
+            c.query(sql_ChangeResearch(data), function(err){
+                if(err)
+                {
+                    pool.release(c);
+                    throw err;
+                }
+                pool.release(c);
+            });
+        });
+    }, 
     SetResearchTitle:function(data){
         if(typeof(data) === 'string')
             data=JSON.parse(data);
