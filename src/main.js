@@ -273,12 +273,13 @@ var m = require('./msql.js');
 // });
 // // 輸入系級，回傳該系級所有學生的專題資訊
 
-// m.ShowStudentResearchInfo('0210529', function(err, result){
-// 	if(err)
-// 		throw err;
-// 	console.log(JSON.parse(result));
-// });
+m.ShowStudentResearchInfo('0410835', function(err, result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+});
 // // 用學號查詢專題的標題、網址、介紹、年度，1表示本系生，0表示外系生
+// 0410835 電機系
 
 // m.ShowResearchGroup({tname:'彭文志', research_title:'聊天機器人', first_second:2, semester:'106-2'}, function(err, result){
 // 	if(err)

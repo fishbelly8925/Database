@@ -89,11 +89,18 @@ exports.ShowGivenGradeStudentResearch="\
     on t.tname = s1.tname";
 
 exports.ShowStudentResearchInfo="\
-    select student_id, tname, research_title, first_second, memo, link, intro,\
-    score, semester, comment, video,\
-    if(substring(class_detail, 1, 3) = '資工系', 1, 0) as status\
-    from research_student\
-    where student_id = :student_id";
+    select rs.student_id, rs.tname, rs.research_title, rs.first_second, rs.memo, rs.link, rs.intro,\
+    rs.score, rs.semester, rs.comment, rs.video,\
+    case a.program when '資工A' then 1 when '資工B' then 1 when '網多' then 1 when '資電' then 1\
+    else 0 end as status\
+    from research_student as rs, \
+    (\
+        select student_id, program\
+        from student\
+        where student_id = :student_id\
+    ) as a\
+    where rs.student_id = :student_id\
+    and rs.student_id = a.student_id";
 
 exports.ShowResearchGroup="\
     select student_id \
