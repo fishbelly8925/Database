@@ -296,7 +296,7 @@ exports.ShowStudentIdList = "\
     from student";
 
 exports.ShowGradeStudentIdList = "\
-    select student_id, sname, program,if((substring(program,1,1)='資' or substring(program,1,1)='網'),1,0) as status\
+    select student_id, sname, program,if(substring(program,1,2)='資工' or substring(program,1,2)='網多' or substring(program,1,2)='資電',1,0) as status\
     from student\
     where student_id like concat(:grade,'%')";
 

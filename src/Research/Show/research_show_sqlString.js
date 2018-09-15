@@ -1,9 +1,9 @@
 exports.ShowTeacherResearchStudent="\
-    select r.teacher_id,r.intro, s.sname, r.student_id, r.class_detail, r.research_title, r.first_second, r.score, r.semester, r.comment,r.status\
+    select r.teacher_id,r.intro, s.sname, r.student_id, r.class_detail, r.research_title, r.first_second, r.score, r.semester, r.comment,\
+    if(substring(s.program,1,2)='資工' or substring(s.program,1,2)='網多' or substring(s.program,1,2)='資電',1,0) as status\
     from \
     (\
-        select r.intro, t.teacher_id, r.student_id, r.class_detail, r.score, r.research_title, r.first_second, r.semester, r.comment,\
-        if(substring(r.class_detail,1,3)='資工系',1,0) as status\
+        select r.intro, t.teacher_id, r.student_id, r.class_detail, r.score, r.research_title, r.first_second, r.semester, r.comment\
         from research_student as r, teacher as t\
         where r.tname = t.tname\
     ) as r, student as s \
@@ -12,11 +12,11 @@ exports.ShowTeacherResearchStudent="\
     order by substring(s.student_id, 1, 2) desc";
 
 exports.ShowGradeTeacherResearchStudent="\
-    select r.teacher_id,r.intro, s.sname, r.student_id, r.class_detail, r.research_title, r.first_second, r.score, r.semester, r.comment,r.status\
+    select r.teacher_id,r.intro, s.sname, r.student_id, r.class_detail, r.research_title, r.first_second, r.score, r.semester, r.comment,\
+    if(substring(s.program,1,2)='資工' or substring(s.program,1,2)='網多' or substring(s.program,1,2)='資電',1,0) as status\
     from \
     (\
-        select r.intro, t.teacher_id, r.student_id, r.class_detail, r.score, r.research_title, r.first_second, r.semester, r.comment,\
-        if(substring(r.class_detail,1,3)='資工系',1,0) as status\
+        select r.intro, t.teacher_id, r.student_id, r.class_detail, r.score, r.research_title, r.first_second, r.semester, r.comment\
         from research_student as r, teacher as t\
         where r.tname = t.tname\
     ) as r, student as s \
@@ -117,10 +117,10 @@ exports.ShowResearchFilePath="\
     and first_second = :first_second;"
 
 exports.ShowResearchScoreComment="\
-    select r.tname, r.student_id, r.score, s.sname, r.comment,if(substring(r.class_detail,1,3)='資工系',1,0) as status\
+    select r.tname, r.student_id, r.score, s.sname, r.comment,if(substring(s.program,1,2)='資工' or substring(s.program,1,2)='網多' or substring(s.program,1,2)='資電',1,0) as status\
     from research_student as r, \
     (\
-        select student_id, sname \
+        select student_id, sname,program \
         from student \
     ) as s\
     where s.student_id = r.student_id\
@@ -129,7 +129,7 @@ exports.ShowResearchScoreComment="\
 
 exports.ShowTeacherResearchApplyFormList="\
     select a.student_id, s.sname, s.program,a.research_title, a.teacher_id, a.tname, a.first_second, a.agree, s.phone, s.email, a.semester,\
-    if((substring(s.program,1,1)='資' or substring(s.program,1,1)='網'),1,0) as status\
+    if(substring(s.program,1,2)='資工' or substring(s.program,1,2)='網多' or substring(s.program,1,2)='資電',1,0) as status\
     from \
     (\
         select t.teacher_id, r.student_id, r.research_title, r.tname, r.agree, r.first_second, r.semester\
@@ -148,7 +148,7 @@ exports.ShowStudentResearchApplyForm="\
     select a.student_id, s.sname, a.research_title, a.tname, a.agree, a.first_second, s.phone, s.email, a.semester,s.status\
     from research_apply_form as a, \
     (\
-        select sname, student_id, phone, email,if((substring(program,1,1)='資' or substring(program,1,1)='網'),1,0) as status\
+        select sname, student_id, phone, email,if(substring(program,1,2)='資工' or substring(program,1,2)='網多' or substring(program,1,2)='資電',1,0) as status\
         from student\
         where student_id = :student_id\
     ) as s\

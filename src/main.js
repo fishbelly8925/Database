@@ -192,7 +192,7 @@ var m = require('./msql.js');
 // m.ShowTeacherInfoResearchCnt(function(err, result){
 // 	if(err)
 // 		throw err;
-// 	console.log(JSON.parse(result)[0]);
+// 	console.log(JSON.parse(result)[9]);
 // }); // ShowTeacherInfoResearchCnt(callback) 回傳所有教授各屆的學生人數
 
 // m.CreateMail({sender_id:'0516003', title:'test~~', receiver_id:'T9229', content:'這是一個測試信件這是一個測試信件'});
@@ -228,11 +228,11 @@ var m = require('./msql.js');
 // 	console.log(JSON.parse(result));
 // }); // 回傳學生id, 名字對應表
 
-// m.ShowGradeStudentIdList('02', function(err, result){
-// 	if(err)
-// 		throw err;
-// 	console.log(JSON.parse(result));
-// }); // 回傳系級學生id, 名字對應表，1表示本系生，0表示外系生
+m.ShowGradeStudentIdList('05', function(err, result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+}); // 回傳系級學生id, 名字對應表，1表示本系生，0表示外系生
 
 // m.ShowTeacherIdList(function(err, result){
 // 	if(err)
@@ -273,13 +273,13 @@ var m = require('./msql.js');
 // });
 // // 輸入系級，回傳該系級所有學生的專題資訊
 
-m.ShowStudentResearchInfo('0410835', function(err, result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-});
-// // 用學號查詢專題的標題、網址、介紹、年度，1表示本系生，0表示外系生
-// 0410835 電機系
+// m.ShowStudentResearchInfo('0410835', function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// });
+// // // 用學號查詢專題的標題、網址、介紹、年度，1表示本系生，0表示外系生
+// // 0410835 電機系
 
 // m.ShowResearchGroup({tname:'彭文志', research_title:'聊天機器人', first_second:2, semester:'106-2'}, function(err, result){
 // 	if(err)
@@ -329,10 +329,10 @@ m.ShowStudentResearchInfo('0410835', function(err, result){
 // 	console.log(JSON.parse(result));
 // }); // 輸入學生學號，回傳該學生導師
 
-// m.ShowSemesterScore('0516003', function(err, result){
+// m.ShowSemesterScore('0516075', function(err, result){
 // 	if(err)
 // 		throw err;
-// 	console.log(JSON.parse(result)[0]);
+// 	console.log(JSON.parse(result));
 // }); // 輸入學生學號，回傳該學生每學期平均,有無被21,學期平均,各科成績
 
 // m.ShowStudentResearchStatus('0516003', function(err, result){
