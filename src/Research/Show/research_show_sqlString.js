@@ -12,11 +12,11 @@ exports.ShowTeacherResearchStudent="\
     order by substring(s.student_id, 1, 2) desc";
 
 exports.ShowGradeTeacherResearchStudent="\
-    select r.teacher_id,r.intro, s.sname, r.student_id, r.class_detail, r.research_title, r.first_second, r.score, r.semester, r.comment,\
+    select r.teacher_id,r.intro, s.sname, r.student_id, r.class_detail, r.research_title, r.first_second, r.score, r.semester, r.comment, r.add_status,\
     if(substring(s.program,1,2)='資工' or substring(s.program,1,2)='網多' or substring(s.program,1,2)='資電',1,0) as status\
     from \
     (\
-        select r.intro, t.teacher_id, r.student_id, r.class_detail, r.score, r.research_title, r.first_second, r.semester, r.comment\
+        select r.intro, t.teacher_id, r.student_id, r.class_detail, r.score, r.research_title, r.first_second, r.semester, r.comment, r.add_status\
         from research_student as r, teacher as t\
         where r.tname = t.tname\
     ) as r, student as s \
@@ -90,7 +90,7 @@ exports.ShowGivenGradeStudentResearch="\
 
 exports.ShowStudentResearchInfo="\
     select rs.student_id, rs.tname, rs.research_title, rs.first_second, rs.memo, rs.link, rs.intro,\
-    rs.score, rs.semester, rs.comment, rs.video,\
+    rs.score, rs.semester, rs.comment, rs.video, rs.add_status,\
     case a.program when '資工A' then 1 when '資工B' then 1 when '網多' then 1 when '資電' then 1\
     else 0 end as status\
     from research_student as rs, \
