@@ -189,11 +189,11 @@ var m = require('./msql.js');
 // 	console.log(JSON.parse(result));
 // }); // ShowTeacherResearchStudent(teacher_id, callback) 回傳某教授指定系級的專題生和專題題目，1表示本系生，0表示外系生
 
-// m.ShowTeacherInfoResearchCnt(function(err, result){
-// 	if(err)
-// 		throw err;
-// 	console.log(JSON.parse(result)[9]);
-// }); // ShowTeacherInfoResearchCnt(callback) 回傳所有教授各屆的學生人數
+m.ShowTeacherInfoResearchCnt(function(err, result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result)[9]);
+}); // ShowTeacherInfoResearchCnt(callback) 回傳所有教授各屆的學生人數
 
 // m.CreateMail({sender_id:'0516003', title:'test~~', receiver_id:'T9229', content:'這是一個測試信件這是一個測試信件'});
 // // CreateMail(data) data type 為JSON，新增一則信件，需有以上所有欄位
@@ -228,11 +228,11 @@ var m = require('./msql.js');
 // 	console.log(JSON.parse(result));
 // }); // 回傳學生id, 名字對應表
 
-m.ShowGradeStudentIdList('05', function(err, result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-}); // 回傳系級學生id, 名字對應表，1表示本系生，0表示外系生
+// m.ShowGradeStudentIdList('05', function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); // 回傳系級學生id, 名字對應表，1表示本系生，0表示外系生
 
 // m.ShowTeacherIdList(function(err, result){
 // 	if(err)

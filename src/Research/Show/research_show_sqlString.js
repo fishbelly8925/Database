@@ -35,7 +35,6 @@ exports.ShowTeacherInfoResearchCnt="\
             select distinct r.student_id, r.tname, t.teacher_id \
             from research_student as r, teacher as t\
             where r.tname = t.tname\
-            and substring(class_detail,1,3) = '資工系'\
         ) as r \
         where r.student_id IN \
         (\
@@ -47,7 +46,9 @@ exports.ShowTeacherInfoResearchCnt="\
                 from student \
                 where student_id LIKE '__4____' \
             )\
-            and study_status != '應畢' \
+            and (substring(program,1,2) = '資工'\
+            or substring(program,1,2) = '資電'\
+            or substring(program,1,2) = '網多')\
         )and r.student_id NOT IN\
         (\
             select cs.student_id\
