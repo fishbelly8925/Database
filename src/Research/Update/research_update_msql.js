@@ -6,6 +6,24 @@ var s = require('./research_update_sqlString.js');
 var pool = psw.dbpsw();
 
 module.exports = { 
+    SetResearchAddStatus:function(data, callback){
+        if(typeof(data)==='string')
+            data=JSON.parse(data);
+        const resource=pool.acquire();
+        resource.then(function(c){
+            var sql_SetResearchAddStatus=c.prepare(s.SetResearchAddStatus);
+            c.query(sql_SetResearchAddStatus(data), function(err, result){
+                if(err)
+                {
+                    callback(err, undefined);
+                    pool.release(c); 
+                    throw err;
+                }
+                callback(null, JSON.stringify(result));
+                pool.release(c); 
+            });
+        });
+    },
     SetResearchInfo:function(data, callback){
         if(typeof(data)==='string')
             data=JSON.parse(data);

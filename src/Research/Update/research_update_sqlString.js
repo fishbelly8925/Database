@@ -1,5 +1,14 @@
+exports.SetResearchAddStatus="\
+    update research_student\
+    set add_status = :add_status\
+    where student_id = :student_id\
+    and research_title = :research_title\
+    and first_second = :first_second\
+    and semester = :semester";
+
 exports.setResearchTitle="\
-    update research_student set research_title = :new_title\
+    update research_student\
+    set research_title = :new_title\
     where research_title = :research_title\
     and tname = :tname\
     and first_second = :first_second\

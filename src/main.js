@@ -228,11 +228,11 @@ var m = require('./msql.js');
 // 	console.log(JSON.parse(result));
 // }); // 回傳學生id, 名字對應表
 
-m.ShowGradeStudentIdList('05', function(err, result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-}); // 回傳系級學生id, 名字對應表，1表示本系生，0表示外系生
+// m.ShowGradeStudentIdList('05', function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); // 回傳系級學生id, 名字對應表，1表示本系生，0表示外系生
 
 // m.ShowTeacherIdList(function(err, result){
 // 	if(err)
@@ -352,5 +352,11 @@ m.ShowGradeStudentIdList('05', function(err, result){
 // 	console.log(JSON.parse(result));
 // }); // 回傳某學期的專題清單
 
+m.SetResearchAddStatus({student_id: '0416201', research_title: 'Piano Finger Tracker - 偵測並記錄指法的智慧樂譜', semester: '106-2', first_second: 1, add_status: 0}, function(err, result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+}); 
+// 修改專題資料的 add_status, 0代表尚未加選 1代表已加選
 
 m.Drain(); // 關閉 connection pool
