@@ -177,23 +177,17 @@ var m = require('./msql.js');
 // // 	console.log(JSON.parse(result));
 // }); // ShowRecommendCos(student_id, callback) 回傳某學生的推薦課程
 
-// m.ShowTeacherResearchStudent('T0616', function(err, result){
-// 	if(err)
-// 		throw err;
-// 	console.log(JSON.parse(result));
-// }); // ShowTeacherResearchStudent(teacher_id, callback) 回傳某教授所有專題生和專題題目，1表示本系生，0表示外系生
-
-// m.ShowGradeTeacherResearchStudent('T0616', '04',function(err, result){
-// 	if(err)
-// 		throw err;
-// 	console.log(JSON.parse(result));
-// }); // ShowTeacherResearchStudent(teacher_id, callback) 回傳某教授指定系級的專題生和專題題目，1表示本系生，0表示外系生
-
-m.ShowTeacherInfoResearchCnt(function(err, result){
+m.ShowGradeTeacherResearchStudent('T0616', '',function(err, result){
 	if(err)
 		throw err;
-	console.log(JSON.parse(result)[9]);
-}); // ShowTeacherInfoResearchCnt(callback) 回傳所有教授各屆的學生人數
+	console.log(JSON.parse(result));
+}); // ShowTeacherResearchStudent(teacher_id, callback) 回傳某教授指定系級的專題生和專題題目，1表示本系生，0表示外系生
+
+// m.ShowTeacherInfoResearchCnt(function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); // ShowTeacherInfoResearchCnt(callback) 回傳所有教授各屆的學生人數
 
 // m.CreateMail({sender_id:'0516003', title:'test~~', receiver_id:'T9229', content:'這是一個測試信件這是一個測試信件'});
 // // CreateMail(data) data type 為JSON，新增一則信件，需有以上所有欄位
@@ -352,11 +346,11 @@ m.ShowTeacherInfoResearchCnt(function(err, result){
 // 	console.log(JSON.parse(result));
 // }); // 回傳某學期的專題清單
 
-m.SetResearchAddStatus({student_id: '0416201', research_title: 'Piano Finger Tracker - 偵測並記錄指法的智慧樂譜', semester: '106-2', first_second: 1, add_status: 0}, function(err, result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-}); 
-// 修改專題資料的 add_status, 0代表尚未加選 1代表已加選
+// m.SetResearchAddStatus({student_id: '0416201', research_title: 'Piano Finger Tracker - 偵測並記錄指法的智慧樂譜', semester: '106-2', first_second: 1, add_status: 0}, function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); 
+// // 修改專題資料的 add_status, 0代表尚未加選 1代表已加選
 
 m.Drain(); // 關閉 connection pool
