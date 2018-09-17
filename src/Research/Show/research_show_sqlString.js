@@ -29,7 +29,7 @@ exports.ShowTeacherInfoResearchCnt="\
     select *\
     from\
     (\
-        select r.teacher_id, r.tname, substring(r.student_id, 1, 2) as 'grade', count(*) as 'scount'\
+        select r.tname, substring(r.student_id, 1, 2) as 'grade', count(*) as 'scount'\
         from \
         (\
             select distinct r.student_id, r.tname, t.teacher_id \
@@ -68,7 +68,7 @@ exports.ShowTeacherInfoResearchCnt="\
         order by r.tname, substring(r.student_id, 1, 2)\
     ) as o right join \
     (\
-        select ti.phone, ti.tname, ti.email, ti.expertise, ti.info\
+        select t.teacher_id,ti.phone, ti.tname, ti.email, ti.expertise, ti.info\
         from teacher_info as ti right join teacher as t on ti.tname = t.tname\
     ) as t\
    on o.tname = t.tname";
