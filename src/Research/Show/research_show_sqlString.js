@@ -66,12 +66,12 @@ exports.ShowTeacherInfoResearchCnt="\
         )\
         group by substring(r.student_id, 1, 2), r.tname \
         order by r.tname, substring(r.student_id, 1, 2)\
-    ) as o, \
+    ) as o right join \
     (\
-        select phone, tname, email, expertise, info\
-        from teacher_info\
+        select ti.phone, ti.tname, ti.email, ti.expertise, ti.info\
+        from teacher_info as ti right join teacher as t on ti.tname = t.tname\
     ) as t\
-    where o.tname = t.tname";
+   on o.tname = t.tname";
 
 exports.ShowGivenGradeStudentResearch="\
     select distinct s1.student_id, s1.sname as name, s1.program, t.teacher_id, s1.tname\
