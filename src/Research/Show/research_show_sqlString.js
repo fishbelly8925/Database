@@ -68,7 +68,7 @@ exports.ShowTeacherInfoResearchCnt="\
         order by r.tname, substring(r.student_id, 1, 2)\
     ) as o right join \
     (\
-        select t.teacher_id,ti.phone, ti.tname, ti.email, ti.expertise, ti.info\
+        select t.teacher_id,ti.phone, t.tname, ti.email, ti.expertise, ti.info\
         from teacher_info as ti right join teacher as t on ti.tname = t.tname\
     ) as t\
    on o.tname = t.tname";
