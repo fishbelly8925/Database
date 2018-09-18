@@ -48,7 +48,7 @@ exports.ShowTeacherInfoResearchCnt="\
                                     from cos_score as c \
                                     where c.pass_fail = '修課中或休學' and c.student_id = s.student_id and semester != '3')\
                         and semester != '3') as cs \
-                group by cs.student_id having count(distinct cs.student_id, cs.cos_year, cs.semester) >= 8\
+                group by cs.student_id having count(distinct cs.student_id, cs.cos_year, cs.semester) > 8\
             ) as cs\
         )\
         group by substring(r.student_id, 1, 2), r.tname \

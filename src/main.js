@@ -177,17 +177,17 @@ var m = require('./msql.js');
 // // 	console.log(JSON.parse(result));
 // }); // ShowRecommendCos(student_id, callback) 回傳某學生的推薦課程
 
-m.ShowGradeTeacherResearchStudent('T0616', '',function(err, result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-}); // ShowTeacherResearchStudent(teacher_id, callback) 回傳某教授指定系級的專題生和專題題目，1表示本系生，0表示外系生
-
-// m.ShowTeacherInfoResearchCnt(function(err, result){
+// m.ShowGradeTeacherResearchStudent('T0616', '',function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
-// }); // ShowTeacherInfoResearchCnt(callback) 回傳所有教授各屆的學生人數
+// }); // ShowTeacherResearchStudent(teacher_id, callback) 回傳某教授指定系級的專題生和專題題目，1表示本系生，0表示外系生
+
+m.ShowTeacherInfoResearchCnt(function(err, result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result)[8]);
+}); // ShowTeacherInfoResearchCnt(callback) 回傳所有教授各屆的學生人數
 
 // m.CreateMail({sender_id:'0516003', title:'test~~', receiver_id:'T9229', content:'這是一個測試信件這是一個測試信件'});
 // // CreateMail(data) data type 為JSON，新增一則信件，需有以上所有欄位
