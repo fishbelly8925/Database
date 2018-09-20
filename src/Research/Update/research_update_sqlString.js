@@ -49,7 +49,7 @@ exports.CreateNewResearch="\
     (student_id, tname, research_title, first_second, semester)\
     values\
     (:student_id, :tname, :research_title, :first_second, :semester)";
-
+    
 exports.ChangeResearch="\
     insert into research_student\
     (student_id, tname, research_title, first_second, semester)\
@@ -59,12 +59,21 @@ exports.ChangeResearch="\
     tname = :tname, research_title = :research_title,\
     first_second = :first_second";
 
+exports.DeleteResearch="\
+    delete from research_student \
+    where student_id = :student_id and first_second = :first_second and semester = :semester";
+
+
 exports.SetResearchTitle="\
     update research_student set research_title = :new_title\
     where research_title = :research_title\
     and tname = :tname\
     and first_second = :first_second\
     and semester = :semester";
+
+exports.SetFirstSecond="\
+    update research_student set first_second = '1' \
+    where student_id = :student_id and first_second = '3'";
 
 exports.CreateResearchFile="\
     insert into research_file \

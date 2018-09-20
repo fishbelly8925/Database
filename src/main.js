@@ -183,11 +183,11 @@ var m = require('./msql.js');
 // 	console.log(JSON.parse(result));
 // }); // ShowTeacherResearchStudent(teacher_id, callback) 回傳某教授指定系級的專題生和專題題目，1表示本系生，0表示外系生
 
-m.ShowTeacherInfoResearchCnt(function(err, result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result)[8]);
-}); // ShowTeacherInfoResearchCnt(callback) 回傳所有教授各屆的學生人數
+// m.ShowTeacherInfoResearchCnt(function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result)[8]);
+// }); // ShowTeacherInfoResearchCnt(callback) 回傳所有教授各屆的學生人數
 
 // m.CreateMail({sender_id:'0516003', title:'test~~', receiver_id:'T9229', content:'這是一個測試信件這是一個測試信件'});
 // // CreateMail(data) data type 為JSON，新增一則信件，需有以上所有欄位
@@ -297,6 +297,9 @@ m.ShowTeacherInfoResearchCnt(function(err, result){
 // m.ChangeResearch({ student_id:'0516003', tname : '彭文志', research_title : 'testyeeeee', first_second:2, semester: '106-1'});
 // // 申請換專題，修改此學生專題資料
 
+// m.DeleteResearch({ student_id:'0516003', first_second:2, semester: '106-1'});
+// // 讓助理可以刪掉CPE未過但被教授同意的人的專題
+
 // m.CreateResearchFile({research_title:'名字呦>wO', tname:'教授喔Ow<', file_name:'檔名喔>w<', first_second:2, file_path:'路徑喔OwO', file_type:'型態喔OAO'});
 // 建立專題檔案路徑紀錄
 // {research_title, tname, file_name, file_path, file_type}
@@ -311,6 +314,9 @@ m.ShowTeacherInfoResearchCnt(function(err, result){
 // m.SetResearchTitle({research_title:'我是專題標題2~', tname:'彭文志', first_second:2, semester:'106-2', new_title:'New Title'});
 // 使用專題標題、老師名稱、專題一二、專題學期，編輯專題標題
 
+m.SetFirstSecond({ student_id:'0512204'});
+// CPE未通過申請專題 first_second = 3 助理確認CPE通過後可將 3 改為 1
+
 // m.ShowResearchScoreComment({semester: '106-2', first_second: 2}, function(err, result){
 // 	if(err)
 // 		throw err;
@@ -323,22 +329,22 @@ m.ShowTeacherInfoResearchCnt(function(err, result){
 // 	console.log(JSON.parse(result));
 // }); // 輸入學生學號，回傳該學生導師
 
-// m.ShowSemesterScore('0516075', function(err, result){
+// m.ShowSemesterScore('0513109', function(err, result){
 // 	if(err)
 // 		throw err;
-// 	console.log(JSON.parse(result));
+// 	console.log(JSON.parse(result)[3]);
 // }); // 輸入學生學號，回傳該學生每學期平均,有無被21,學期平均,各科成績
 
-// m.ShowStudentResearchStatus('0516003', function(err, result){
+// m.ShowStudentResearchStatus('0316100', function(err, result){
 //     if(err)
 //         throw err;
 // 	console.log(JSON.parse(result));
 // });// 輸入學生學號，回傳該學生填專題表時的狀況 
-// 1:代表專題1 (基礎程式設計已過) 
-// 2:代表專題2 (已修過專1成績為通過)
-// 3:代表 基礎程式設計成績待審核(還沒資料, 如果沒過之後會被取消) 
-// 4:代表重複提交(當學期只能有一個專題/專題申請表)
-// 5:代表 已修過專1專2的白目
+// // 1:代表專題1 (基礎程式設計已過) 
+// // 2:代表專題2 (已修過專1成績為通過)
+// // 3:代表 基礎程式設計成績待審核(還沒資料, 如果沒過之後會被取消) 
+// // 4:代表重複提交(當學期只能有一個專題/專題申請表)
+// // 5:代表 已修過專1專2的白目
 
 // m.ShowStudentResearchList({first_second:1, semester:'106-2'},function(err,result){
 // 	if(err)

@@ -102,6 +102,22 @@ module.exports = {
             });
         });
     }, 
+    DeleteResearch:function(data){
+        if(typeof(data) === 'string')
+            data=JSON.parse(data);
+        const resource=pool.acquire();
+        resource.then(function(c){
+            var sql_DeleteResearch=c.prepare(s.DeleteResearch);
+            c.query(sql_DeleteResearch(data), function(err){
+                if(err)
+                {
+                    pool.release(c);
+                    throw err;
+                }
+                pool.release(c);
+            });
+        });
+    }, 
     SetResearchTitle:function(data){
         if(typeof(data) === 'string')
             data=JSON.parse(data);
@@ -109,6 +125,19 @@ module.exports = {
         resource.then(function(c){
             var sql_SetResearchTitle=c.prepare(s.SetResearchTitle);
             c.query(sql_SetResearchTitle(data), function(err){
+                if(err)
+                    throw err;
+                pool.release(c);
+            });
+        });
+    }, 
+    SetFirstSecond:function(data){
+        if(typeof(data) === 'string')
+            data=JSON.parse(data);
+        const resource=pool.acquire();
+        resource.then(function(c){
+            var sql_SetFirstSecond=c.prepare(s.SetFirstSecond);
+            c.query(sql_SetFirstSecond(data), function(err){
                 if(err)
                     throw err;
                 pool.release(c);
