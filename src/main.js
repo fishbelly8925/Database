@@ -314,7 +314,11 @@ var m = require('./msql.js');
 // m.SetResearchTitle({research_title:'我是專題標題2~', tname:'彭文志', first_second:2, semester:'106-2', new_title:'New Title'});
 // 使用專題標題、老師名稱、專題一二、專題學期，編輯專題標題
 
-m.SetFirstSecond({ student_id:'0512204'});
+m.SetFirstSecond({student_id: '0512204'}, function(err, result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+}); 
 // CPE未通過申請專題 first_second = 3 助理確認CPE通過後可將 3 改為 1
 
 // m.ShowResearchScoreComment({semester: '106-2', first_second: 2}, function(err, result){
@@ -335,7 +339,7 @@ m.SetFirstSecond({ student_id:'0512204'});
 // 	console.log(JSON.parse(result)[3]);
 // }); // 輸入學生學號，回傳該學生每學期平均,有無被21,學期平均,各科成績
 
-// m.ShowStudentResearchStatus('0316100', function(err, result){
+// m.ShowStudentResearchStatus('0413328', function(err, result){
 //     if(err)
 //         throw err;
 // 	console.log(JSON.parse(result));
@@ -352,7 +356,7 @@ m.SetFirstSecond({ student_id:'0512204'});
 // 	console.log(JSON.parse(result));
 // }); // 回傳某學期的專題清單
 
-// m.SetResearchAddStatus({student_id: '0416201', research_title: 'Piano Finger Tracker - 偵測並記錄指法的智慧樂譜', semester: '106-2', first_second: 1, add_status: 0}, function(err, result){
+// m.SetResearchAddStatus({student_id: '0413328', research_title: 'Piano Finger Tracker - 偵測並記錄指法的智慧樂譜', semester: '106-2', first_second: 1, add_status: 0}, function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));

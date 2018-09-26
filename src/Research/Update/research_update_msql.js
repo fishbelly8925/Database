@@ -131,16 +131,21 @@ module.exports = {
             });
         });
     }, 
-    SetFirstSecond:function(data){
-        if(typeof(data) === 'string')
+    SetFirstSecond:function(data, callback){
+        if(typeof(data)==='string')
             data=JSON.parse(data);
         const resource=pool.acquire();
         resource.then(function(c){
             var sql_SetFirstSecond=c.prepare(s.SetFirstSecond);
-            c.query(sql_SetFirstSecond(data), function(err){
+            c.query(sql_SetFirstSecond(data), function(err, result){
                 if(err)
+                {
+                    callback(err, undefined);
+                    pool.release(c); 
                     throw err;
-                pool.release(c);
+                }
+                callback(null, JSON.stringify(result));
+                pool.release(c); 
             });
         });
     }, 
