@@ -297,8 +297,12 @@ var m = require('./msql.js');
 // m.ChangeResearch({ student_id:'0516003', tname : '彭文志', research_title : 'testyeeeee', first_second:2, semester: '106-1'});
 // // 申請換專題，修改此學生專題資料
 
-// m.DeleteResearch({ student_id:'0516003', first_second:2, semester: '106-1'});
-// // 讓助理可以刪掉CPE未過但被教授同意的人的專題
+m.DeleteResearch({ student_id:'0516003', first_second:2, semester: '106-1'}, function(err, result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+}); 
+// 讓助理可以刪掉CPE未過但被教授同意的人的專題
 
 // m.CreateResearchFile({research_title:'名字呦>wO', tname:'教授喔Ow<', file_name:'檔名喔>w<', first_second:2, file_path:'路徑喔OwO', file_type:'型態喔OAO'});
 // 建立專題檔案路徑紀錄
@@ -314,12 +318,12 @@ var m = require('./msql.js');
 // m.SetResearchTitle({research_title:'我是專題標題2~', tname:'彭文志', first_second:2, semester:'106-2', new_title:'New Title'});
 // 使用專題標題、老師名稱、專題一二、專題學期，編輯專題標題
 
-m.SetFirstSecond({student_id: '0512204'}, function(err, result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-}); 
-// CPE未通過申請專題 first_second = 3 助理確認CPE通過後可將 3 改為 1
+// m.SetFirstSecond({student_id: '0512204'}, function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); 
+// // CPE未通過申請專題 first_second = 3 助理確認CPE通過後可將 3 改為 1
 
 // m.ShowResearchScoreComment({semester: '106-2', first_second: 2}, function(err, result){
 // 	if(err)

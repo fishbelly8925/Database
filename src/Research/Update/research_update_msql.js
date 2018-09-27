@@ -102,22 +102,24 @@ module.exports = {
             });
         });
     }, 
-    DeleteResearch:function(data){
-        if(typeof(data) === 'string')
+    DeleteResearch:function(data, callback){
+        if(typeof(data)==='string')
             data=JSON.parse(data);
         const resource=pool.acquire();
         resource.then(function(c){
             var sql_DeleteResearch=c.prepare(s.DeleteResearch);
-            c.query(sql_DeleteResearch(data), function(err){
+            c.query(sql_DeleteResearch(data), function(err, result){
                 if(err)
                 {
-                    pool.release(c);
+                    callback(err, undefined);
+                    pool.release(c); 
                     throw err;
                 }
-                pool.release(c);
+                callback(null, JSON.stringify(result));
+                pool.release(c); 
             });
         });
-    }, 
+    },
     SetResearchTitle:function(data){
         if(typeof(data) === 'string')
             data=JSON.parse(data);
