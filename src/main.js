@@ -59,7 +59,7 @@ var m = require('./msql.js');
 // 	   console.log(JSON.parse(result));
 // }); // ShowGraduateRule 列出此學生畢業標準
 
-// m.ShowUserOffset('0516003', function(err, result){
+// m.ShowUserOffset('0516205', function(err, result){
 //     if(err)
 //         throw err;
 // 	   console.log(JSON.parse(result));
@@ -376,7 +376,7 @@ var m = require('./msql.js');
 // 	cos_dep_old: '應數系',
 // 	cos_tname_old: 'YEEEEEEE',
 // 	cos_cname_old: 'YAAAAAAA',
-// 	cos_code_old:  'YOOOOOOO',
+// 	cos_code_old:  'YOOOOOOOR',
 // 	cos_cname: '生涯規劃及導師時間',
 // 	cos_code: 'DCP1200',
 // 	cos_type: '必修',
@@ -420,6 +420,15 @@ var m = require('./msql.js');
 // 		throw err;
 // 	console.log(JSON.parse(result));
 // }); // create offset
+
+
+// data1 = {student_id: '0516003'} // return single student offset apply form
+// data2 = {all_student: true} // return all student offset apply form
+// m.ShowUserOffsetApplyForm(data2,function(err,result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// });
 
 
 m.Drain(); // 關閉 connection pool

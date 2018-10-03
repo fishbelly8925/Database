@@ -450,3 +450,12 @@ exports.ShowSemesterScore = "\
     where cd.unique_id = concat(s.cos_year, '-', s.semester, '-', s.cos_id)\
     group by concat(s.cos_year,'-',s.semester)\
     ";
+
+exports.ShowUserOffsetApplyFormSingle = "\
+    select *\
+    from offset_apply_form\
+    where student_id = :student_id";
+
+exports.ShowUserOffsetApplyFormAll = "\
+    select *\
+    from offset_apply_form";
