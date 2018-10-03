@@ -59,7 +59,7 @@ var m = require('./msql.js');
 // 	   console.log(JSON.parse(result));
 // }); // ShowGraduateRule 列出此學生畢業標準
 
-// m.ShowUserOffset('0516205', function(err, result){
+// m.ShowUserOffset('0516003', function(err, result){
 //     if(err)
 //         throw err;
 // 	   console.log(JSON.parse(result));
@@ -297,12 +297,12 @@ var m = require('./msql.js');
 // m.ChangeResearch({ student_id:'0516003', tname : '彭文志', research_title : 'testyeeeee', first_second:2, semester: '106-1'});
 // // 申請換專題，修改此學生專題資料
 
-m.DeleteResearch({ student_id:'0516003', first_second:2, semester: '106-1'}, function(err, result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-}); 
-// 讓助理可以刪掉CPE未過但被教授同意的人的專題
+// m.DeleteResearch({ student_id:'0516003', first_second:2, semester: '106-1'}, function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); 
+// // 讓助理可以刪掉CPE未過但被教授同意的人的專題
 
 // m.CreateResearchFile({research_title:'名字呦>wO', tname:'教授喔Ow<', file_name:'檔名喔>w<', first_second:2, file_path:'路徑喔OwO', file_type:'型態喔OAO'});
 // 建立專題檔案路徑紀錄
@@ -366,5 +366,60 @@ m.DeleteResearch({ student_id:'0516003', first_second:2, semester: '106-1'}, fun
 // 	console.log(JSON.parse(result));
 // }); 
 // // 修改專題資料的 add_status, 0代表尚未加選 1代表已加選
+
+
+// data = {
+// 	student_id: '0516004',
+// 	phone: '0123456789',
+// 	apply_year: '107',
+// 	apply_semester: '1',
+// 	cos_dep_old: '應數系',
+// 	cos_tname_old: 'YEEEEEEE',
+// 	cos_cname_old: 'YAAAAAAA',
+// 	cos_code_old:  'YOOOOOOO',
+// 	cos_cname: '生涯規劃及導師時間',
+// 	cos_code: 'DCP1200',
+// 	cos_type: '必修',
+// 	credit: 0,
+// 	reason: 'YAAAA YOOOO YEEEE'
+// };
+// m.CreateOffsetApplyForm(data,function(err,result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); // 	建立課程抵免申請單，回傳對DB造成的info
+
+
+// data = {
+// 	student_id: '0516004',
+// 	cos_cname_old: 'YAAAAAAA',
+// 	cos_code_old:  'YOOOOOOO'
+// }
+// m.DeleteOffsetApplyForm(data,function(err,result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); // delete offset apply form
+
+
+// data = {
+// 	student_id: '0516003',
+// 	apply_year: '107',
+// 	apply_semester: '1',
+// 	cos_code_old: 'YOOOOOOO',
+// 	cos_cname_old:'YAAAAAAA',
+// 	cos_code: 'DCP1200',
+// 	cos_cname: '生涯規劃及導師時間',
+// 	credit: 0,
+// 	offset_type: '免修',
+// 	brief: null,
+// 	cos_type: '必修'
+// }
+// m.CreateOffset(data,function(err,result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); // create offset
+
 
 m.Drain(); // 關閉 connection pool

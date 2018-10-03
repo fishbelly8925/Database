@@ -42,5 +42,55 @@ module.exports = {
                     pool.release(c);
                 });
         });
+    },
+    CreateOffsetApplyForm(data,callback){
+        const resource = pool.acquire();
+        resource.then(function(c){
+            var sql_CreateOffsetApplyForm = c.prepare(s.CreateOffsetApplyForm);
+            var sql_SetUserPhone = c.prepare(s.SetUserPhone);
+            c.query(sql_CreateOffsetApplyForm(data),function(err,result){
+                if(err){
+                    callback(err, undefined);
+                    pool.release(c);
+                    return;
+                }
+                c.query(sql_SetUserPhone(data),function(err,result2){
+                    if(err){
+                        callback(err, undefined);
+                        pool.release(c);
+                        return;
+                    }
+                    callback(null, JSON.stringify(result));
+                })
+            });
+        });
+    },
+    DeleteOffsetApplyForm(data,callback){
+        const resource = pool.acquire();
+        resource.then(function(c){
+            var sql_DeleteOffsetApplyForm = c.prepare(s.DeleteOffsetApplyForm);
+            c.query(sql_DeleteOffsetApplyForm(data),function(err,result){
+                if(err){
+                    callback(err, undefined);
+                    pool.release(c);
+                    return;
+                }
+                callback(null, JSON.stringify(result));
+            });
+        });
+    },
+    CreateOffset(data,callback){
+        const resource = pool.acquire();
+        resource.then(function(c){
+            var sql_CreateOffset = c.prepare(s.CreateOffset);
+            c.query(sql_CreateOffset(data),function(err,result){
+                if(err){
+                    callback(err, undefined);
+                    pool.release(c);
+                    return;
+                }
+                callback(null, JSON.stringify(result));
+            });
+        });
     }
 }
