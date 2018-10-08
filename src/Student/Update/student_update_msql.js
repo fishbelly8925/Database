@@ -92,5 +92,30 @@ module.exports = {
                 callback(null, JSON.stringify(result));
             });
         });
+    },
+    SetOffsetApplyFormAggreStatus(data,callback){
+        const resource = pool.acquire();
+        resource.then(function(c){
+            var sql_SetOffsetApplyFormAggreTStatus = c.prepare(s.SetOffsetApplyFormAggreTStatus)
+            var sql_SetOffsetApplyFormAggreAStatus = c.prepare(s.SetOffsetApplyFormAggreAStatus)
+            if(data['person']=='T')
+                c.query(sql_SetOffsetApplyFormAggreTStatus(data),function(err,result){
+                    if(err){
+                        callback(err, undefined);
+                        pool.release(c);
+                        return;
+                    }
+                    callback(null, JSON.stringify(result));
+                });
+            else if(data['person']=='A')
+                c.query(sql_SetOffsetApplyFormAggreAStatus(data),function(err,result){
+                    if(err){
+                        callback(err, undefined);
+                        pool.release(c);
+                        return;
+                    }
+                    callback(null, JSON.stringify(result));
+                });
+        });
     }
 }

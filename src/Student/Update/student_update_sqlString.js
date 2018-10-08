@@ -24,9 +24,13 @@ exports.SetUserPhone = "\
 
 exports.CreateOffsetApplyForm = "\
     insert into offset_apply_form\
-    values(:student_id, :apply_year, :apply_semester, :cos_dep_old,\
+    select distinct :student_id, :apply_year, :apply_semester, :cos_dep_old,\
         :cos_tname_old, :cos_cname_old, :cos_code_old, :cos_cname,\
-        :cos_code, :cos_type, :credit, :reason)";
+        :cos_code, :cos_type, c.cos_credit, :reason, 0, 0\
+    from cos_data as c,cos_name as n\
+    where c.cos_code=:cos_code\
+    and c.cos_code=n.cos_code\
+    and n.cos_cname=:cos_cname";
 
 exports.DeleteOffsetApplyForm = "\
     delete from offset_apply_form\
@@ -37,5 +41,19 @@ exports.DeleteOffsetApplyForm = "\
 exports.CreateOffset = "\
     insert into offset\
     values(:student_id, :apply_year, :apply_semester, :cos_code_old,\
-        :cos_cname_old, :cos_code, :cos_cname, :credit, :offset_type,\
-        :brief, :cos_type)";
+        :cos_cname_old, :cos_code, :cos_cname, :credit, '免修',\
+        NULL, :cos_type)";
+
+exports.SetOffsetApplyFormAggreTStatus = "\
+    update offset_apply_form\
+    set agreeByT = :state\
+    where student_id = :student_id\
+    and cos_cname_old = :cos_cname_old\
+    and cos_code_old = :cos_code_old";
+
+exports.SetOffsetApplyFormAggreAStatus = "\
+    update offset_apply_form\
+    set agreeByA = :state\
+    where student_id = :student_id\
+    and cos_cname_old = :cos_cname_old\
+    and cos_code_old = :cos_code_old";

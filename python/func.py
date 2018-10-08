@@ -69,12 +69,13 @@ def findAllStudent_byGrades():
     return res
 
 def changeScore(s):
-    a=s-60
-    if a<0:
-        return 0
-    elif a==40:
-        return 4
-    return int(a/10+1)
+    return s
+    # a=s-60
+    # if a<0:
+    #     return 0
+    # elif a==40:
+    #     return 4
+    # return int(a/10+1)
 
 def findGrades(stds,cos):
     cursor=conn.cursor()
@@ -122,7 +123,9 @@ def predict(sim,grads):
         if np.isnan(mean[std_idx]):
             continue
         for cos_idx in range(cos_num):
-            if ~np.isnan(grads[std_idx][cos_idx]):
+            # if ~np.isnan(grads[std_idx][cos_idx]):
+            #     continue
+            if grads[std_idx][cos_idx]!=0:
                 continue
             r=grads[:,cos_idx]-mean
             s=sim[std_idx]*r
@@ -147,8 +150,8 @@ def generate(cos,pred,num):
             if dup>0: # skip this time since the previous duplicate coses which have same predict value
                 dup-=1
                 continue
-            if sorted_pred[i][j]==0:  # if the predict value is zero, then we stop since it doesn't worth to be recommended
-                break
+            # if sorted_pred[i][j]==0:  # if the predict value is zero, then we stop since it doesn't worth to be recommended
+            #     break
             end=np.where(pred[i]==sorted_pred[i][j])[0]
             dup=len(end)-1
             for k in end: # if more than one coses have same predict value, we use loop to add them and set variable dup

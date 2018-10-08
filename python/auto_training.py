@@ -8,7 +8,7 @@ import numpy as np
 
 # Hyper parameter
 MIN_COS_NUM = 0
-EPOCH = 200
+EPOCH = 100
 ITER_TIMES = 5
 BATCH_SIZE = 30
 LR = 0.0001
@@ -74,5 +74,7 @@ if __name__ == '__main__':
 				b_y = b_x
 				b_x = decoded
 		print('Epoch ',epoch,' | train_lose: {0:4f}'.format(total_loss/ITER_TIMES/loader_len))
+		if epoch%5==1:
+			torch.save(autoencoder,'net2.pkl')
 
-	torch.save(autoencoder,'net.pkl')
+	torch.save(autoencoder,'net2.pkl')

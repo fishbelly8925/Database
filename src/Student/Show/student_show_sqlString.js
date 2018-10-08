@@ -452,10 +452,12 @@ exports.ShowSemesterScore = "\
     ";
 
 exports.ShowUserOffsetApplyFormSingle = "\
-    select *\
-    from offset_apply_form\
-    where student_id = :student_id";
+    select o.*,s.sname,s.phone\
+    from offset_apply_form as o,student as s\
+    where o.student_id = :student_id\
+    and o.student_id = s.student_id";
 
 exports.ShowUserOffsetApplyFormAll = "\
-    select *\
-    from offset_apply_form";
+    select o.*,s.sname,s.phone\
+    from offset_apply_form as o,student as s\
+    where o.student_id = s.student_id";
