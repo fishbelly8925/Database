@@ -177,11 +177,11 @@ var m = require('./msql.js');
 // // 	console.log(JSON.parse(result));
 // }); // ShowRecommendCos(student_id, callback) 回傳某學生的推薦課程
 
-// m.ShowGradeTeacherResearchStudent('T0616', '',function(err, result){
-// 	if(err)
-// 		throw err;
-// 	console.log(JSON.parse(result));
-// }); // ShowTeacherResearchStudent(teacher_id, callback) 回傳某教授指定系級的專題生和專題題目，1表示本系生，0表示外系生
+m.ShowGradeTeacherResearchStudent('T0409','',function(err, result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+}); // ShowTeacherResearchStudent(teacher_id, callback) 回傳某教授指定系級的專題生和專題題目，1表示本系生，0表示外系生
 
 // m.ShowTeacherInfoResearchCnt(function(err, result){
 // 	if(err)

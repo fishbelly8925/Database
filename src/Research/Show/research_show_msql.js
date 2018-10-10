@@ -31,8 +31,8 @@ module.exports = {
                         idx=result.length;
                         break;
                     }
-                    if(year-parseInt(result[idx]['student_id'].substring(0, 2))>2)
-                        break
+                    // if(year-parseInt(result[idx]['student_id'].substring(0, 2))>2)
+                    //     break
                 }
                 callback(null, JSON.stringify(result.slice(0, idx)));
                 pool.release(c);
