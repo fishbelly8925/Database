@@ -24,9 +24,9 @@ exports.SetUserPhone = "\
 
 exports.CreateOffsetApplyForm = "\
     insert into offset_apply_form\
-    select distinct :student_id, :apply_year, :apply_semester, :cos_dep_old,\
+    select :student_id, :apply_year, :apply_semester, :cos_dep_old,\
         :cos_tname_old, :cos_cname_old, :cos_code_old, :cos_cname,\
-        :cos_code, :cos_type, c.cos_credit, :reason, 0, 0\
+        :cos_code, :cos_type, MIN(c.cos_credit), :reason, 0, 0\
     from cos_data as c,cos_name as n\
     where c.cos_code=:cos_code\
     and c.cos_code=n.cos_code\

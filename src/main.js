@@ -177,11 +177,11 @@ var m = require('./msql.js');
 // // 	console.log(JSON.parse(result));
 // }); // ShowRecommendCos(student_id, callback) 回傳某學生的推薦課程
 
-m.ShowGradeTeacherResearchStudent('T0409','',function(err, result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-}); // ShowTeacherResearchStudent(teacher_id, callback) 回傳某教授指定系級的專題生和專題題目，1表示本系生，0表示外系生
+// m.ShowGradeTeacherResearchStudent('T0409','',function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); // ShowTeacherResearchStudent(teacher_id, callback) 回傳某教授指定系級的專題生和專題題目，1表示本系生，0表示外系生
 
 // m.ShowTeacherInfoResearchCnt(function(err, result){
 // 	if(err)
@@ -368,26 +368,25 @@ m.ShowGradeTeacherResearchStudent('T0409','',function(err, result){
 // // 修改專題資料的 add_status, 0代表尚未加選 1代表已加選
 
 
-// data = {
-// 	student_id: '0516003',
-// 	phone: '0123456789',
-// 	apply_year: '107',
-// 	apply_semester: '1',
-// 	cos_dep_old: '電子系',
-// 	cos_tname_old: '桑梓賢',
-// 	cos_cname_old: '線性代數',
-// 	cos_code_old:  'DEE1313',
-// 	cos_cname: '線性代數',
-// 	cos_code: 'DCP2354',
-// 	cos_type: '必修',
-// 	credit: 0,
-// 	reason: 'YAAAA YOOOO YEEEE'
-// };
-// m.CreateOffsetApplyForm(data,function(err,result){
-// 	if(err)
-// 		throw err;
-// 	console.log(JSON.parse(result));
-// }); // 	建立課程抵免申請單，回傳對DB造成的info
+data = {
+	student_id: '0516003',
+	phone: '0123456789',
+	apply_year: '107',
+	apply_semester: '1',
+	cos_dep_old: '電子系',
+	cos_tname_old: '桑梓賢',
+	cos_cname_old: '線性代數',
+	cos_code_old:  'DEE1313',
+	cos_cname: '線性代數',
+	cos_code: 'DCP2354',
+	cos_type: '必修',
+	reason: 'YAAAA YOOOO YEEEE'
+};
+m.CreateOffsetApplyForm(data,function(err,result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+}); // 	建立課程抵免申請單，回傳對DB造成的info
 
 
 // data = {
