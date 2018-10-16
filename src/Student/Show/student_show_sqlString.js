@@ -461,3 +461,8 @@ exports.ShowUserOffsetApplyFormAll = "\
     select o.*,s.sname,s.phone\
     from offset_apply_form as o,student as s\
     where o.student_id = s.student_id";
+
+exports.ShowGivenGradeStudent = "\
+    select sname, student_id, program, graduate\
+    from student\
+    where grade = :grade";

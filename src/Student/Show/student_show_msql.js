@@ -104,23 +104,6 @@ module.exports = {
             })
         }
     }, 
-    // Old version
-    // ShowUserAllScore: function(id, callback) {
-    //     const resource = pool.acquire();
-    //     resource.then(function(c) {
-    //         var sql_ShowUserAllScore = c.prepare(s.ShowUserAllScore);
-    //         var year = '1' + id[0] + id[1];
-    //         c.query(sql_ShowUserAllScore({ id: id, year: year }), function(err, result) {
-    //             if (err){
-    //                 callback(err, undefined);
-    //                 pool.release(c);
-    //                 return;
-    //             }
-    //             callback(null, JSON.stringify(result));
-    //             pool.release(c);
-    //         })
-    //     })
-    // },
     ShowUserAllScore: function(id, callback) {
         const resource = pool.acquire();
         resource.then(function(c) {
@@ -440,5 +423,21 @@ module.exports = {
                     callback(null, JSON.stringify(result));
                 });
         });
+    },
+    ShowGivenGradeStudent: function(data, callback){
+        const resource=pool.acquire();
+        resource.then(function(c) {
+            var sql_ShowGivenGradeStudent = c.prepare(s.ShowGivenGradeStudent);
+            c.query(sql_ShowGivenGradeStudent(data), function(err, result){
+                if(err)
+                {
+                    callback(err, undefined);
+                    pool.release(c);
+                    return ;
+                }
+                callback(null, JSON.stringify(result));
+                pool.release(c);
+            });
+        })
     }
 }
