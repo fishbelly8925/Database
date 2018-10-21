@@ -375,12 +375,13 @@ var m = require('./msql.js');
 // 	apply_semester: '1',
 // 	cos_dep_old: '電子系',
 // 	cos_tname_old: '桑梓賢',
-// 	cos_cname_old: '線性代數',
-// 	cos_code_old:  'DEE1313',
+// 	cos_cname_old: '線性',
+// 	cos_code_old:  'DEC1413',
 // 	cos_cname: '線性代數',
 // 	cos_code: 'DCP2354',
 // 	cos_type: '必修',
-// 	reason: 'YAAAA YOOOO YEEEE'
+// 	reason: 'YAAAA YOOOO YEEEE',
+// 	credit_old: 3
 // };
 // m.CreateOffsetApplyForm(data,function(err,result){
 // 	if(err)
@@ -419,7 +420,7 @@ var m = require('./msql.js');
 // }); // create offset
 
 
-// data1 = {student_id: '0516004'} // return single student offset apply form
+// data1 = {student_id: '0516003'} // return single student offset apply form
 // data2 = {all_student: true} // return all student offset apply form
 // m.ShowUserOffsetApplyForm(data2,function(err,result){
 // 	if(err)
@@ -428,11 +429,10 @@ var m = require('./msql.js');
 // });
 
 // data = {
-// 	student_id: '0516004',
-// 	cos_cname_old: 'YAAAAAAA',
-// 	cos_code_old:  'YOOOOOOOR',
-// 	person: 'A', //T:系主任, A:助理
-// 	state: 1 // 0:尚未決定, 1:同意, 2:不同意
+// 	student_id: '0516002',
+// 	cos_cname_old: '線性代數',
+// 	cos_code_old:  'DEE1313',
+// 	state: 1 // 0 尚未決定，1 助理同意，2 主任同意，3 助理不同意，4 主任不同意
 // }
 // m.SetOffsetApplyFormAggreStatus(data,function(err,result){
 // 	if(err)
@@ -440,11 +440,13 @@ var m = require('./msql.js');
 // 	console.log(JSON.parse(result));
 // });
 
-m.ShowGivenGradeStudent({grade: '一'}, function(err, result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result))
-});
-// 輸入一二三四，顯示某年級所有學生 
+// m.ShowGivenGradeStudent({grade: '一'}, function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result))
+// });
+// // 輸入一二三四，顯示某年級所有學生 
+
+
 
 m.Drain(); // 關閉 connection pool

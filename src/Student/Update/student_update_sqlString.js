@@ -26,7 +26,7 @@ exports.CreateOffsetApplyForm = "\
     insert into offset_apply_form\
     select :student_id, :apply_year, :apply_semester, :cos_dep_old,\
         :cos_tname_old, :cos_cname_old, :cos_code_old, :cos_cname,\
-        :cos_code, :cos_type, MIN(c.cos_credit), :reason, 0, 0\
+        :cos_code, :cos_type, MIN(c.cos_credit), :reason, 0, :credit_old\
     from cos_data as c,cos_name as n\
     where c.cos_code=:cos_code\
     and c.cos_code=n.cos_code\
@@ -44,16 +44,9 @@ exports.CreateOffset = "\
         :cos_cname_old, :cos_code, :cos_cname, :credit, '免修',\
         NULL, :cos_type)";
 
-exports.SetOffsetApplyFormAggreTStatus = "\
+exports.SetOffsetApplyFormAggreStatus = "\
     update offset_apply_form\
-    set agreeByT = :state\
-    where student_id = :student_id\
-    and cos_cname_old = :cos_cname_old\
-    and cos_code_old = :cos_code_old";
-
-exports.SetOffsetApplyFormAggreAStatus = "\
-    update offset_apply_form\
-    set agreeByA = :state\
+    set agree = :state\
     where student_id = :student_id\
     and cos_cname_old = :cos_cname_old\
     and cos_code_old = :cos_code_old";

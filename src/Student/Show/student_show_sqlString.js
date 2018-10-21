@@ -452,15 +452,65 @@ exports.ShowSemesterScore = "\
     ";
 
 exports.ShowUserOffsetApplyFormSingle = "\
-    select o.*,s.sname,s.phone\
-    from offset_apply_form as o,student as s\
-    where o.student_id = :student_id\
-    and o.student_id = s.student_id";
+    select body.*,if(pre.previous=1,1,0) as previous\
+    from\
+    (\
+        select o.*,s.sname,s.phone\
+        from offset_apply_form as o,student as s\
+        where o.student_id = :student_id\
+        and o.student_id = s.student_id\
+    ) as body\
+    left outer join\
+    (\
+        select o.cos_cname_old, o.cos_code_old, 1 as previous\
+        from offset_apply_form as o\
+        where \
+        o.cos_cname_old in\
+        (\
+            select cos_cname_old\
+            from offset_apply_form\
+            where agree = 1 or agree = 2\
+        )\
+        and o.cos_code_old in\
+        (\
+            select cos_code_old\
+            from offset_apply_form\
+            where agree = 1 or agree = 2\
+        )\
+        group by cos_cname_old, cos_code_old\
+    ) as pre\
+    on pre.cos_cname_old = body.cos_cname_old\
+    and pre.cos_code_old = body.cos_code_old";
 
 exports.ShowUserOffsetApplyFormAll = "\
-    select o.*,s.sname,s.phone\
-    from offset_apply_form as o,student as s\
-    where o.student_id = s.student_id";
+    select body.*,if(pre.previous=1,1,0) as previous\
+    from\
+    (\
+        select o.*,s.sname,s.phone\
+        from offset_apply_form as o,student as s\
+        where o.student_id = s.student_id\
+    ) as body\
+    left outer join\
+    (\
+        select o.cos_cname_old, o.cos_code_old, 1 as previous\
+        from offset_apply_form as o\
+        where \
+        o.cos_cname_old in\
+        (\
+            select cos_cname_old\
+            from offset_apply_form\
+            where agree = 1 or agree = 2\
+        )\
+        and o.cos_code_old in\
+        (\
+            select cos_code_old\
+            from offset_apply_form\
+            where agree = 1 or agree = 2\
+        )\
+        group by cos_cname_old, cos_code_old\
+    ) as pre\
+    on pre.cos_cname_old = body.cos_cname_old\
+    and pre.cos_code_old = body.cos_code_old";
 
 exports.ShowGivenGradeStudent = "\
     select sname, student_id, program, graduate\
