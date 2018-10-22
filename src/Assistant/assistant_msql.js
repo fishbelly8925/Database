@@ -30,11 +30,11 @@ module.exports = {
             })
         })
     }, 
-    SetGraduateSubmitStatus: function(id, graduate_submit) {
+    SetGraduateSubmitStatus: function(id, graduate_submit,submit_type) {
         const resource = pool.acquire();
         resource.then(function(c) {
             var sql_SetGraduateSubmitStatus = c.prepare(s.SetGraduateSubmitStatus);
-            c.query(sql_SetGraduateSubmitStatus({ id: id, graduate_submit: graduate_submit }), function(err) {
+            c.query(sql_SetGraduateSubmitStatus({ id: id, graduate_submit: graduate_submit,submit_type }), function(err) {
                 if (err)
                     throw err;
                 pool.release(c);

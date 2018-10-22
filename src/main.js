@@ -77,7 +77,7 @@ var m = require('./msql.js');
 // 	console.log(JSON.parse(result));
 // }); // general_cos_rule 外系通識規則
 
-// m.ShowGraduateStudentList('05', function(err, result){
+// m.ShowGraduateStudentList('04', function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
@@ -94,8 +94,8 @@ var m = require('./msql.js');
 // m.SetStudentGraduateStatus('0516003', 1);
 // // SetStudentGraduateStatus 設定某學生的畢業狀態(1可畢業, 0不可畢業)（助理端用）
 
-// m.SetGraduateSubmitStatus('0516003', 1);
-// // SetGraduateSubmitStatus 設定某學生的畢業預審確認狀態(1可畢業, 0不可畢業)
+m.SetGraduateSubmitStatus('0316248', 1, 0);
+// SetGraduateSubmitStatus 設定某學生的畢業預審確認狀態(0未送審, 1送審中, 2審核通過, 3審核不通過)
 
 // m.SetUserOAuth('0516003', '456', 3);
 // // SetUserOAuth   1:set gmail   2:set fb_id   3:set github_id
