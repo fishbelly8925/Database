@@ -440,12 +440,12 @@ var m = require('./msql.js');
 // 	console.log(JSON.parse(result));
 // });
 
-// m.ShowGivenGradeStudent({grade: '一'}, function(err, result){
-// 	if(err)
-// 		throw err;
-// 	console.log(JSON.parse(result))
-// });
-// // 輸入一二三四，顯示某年級所有學生 
+m.ShowGivenGradeStudent({grade: '一'}, function(err, result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result))
+});
+// 輸入一二三四，顯示某年級所有學生,1表示本系生，0表示外系生
 
 
 
