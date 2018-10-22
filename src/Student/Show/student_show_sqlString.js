@@ -513,6 +513,7 @@ exports.ShowUserOffsetApplyFormAll = "\
     and pre.cos_code_old = body.cos_code_old";
 
 exports.ShowGivenGradeStudent = "\
-    select sname, student_id, program, graduate\
+    select sname, student_id, program, graduate,\
+    if(substring(program,1,2)='資工' or substring(program,1,2)='網多' or substring(program,1,2)='資電',1,0) as status\
     from student\
     where grade = :grade";
