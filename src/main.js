@@ -59,11 +59,11 @@ var m = require('./msql.js');
 // 	   console.log(JSON.parse(result));
 // }); // ShowGraduateRule 列出此學生畢業標準
 
-// m.ShowUserOffset('0516205', function(err, result){
-//     if(err)
-//         throw err;
-// 	   console.log(JSON.parse(result));
-// }); // ShowUserOffset 個人抵免資料 (輸入all顯示全部)
+m.ShowUserOffset('0516212', function(err, result){
+    if(err)
+        throw err;
+	   console.log(JSON.parse(result));
+}); // ShowUserOffset 個人抵免資料 (輸入all顯示全部)
 
 // m.ShowUserOnCos('0316067', function(err, result){
 // 	if(err)
@@ -86,15 +86,15 @@ var m = require('./msql.js');
 // m.SetEnCertificate('0516003', 1);
 // SetEnCertificate 設定某學生的英檢狀態
 // 通過外語榮譽學分(英語)抵免 → 免修 -> 1
-// 通過英檢免試申請 → 一學分都不能底！ 可以修二外當進階英文 -> 2
-// 通過英檢中高級初試(本校團測場次)　→ 一學分都不能底！ 可以修二外當進階英文 -> 3
-// 自行報考通過 → 一學分都不能底！ 可以修二外當進階英文 -> 4
+// 通過英檢免試申請(換修) → 一學分都不能底！ 可以修二外當大一英文或進階英文 -> 2
+// 通過英檢中高級初試(本校團測場次)　→ 一學分都不能底！ 可以修二外當大一英文或進階英文 -> 3
+// 自行報考通過 → 一學分都不能底！ 可以修二外當大一英文或進階英文 -> 4
 // NULL → 英文一定要修滿八學分 不能用二外抵 -> 0
 
 // m.SetStudentGraduateStatus('0516003', 1);
 // // SetStudentGraduateStatus 設定某學生的畢業狀態(1可畢業, 0不可畢業)（助理端用）
 
-m.SetGraduateSubmitStatus('0316248', 1, 0);
+// m.SetGraduateSubmitStatus('0316248', 1, 0);
 // SetGraduateSubmitStatus 設定某學生的畢業預審確認狀態(0未送審, 1送審中, 2審核通過, 3審核不通過)
 
 // m.SetUserOAuth('0516003', '456', 3);
@@ -440,11 +440,11 @@ m.SetGraduateSubmitStatus('0316248', 1, 0);
 // 	console.log(JSON.parse(result));
 // });
 
-m.ShowGivenGradeStudent({grade: '一'}, function(err, result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result))
-});
+// m.ShowGivenGradeStudent({grade: '一'}, function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result))
+// });
 // 輸入一二三四，顯示某年級所有學生,1表示本系生，0表示外系生
 
 

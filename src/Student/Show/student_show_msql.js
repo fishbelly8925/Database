@@ -17,6 +17,23 @@ function parseEng(cos){
     return cos;
 }
 
+function parseOffsetCos(cos){
+    // parse cos_cname blank and parentheses
+    if(cos.indexOf('（') > -1){
+        let index = cos.indexOf('（')
+        cos = cos.substring(0, index) + '(' + cos.substring(index+1);
+    }
+    if(cos.indexOf('）') > -1){
+        let index = cos.indexOf('）')
+        cos = cos.substring(0, index) + ')' + cos.substring(index+1);
+    }
+    while(cos.indexOf(' ') != -1){
+        let index = cos.indexOf(' ')
+        cos = cos.substring(0, index) + cos.substring(index+1);
+    }
+    return cos;
+}
+
 module.exports = {
 	ShowUserInfo: function(id, callback) {
         if (id.match(/^[0-9].*/g)) {
@@ -280,6 +297,10 @@ module.exports = {
                         pool.release(c);
                         return;
                     }
+                    for(let i in result){
+                        if(typeof(result[i]['cos_cname'])==='string')
+                            result[i]['cos_cname'] = parseOffsetCos(result[i]['cos_cname']);
+                    }
                     callback(null, JSON.stringify(result));
                     pool.release(c);
                 });
@@ -290,6 +311,10 @@ module.exports = {
                         callback(err, undefined);
                         pool.release(c);
                         return;
+                    }
+                    for(let i in result){
+                        if(typeof(result[i]['cos_cname'])==='string')
+                            result[i]['cos_cname'] = parseOffsetCos(result[i]['cos_cname']);
                     }
                     callback(null, JSON.stringify(result));
                     pool.release(c);
