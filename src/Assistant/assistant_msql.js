@@ -29,17 +29,24 @@ module.exports = {
                 pool.release(c);
             })
         })
-    }, 
-    SetGraduateSubmitStatus: function(id, graduate_submit,submit_type) {
-        const resource = pool.acquire();
-        resource.then(function(c) {
-            var sql_SetGraduateSubmitStatus = c.prepare(s.SetGraduateSubmitStatus);
-            c.query(sql_SetGraduateSubmitStatus({ id: id, graduate_submit: graduate_submit,submit_type }), function(err) {
-                if (err)
+    },
+    SetGraduateSubmitStatus:function(data, callback){
+        if(typeof(data)==='string')
+            data=JSON.parse(data);
+        const resource=pool.acquire();
+        resource.then(function(c){
+            var sql_SetGraduateSubmitStatus=c.prepare(s.SetGraduateSubmitStatus);
+            c.query(sql_SetGraduateSubmitStatus(data), function(err, result){
+                if(err)
+                {
+                    callback(err, undefined);
+                    pool.release(c); 
                     throw err;
-                pool.release(c);
-            })
-        })
+                }
+                callback(null, JSON.stringify(result));
+                pool.release(c); 
+            });
+        });
     },
     Drain: function() {
         pool.drain().then(function() {

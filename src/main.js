@@ -59,11 +59,11 @@ var m = require('./msql.js');
 // 	   console.log(JSON.parse(result));
 // }); // ShowGraduateRule 列出此學生畢業標準
 
-m.ShowUserOffset('0516212', function(err, result){
-    if(err)
-        throw err;
-	   console.log(JSON.parse(result));
-}); // ShowUserOffset 個人抵免資料 (輸入all顯示全部)
+// m.ShowUserOffset('0516212', function(err, result){
+//     if(err)
+//         throw err;
+// 	   console.log(JSON.parse(result));
+// }); // ShowUserOffset 個人抵免資料 (輸入all顯示全部)
 
 // m.ShowUserOnCos('0316067', function(err, result){
 // 	if(err)
@@ -94,8 +94,13 @@ m.ShowUserOffset('0516212', function(err, result){
 // m.SetStudentGraduateStatus('0516003', 1);
 // // SetStudentGraduateStatus 設定某學生的畢業狀態(1可畢業, 0不可畢業)（助理端用）
 
-// m.SetGraduateSubmitStatus('0316248', 1, 0);
-// SetGraduateSubmitStatus 設定某學生的畢業預審確認狀態(0未送審, 1送審中, 2審核通過, 3審核不通過)
+
+m.SetGraduateSubmitStatus({id:'0512204',graduate_submit:0,submit_type: 1},function(err,result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+});
+// SetGraduateSubmitStatus 設定某學生的畢業預審確認狀態(0未送審, 1送審中, 2審核通過, 3審核不通過)(0舊制,1 新制,其他 不變更)
 
 // m.SetUserOAuth('0516003', '456', 3);
 // // SetUserOAuth   1:set gmail   2:set fb_id   3:set github_id
