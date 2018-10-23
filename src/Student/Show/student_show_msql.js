@@ -48,6 +48,7 @@ module.exports = {
                         pool.release(c);
                         return;
                     }
+                    console.log(result.length)
                     if(result.length)
                     {
                         result[0]['status'] = 'c';
