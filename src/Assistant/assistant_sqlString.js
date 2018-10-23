@@ -7,7 +7,7 @@ exports.SetStudentGraduateStatus='\
     where student_id = :id';
 
 exports.SetGraduateSubmitStatus='\
-update student set graduate_submit = :graduate_submit, \
-submit_type = if(:submit_type = 1,1,if(:submit_type = 0,0,(select submit_type from (select student_id,submit_type from student) \
-as a where a.student_id = :id) ))  where student_id = :id';
+    update student set graduate_submit = :graduate_submit, \
+    submit_type = if(:submit_type = 1,1,if(:submit_type = 0,0,(select a.submit_type from (select student_id,submit_type from student where student_id = :id) \
+    as a) )) where student_id = :id';
 
