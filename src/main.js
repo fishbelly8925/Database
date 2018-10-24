@@ -4,11 +4,11 @@
 
 var m = require('./msql.js');
 
-m.ShowUserInfo('0516003', function(err, result){
-    if(err)
-        throw err;
-    console.log(JSON.parse(result));
-}); // ShowUserInfo 回傳學生資料
+// m.ShowUserInfo('0516003', function(err, result){
+//     if(err)
+//         throw err;
+//     console.log(JSON.parse(result));
+// }); // ShowUserInfo 回傳學生資料
 
 //m.SetUserEmail('0516003', 'da2bct@test');
 // SetUserEmail(學號, email) 更新此學號學生之email
@@ -89,18 +89,18 @@ m.ShowUserInfo('0516003', function(err, result){
 // 通過英檢免試申請(換修) → 一學分都不能底！ 可以修二外當大一英文或進階英文 -> 2
 // 通過英檢中高級初試(本校團測場次)　→ 一學分都不能底！ 可以修二外當大一英文或進階英文 -> 3
 // 自行報考通過 → 一學分都不能底！ 可以修二外當大一英文或進階英文 -> 4
-// NULL → 英文一定要修滿八學分 不能用二外抵 -> 0
+// 1 → 英文一定要修滿八學分 不能用二外抵 -> 0
 
 // m.SetStudentGraduateStatus('0516003', 1);
 // // SetStudentGraduateStatus 設定某學生的畢業狀態(1可畢業, 0不可畢業)（助理端用）
 
 
-m.SetGraduateSubmitStatus({id:'0512204',graduate_submit:0,submit_type: 1},function(err,result){
+m.SetGraduateSubmitStatus({id:'0416016',graduate_submit:0,submit_type: 3},function(err,result){
 	if(err)
 		throw err;
 	console.log(JSON.parse(result));
 });
-// SetGraduateSubmitStatus 設定某學生的畢業預審確認狀態(0未送審, 1送審中, 2審核通過, 3審核不通過)(0舊制,1 新制,其他 不變更)
+// SetGraduateSubmitStatus 設定某學生的畢業預審確認狀態(0未送審, 1送審中, 2審核通過, 3審核不通過)(0舊制,1 新制,2 不變更,3 null)
 
 // m.SetUserOAuth('0516003', '456', 3);
 // // SetUserOAuth   1:set gmail   2:set fb_id   3:set github_id
