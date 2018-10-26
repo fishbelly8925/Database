@@ -95,12 +95,12 @@ var m = require('./msql.js');
 // // SetStudentGraduateStatus 設定某學生的畢業狀態(1可畢業, 0不可畢業)（助理端用）
 
 
-m.SetGraduateSubmitStatus({id:'0416016',graduate_submit:0,submit_type: 3},function(err,result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-});
-// SetGraduateSubmitStatus 設定某學生的畢業預審確認狀態(0未送審, 1送審中, 2審核通過, 3審核不通過)(0舊制,1 新制,2 不變更,3 null)
+// m.SetGraduateSubmitStatus({id:'0416016',graduate_submit:0,submit_type: 3},function(err,result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// });
+// // SetGraduateSubmitStatus 設定某學生的畢業預審確認狀態(0未送審, 1送審中, 2審核通過, 3審核不通過)(0舊制,1 新制,2 不變更,3 null)
 
 // m.SetUserOAuth('0516003', '456', 3);
 // // SetUserOAuth   1:set gmail   2:set fb_id   3:set github_id
@@ -448,10 +448,92 @@ m.SetGraduateSubmitStatus({id:'0416016',graduate_submit:0,submit_type: 3},functi
 // m.ShowGivenGradeStudent({grade: '一'}, function(err, result){
 // 	if(err)
 // 		throw err;
-// 	console.log(JSON.parse(result))
+// 	console.log(JSON.parse(result));
 // });
 // 輸入一二三四，顯示某年級所有學生,1表示本系生，0表示外系生
 
+// m.ShowStudentGraduate({student_id: '0516203'}, function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// });
+// 顯示某學生畢業預審
+
+// data_CreateStudentGraduate = {
+// 	student_id: '0516204',
+//     total_credit: '100',
+//     en_course: 2,
+//     pro: '1',
+//     other: '1',
+//     net: '1',
+//     media: '1',
+//     old_total: '1',
+//     old_contemp: '1',
+//     old_culture: '1',
+//     old_history: '1',
+//     old_citizen: '1',
+//     old_group: '1',
+//     old_science: '1',
+//     new_total: '1',
+//     new_core_total: '1',
+//     new_core_society: '1',
+//     new_core_humanity: '1',
+//     new_basic: '1',
+//     new_cross: '1',
+//     en_basic: '1',
+//     en_advanced: '1',
+//     en_advanced_course: '1',
+//     pe: '1',
+//     service: '1',
+//     art: '1',
+//     mentor: '1',
+// 	compulse: [ '計算機', '計算機1', '計算機2' ]
+// }
+
+// m.CreateStudentGraduate(data_CreateStudentGraduate, function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// });
+// 建立某學生畢業預審
+
+// data_SetStudentGraduate = {
+// 	student_id: '0516205',
+//     total_credit: '100',
+//     en_course: 2,
+//     pro: '1',
+//     other: '1',
+//     net: '1',
+//     media: '1',
+//     old_total: '1',
+//     old_contemp: '1',
+//     old_culture: '1',
+//     old_history: '1',
+//     old_citizen: '1',
+//     old_group: '1',
+//     old_science: '1',
+//     new_total: '1',
+//     new_core_total: '1',
+//     new_core_society: '1',
+//     new_core_humanity: '1',
+//     new_basic: '1',
+//     new_cross: '1',
+//     en_basic: '1',
+//     en_advanced: '1',
+//     en_advanced_course: '1',
+//     pe: '1',
+//     service: '1',
+//     art: '1',
+//     mentor: '1',
+// 	compulse: [ '計算機a', '計算機b', '計算機c' ]
+// }
+
+// m.SetStudentGraduate(data_SetStudentGraduate, function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// });
+// 修改某學生畢業預審
 
 
 m.Drain(); // 關閉 connection pool

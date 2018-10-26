@@ -7,6 +7,7 @@ var StudentShow = require('./Student/Show/student_show_msql.js');
 var StudentUpdate = require('./Student/Update/student_update_msql.js');
 var Course = require('./Course/course_msql.js');
 var Teacher = require('./Teacher/teacher_msql.js');
+var Graduate = require('./Graduate/graduate_msql.js');
 
 function merge(modu){
     var result = {};
@@ -16,4 +17,4 @@ function merge(modu){
     return result;
 }
 
-module.exports = merge([StudentUpdate, StudentShow, Course, Teacher, ResearchShow, ResearchUpdate, Mail, Assistant, QA]);
+module.exports = merge([StudentUpdate, StudentShow, Course, Teacher, ResearchShow, ResearchUpdate, Mail, Assistant, QA, Graduate]);
