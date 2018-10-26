@@ -332,7 +332,7 @@ exports.ShowUserOffsetSingle = "\
     (\
         select student_id, cos_cname, cos_code, score\
         from cos_score\
-        where student_id = :id and pass_fail = '通過'\
+        where student_id = :id and pass_fail = '通過' and cos_cname not like '%導師%'\
     ) as cg\
     on cg.student_id = os.student_id\
     and cg.cos_code = os.cos_code_old\
@@ -349,7 +349,7 @@ exports.ShowUserOffsetAll="\
     (\
         select student_id, cos_cname, cos_code, score\
         from cos_score\
-        where student_id = :id and pass_fail = '通過'\
+        where student_id = :id and pass_fail = '通過' and cos_cname not like '%導師%'\
     ) as cg\
     on cg.student_id = os.student_id\
     and cg.cos_code = os.cos_code_old\
