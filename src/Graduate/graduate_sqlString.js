@@ -1,16 +1,21 @@
-exports.ShowStudentGraduate = "\
+exports.ShowStudentList = "\
+	select student_id\
+	from student\
+	where grade = :grade";
+
+exports.ShowGivenGradeGraduate = "\
 	select *\
 	from \
 	(\
 		select *\
 		from graduate\
-		where student_id = :student_id\
 	) as g,\
 	(\
-		select sname, program, graduate_submit as graduate_status, submit_type as submit_status, en_certificate as en_status\
+		select student_id, sname, program, graduate_submit as graduate_status, submit_type as submit_status, en_certificate as en_status\
 		from student\
-		where student_id = :student_id\
-	) as s";
+		where grade = :grade\
+	) as s\
+	where s.student_id = g.student_id";
 
 exports.ShowStudentCompulse = "\
     select * \
@@ -67,4 +72,7 @@ exports.SetStudentGraduate = "\
 	mentor = :mentor \
 	where student_id = :student_id";
 
-
+exports.ShowGivenGradeStudentID = "\
+	select student_id\
+	from student\
+	where grade = :grade";

@@ -535,5 +535,11 @@ var m = require('./msql.js');
 // });
 // 修改某學生畢業預審
 
+m.ShowGivenGradeStudentID({grade: '三'}, function(err, result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+});
+// 顯示某年及所有學號
 
 m.Drain(); // 關閉 connection pool
