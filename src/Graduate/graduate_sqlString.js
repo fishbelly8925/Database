@@ -1,26 +1,39 @@
 exports.ShowStudentList = "\
-	select student_id\
+	select student_id,\
 	from student\
-	where grade = :grade";
+	where grade = :grade\
+	and (\
+		substring(program, 1, 2) = '資工'\
+		or substring(program, 1, 2) = '網多'\
+		or substring(program, 1, 2) = '資電'\
+	)";
 
-exports.ShowGivenGradeGraduate = "\
+exports.ShowStudentGraduate = "\
 	select *\
 	from \
 	(\
 		select *\
 		from graduate\
+		where student_id = :student_id\
 	) as g,\
 	(\
-		select student_id, sname, program, graduate_submit as graduate_status, submit_type as submit_status, en_certificate as en_status\
+		select sname, program, graduate_submit as graduate_status, submit_type as submit_status, en_certificate as en_status\
 		from student\
-		where grade = :grade\
-	) as s\
-	where s.student_id = g.student_id";
+		where student_id = :student_id\
+	) as s";
 
 exports.ShowStudentCompulse = "\
     select * \
     from compulse \
     where student_id = :student_id";
+
+exports.DeleteStudentGraduate = "\
+	delete from graduate\
+	where student_id = :student_id";
+
+exports.DeleteStudentCompulse = "\
+	delete from compulse\
+	where student_id = :student_id";
 
 exports.CreateStudentGraduate = "\
 	insert into graduate \
@@ -29,7 +42,7 @@ exports.CreateStudentGraduate = "\
 		:old_total, :old_contemp, :old_culture, :old_history,\
 		:old_citizen, :old_group, :old_science,\
 		:new_total, :new_core_total, :new_core_society, :new_core_humanity, :new_basic, :new_cross,\
-		:en_basic, :en_advanced, :en_advanced_course, :pe, :service, :art, :mentor\
+		:en_total, :en_basic, :en_advanced, :en_advanced_course, :pe, :service, :art, :mentor\
 	)";
 
 exports.CreateStudentCompulse = "\
@@ -62,7 +75,8 @@ exports.SetStudentGraduate = "\
 	new_core_society = :new_core_society, \
 	new_core_humanity = :new_core_humanity, \
 	new_basic = :new_basic, \
-	new_cross = :new_cross,\
+	new_cross = :new_cross, \
+	en_total = :en_total, \
 	en_basic = :en_basic, \
 	en_advanced = :en_advanced, \
 	en_advanced_course = :en_advanced_course, \

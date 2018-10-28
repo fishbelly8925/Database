@@ -44,32 +44,48 @@ module.exports = {
 	CreateStudentGraduate: function(data, callback){
 		const resource = pool.acquire();
 		resource.then(function(c){
+			var sql_DeleteStudentGraduate = c.prepare(s.DeleteStudentGraduate);
+			var sql_DeleteStudentCompulse = c.prepare(s.DeleteStudentCompulse);
 			var sql_CreateStudentGraduate = c.prepare(s.CreateStudentGraduate);
 			var sql_CreateStudentCompulse = c.prepare(s.CreateStudentCompulse);
-			let compulse = {};
-			compulse['student_id'] = data['student_id']; 
-			compulse['cos_cname'] = data['compulse']
-			delete data['compulse'];
-			c.query(sql_CreateStudentGraduate(data), function(err, result){
+			c.query(sql_DeleteStudentGraduate(data), function(err, result){
 				if(err){
 					callback(err, undefined);
 					pool.release(c);
 					return;
 				}
-				for(let i = 0; i < compulse['cos_cname'].length; i++){
-					let sid = compulse['student_id']
-					let cos_cname = compulse['cos_cname'][i]
-					c.query(sql_CreateStudentCompulse({student_id: sid, cos_cname: cos_cname}), function(err, suc){
-						if(err){
-							callback(err, undefined);
-							pool.release(c);
-							return;
-						}
-					})
-				}
-				callback(null, JSON.stringify(result));
-				pool.release(c);
-				return;
+				c.query(sql_DeleteStudentCompulse(data), function(err, result){
+					if(err){
+						callback(err, undefined);
+						pool.release(c);
+						return;
+					}
+				})
+				let compulse = {};
+				compulse['student_id'] = data['student_id']; 
+				compulse['cos_cname'] = data['compulse']
+				delete data['compulse'];
+				c.query(sql_CreateStudentGraduate(data), function(err, result){
+					if(err){
+						callback(err, undefined);
+						pool.release(c);
+						return;
+					}
+					for(let i = 0; i < compulse['cos_cname'].length; i++){
+						let sid = compulse['student_id']
+						let cos_cname = compulse['cos_cname'][i]
+						c.query(sql_CreateStudentCompulse({student_id: sid, cos_cname: cos_cname}), function(err, suc){
+							if(err){
+								callback(err, undefined);
+								pool.release(c);
+								return;
+							}
+						})
+					}
+					callback(null, JSON.stringify(result));
+					pool.release(c);
+					return;
+				});
 			});
 		});
 	},

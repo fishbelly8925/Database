@@ -452,7 +452,7 @@ var m = require('./msql.js');
 // });
 // 輸入一二三四，顯示某年級所有學生,1表示本系生，0表示外系生
 
-// m.ShowStudentGraduate({student_id: '0516203'}, function(err, result){
+// m.ShowStudentGraduate({student_id: '0516202'}, function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
@@ -460,7 +460,7 @@ var m = require('./msql.js');
 // 顯示某學生畢業預審
 
 // data_CreateStudentGraduate = {
-// 	student_id: '0516204',
+// 	student_id: '0516202',
 //     total_credit: '100',
 //     en_course: 2,
 //     pro: '1',
@@ -478,6 +478,7 @@ var m = require('./msql.js');
 //     new_core_total: '1',
 //     new_core_society: '1',
 //     new_core_humanity: '1',
+//     en_total: '1',
 //     new_basic: '1',
 //     new_cross: '1',
 //     en_basic: '1',
@@ -487,7 +488,7 @@ var m = require('./msql.js');
 //     service: '1',
 //     art: '1',
 //     mentor: '1',
-// 	compulse: [ '計算機', '計算機1', '計算機2' ]
+// 	compulse: [ '計算機a', '計算機1', '計算機2' ]
 // }
 
 // m.CreateStudentGraduate(data_CreateStudentGraduate, function(err, result){
@@ -498,7 +499,7 @@ var m = require('./msql.js');
 // 建立某學生畢業預審
 
 // data_SetStudentGraduate = {
-// 	student_id: '0516205',
+// 	student_id: '0516202',
 //     total_credit: '100',
 //     en_course: 2,
 //     pro: '1',
@@ -518,6 +519,7 @@ var m = require('./msql.js');
 //     new_core_humanity: '1',
 //     new_basic: '1',
 //     new_cross: '1',
+//     en_total: '1',
 //     en_basic: '1',
 //     en_advanced: '1',
 //     en_advanced_course: '1',
@@ -535,11 +537,11 @@ var m = require('./msql.js');
 // });
 // 修改某學生畢業預審
 
-m.ShowGivenGradeStudentID({grade: '三'}, function(err, result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-});
+// m.ShowGivenGradeStudentID({grade: '三'}, function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// });
 // 顯示某年及所有學號
 
 m.Drain(); // 關閉 connection pool
