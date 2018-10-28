@@ -138,7 +138,7 @@ exports.ShowUserAllScore = "\
             if(a.score_type='通過不通過', NULL, a.score_level) as score_level,\
             if((a.cos_typeext='' && a.brief like '體育%'), '體育', a.cos_typeext) as cos_typeext,\
             a.type, \
-            if(a.brief like '軍訓%', '軍訓', a.brief) as brief, a.brief_new, a.cos_credit, a.cos_year as year, a.semester, b.offset_type, a.tname\
+            if(a.brief like '軍訓%', '軍訓', a.brief) as brief, a.brief_new, a.cos_credit, a.cos_year, a.semester, b.offset_type, a.tname\
     from \
     (\
         select a.student_id, a.program, a.cos_code, a.cos_year, a.semester, a.cos_cname, a.cos_ename, a.cos_type, a.score_type, a.pass_fail, a.score_level, a.score, a.unique_id, a.type, a.brief, a.brief_new, a.cos_credit, a.cos_typeext, tcr.tname\
