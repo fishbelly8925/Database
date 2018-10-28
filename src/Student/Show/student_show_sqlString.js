@@ -144,16 +144,16 @@ exports.ShowUserAllScore = "\
         select a.student_id, a.program, a.cos_code, a.cos_year, a.semester, a.cos_cname, a.cos_ename, a.cos_type, a.score_type, a.pass_fail, a.score_level, a.score, a.unique_id, a.type, a.brief, a.brief_new, a.cos_credit, a.cos_typeext, tcr.tname\
         from \
         (\
-            select a.student_id, a.program, a.cos_code, a.cos_year, a.semester, a.cos_cname, a.cos_ename, a.cos_type, a.score_type, a.pass_fail, a.score_level, a.score, a.unique_id, a.type, d.brief, d.brief_new, d.cos_credit, d.teacher_id, d.cos_typeext\
+            select a.student_id, a.program, a.cos_code, a.cos_year, a.semester, a.cos_cname, a.cos_ename, a.cos_type, a.score_type, a.pass_fail, a.score_level, a.score, a.unique_id, a.type, d.brief, d.brief_new, a.cos_credit, d.teacher_id, d.cos_typeext\
             from \
             (\
-                select a.student_id, a.program, a.cos_code, a.cos_year, a.semester, a.cos_cname, a.cos_ename, a.cos_type, a.score_type, a.pass_fail, a.score_level, a.score, a.unique_id, t.type\
+                select a.student_id, a.program, a.cos_code, a.cos_credit, a.cos_year, a.semester, a.cos_cname, a.cos_ename, a.cos_type, a.score_type, a.pass_fail, a.score_level, a.score, a.unique_id, t.type\
                 from \
                 (\
-                    select std.student_id, std.program, sc.cos_code, sc.cos_year, sc.semester, sc.cos_cname, n.cos_ename, sc.cos_type, sc.score_type, sc.pass_fail, sc.score_level, sc.score, sc.unique_id\
+                    select std.student_id, std.program, sc.cos_code, sc.cos_credit, sc.cos_year, sc.semester, sc.cos_cname, n.cos_ename, sc.cos_type, sc.score_type, sc.pass_fail, sc.score_level, sc.score, sc.unique_id\
                     from \
                     (\
-                        select cos_code, cos_year, semester, cos_cname, cos_type, score_type, pass_fail, score_level, score,\
+                        select cos_code, cos_credit, cos_year, semester, cos_cname, cos_type, score_type, pass_fail, score_level, score,\
                                 case semester when '3' then concat(cos_year, '-', 'X', '-', cos_id) \
                                                 else concat(cos_year, '-', semester, '-', cos_id) \
                                 end as unique_id\
