@@ -176,9 +176,9 @@ exports.ShowUserAllScore = "\
     ) as a \
     left outer join\
     (\
-        select student_id, offset_type, cos_code_old, cos_cname_old, cos_code, cos_cname\
-        from offset\
-        where student_id = :id\
+        select o.student_id, o.offset_type, o.cos_code_old, o.cos_cname_old, o.cos_code, o.cos_cname \
+        from (select distinct * from offset where student_id = '0513311') as o \
+        where o.student_id = '0513311'\
     ) as b\
     on a.student_id = b.student_id\
     and a.cos_code = b.cos_code_old\
