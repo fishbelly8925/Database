@@ -1,13 +1,3 @@
-exports.ShowStudentList = "\
-	select student_id,\
-	from student\
-	where grade = :grade\
-	and (\
-		substring(program, 1, 2) = '資工'\
-		or substring(program, 1, 2) = '網多'\
-		or substring(program, 1, 2) = '資電'\
-	)";
-
 exports.ShowStudentGraduate = "\
 	select *\
 	from \
@@ -87,6 +77,11 @@ exports.SetStudentGraduate = "\
 	where student_id = :student_id";
 
 exports.ShowGivenGradeStudentID = "\
-	select student_id\
+	select student_id,\
 	from student\
-	where grade = :grade";
+	where grade = :grade\
+	and (\
+		substring(program, 1, 2) = '資工'\
+		or substring(program, 1, 2) = '網多'\
+		or substring(program, 1, 2) = '資電'\
+	)";
