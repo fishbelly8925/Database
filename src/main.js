@@ -65,11 +65,11 @@ var m = require('./msql.js');
 // 	   console.log(JSON.parse(result));
 // }); // ShowUserOffset 個人抵免資料 (輸入all顯示全部)
 
-// m.ShowUserOnCos('0316067', function(err, result){
-// 	if(err)
-// 		throw err;
-// 	console.log(JSON.parse(result));
-// }); // ShowUserOnCos 大四個人當期修課資料 (輸入all顯示全部)
+m.ShowUserOnCos('all', function(err, result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+}); // ShowUserOnCos 大四個人當期修課資料 (輸入all顯示全部)
 
 // m.general_cos_rule(function(err, result){
 // 	if(err)
@@ -537,11 +537,11 @@ var m = require('./msql.js');
 // });
 // 修改某學生畢業預審
 
-m.ShowGivenGradeStudentID({grade: '三'}, function(err, result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-});
-// 顯示某年及所有學號
+// m.ShowGivenGradeStudentID({grade: '三'}, function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// });
+// // 顯示某年及所有學號
 
 m.Drain(); // 關閉 connection pool

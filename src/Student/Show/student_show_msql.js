@@ -274,18 +274,33 @@ module.exports = {
     },
     ShowUserOnCos: function(id, callback) {
         const resource = pool.acquire();
-        resource.then(function(c){
-            var sql_ShowUserOnCos = c.prepare(s.ShowUserOnCos);
-            c.query(sql_ShowUserOnCos({ id: id }), function(err, result) {
-                if (err){
-                    callback(err, undefined);
+        console.log(id);
+        if(id == 'all')
+            resource.then(function(c){
+                var sql_ShowUserOnCos_all = c.prepare(s.ShowUserOnCos_all);
+                c.query(sql_ShowUserOnCos_all({}), function(err, result) {
+                    if (err){
+                        callback(err, undefined);
+                        pool.release(c);
+                        return;
+                    }
+                    callback(null, JSON.stringify(result));
                     pool.release(c);
-                    return;
-                }
-                callback(null, JSON.stringify(result));
-                pool.release(c);
+                });
             });
-        });
+        else
+            resource.then(function(c){
+                var sql_ShowUserOnCos_single = c.prepare(s.ShowUserOnCos_single);
+                c.query(sql_ShowUserOnCos_single({ id: id }), function(err, result) {
+                    if (err){
+                        callback(err, undefined);
+                        pool.release(c);
+                        return;
+                    }
+                    callback(null, JSON.stringify(result));
+                    pool.release(c);
+                });
+            });
     },
     ShowUserOffset: function(id, callback) {
         const resource = pool.acquire();
