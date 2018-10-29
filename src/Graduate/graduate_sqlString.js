@@ -77,7 +77,7 @@ exports.SetStudentGraduate = "\
 	where student_id = :student_id";
 
 exports.ShowGivenGradeStudentID = "\
-	select student_id,\
+	select student_id\
 	from student\
 	where grade = :grade\
 	and (\

@@ -136,8 +136,8 @@ module.exports = {
 			c.query(sql_ShowGivenGradeStudentID(data), function(err, result){
 				if(err){
 					callback(err, undefined);
-							pool.release(c);
-							return;
+					pool.release(c);
+					return;
 				}
 				callback(null, JSON.stringify(result));
 				pool.release(c);
