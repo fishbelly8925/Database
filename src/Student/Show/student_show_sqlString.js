@@ -343,7 +343,7 @@ exports.ShowUserOffsetSingle = "\
     select\
         os.student_id, os.apply_year, os.apply_semester, os.cos_code_old,\
         os.cos_cname_old, os.cos_code, os.cos_cname, os.credit,\
-        os.offset_type, os.brief, os.cos_type, cg.score\
+        os.offset_type, os.brief, os.brief_new, os.cos_type, cg.score\
     from offset as os\
     left outer join\
     (\
