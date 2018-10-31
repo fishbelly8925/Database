@@ -7,7 +7,7 @@ exports.ShowStudentGraduate = "\
 		where student_id = :student_id\
 	) as g,\
 	(\
-		select sname, program, graduate_submit as graduate_status, submit_type as submit_status, en_certificate as en_status\
+		select sname, program, graduate_submit as submit_status, submit_type, en_certificate as en_status\
 		from student\
 		where student_id = :student_id\
 	) as s";
@@ -28,11 +28,11 @@ exports.DeleteStudentCompulse = "\
 exports.CreateStudentGraduate = "\
 	insert into graduate \
 	values (\
-		:student_id, :total_credit, :en_course, :pro, :other, :net, :media,\
+		:student_id, :graduate_status, :total_credit, :en_course, :pro, :other, :net, :media,\
 		:old_total, :old_contemp, :old_culture, :old_history,\
 		:old_citizen, :old_group, :old_science,\
 		:new_total, :new_core_total, :new_core_society, :new_core_humanity, :new_basic, :new_cross,\
-		:en_total, :en_basic, :en_advanced, :en_advanced_course, :pe, :service, :art, :mentor\
+		:en_total, :en_basic, :en_advanced, :pe, :service, :art, :mentor\
 	)";
 
 exports.CreateStudentCompulse = "\
@@ -48,6 +48,7 @@ exports.ClearStudentCompulse = "\
 exports.SetStudentGraduate = "\
 	update graduate\
 	set total_credit = :total_credit,\
+	graduate_status = :graduate_status, \
 	en_course = :en_course, \
 	pro = :pro, \
 	other = :other, \
@@ -69,7 +70,6 @@ exports.SetStudentGraduate = "\
 	en_total = :en_total, \
 	en_basic = :en_basic, \
 	en_advanced = :en_advanced, \
-	en_advanced_course = :en_advanced_course, \
 	pe = :pe, \
 	service = :service, \
 	art = :art, \
