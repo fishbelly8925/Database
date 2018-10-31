@@ -305,28 +305,45 @@ exports.ShowStudentMentor = "\
     from mentor_list\
     where student_id = :id";
 
-exports.ShowUserOnCos = "\
+exports.ShowUserOnCos_single = "\
     select\
         s.student_id, cd.cos_code, cn.cos_cname, cn.cos_ename,\
         cd.cos_type, cd.cos_typeext, cd.brief, cd.brief_new,\
         cd.cos_credit\
     from on_cos_data as o\
     left outer join\
-    student as s\
-    on o.student_id = s.student_id\
+        student as s\
+        on o.student_id = s.student_id\
     left outer join\
-    cos_data as cd\
-    on cd.unique_id = concat(o.year, '-', o.semester, '-', o.code)\
+        cos_data as cd\
+        on cd.unique_id = concat(o.year, '-', o.semester, '-', o.code)\
     left outer join\
-    cos_name as cn\
-    on cn.unique_id = cd.unique_id\
+        cos_name as cn\
+        on cn.unique_id = cd.unique_id\
     where s.student_id = :id";
+
+exports.ShowUserOnCos_all = "\
+    select\
+        s.student_id, cd.cos_code, cn.cos_cname, cn.cos_ename,\
+        cd.cos_type, cd.cos_typeext, cd.brief, cd.brief_new,\
+        cd.cos_credit\
+    from on_cos_data as o\
+    left outer join\
+        student as s\
+        on o.student_id = s.student_id\
+    left outer join\
+        cos_data as cd\
+        on cd.unique_id = concat(o.year, '-', o.semester, '-', o.code)\
+    left outer join\
+        cos_name as cn\
+        on cn.unique_id = cd.unique_id";
+
 
 exports.ShowUserOffsetSingle = "\
     select\
         os.student_id, os.apply_year, os.apply_semester, os.cos_code_old,\
         os.cos_cname_old, os.cos_code, os.cos_cname, os.credit,\
-        os.offset_type, os.brief, os.cos_type, cg.score\
+        os.offset_type, os.brief, os.brief_new, os.cos_type, cg.score\
     from offset as os\
     left outer join\
     (\

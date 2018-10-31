@@ -149,13 +149,17 @@ module.exports = {
             });
         });
     },
-    SetCosMotion: function(id, name, orig, now){
+    SetCosMotion: function(id, name, orig, now, callback){
         const resource=pool.acquire();
         resource.then(function(c){
             var sql_SetCosMotion = c.prepare(s.SetCosMotion);
-            c.query(sql_SetCosMotion({id:id, name:name, orig:orig, now:now}), function(err){
-                if(err)
-                    throw err;
+            c.query(sql_SetCosMotion({id:id, name:name, orig:orig, now:now}), function(err, result){
+                if (err){
+                    callback(err, undefined);
+                    pool.release(c);
+                    return;
+                }
+                callback(null, JSON.stringify(result));
                 pool.release(c);
             });
         });

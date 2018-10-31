@@ -65,7 +65,7 @@ var m = require('./msql.js');
 // 	   console.log(JSON.parse(result));
 // }); // ShowUserOffset 個人抵免資料 (輸入all顯示全部)
 
-// m.ShowUserOnCos('0316067', function(err, result){
+// m.ShowUserOnCos('all', function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
@@ -105,8 +105,12 @@ var m = require('./msql.js');
 // m.SetUserOAuth('0516003', '456', 3);
 // // SetUserOAuth   1:set gmail   2:set fb_id   3:set github_id
 
-// m.SetCosMotion('0516003', 'test2', 'a', 'c');
-// // SetCosMotion(id, cos_name, original position, now position) 更新課程位置
+m.SetCosMotion('0516003', 'test', 'a', 'c', function(err, result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+});
+// SetCosMotion(id, cos_name, original position, now position) 更新課程位置
 
 // m.ShowCosMotionLocate('0516003', function(err, result){
 // 	if(err)

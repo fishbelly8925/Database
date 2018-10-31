@@ -9,9 +9,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "atob": ">=2.1.0",
+    "deep-extend": ">=0.5.1",
     "generic-pool": "^3.4.1",
+    "lodash": "^4.17.5",
     "mariasql": "^0.2.6",
-    "nodemon": "^1.14.12",
-    "lodash": "^4.17.5"
+    "nodemon": "^1.18.5"
   }
 }
