@@ -19,17 +19,6 @@ module.exports = {
             });
         });
     }, 
-    SetStudentGraduateStatus: function(id, graduate) {
-        const resource = pool.acquire();
-        resource.then(function(c) {
-            var sql_SetStudentGraduateStatus = c.prepare(s.SetStudentGraduateStatus);
-            c.query(sql_SetStudentGraduateStatus({ id: id, graduate: graduate }), function(err) {
-                if (err)
-                    throw err;
-                pool.release(c);
-            })
-        })
-    },
     SetGraduateSubmitStatus:function(data, callback){
         if(typeof(data)==='string')
             data=JSON.parse(data);

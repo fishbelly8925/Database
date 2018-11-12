@@ -91,10 +91,6 @@ var m = require('./msql.js');
 // 自行報考通過 → 一學分都不能底！ 可以修二外當大一英文或進階英文 -> 4
 // 1 → 英文一定要修滿八學分 不能用二外抵 -> 0
 
-// m.SetStudentGraduateStatus('0516003', 1);
-// // SetStudentGraduateStatus 設定某學生的畢業狀態(1可畢業, 0不可畢業)（助理端用）
-
-
 // m.SetGraduateSubmitStatus({id:'0416016',graduate_submit:0,submit_type: 3},function(err,result){
 // 	if(err)
 // 		throw err;
@@ -456,11 +452,11 @@ var m = require('./msql.js');
 // });
 // 輸入一二三四，顯示某年級所有學生,1表示本系生，0表示外系生
 
-m.ShowStudentGraduate({student_id: '0516202'}, function(err, result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-});
+// m.ShowStudentGraduate({student_id: '0516202'}, function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// });
 // 顯示某學生畢業預審
 
 // data_CreateStudentGraduate = {
