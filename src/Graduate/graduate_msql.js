@@ -21,6 +21,8 @@ module.exports = {
 					pool.release(c);
 					return;
 				}
+				result[0]['net'] = JSON.parse(result[0]['net'])
+				result[0]['media'] = JSON.parse(result[0]['media'])
 				c.query(sql_ShowStudentCompulse(data), function(err, compulse){
 					if(err){
 						callback(err, undefined);
@@ -65,6 +67,8 @@ module.exports = {
 				compulse['student_id'] = data['student_id']; 
 				compulse['cos_cname'] = data['compulse']
 				delete data['compulse'];
+				data['net'] = JSON.stringify(data['net'])
+				data['media'] = JSON.stringify(data['media'])
 				c.query(sql_CreateStudentGraduate(data), function(err, result){
 					if(err){
 						callback(err, undefined);
@@ -99,6 +103,8 @@ module.exports = {
 			compulse['student_id'] = data['student_id']; 
 			compulse['cos_cname'] = data['compulse']
 			delete data['compulse'];
+			data['net'] = JSON.stringify(data['net'])
+			data['media'] = JSON.stringify(data['media'])
 			c.query(sql_SetStudentGraduate(data), function(err, result){
 				if(err){
 					callback(err, undefined);

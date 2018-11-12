@@ -105,11 +105,11 @@ var m = require('./msql.js');
 // m.SetUserOAuth('0516003', '456', 3);
 // // SetUserOAuth   1:set gmail   2:set fb_id   3:set github_id
 
-m.SetCosMotion('0516003', 'test', 'a', 'c', function(err, result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-});
+// m.SetCosMotion('0516003', 'test', 'a', 'c', function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// });
 // SetCosMotion(id, cos_name, original position, now position) 更新課程位置
 
 // m.ShowCosMotionLocate('0516003', function(err, result){
@@ -470,8 +470,8 @@ m.ShowStudentGraduate({student_id: '0516202'}, function(err, result){
 //     en_course: 2,
 //     pro: 1,
 //     other: 1,
-//     net: 1,
-//     media: 1,
+//     net: ['網通', '網成社', '計網概'],
+//     media: ['多媒體', '計圖學'],
 //     old_total: 1,
 //     old_contemp: 1,
 //     old_culture: 1,
@@ -492,7 +492,7 @@ m.ShowStudentGraduate({student_id: '0516202'}, function(err, result){
 //     service: 1,
 //     art: 1,
 //     mentor: 1,
-// 	compulse: [ '計算機a', '計算機1', '計算機2' ]
+//     compulse: ['計算機a', '計算機1', '計算機2']
 // }
 
 // m.CreateStudentGraduate(data_CreateStudentGraduate, function(err, result){
@@ -509,8 +509,8 @@ m.ShowStudentGraduate({student_id: '0516202'}, function(err, result){
 //     en_course: 2,
 //     pro: 1,
 //     other: 1,
-//     net: 1,
-//     media: 1,
+//     net: ['網通', '網成社', '計網概'],
+//     media: ['多媒體'],
 //     old_total: 1,
 //     old_contemp: 1,
 //     old_culture: 1,
@@ -531,7 +531,7 @@ m.ShowStudentGraduate({student_id: '0516202'}, function(err, result){
 //     service: 1,
 //     art: 1,
 //     mentor: 1,
-// 	compulse: [ '計算機a', '計算機b', '計算機c' ]
+// 	compulse: ['計算機a', '計算機b', '計算機c']
 // }
 
 // m.SetStudentGraduate(data_SetStudentGraduate, function(err, result){
