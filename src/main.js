@@ -31,11 +31,11 @@ var m = require('./msql.js');
 //     console.log(JSON.parse(result));
 // }); // ShowUserTotalCredit 回傳某學生總學分數
 
-// m.ShowUserAllScore('0512204', function(err, result){
-//     if(err)
-//         throw err;
-//     console.log(JSON.parse(result));
-// }); // ShowUserAllScore 列出此學生通過的課
+m.ShowUserAllScore('0416312', function(err, result){
+    if(err)
+        throw err;
+    console.log(JSON.parse(result));
+}); // ShowUserAllScore 列出此學生通過的課
 // 測試學號
 // 軍訓 0116089
 // 霹靂悠 0516007

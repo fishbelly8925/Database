@@ -159,6 +159,7 @@ exports.ShowUserAllScore = "\
                                 end as unique_id\
                         from cos_score\
                         where student_id = :id\
+                        and pass_fail='通過'\
                     ) as sc, student as std, cos_name as n\
                     where std.student_id = :id\
                     and n.unique_id = sc.unique_id\
