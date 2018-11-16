@@ -4,21 +4,25 @@ exports.SetEnCertificate='\
 
 exports.SetGraduateSubmitStatus='\
     update student \
-    set graduate_submit = :graduate_submit, net_media = :net_media,\
-    submit_type = \
-    if(:submit_type = 1, 1,\
-    	if(:submit_type = 0, 0,\
-    		if(:submit_type = 3, null,\
-    			(\
-				    select a.submit_type \
-				    from (\
-					    select student_id, submit_type \
-					    from student \
-					    where student_id = :id\
-			    	) as a \
+    set graduate_submit = :graduate_submit,\
+	    submit_type = \
+		    if(:submit_type = 1, 1,\
+		    	if(:submit_type = 0, 0,\
+		    		if(:submit_type = 3, null,\
+		    			(\
+						    select a.submit_type \
+						    from (\
+							    select student_id, submit_type \
+							    from student \
+							    where student_id = :id\
+					    	) as a \
+						)\
+					)\
 				)\
 			)\
-		)\
-	)\
     where student_id = :id';
 
+exports.SetNetMediaStatus='\
+	update student\
+	set net_media = :net_media\
+	where student_id = :id';
