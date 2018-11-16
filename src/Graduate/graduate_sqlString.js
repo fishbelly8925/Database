@@ -7,7 +7,7 @@ exports.ShowStudentGraduate = "\
 		where student_id = :student_id\
 	) as g,\
 	(\
-		select sname, program, graduate_submit as submit_status, submit_type, en_certificate as en_status\
+		select sname, program, graduate_submit as submit_status, submit_type, en_certificate as en_status, net_media\
 		from student\
 		where student_id = :student_id\
 	) as s";

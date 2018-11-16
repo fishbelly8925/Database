@@ -31,11 +31,11 @@ var m = require('./msql.js');
 //     console.log(JSON.parse(result));
 // }); // ShowUserTotalCredit 回傳某學生總學分數
 
-m.ShowUserAllScore('0416312', function(err, result){
-    if(err)
-        throw err;
-    console.log(JSON.parse(result));
-}); // ShowUserAllScore 列出此學生通過的課
+// m.ShowUserAllScore('0416312', function(err, result){
+//     if(err)
+//         throw err;
+//     console.log(JSON.parse(result));
+// }); // ShowUserAllScore 列出此學生通過的課
 // 測試學號
 // 軍訓 0116089
 // 霹靂悠 0516007
@@ -91,11 +91,11 @@ m.ShowUserAllScore('0416312', function(err, result){
 // 自行報考通過 → 一學分都不能底！ 可以修二外當大一英文或進階英文 -> 4
 // 1 → 英文一定要修滿八學分 不能用二外抵 -> 0
 
-// m.SetGraduateSubmitStatus({id:'0416016',graduate_submit:0,submit_type: 3},function(err,result){
-// 	if(err)
-// 		throw err;
-// 	console.log(JSON.parse(result));
-// });
+m.SetGraduateSubmitStatus({id:'0416016', graduate_submit: 0, submit_type: 3, net_media: 1}, function(err,result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+});
 // // SetGraduateSubmitStatus 設定某學生的畢業預審確認狀態(0未送審, 1送審中, 2審核通過, 3審核不通過)(0舊制,1 新制,2 不變更,3 null)
 
 // m.SetUserOAuth('0516003', '456', 3);
