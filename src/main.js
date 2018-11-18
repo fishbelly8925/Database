@@ -4,11 +4,11 @@
 
 var m = require('./msql.js');
 
-// m.ShowUserInfo('0316003', function(err, result){
-//     if(err)
-//         throw err;
-//     console.log(JSON.parse(result));
-// }); // ShowUserInfo 回傳學生資料
+m.ShowUserInfo('0316003', function(err, result){
+    if(err)
+        throw err;
+    console.log(JSON.parse(result));
+}); // ShowUserInfo 回傳學生資料
 
 //m.SetUserEmail('0516003', 'da2bct@test');
 // SetUserEmail(學號, email) 更新此學號學生之email
@@ -91,11 +91,11 @@ var m = require('./msql.js');
 // 自行報考通過 → 一學分都不能底！ 可以修二外當大一英文或進階英文 -> 4
 // 1 → 英文一定要修滿八學分 不能用二外抵 -> 0
 
-m.SetGraduateSubmitStatus({id:'0416016', graduate_submit: 0, submit_type: 3, net_media: 2}, function(err,result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-});
+// m.SetGraduateSubmitStatus({id:'0416016', graduate_submit: 0, submit_type: 3, net_media: 2}, function(err,result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// });
 // SetGraduateSubmitStatus 設定某學生的畢業預審確認狀態(0未送審, 1送審中, 2審核通過, 3審核不通過)(0舊制,1 新制,2 不變更,3 null)
 // 設定學生選擇網路、多媒體net_media(0網路, 1多媒體, 其他值不更改)
 
