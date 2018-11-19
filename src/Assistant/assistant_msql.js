@@ -26,12 +26,23 @@ module.exports = {
         resource.then(function(c){
             var sql_SetGraduateSubmitStatus=c.prepare(s.SetGraduateSubmitStatus);
             var sql_SetNetMediaStatus=c.prepare(s.SetNetMediaStatus);
+            var sql_SetSubmitTypeStatus=c.prepare(s.SetSubmitTypeStatus);
             c.query(sql_SetGraduateSubmitStatus(data), function(err, result){
                 if(err)
                 {
                     callback(err, undefined);
                     pool.release(c); 
                     throw err;
+                }
+                if(data['submit_type']==0 || data['submit_type']==1 || data['submit_type'] == 3){
+                    c.query(sql_SetSubmitTypeStatus(data), function(err, result){
+                        if(err)
+                        {
+                            callback(err, undefined);
+                            pool.release(c); 
+                            throw err;
+                        }
+                    })
                 }
                 if(data['net_media']==0 || data['net_media']==1){
                     c.query(sql_SetNetMediaStatus(data), function(err, result){
