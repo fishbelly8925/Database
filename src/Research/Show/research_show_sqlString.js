@@ -105,7 +105,7 @@ exports.ShowResearchFilePath="\
     and first_second = :first_second;"
 
 exports.ShowResearchScoreComment="\
-    select r.tname, r.student_id, r.score, s.sname, r.comment,if(substring(s.program,1,2)='資工' or substring(s.program,1,2)='網多' or substring(s.program,1,2)='資電',1,0) as status\
+    select r.tname, r.student_id, r.research_title, r.score, s.sname, r.comment,if(substring(s.program,1,2)='資工' or substring(s.program,1,2)='網多' or substring(s.program,1,2)='資電',1,0) as status\
     from research_student as r, \
     (\
         select student_id, sname,program \
