@@ -447,11 +447,11 @@ var m = require('./msql.js');
 // 	console.log(JSON.parse(result));
 // });
 
-// m.ShowGivenGradeStudent({grade: '一'}, function(err, result){
-// 	if(err)
-// 		throw err;
-// 	console.log(JSON.parse(result));
-// });
+m.ShowGivenGradeStudent({grade: '四'}, function(err, result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+});
 // 輸入一二三四，顯示某年級所有學生,1表示本系生，0表示外系生
 
 // m.ShowStudentGraduate({student_id: '0516202'}, function(err, result){
@@ -541,7 +541,7 @@ var m = require('./msql.js');
 // });
 // 修改某學生畢業預審
 
-// m.ShowGivenGradeStudentID({grade: '三'}, function(err, result){
+// m.ShowGivenGradeStudentID({grade: '四'}, function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
