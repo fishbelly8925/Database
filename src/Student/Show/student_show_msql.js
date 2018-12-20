@@ -453,6 +453,7 @@ module.exports = {
                         return;
                     }
                     callback(null, JSON.stringify(result));
+                    pool.release(c);
                 });
             else if(data['all_student'])
                 c.query(sql_ShowUserOffsetApplyFormAll([]),function(err,result){
@@ -462,6 +463,7 @@ module.exports = {
                         return;
                     }
                     callback(null, JSON.stringify(result));
+                    pool.release(c);
                 });
         });
     },

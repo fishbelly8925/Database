@@ -331,11 +331,12 @@ var m = require('./msql.js');
 // }); 
 // // CPE未通過申請專題 first_second = 3 助理確認CPE通過後可將 3 改為 1
 
-m.ShowResearchScoreComment({semester: '106-2', first_second: 2}, function(err, result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-}); // 回傳專題成績列表:教授名字, 學生姓名學號, 成績, 評論
+// m.ShowResearchScoreComment({semester: '106-2', first_second: 2}, function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); 
+// 回傳專題成績列表:教授名字, 學生姓名學號, 成績, 評論
 
 // m.ShowStudentMentor('0516003', function(err, result){
 // 	if(err)
@@ -446,11 +447,11 @@ m.ShowResearchScoreComment({semester: '106-2', first_second: 2}, function(err, r
 // 	console.log(JSON.parse(result));
 // });
 
-// m.ShowGivenGradeStudent({grade: '一'}, function(err, result){
-// 	if(err)
-// 		throw err;
-// 	console.log(JSON.parse(result));
-// });
+m.ShowGivenGradeStudent({grade: '四'}, function(err, result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+});
 // 輸入一二三四，顯示某年級所有學生,1表示本系生，0表示外系生
 
 // m.ShowStudentGraduate({student_id: '0516202'}, function(err, result){
@@ -489,7 +490,8 @@ m.ShowResearchScoreComment({semester: '106-2', first_second: 2}, function(err, r
 //     service: 1,
 //     art: 1,
 //     mentor: 1,
-//     compulse: ['計算機a', '計算機1', '計算機2']
+//     compulse: ['計算機a', '計算機1', '計算機2'],
+//     current: ['計算機a', '計算機1', '計算機2']
 // }
 
 // m.CreateStudentGraduate(data_CreateStudentGraduate, function(err, result){
@@ -528,7 +530,8 @@ m.ShowResearchScoreComment({semester: '106-2', first_second: 2}, function(err, r
 //     service: 1,
 //     art: 1,
 //     mentor: 1,
-// 	compulse: ['計算機a', '計算機b', '計算機c']
+// 	compulse: ['計算機a', '計算機b', '計算機c'],
+//     current: ['計算機a', '計算機1', '計算機2']
 // }
 
 // m.SetStudentGraduate(data_SetStudentGraduate, function(err, result){
@@ -538,7 +541,7 @@ m.ShowResearchScoreComment({semester: '106-2', first_second: 2}, function(err, r
 // });
 // 修改某學生畢業預審
 
-// m.ShowGivenGradeStudentID({grade: '三'}, function(err, result){
+// m.ShowGivenGradeStudentID({grade: '四'}, function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));

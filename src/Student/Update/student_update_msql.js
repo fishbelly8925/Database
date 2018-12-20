@@ -61,6 +61,7 @@ module.exports = {
                         return;
                     }
                     callback(null, JSON.stringify(result));
+                    pool.release(c);
                 })
             });
         });
@@ -76,6 +77,7 @@ module.exports = {
                     return;
                 }
                 callback(null, JSON.stringify(result));
+                pool.release(c);
             });
         });
     },
@@ -90,6 +92,8 @@ module.exports = {
                     return;
                 }
                 callback(null, JSON.stringify(result));
+                pool.release(c);
+
             });
         });
     },

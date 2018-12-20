@@ -17,12 +17,21 @@ exports.ShowStudentCompulse = "\
     from compulse \
     where student_id = :student_id";
 
+exports.ShowStudentCurrentCos = "\
+    select * \
+    from graduate_current_cos \
+    where student_id = :student_id";
+
 exports.DeleteStudentGraduate = "\
 	delete from graduate\
 	where student_id = :student_id";
 
 exports.DeleteStudentCompulse = "\
 	delete from compulse\
+	where student_id = :student_id";
+
+exports.DeleteStudentCurrentCos = "\
+	delete from graduate_current_cos\
 	where student_id = :student_id";
 
 exports.CreateStudentGraduate = "\
@@ -41,9 +50,11 @@ exports.CreateStudentCompulse = "\
 		:student_id, :cos_cname\
 	)";
 
-exports.ClearStudentCompulse = "\
-	delete from compulse\
-	where student_id = :student_id";
+exports.CreateStudentCurrentCos = "\
+	insert into graduate_current_cos \
+	values (\
+		:student_id, :current_cos_cname\
+	)";
 
 exports.SetStudentGraduate = "\
 	update graduate\
@@ -80,6 +91,8 @@ exports.ShowGivenGradeStudentID = "\
 	select student_id\
 	from student\
 	where grade = :grade\
+	and study_status !='畢業'\
+	and study_status !='休學'\
 	and (\
 		substring(program, 1, 2) = '資工'\
 		or substring(program, 1, 2) = '網多'\

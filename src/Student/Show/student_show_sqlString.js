@@ -509,4 +509,6 @@ exports.ShowGivenGradeStudent = "\
     select sname, student_id, program, graduate,\
     if(substring(program,1,2)='資工' or substring(program,1,2)='網多' or substring(program,1,2)='資電',1,0) as status\
     from student\
-    where grade = :grade";
+    where grade = :grade\
+    and study_status !='休學'\
+    and study_status !='畢業'";
