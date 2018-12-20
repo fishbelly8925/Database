@@ -28,20 +28,20 @@ class AutoEncoder(nn.Module):
 		super(AutoEncoder,self).__init__()
 
 		self.encoder = nn.Sequential(
-			nn.Linear(len(score[0]),500),
+			nn.Linear(len(score[0]),800),
+			nn.ELU(),
+			nn.Linear(800,500),
 			nn.ELU(),
 			nn.Linear(500,200),
-			nn.ELU(),
-			nn.Linear(200,50),
 			nn.ELU()
 		)
 		self.decoder = nn.Sequential(
-			nn.Linear(50,200),
-			nn.ELU(),
 			nn.Linear(200,500),
+			nn.ELU(),
+			nn.Linear(500,800),
 			nn.Dropout(DROP_PROB),
 			nn.ELU(),
-			nn.Linear(500,len(score[0])),
+			nn.Linear(800,len(score[0])),
 			nn.ELU()
 		)
 
