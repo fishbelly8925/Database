@@ -4,11 +4,13 @@ import auto_training as at
 import func
 import numpy as np
 import csv
+import pandas as pd
 
 sem = input('Enter the semester: ')
 
 # parameter
 INF = 123.0
+K = 10
 
 # prepare data and model
 stds = func.findAllStudent()
@@ -18,22 +20,36 @@ score = np.float32(np.nan_to_num(score))
 score = torch.FloatTensor(score)
 currentCos = func.findCurrentCos(sem)
 AutoEncoder = at.AutoEncoder
+autoencoder = torch.load('net2.pkl')
 
-autoencoder = torch.load('net.pkl')
+def loss_func(x,y):
+	return (np.mean((x-y)**2))**0.5
+
+# start encode
+print('Encoding')
+encoded, _ = autoencoder(score)
+encoded = encoded.detach().numpy()
+# get similarity
+print('Getting Similarity')
+s_len = len(encoded)
+similarity = np.zeros((s_len, s_len))
+for a in range(s_len):
+	for b in range(s_len):
+		if a==b:
+			similarity[a][b] = 0
+		else:
+			# similarity[a][b] = func.getSimilarity(encoded[a], encoded[b])
+			similarity[a][b] = -1*loss_func(encoded[a], encoded[b])
 
 # start predict
-_, decoded = autoencoder(score)
-decoded = decoded.detach().numpy()
 score = score.numpy()
-decoded[score!=0] = -INF
-res = func.generate(allCos, decoded, 30)
-res = func.parseCurrentCos(stds, res, sem, 10)
+pred = func.predict(similarity, score)
+# Generate the top K high score of not pass cos for every student
+suggest = func.generate(allCos, pred, 50)
 
+# Parse the recommend cos with specify semester and K courses
+result = func.parseCurrentCos(stds, suggest, sem, K)
 
-# write to file
-
-with open('RS_auto.csv','w') as out:
-	for se in res:
-		temp = se[0]+',"'+','.join(se[1:])+'"'
-		print(temp)
-		print(temp, file=out)
+print("Transfer to csv file . . .")
+result=pd.DataFrame(result)
+result.to_csv('RS_auto_2.csv',index=False)

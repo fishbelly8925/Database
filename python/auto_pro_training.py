@@ -15,7 +15,7 @@ LR = 0.0001
 DROP_PROB = 0.2
 
 # Data prepare
-score = func.findGrades(func.findAllStudent_byGrades(),func.findAllCos())
+score = func.findGrades(func.findAllStudent_byGrades(),func.findAllProCos())
 score = np.float32(np.nan_to_num(score))
 cond = np.sum(score!=0,axis=1)>MIN_COS_NUM
 score = score[cond]
@@ -75,6 +75,6 @@ if __name__ == '__main__':
 				b_x = decoded
 		print('Epoch ',epoch,' | train_lose: {0:4f}'.format(total_loss/ITER_TIMES/loader_len))
 		if epoch%5==1:
-			torch.save(autoencoder,'net2.pkl')
+			torch.save(autoencoder,'net_pro.pkl')
 
-	torch.save(autoencoder,'net2.pkl')
+	torch.save(autoencoder,'net_pro.pkl')

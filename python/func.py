@@ -44,6 +44,19 @@ def findAllCos():
     cursor.close()
     return res
 
+def findAllProCos():
+    cursor=conn.cursor()
+    cursor.execute(sql.findAllProCos)
+    temp=cursor.fetchall()
+    res=set()
+    for i in temp:
+        i=i[0]
+        res.add(parseEng(i))
+    res=list(res)
+    res.sort()
+    cursor.close()
+    return res
+
 def findAllStudent():
     cursor=conn.cursor()
     cursor.execute("select student_id from student")
