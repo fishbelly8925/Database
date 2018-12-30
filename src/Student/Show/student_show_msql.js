@@ -172,7 +172,7 @@ module.exports = {
     ShowRecommendCos:function(id, callback){
         const resource = pool.acquire();
         resource.then(function(c){
-            var semester = '107-1%';
+            var semester = '107-2%';
             var sql_ShowRecommendCos = c.prepare(s.ShowRecommendCos);
             var sql_findCurrentCos = c.prepare(s.findCurrentCos);
             var sql_findTeacher = c.prepare(s.findTeacher);
@@ -482,5 +482,33 @@ module.exports = {
                 pool.release(c);
             });
         })
-    }
+    },
+    ShowStudentHotCos: function(data, callback){
+        const resource=pool.acquire();
+        resource.then(function(c) {
+            var sql_ShowStudentGrade = c.prepare(s.ShowStudentGrade);
+            var sql_ShowStudentHotCos = c.prepare(s.ShowStudentHotCos);
+            c.query(sql_ShowStudentGrade(data), function(err, student){
+                student = JSON.parse(JSON.stringify(student));
+                if(err)
+                {
+                    callback(err, undefined);
+                    pool.release(c);
+                    return ;
+                }
+                if(student.length==1){
+                    c.query(sql_ShowStudentHotCos(student[0]), function(err, result){
+                        if(err)
+                        {
+                            callback(err, undefined);
+                            pool.release(c);
+                            return ;
+                        }
+                        callback(null, JSON.stringify(result));
+                        pool.release(c);
+                    });
+                }
+            })  
+        })
+    },
 }

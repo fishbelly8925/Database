@@ -110,5 +110,20 @@ module.exports = {
                 callback(null, JSON.stringify(result));
             });
         });
+    },
+    SetRecommendCosStar(data, callback){
+        const resource = pool.acquire();
+        resource.then(function(c){
+            var sql_SetRecommendCosStar = c.prepare(s.SetRecommendCosStar);
+            c.query(sql_SetRecommendCosStar(data), function(err, result){
+                if(err){
+                    callback(err, undefined);
+                    pool.release(c);
+                    return;
+                }
+                callback(null, JSON.stringify(result));
+                pool.release(c);
+            });
+        });
     }
 }

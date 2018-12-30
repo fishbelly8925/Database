@@ -50,3 +50,13 @@ exports.SetOffsetApplyFormAggreStatus = "\
     where student_id = :student_id\
     and cos_cname_old = :cos_cname_old\
     and cos_code_old = :cos_code_old";
+
+exports.SetRecommendCosStar = "\
+    insert into rs_feedback\
+    (student_id, unique_id, star_level)\
+    values\
+    (:student_id, :unique_id, :star_level)";
+
+
+
+

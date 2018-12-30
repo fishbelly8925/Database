@@ -512,3 +512,56 @@ exports.ShowGivenGradeStudent = "\
     where grade = :grade\
     and study_status !='休學'\
     and study_status !='畢業'";
+
+exports.ShowStudentHotCos = "\
+    select a.grade, a.unique_id, a.count, a.url, a.cos_credit, a.cos_time, a.depType, a.tname, a.cos_cname \
+    from  \
+    ( \
+        select a.grade, a.unique_id, a.count, a.url, a.cos_credit, a.cos_time, a.depType, a.tname, b.cos_cname \
+        from \
+        ( \
+            select a.grade, a.unique_id, a.count, a.url, a.cos_credit, a.cos_time, a.depType, b.tname \
+            from  \
+            ( \
+                select a.grade, a.unique_id, a.count, a.url, b.cos_credit, b.cos_time, b.depType, b.teacher_id \
+                from  \
+                ( \
+                    select grade, unique_id, count, url \
+                    from hot_cos \
+                    where grade = :grade \
+                ) as a \
+                left outer join \
+                ( \
+                    select unique_id, cos_credit, cos_time, depType, teacher_id \
+                    from cos_data \
+                ) as b \
+                on a.unique_id=b.unique_id \
+            ) as a \
+            left outer join \
+            ( \
+                select teacher_id, tname \
+                from teacher_cos_relation \
+            ) as b \
+            on a.teacher_id=b.teacher_id \
+        ) as a \
+        left outer join \
+        ( \
+            select unique_id, cos_cname \
+            from cos_name \
+        ) as b \
+        on a.unique_id=b.unique_id \
+        order by a.count DESC \
+    ) as a \
+    where a.cos_cname not in \
+    ( \
+        select cos_cname \
+        from cos_score \
+        where student_id = :student_id \
+    )";
+
+exports.ShowStudentGrade = "\
+    select student_id, grade\
+    from student\
+    where student_id=:student_id"
+
+
