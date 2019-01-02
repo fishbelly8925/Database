@@ -57,6 +57,16 @@ exports.SetRecommendCosStar = "\
     values\
     (:student_id, :unique_id, :star_level)";
 
+exports.CheckRecommendCosStar = "\
+    select * \
+    from rs_feedback\
+    where student_id = :student_id\
+    and :unique_id = :unique_id";
 
+exports.UpdataRecommendCosStar = "\
+    update rs_feedback \
+    set star_level = :star_level \
+    where student_id = :student_id \
+    and unique_id = :unique_id";
 
 

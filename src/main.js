@@ -183,17 +183,17 @@ var m = require('./msql.js');
 // 	console.log(JSON.parse(result));
 // }); // ShowRecommendCos(student_id, callback) 回傳某學生的推薦課程
 
-// data_SetRecommendCosStar = {
-// 	student_id: '0516003',
-// 	unique_id: '107-2-5258',
-// 	star_level: 5
-// }
-// m.SetRecommendCosStar(data_SetRecommendCosStar, function(err, result){
-// 	if(err)
-// 		throw err;
-// 	console.log(JSON.parse(result));
-// })
-// 設定推薦課程的星星等級
+data_SetRecommendCosStar = {
+	student_id: '0516003',
+	unique_id: '107-2-5258',
+	star_level: 4
+}
+m.SetRecommendCosStar(data_SetRecommendCosStar, function(err, result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+})
+// 設定推薦課程的星星等級，如果已經存在就覆寫
 
 // m.ShowGradeTeacherResearchStudent('T0409','',function(err, result){
 // 	if(err)
@@ -560,11 +560,11 @@ var m = require('./msql.js');
 // });
 // // 顯示某年及所有學號
 
-m.ShowStudentHotCos({student_id: '0516205'}, function(err, result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-});
+// m.ShowStudentHotCos({student_id: '0516205'}, function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// });
 // 顯示某一屆當期的熱門選課(會是自己沒有修過的課)
 
 m.Drain(); // 關閉 connection pool

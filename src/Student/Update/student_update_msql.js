@@ -115,15 +115,41 @@ module.exports = {
         const resource = pool.acquire();
         resource.then(function(c){
             var sql_SetRecommendCosStar = c.prepare(s.SetRecommendCosStar);
-            c.query(sql_SetRecommendCosStar(data), function(err, result){
+            var sql_CheckRecommendCosStar = c.prepare(s.CheckRecommendCosStar);
+            var sql_UpdataRecommendCosStar = c.prepare(s.UpdataRecommendCosStar);
+            c.query(sql_CheckRecommendCosStar(data), function(err, check){
                 if(err){
                     callback(err, undefined);
                     pool.release(c);
                     return;
                 }
-                callback(null, JSON.stringify(result));
-                pool.release(c);
-            });
+                check = JSON.parse(JSON.stringify(check));
+                if(check.length==1){
+                    // if exist, update
+                    c.query(sql_UpdataRecommendCosStar(data), function(err, result){
+                        if(err){
+                            callback(err, undefined);
+                            pool.release(c);
+                            return;
+                        }
+                        callback(null, JSON.stringify(result));
+                        pool.release(c);
+                    });
+                }
+                else{
+                    // if not exist, insert
+                    c.query(sql_SetRecommendCosStar(data), function(err, result){
+                        if(err){
+                            callback(err, undefined);
+                            pool.release(c);
+                            return;
+                        }
+                        callback(null, JSON.stringify(result));
+                        pool.release(c);
+                    });
+                }
+            })
+            
         });
     }
 }
