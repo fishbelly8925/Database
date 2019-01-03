@@ -61,7 +61,7 @@ exports.CheckRecommendCosStar = "\
     select * \
     from rs_feedback\
     where student_id = :student_id\
-    and :unique_id = :unique_id";
+    and unique_id = :unique_id";
 
 exports.UpdataRecommendCosStar = "\
     update rs_feedback \

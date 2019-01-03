@@ -188,11 +188,13 @@ data_SetRecommendCosStar = {
 	unique_id: '107-2-5258',
 	star_level: 4
 }
+
 m.SetRecommendCosStar(data_SetRecommendCosStar, function(err, result){
 	if(err)
 		throw err;
 	console.log(JSON.parse(result));
 })
+
 // 設定推薦課程的星星等級，如果已經存在就覆寫
 
 // m.ShowGradeTeacherResearchStudent('T0409','',function(err, result){
