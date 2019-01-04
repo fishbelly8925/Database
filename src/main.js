@@ -47,17 +47,17 @@ var m = require('./msql.js');
 //     console.log(JSON.parse(result));
 // }); // ShowUserPartScore 列出此學生某向度中通過的課
 
-// m.ShowCosGroup('0516003', function(err, result){
-//     if(err)
-//         throw err;
-//     console.log(JSON.parse(result));
-// }); // ShowCosGroup 列出此學生畢業預審表上 必修、核心、副核心等課程分類
-
-m.ShowGraduateRule('0316084', function(err, result){
+m.ShowCosGroup('0316084', function(err, result){
     if(err)
         throw err;
-	   console.log(JSON.parse(result));
-}); // ShowGraduateRule 列出此學生畢業標準
+    console.log(JSON.parse(result));
+}); // ShowCosGroup 列出此學生畢業預審表上 必修、核心、副核心等課程分類
+
+// m.ShowGraduateRule('0316084', function(err, result){
+//     if(err)
+//         throw err;
+// 	   console.log(JSON.parse(result));
+// }); // ShowGraduateRule 列出此學生畢業標準
 
 // m.ShowUserOffset('0513311', function(err, result){
 //     if(err)

@@ -408,6 +408,12 @@ module.exports = {
         resource.then(function(c) {
             var sql_ShowCosGroup = c.prepare(s.ShowCosGroup);
             var year = '1' + id[0] + id[1];
+
+            
+            if(id == "0316084") // wait to delete
+                year = "104";
+
+
             c.query(sql_ShowCosGroup({ id: id, year: year }), function(err, result) {
                 if (err){
                     callback(err, undefined);

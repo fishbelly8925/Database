@@ -17,24 +17,6 @@ findAllCos = "\
 	) as cn\
 	where id.unique_id = cn.unique_id;"
 
-findAllProCos = "\
-	select distinct cn.cos_cname from \
-	(\
-		select unique_id\
-		from cos_data\
-		where cos_code like 'IOC%' \
-		or cos_code like 'IOE%' \
-		or cos_code like 'ILE%' \
-		or cos_code like 'IDS%' \
-		or cos_code like 'CCS%' \
-		or cos_code like 'ICP%'\
-	) as id,\
-	(\
-		select unique_id, cos_cname \
-		from cos_name\
-	) as cn\
-	where id.unique_id = cn.unique_id;"
-
 findGrad = "\
 	select cn.cos_cname, sc.score \
 	from \
@@ -71,6 +53,45 @@ findCurrentCos = "\
 		(\
 			cos_code not like 'DCP%%'\
 			or cos_type != '必修'\
+		)\
+	) as id ,\
+	(\
+		select unique_id, cos_cname\
+		from cos_name\
+		where cos_cname not like '博士%%'\
+	) as cn\
+	where id.unique_id = cn.unique_id;"
+
+findCurrentBasicCos = "\
+	select distinct cn.cos_cname\
+	from\
+	(\
+		select unique_id from cos_data\
+		where unique_id like concat(%(sem)s,'%%')\
+		and cos_code like 'DCP%%'\
+		and cos_type != '必修'\
+	) as id ,\
+	(\
+		select unique_id, cos_cname\
+		from cos_name\
+		where cos_cname not like '博士%%'\
+	) as cn\
+	where id.unique_id = cn.unique_id;"
+
+findCurrentAdvanceCos = "\
+	select distinct cn.cos_cname\
+	from\
+	(\
+		select unique_id from cos_data\
+		where unique_id like concat(%(sem)s,'%%')\
+		and\
+		(\
+			cos_code like 'IOC%%'\
+			or cos_code like 'IOE%%'\
+			or cos_code like 'ILE%%'\
+			or cos_code like 'IDS%%'\
+			or cos_code like 'CCS%%'\
+			or cos_code like 'ICP%%'\
 		)\
 	) as id ,\
 	(\

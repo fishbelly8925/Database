@@ -195,3 +195,30 @@ def parseCurrentCos(stds, suggest, sem, K):
         temp.insert(0, stds[i])
         result.append(temp)
     return result
+
+def findCurrentCos_withMode(sem, mode):
+    cursor=conn.cursor()
+    if mode=='a':
+        cursor.execute(sql.findCurrentBasicCos,{'sem':sem})
+    elif mode=='b':
+        cursor.execute(sql.findCurrentAdvanceCos,{'sem':sem})
+    temp=cursor.fetchall()
+    res=set()
+    for i in temp:
+        i=i[0]
+        res.add(parseEng(i))
+    res=list(res)
+    res.sort()
+    cursor.close()
+    return res
+
+def parseCurrentCos_withMode(stds, suggest, sem, K, mode):
+    current_cos = findCurrentCos_withMode(sem, mode)
+    result = []
+    for i in range(len(suggest)):
+        temp = list(filter(lambda x: x in current_cos,suggest[i]))
+        if len(temp)>K:
+            temp = temp[0:K]
+        temp.insert(0, stds[i])
+        result.append(temp)
+    return result
