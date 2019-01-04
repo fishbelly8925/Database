@@ -373,6 +373,10 @@ module.exports = {
         resource.then(function(c) {
             var sql_ShowGraduateRule = c.prepare(s.ShowGraduateRule);
             var year = '1' + id[0] + id[1];
+
+            if(id == "0316084") // wait to delete
+                year = "104";
+
             c.query(sql_ShowGraduateRule({ id: id, year: year }), function(err, result) {
                 if (err){
                     callback(err, undefined);

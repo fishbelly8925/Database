@@ -53,11 +53,11 @@ var m = require('./msql.js');
 //     console.log(JSON.parse(result));
 // }); // ShowCosGroup 列出此學生畢業預審表上 必修、核心、副核心等課程分類
 
-// m.ShowGraduateRule('0516075', function(err, result){
-//     if(err)
-//         throw err;
-// 	   console.log(JSON.parse(result));
-// }); // ShowGraduateRule 列出此學生畢業標準
+m.ShowGraduateRule('0316084', function(err, result){
+    if(err)
+        throw err;
+	   console.log(JSON.parse(result));
+}); // ShowGraduateRule 列出此學生畢業標準
 
 // m.ShowUserOffset('0513311', function(err, result){
 //     if(err)
@@ -183,17 +183,17 @@ var m = require('./msql.js');
 // 	console.log(JSON.parse(result));
 // }); // ShowRecommendCos(student_id, callback) 回傳某學生的推薦課程
 
-data_SetRecommendCosStar = {
-	student_id: '0516003',
-	unique_id: '107-2-5258',
-	star_level: 4
-}
+// data_SetRecommendCosStar = {
+// 	student_id: '0516003',
+// 	unique_id: '107-2-5258',
+// 	star_level: 4
+// }
 
-m.SetRecommendCosStar(data_SetRecommendCosStar, function(err, result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-})
+// m.SetRecommendCosStar(data_SetRecommendCosStar, function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// })
 
 // 設定推薦課程的星星等級，如果已經存在就覆寫
 
