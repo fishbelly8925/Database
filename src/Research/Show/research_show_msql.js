@@ -226,5 +226,20 @@ module.exports = {
                 pool.release(c);
             });
         });
-    }
+    },
+    ShowStudentFirstSecond: function(student_id, callback) {
+        const resource = pool.acquire();
+        resource.then(function(c) {
+            var sql_ShowStudentFirstSecond = c.prepare(s.ShowStudentFirstSecond);
+            c.query(sql_ShowStudentFirstSecond({ student_id }), function(err, result) {
+                if (err){
+                    callback(err, undefined);
+                    pool.release(c);
+                    return;
+                }
+                callback(null, JSON.stringify(result));
+                pool.release(c);
+            })
+        })
+    },
 };

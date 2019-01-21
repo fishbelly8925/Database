@@ -177,3 +177,11 @@ exports.ShowStudentResearchList = "\
     where s.student_id = rs.student_id\
     and rs.first_second = :first_second\
     and rs.semester = :semester";
+
+exports.ShowStudentFirstSecond = "\
+    select first_second \
+    from research_student \
+    where student_id = :student_id \
+    order by first_second desc \
+    limit 1\
+    ";
