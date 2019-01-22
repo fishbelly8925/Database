@@ -197,7 +197,7 @@ var m = require('./msql.js');
 
 // 設定推薦課程的星星等級，如果已經存在就覆寫
 
-// m.ShowGradeTeacherResearchStudent('T0409','',function(err, result){
+// m.ShowGradeTeacherResearchStudent('T0009','',function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
@@ -569,11 +569,18 @@ var m = require('./msql.js');
 // });
 // 顯示某一屆當期的熱門選課(會是自己沒有修過的課)
 
-m.ShowStudentFirstSecond('0512204',function(err,result){
+// m.ShowStudentFirstSecond('0512204',function(err,result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); // 回傳當學期的專題是一或二
+
+m.ShowResearchTitleNumber({tname:'彭文志', research_title:'聊天機器人', semester:'106-2'}, function(err, result){
 	if(err)
 		throw err;
-	console.log(JSON.parse(result));
-}); // 回傳當學期的專題是一或二
+	console.log(JSON.parse(result)[0]['count']);
+});
+// 查詢該學期該教授的此題目，目前有幾筆
 
 
 m.Drain(); // 關閉 connection pool

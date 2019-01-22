@@ -98,6 +98,13 @@ exports.ShowResearchGroup="\
     and first_second = :first_second\
     and semester = :semester";
 
+exports.ShowResearchTitleNumber="\
+    select count(distinct research_title)+1 as count\
+    from research_student\
+    where research_title like concat(:research_title, '%')\
+    and tname = :tname\
+    and semester = :semester";
+
 exports.ShowResearchFilePath="\
     select * from research_file where \
     research_title = :research_title \
