@@ -311,7 +311,7 @@ var m = require('./msql.js');
 // m.SetResearchScoreComment({student_id:'283u291', tname:'彭文志', research_title:'聊天機器人', first_second:2, semester:'106-2', new_score:88, new_comment:'Yee!'});
 // // 更新專題成績、評語
 
-// m.CreateNewResearch({ student_id:'0516003', tname : '彭文志', research_title : 'testyeeeee', first_second:2, semester: '106-1'});
+// m.CreateNewResearch({ student_id:'0516003', tname : '彭文志', research_title : 'testttt_2', first_second:2, semester: '106-2'});
 // // 申請專題同意後，新增此學生專題資料到資料庫
 
 // m.ChangeResearch({ student_id:'0516003', tname : '彭文志', research_title : 'testyeeeee', first_second:2, semester: '106-1'});
@@ -575,7 +575,7 @@ var m = require('./msql.js');
 // 	console.log(JSON.parse(result));
 // }); // 回傳當學期的專題是一或二
 
-m.ShowResearchTitleNumber({tname:'彭文志', research_title:'聊天機器人', semester:'106-2'}, function(err, result){
+m.ShowResearchTitleNumber({tname:'彭文志', research_title:'testttt', semester:'106-2'}, function(err, result){
 	if(err)
 		throw err;
 	console.log(JSON.parse(result)[0]['count']);
