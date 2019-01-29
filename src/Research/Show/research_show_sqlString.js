@@ -16,12 +16,12 @@ exports.ShowTeacherInfoResearchCnt="\
     select *\
     from\
     (\
-        select r.tname, substring(r.student_id, 1, 2) as 'grade', count(*) as 'scount'\
+        select r.tname, substring(r.semester, 1, 3) as 'year', count(*) as 'scount'\
         from \
         (\
-            select distinct r.student_id, r.tname, t.teacher_id \
+            select distinct r.student_id, r.tname, t.teacher_id , r.semester \
             from research_student as r, teacher as t\
-            where r.tname = t.tname\
+            where r.tname = t.tname  and first_second = 1 \
         ) as r \
         where r.student_id IN \
         (\
@@ -51,8 +51,8 @@ exports.ShowTeacherInfoResearchCnt="\
                 group by cs.student_id having count(distinct cs.student_id, cs.cos_year, cs.semester) >= 8\
             ) as cs\
         )\
-        group by substring(r.student_id, 1, 2), r.tname \
-        order by r.tname, substring(r.student_id, 1, 2)\
+        group by substring(r.semester, 1, 3), r.tname \
+        order by r.tname, substring(r.semester, 1, 3)\
     ) as o right join \
     (\
         select t.teacher_id,ti.phone, t.tname, ti.email, ti.expertise, ti.info\

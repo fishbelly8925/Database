@@ -52,7 +52,7 @@ module.exports = {
                 var gradeCnt, temp={}, i, res=[];
                 result=JSON.parse(JSON.stringify(result));
                 for(i in result){
-                    gradeCnt={grade:result[i].grade, scount:result[i].scount};
+                    gradeCnt={grade:result[i].year, scount:result[i].scount};
                     if(i==0){
                         temp={tname:result[i].tname, teacher_id:result[i].teacher_id, 
                             phone:result[i].phone, email:result[i].email, 
