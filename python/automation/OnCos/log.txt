@@ -1,0 +1,7 @@
+2019-01-31 22:16:38 - root - ERROR: - mysql query error: not enough arguments for format string
+2019-01-31 22:29:58 - root - ERROR: - mysql query error: not enough arguments for format string
+2019-01-31 22:30:42 - root - ERROR: - mysql query error: (1054, "Unknown column 'cos_year' in 'field list'")
+2019-01-31 22:32:02 - root - ERROR: - mysql query error: (1062, "Duplicate entry '0216011-107-1-5243' for key 'PRIMARY'")
+2019-01-31 22:32:36 - root - ERROR: - mysql query error: (1062, "Duplicate entry '0216011-107-1-1194' for key 'PRIMARY'")
+2019-01-31 22:35:24 - root - ERROR: - csv format error: line 2: 第一欄「學號」格式錯誤
+2019-01-31 22:36:14 - root - INFO: - Success: insert 9 rows to cos_score

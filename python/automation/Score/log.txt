@@ -1,0 +1,3 @@
+2019-01-31 16:16:05 - root - INFO: - Success: insert 4 rows to cos_score
+2019-01-31 16:16:43 - root - ERROR: - mysql query error: (1062, "Duplicate entry '0916205-102-1-415' for key 'PRIMARY'")
+2019-01-31 16:17:43 - root - INFO: - Success: insert 4 rows to cos_score
