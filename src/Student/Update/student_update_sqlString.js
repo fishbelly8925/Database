@@ -26,7 +26,9 @@ exports.CreateOffsetApplyForm = "\
     insert into offset_apply_form\
     select :student_id, :apply_year, :apply_semester, :cos_dep_old,\
         :cos_tname_old, :cos_cname_old, :cos_code_old, :cos_cname,\
-        :cos_code, :cos_type, MIN(c.cos_credit), :reason, 0, :credit_old, :file, NOW()\
+        :cos_code, :cos_type, MIN(c.cos_credit), :reason, 0, :credit_old,\
+        :file, NOW(), :school_old, :dep_old, :graduation_credit_old, \
+        :cos_year_old, :cos_semester_old, :score_old, :offset_type\
     from cos_data as c,cos_name as n\
     where c.cos_code=:cos_code\
     and c.cos_code=n.cos_code\

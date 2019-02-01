@@ -477,6 +477,21 @@ module.exports = {
                 });
         });
     },
+    ShowGivenOffsetApplyForm: function(data, callback){
+        const resource = pool.acquire();
+        resource.then(function(c){
+            var sql_ShowGivenOffsetApplyForm = c.prepare(s.ShowGivenOffsetApplyForm);
+            c.query(sql_ShowGivenOffsetApplyForm(data),function(err,result){
+                if(err){
+                    callback(err, undefined);
+                    pool.release(c);
+                    return;
+                }
+                callback(null, JSON.stringify(result));
+                pool.release(c);
+            });
+        });
+    },
     ShowGivenGradeStudent: function(data, callback){
         const resource=pool.acquire();
         resource.then(function(c) {

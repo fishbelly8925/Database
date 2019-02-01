@@ -389,27 +389,37 @@ var m = require('./msql.js');
 // // 修改專題資料的 add_status, 0代表尚未加選 1代表已加選
 
 
-data = {
-	student_id: '0516003',
-	phone: '0123456789',
-	apply_year: '107',
-	apply_semester: '1',
-	cos_dep_old: '電子系',
-	cos_tname_old: '桑梓賢',
-	cos_cname_old: '線性',
-	cos_code_old:  'DEC1413',
-	cos_cname: '線性代數',
-	cos_code: 'DCP2354',
-	cos_type: '必修',
-	reason: 'YAAAA YOOOO YEEEE',
-	credit_old: 3,
-	file: 'LOOOOOOOOOO'
-};
-m.CreateOffsetApplyForm(data,function(err,result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-}); // 	建立課程抵免申請單，回傳對DB造成的info
+// data = { 
+// 	student_id: '0516003',
+// 	phone: '0123456789',
+// 	apply_year: '107',
+// 	apply_semester: '1',
+// 	cos_dep_old: '電子系',
+// 	cos_tname_old: '桑梓賢',
+// 	cos_cname_old: '線性',
+// 	cos_code_old:  'DEC1413',
+// 	cos_cname: '線性代數',
+// cos_code: 'DCP2354',
+// cos_type: '必修',
+// reason: 'YAAAA YOOOO YEEEE',
+// credit_old: 3,
+// file: 'LOOOOOOOOOO',
+// school_old: 'NTCU',           
+// dep_old: '應數系',              
+// graduation_credit_old: 128,
+// cos_year_old: 106,         
+// cos_semester_old: 2,     
+// score_old: 92,
+// offset_type: 2
+// };
+
+// m.CreateOffsetApplyForm(data,function(err,result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); // 	建立課程抵免申請單，回傳對DB造成的info 
+// 	   //	offset_type -> 0 外系抵免 1 英授抵免 2 轉校轉系抵免  
+
 
 
 // data = {
@@ -448,7 +458,18 @@ m.CreateOffsetApplyForm(data,function(err,result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
-// });
+// });	
+
+data = {
+	student_id: '0516003',
+	cos_cname_old: '線性',
+	cos_cname: '線性代數'
+}
+m.ShowGivenOffsetApplyForm(data,function(err,result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+});// 顯示搜尋的申請單
 
 // data = {
 // 	student_id: '0516002',
@@ -576,12 +597,12 @@ m.CreateOffsetApplyForm(data,function(err,result){
 // 	console.log(JSON.parse(result));
 // }); // 回傳當學期的專題是一或二
 
-m.ShowResearchTitleNumber({tname:'彭文志', research_title:'testttt', semester:'106-2'}, function(err, result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result)[0]['count']);
-});
-// 查詢該學期該教授的此題目，目前有幾筆
+// m.ShowResearchTitleNumber({tname:'彭文志', research_title:'testttt', semester:'106-2'}, function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result)[0]['count']);
+// });
+// // 查詢該學期該教授的此題目，目前有幾筆
 
 
 m.Drain(); // 關閉 connection pool
