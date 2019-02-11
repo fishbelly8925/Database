@@ -97,17 +97,18 @@ module.exports = {
             });
         });
     },
-    SetOffsetApplyFormAggreStatus(data,callback){
+    SetOffsetApplyFormAgreeStatus(data,callback){
         const resource = pool.acquire();
         resource.then(function(c){
-            var sql_SetOffsetApplyFormAggreStatus = c.prepare(s.SetOffsetApplyFormAggreStatus)
-            c.query(sql_SetOffsetApplyFormAggreStatus(data),function(err,result){
+            var sql_SetOffsetApplyFormAgreeStatus = c.prepare(s.SetOffsetApplyFormAgreeStatus)
+            c.query(sql_SetOffsetApplyFormAgreeStatus(data),function(err,result){
                 if(err){
                     callback(err, undefined);
                     pool.release(c);
                     return;
                 }
                 callback(null, JSON.stringify(result));
+                pool.release(c);
             });
         });
     },
