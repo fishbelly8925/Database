@@ -460,28 +460,29 @@ var m = require('./msql.js');
 // 	console.log(JSON.parse(result));
 // });	
 
-data = {
-	student_id: '0516003',
-	cos_cname_old: '線性',
-	cos_cname: '線性代數'
-}
-m.ShowGivenOffsetApplyForm(data,function(err,result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-});// 顯示搜尋的申請單
-
 // data = {
-// 	student_id: '0516002',
-// 	cos_cname_old: '線性代數',
-// 	cos_code_old:  'DEE1313',
-// 	state: 1 // 0 尚未決定，1 助理同意，2 主任同意，3 助理不同意，4 主任不同意
+// 	student_id: '0516003',
+// 	cos_cname_old: '線性',
+// 	cos_cname: '線性代數'
 // }
-// m.SetOffsetApplyFormAggreStatus(data,function(err,result){
+// m.ShowGivenOffsetApplyForm(data,function(err,result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
-// });
+// });// 顯示搜尋的申請單
+
+data = {
+	student_id: '0516003',
+	cos_cname_old: '線性',
+	cos_code_old:  'DEC1413',
+	state: 1 ,// 0 尚未決定，1 助理同意，2 主任同意，3 助理不同意，4 主任不同意
+	transferto: '["T9505","T9125"]'
+}
+m.SetOffsetApplyFormAgreeStatus(data,function(err,result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+});
 
 // m.ShowGivenGradeStudent({grade: '四'}, function(err, result){
 // 	if(err)
