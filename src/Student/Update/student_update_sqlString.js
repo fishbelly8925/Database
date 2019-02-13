@@ -37,8 +37,7 @@ exports.CreateOffsetApplyForm = "\
 exports.DeleteOffsetApplyForm = "\
     delete from offset_apply_form\
     where student_id = :student_id\
-    and cos_cname_old = :cos_cname_old\
-    and cos_code_old = :cos_code_old";
+    and timestamp = :timestamp";
 
 exports.CreateOffset = "\
     insert into offset\

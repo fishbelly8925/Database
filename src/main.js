@@ -422,16 +422,17 @@ var m = require('./msql.js');
 
 
 
-// data = {
-// 	student_id: '0516004',
-// 	cos_cname_old: 'YAAAAAAA',
-// 	cos_code_old:  'YOOOOOOO'
-// }
-// m.DeleteOffsetApplyForm(data,function(err,result){
-// 	if(err)
-// 		throw err;
-// 	console.log(JSON.parse(result));
-// }); // delete offset apply form
+data = {
+	timestamp: '2019-02-13 12:16:51',
+	student_id: '0516003',
+	state: 1 ,// 0 尚未決定，1 助理同意，2 主任同意，3 助理不同意，4 主任不同意
+	transferto: '["T9505","T9125"]'
+}
+m.DeleteOffsetApplyForm(data,function(err,result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+}); // delete offset apply form
 
 
 // data = {
@@ -471,17 +472,17 @@ var m = require('./msql.js');
 // 	console.log(JSON.parse(result));
 // });// 顯示搜尋的申請單
 
-data = {
-	timestamp: '2019-02-13 12:14:57',
-	student_id: '0516003',
-	state: 1 ,// 0 尚未決定，1 助理同意，2 主任同意，3 助理不同意，4 主任不同意
-	transferto: '["T9505","T9125"]'
-}
-m.SetOffsetApplyFormAgreeStatus(data,function(err,result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-});
+// data = {
+// 	timestamp: '2019-02-13 12:14:57',
+// 	student_id: '0516003',
+// 	state: 1 ,// 0 尚未決定，1 助理同意，2 主任同意，3 助理不同意，4 主任不同意
+// 	transferto: '["T9505","T9125"]'
+// }
+// m.SetOffsetApplyFormAgreeStatus(data,function(err,result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// });
 
 // m.ShowGivenGradeStudent({grade: '四'}, function(err, result){
 // 	if(err)
