@@ -397,7 +397,7 @@ var m = require('./msql.js');
 // 	cos_dep_old: '電子系',
 // 	cos_tname_old: '桑梓賢',
 // 	cos_cname_old: '線性',
-// 	cos_code_old:  'DEC1413',
+// 	cos_code_old:  null,
 // 	cos_cname: '線性代數',
 // cos_code: 'DCP2354',
 // cos_type: '必修',
@@ -422,17 +422,17 @@ var m = require('./msql.js');
 
 
 
-data = {
-	timestamp: '2019-02-13 12:16:51',
-	student_id: '0516003',
-	state: 1 ,// 0 尚未決定，1 助理同意，2 主任同意，3 助理不同意，4 主任不同意
-	transferto: '["T9505","T9125"]'
-}
-m.DeleteOffsetApplyForm(data,function(err,result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-}); // delete offset apply form
+// data = {
+// 	timestamp: '2019-02-13 12:16:51',
+// 	student_id: '0516003',
+// 	state: 1 ,// 0 尚未決定，1 助理同意，2 主任同意，3 助理不同意，4 主任不同意
+// 	transferto: '["T9505","T9125"]'
+// }
+// m.DeleteOffsetApplyForm(data,function(err,result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); // delete offset apply form
 
 
 // data = {
@@ -453,13 +453,13 @@ m.DeleteOffsetApplyForm(data,function(err,result){
 // }); // create offset
 
 
-// data1 = {student_id: '0516003'} // return single student offset apply form
-// data2 = {all_student: true} // return all student offset apply form
-// m.ShowUserOffsetApplyForm(data2,function(err,result){
-// 	if(err)
-// 		throw err;
-// 	console.log(JSON.parse(result));
-// });	
+data1 = {student_id: '0516005'} // return single student offset apply form
+data2 = {all_student: true} // return all student offset apply form
+m.ShowUserOffsetApplyForm(data1,function(err,result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+});	
 
 // data = {
 // 	student_id: '0516003',
@@ -473,9 +473,10 @@ m.DeleteOffsetApplyForm(data,function(err,result){
 // });// 顯示搜尋的申請單
 
 // data = {
-// 	timestamp: '2019-02-13 12:14:57',
-// 	student_id: '0516003',
+// 	timestamp: '2019-02-13 13:17:19',
+// 	student_id: '0516005',
 // 	state: 1 ,// 0 尚未決定，1 助理同意，2 主任同意，3 助理不同意，4 主任不同意
+// 	reject_reason: '被退回的原因',
 // 	transferto: '["T9505","T9125"]'
 // }
 // m.SetOffsetApplyFormAgreeStatus(data,function(err,result){

@@ -47,7 +47,8 @@ exports.CreateOffset = "\
 
 exports.SetOffsetApplyFormAgreeStatus = "\
     update offset_apply_form\
-    set agree = :state, transferto = :transferto\
+    set agree = :state, transferto = :transferto,\
+    reject_reason = :reject_reason\
     where student_id = :student_id\
     and timestamp = :timestamp";
 
