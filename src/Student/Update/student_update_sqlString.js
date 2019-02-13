@@ -50,8 +50,7 @@ exports.SetOffsetApplyFormAgreeStatus = "\
     update offset_apply_form\
     set agree = :state, transferto = :transferto\
     where student_id = :student_id\
-    and cos_cname_old = :cos_cname_old\
-    and cos_code_old = :cos_code_old";
+    and timestamp = :timestamp";
 
 exports.SetRecommendCosStar = "\
     insert into rs_feedback\

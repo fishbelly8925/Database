@@ -389,36 +389,36 @@ var m = require('./msql.js');
 // // 修改專題資料的 add_status, 0代表尚未加選 1代表已加選
 
 
-data = { 
-	student_id: '0516005',
-	phone: '0123456789',
-	apply_year: '107',
-	apply_semester: '1',
-	cos_dep_old: '電子系',
-	cos_tname_old: '桑梓賢',
-	cos_cname_old: '線性',
-	cos_code_old:  'DEC1413',
-	cos_cname: '線性代數',
-cos_code: 'DCP2354',
-cos_type: '必修',
-reason: 'YAAAA YOOOO YEEEE',
-credit_old: 3,
-file: 'LOOOOOOOOOO',
-school_old: 'NTCU',           
-dep_old: '應數系',              
-graduation_credit_old: 128,
-cos_year_old: 106,         
-cos_semester_old: 2,     
-score_old: 92,
-offset_type: 2
-};
+// data = { 
+// 	student_id: '0516005',
+// 	phone: '0123456789',
+// 	apply_year: '107',
+// 	apply_semester: '1',
+// 	cos_dep_old: '電子系',
+// 	cos_tname_old: '桑梓賢',
+// 	cos_cname_old: '線性',
+// 	cos_code_old:  'DEC1413',
+// 	cos_cname: '線性代數',
+// cos_code: 'DCP2354',
+// cos_type: '必修',
+// reason: 'YAAAA YOOOO YEEEE',
+// credit_old: 3,
+// file: 'LOOOOOOOOOO',
+// school_old: 'NTCU',           
+// dep_old: '應數系',              
+// graduation_credit_old: 128,
+// cos_year_old: 106,         
+// cos_semester_old: 2,     
+// score_old: 92,
+// offset_type: 2
+// };
 
-m.CreateOffsetApplyForm(data,function(err,result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-}); // 	建立課程抵免申請單，回傳對DB造成的info 
-	   //	offset_type -> 0 外系抵免 1 英授抵免 2 免修單  3 學分抵免單
+// m.CreateOffsetApplyForm(data,function(err,result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); // 	建立課程抵免申請單，回傳對DB造成的info 
+// 	   //	offset_type -> 0 外系抵免 1 英授抵免 2 免修單  3 學分抵免單
 
 
 
@@ -471,18 +471,17 @@ m.CreateOffsetApplyForm(data,function(err,result){
 // 	console.log(JSON.parse(result));
 // });// 顯示搜尋的申請單
 
-// data = {
-// 	student_id: '0516003',
-// 	cos_cname_old: '線性',
-// 	cos_code_old:  'DEC1413',
-// 	state: 1 ,// 0 尚未決定，1 助理同意，2 主任同意，3 助理不同意，4 主任不同意
-// 	transferto: '["T9505","T9125"]'
-// }
-// m.SetOffsetApplyFormAgreeStatus(data,function(err,result){
-// 	if(err)
-// 		throw err;
-// 	console.log(JSON.parse(result));
-// });
+data = {
+	timestamp: '2019-02-13 12:14:57',
+	student_id: '0516003',
+	state: 1 ,// 0 尚未決定，1 助理同意，2 主任同意，3 助理不同意，4 主任不同意
+	transferto: '["T9505","T9125"]'
+}
+m.SetOffsetApplyFormAgreeStatus(data,function(err,result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+});
 
 // m.ShowGivenGradeStudent({grade: '四'}, function(err, result){
 // 	if(err)
