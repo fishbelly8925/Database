@@ -391,7 +391,6 @@ var m = require('./msql.js');
 
 data = { 
 	student_id: '0516005',
-	phone: '0123456789',
 	apply_year: '107',
 	apply_semester: '1',
 	cos_dep_old: '電子系',
@@ -399,18 +398,19 @@ data = {
 	cos_cname_old: '線性',
 	cos_code_old:  null,
 	cos_cname: '線性代數',
-cos_code: 'DCP2354',
-cos_type: '必修',
-reason: 'YAAAA YOOOO YEEEE',
-credit_old: 3,
-file: 'LOOOOOOOOOO',
-school_old: 'NTCU',           
-dep_old: '應數系',              
-graduation_credit_old: 128,
-cos_year_old: 106,         
-cos_semester_old: 2,     
-score_old: 92,
-offset_type: 2
+	cos_code: 'DCP2354',
+	cos_type: '必修',
+	credit: 3,
+	reason: 'YAAAA YOOOO YEEEE',
+	credit_old: 3,
+	file: 'LOOOOOOOOOO',
+	school_old: 'NTCU',           
+	dep_old: '應數系',              
+	graduation_credit_old: 128,
+	cos_year_old: 106,         
+	cos_semester_old: 2,     
+	score_old: 92,
+	offset_type: 2,
 };
 
 m.CreateOffsetApplyForm(data,function(err,result){
