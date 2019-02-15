@@ -413,6 +413,7 @@ var m = require('./msql.js');
 // 	cos_semester_old: 2,     
 // 	score_old: 92,
 // 	offset_type: 2,
+// 	reason_type: '被當QQ'
 // };
 
 // m.CreateOffsetApplyForm(data,function(err,result){
