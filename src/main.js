@@ -423,17 +423,50 @@ var m = require('./msql.js');
 // }); // 	建立課程抵免申請單，回傳對DB造成的info 
 // 	   //	offset_type -> 0 外系抵免 1 英授抵免 2 免修單  3 學分抵免單
 
-
-
-data = {
-	timestamp: '2019-02-16 00:26:20',
+data = { 
 	student_id: '0516005',
-}
-m.DeleteOffsetApplyForm(data,function(err,result){
+	phone: '0123456789',
+	class: 'ABCCBA',
+	apply_year: '107',
+	apply_semester: '1',
+	cos_dep_old: '電子系',
+	cos_tname_old: '桑梓賢',
+	cos_cname_old: '線性',
+	cos_code_old:  null,
+	cos_cname: '線性代數',
+	cos_code: 'DCP2354',
+	cos_type: '必修',
+	credit: 3,
+	reason: 'YAAAA YOOOO YEEEE',
+	credit_old: 3,
+	file: 'LAAAAAAAAAAAAA',
+	school_old: 'NTCU',           
+	dep_old: '應數系',              
+	graduation_credit_old: 128,
+	cos_year_old: 106,         
+	cos_semester_old: 2,     
+	score_old: 90,
+	offset_type: 2,
+	reason_type: '被當QQ',
+	timestamp: '2019-02-16 01:40:04'
+};
+
+m.ModifyOffsetApplyForm(data,function(err,result){
 	if(err)
 		throw err;
 	console.log(JSON.parse(result));
-}); // delete offset apply form
+}); // 	建立課程抵免申請單，回傳對DB造成的info 
+	   //	offset_type -> 0 外系抵免 1 英授抵免 2 免修單  3 學分抵免單
+
+// data = {
+// 	timestamp: '2019-02-16 00:26:20',
+// 	student_id: '0516005',
+// }
+// m.DeleteOffsetApplyForm(data,function(err,result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); // delete offset apply form
 
 
 // data = {
@@ -474,7 +507,7 @@ m.DeleteOffsetApplyForm(data,function(err,result){
 // });// 顯示搜尋的申請單
 
 // data = {
-// 	timestamp: '2019-02-13 13:17:19',
+// 	timestamp: '2019-02-16 01:03:24',
 // 	student_id: '0516005',
 // 	state: 1 ,// 0 申請中，1 同意抵免，2 等候主管同意，3 等候老師同意，4 抵免失敗，5 退回等學生修改 
 // 	reject_reason: '被退回的原因',

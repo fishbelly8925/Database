@@ -66,6 +66,29 @@ module.exports = {
             });
         });
     },
+    ModifyOffsetApplyForm(data,callback){
+        const resource = pool.acquire();
+        resource.then(function(c){
+            var sql_ModifyOffsetApplyForm = c.prepare(s.ModifyOffsetApplyForm);
+            var sql_SetUserPhone = c.prepare(s.SetUserPhone);
+            c.query(sql_ModifyOffsetApplyForm(data),function(err,result){
+                if(err){
+                    callback(err, undefined);
+                    pool.release(c);
+                    return;
+                }
+                c.query(sql_SetUserPhone(data),function(err,result2){
+                    if(err){
+                        callback(err, undefined);
+                        pool.release(c);
+                        return;
+                    }
+                    callback(null, JSON.stringify(result));
+                    pool.release(c);
+                })
+            });
+        });
+    },
     DeleteOffsetApplyForm(data,callback){
         const resource = pool.acquire();
         resource.then(function(c){

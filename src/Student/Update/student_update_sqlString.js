@@ -39,6 +39,18 @@ exports.CreateOffsetApplyForm = "\
     and c.cos_code=n.cos_code\
     and n.cos_cname=:cos_cname";
 
+exports.ModifyOffsetApplyForm = "\
+    update offset_apply_form\
+    set class = :class, apply_year = :apply_year, apply_semester = :apply_semester, cos_dep_old = :cos_dep_old, \
+    cos_tname_old = :cos_tname_old, cos_cname_old = :cos_cname_old, cos_code_old = :cos_code_old, cos_cname = :cos_cname,\
+    cos_code = :cos_code, cos_type = :cos_type, credit = :credit, reason = :reason, credit_old = :credit_old,\
+    file = :file, school_old = :school_old, dep_old = :dep_old, graduation_credit_old = :graduation_credit_old, \
+    cos_year_old = :cos_year_old, cos_semester_old = :cos_semester_old, score_old = :score_old, \
+    offset_type = :offset_type,reason_type = :reason_type\
+    where student_id = :student_id\
+    and timestamp = :timestamp\
+    ";
+
 exports.DeleteOffsetApplyForm = "\
     delete from offset_apply_form\
     where student_id = :student_id\
