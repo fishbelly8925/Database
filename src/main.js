@@ -446,9 +446,9 @@ data = {
 	cos_year_old: 106,         
 	cos_semester_old: 2,     
 	score_old: 90,
-	offset_type: 2,
+	
 	reason_type: '被當QQ',
-	timestamp: '2019-02-16 01:40:04'
+	timestamp: '2019-02-16 16:22:09'
 };
 
 m.ModifyOffsetApplyForm(data,function(err,result){
