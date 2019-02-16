@@ -389,44 +389,10 @@ var m = require('./msql.js');
 // // 修改專題資料的 add_status, 0代表尚未加選 1代表已加選
 
 
-// data = { 
-// 	student_id: '0516005',
-// 	phone: '0123456789',
-// 	class: 'ABC',
-// 	apply_year: '107',
-// 	apply_semester: '1',
-// 	cos_dep_old: '電子系',
-// 	cos_tname_old: '桑梓賢',
-// 	cos_cname_old: '線性',
-// 	cos_code_old:  null,
-// 	cos_cname: '線性代數',
-// 	cos_code: 'DCP2354',
-// 	cos_type: '必修',
-// 	credit: 3,
-// 	reason: 'YAAAA YOOOO YEEEE',
-// 	credit_old: 3,
-// 	file: 'LOOOOOOOOOO',
-// 	school_old: 'NTCU',           
-// 	dep_old: '應數系',              
-// 	graduation_credit_old: 128,
-// 	cos_year_old: 106,         
-// 	cos_semester_old: 2,     
-// 	score_old: 92,
-// 	offset_type: 2,
-// 	reason_type: '被當QQ'
-// };
-
-// m.CreateOffsetApplyForm(data,function(err,result){
-// 	if(err)
-// 		throw err;
-// 	console.log(JSON.parse(result));
-// }); // 	建立課程抵免申請單，回傳對DB造成的info 
-// 	   //	offset_type -> 0 外系抵免 1 英授抵免 2 免修單  3 學分抵免單
-
 data = { 
 	student_id: '0516005',
 	phone: '0123456789',
-	class: 'ABCCBA',
+	class: 'ABC',
 	apply_year: '107',
 	apply_semester: '1',
 	cos_dep_old: '電子系',
@@ -439,24 +405,58 @@ data = {
 	credit: 3,
 	reason: 'YAAAA YOOOO YEEEE',
 	credit_old: 3,
-	file: 'LAAAAAAAAAAAAA',
+	file: 'LOOOOOOOOOO',
 	school_old: 'NTCU',           
 	dep_old: '應數系',              
 	graduation_credit_old: 128,
 	cos_year_old: 106,         
 	cos_semester_old: 2,     
-	score_old: 90,
-	
-	reason_type: '被當QQ',
-	timestamp: '2019-02-16 16:22:09'
+	score_old: 92,
+	offset_type: 0,
+	reason_type: '被當QQ'
 };
 
-m.ModifyOffsetApplyForm(data,function(err,result){
+m.CreateOffsetApplyForm(data,function(err,result){
 	if(err)
 		throw err;
 	console.log(JSON.parse(result));
 }); // 	建立課程抵免申請單，回傳對DB造成的info 
 	   //	offset_type -> 0 外系抵免 1 英授抵免 2 免修單  3 學分抵免單
+
+// data = { 
+// 	student_id: '0516005',
+// 	phone: '0123456789',
+// 	class: 'ABCCBA',
+// 	apply_year: '107',
+// 	apply_semester: '1',
+// 	cos_dep_old: '電子系',
+// 	cos_tname_old: '桑梓賢',
+// 	cos_cname_old: '線性',
+// 	cos_code_old:  null,
+// 	cos_cname: '線性代數',
+// 	cos_code: 'DCP2354',
+// 	cos_type: '必修',
+// 	credit: 3,
+// 	reason: 'YAAAA YOOOO YEEEE',
+// 	credit_old: 3,
+// 	file: 'LAAAAAAAAAAAAA',
+// 	school_old: 'NTCU',           
+// 	dep_old: '應數系',              
+// 	graduation_credit_old: 128,
+// 	cos_year_old: 106,         
+// 	cos_semester_old: 2,     
+// 	score_old: 90,
+// 	offset_type: 2,
+// 	reason_type: '被當QQ',
+// 	timestamp: '2019-02-16 01:40:04'
+// };
+
+// m.ModifyOffsetApplyForm(data,function(err,result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); // 	建立課程抵免申請單，回傳對DB造成的info 
+// 	   //	offset_type -> 0 外系抵免 1 英授抵免 2 免修單  3 學分抵免單
 
 // data = {
 // 	timestamp: '2019-02-16 00:26:20',

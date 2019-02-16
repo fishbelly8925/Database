@@ -29,15 +29,11 @@ exports.CreateOffsetApplyForm = "\
     cos_code, cos_type, credit, reason, agree, credit_old,\
     file, timestamp, school_old, dep_old, graduation_credit_old, \
     cos_year_old, cos_semester_old, score_old, offset_type,reason_type)\
-    select :student_id, :class, :apply_year, :apply_semester, :cos_dep_old,\
+    values (:student_id, :class, :apply_year, :apply_semester, :cos_dep_old,\
         :cos_tname_old, :cos_cname_old, :cos_code_old, :cos_cname,\
-        :cos_code, :cos_type, if(:offset_type = 0, MIN(c.cos_credit), :credit), :reason, 0, :credit_old,\
+        :cos_code, :cos_type, :credit, :reason, 0, :credit_old,\
         :file, NOW(), :school_old, :dep_old, :graduation_credit_old, \
-        :cos_year_old, :cos_semester_old, :score_old, :offset_type, :reason_type\
-    from cos_data as c,cos_name as n\
-    where c.cos_code=:cos_code\
-    and c.cos_code=n.cos_code\
-    and n.cos_cname=:cos_cname";
+        :cos_year_old, :cos_semester_old, :score_old, :offset_type, :reason_type)";
 
 exports.ModifyOffsetApplyForm = "\
     update offset_apply_form\
