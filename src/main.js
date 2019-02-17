@@ -423,41 +423,41 @@ var m = require('./msql.js');
 // }); // 	建立課程抵免申請單，回傳對DB造成的info 
 // 	   //	offset_type -> 0 外系抵免 1 英授抵免 2 免修單  3 學分抵免單
 
-data = { 
-	student_id: '0516005',
-	phone: '0123456789',
-	class: 'ABCCBA',
-	apply_year: '107',
-	apply_semester: '1',
-	cos_dep_old: '電子系',
-	cos_tname_old: '桑梓賢',
-	cos_cname_old: '線性',
-	cos_code_old:  null,
-	cos_cname: '線性代數',
-	cos_code: 'DCP2354',
-	cos_type: '必修',
-	credit: 3,
-	reason: 'YAAAA YOOOO YEEEE',
-	credit_old: 3,
-	file: 'LAAAAAAAAAAAAA',
-	school_old: 'NTCU',           
-	dep_old: '應數系',              
-	graduation_credit_old: 128,
-	cos_year_old: 106,         
-	cos_semester_old: 2,     
-	score_old: 90,
-	offset_type: 2,
-	reason_type: '被當QQ',
-	state: 2,	// 0 申請中，1 同意抵免，2 等候主管同意，3 等候老師同意，4 抵免失敗，5 退回等學生修改
-	timestamp: '2019-02-16 23:56:18'
-};
+// data = { 
+// 	student_id: '0516005',
+// 	phone: '0123456789',
+// 	class: 'ABCCBA',
+// 	apply_year: '107',
+// 	apply_semester: '1',
+// 	cos_dep_old: '電子系',
+// 	cos_tname_old: '桑梓賢',
+// 	cos_cname_old: '線性',
+// 	cos_code_old:  null,
+// 	cos_cname: '線性代數',
+// 	cos_code: 'DCP2354',
+// 	cos_type: '必修',
+// 	credit: 3,
+// 	reason: 'YAAAA YOOOO YEEEE',
+// 	credit_old: 3,
+// 	file: 'LAAAAAAAAAAAAA',
+// 	school_old: 'NTCU',           
+// 	dep_old: '應數系',              
+// 	graduation_credit_old: 128,
+// 	cos_year_old: 106,         
+// 	cos_semester_old: 2,     
+// 	score_old: 90,
+// 	offset_type: 2,
+// 	reason_type: '被當QQ',
+// 	state: 2,	// 0 申請中，1 同意抵免，2 等候主管同意，3 等候老師同意，4 抵免失敗，5 退回等學生修改
+// 	timestamp: '2019-02-16 23:56:18'
+// };
 
-m.ModifyOffsetApplyForm(data,function(err,result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-}); // 	建立課程抵免申請單，回傳對DB造成的info 
-	   //	offset_type -> 0 外系抵免 1 英授抵免 2 免修單  3 學分抵免單
+// m.ModifyOffsetApplyForm(data,function(err,result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); // 	建立課程抵免申請單，回傳對DB造成的info 
+// 	   //	offset_type -> 0 外系抵免 1 英授抵免 2 免修單  3 學分抵免單
 
 // data = {
 // 	timestamp: '2019-02-16 00:26:20',
@@ -470,22 +470,23 @@ m.ModifyOffsetApplyForm(data,function(err,result){
 // }); // delete offset apply form
 
 
-// data = {
-// 	student_id: '0516003',
-// 	apply_year: '107',
-// 	apply_semester: '1',
-// 	cos_code_old: 'YOOOOOOO',
-// 	cos_cname_old:'YAAAAAAA',
-// 	cos_code: 'DCP1200',
-// 	cos_cname: '生涯規劃及導師時間',
-// 	credit: 0,
-// 	cos_type: '必修'
-// }
-// m.CreateOffset(data,function(err,result){
-// 	if(err)
-// 		throw err;
-// 	console.log(JSON.parse(result));
-// }); // create offset
+data = {
+	student_id: '0516003',
+	apply_year: '107',
+	apply_semester: '1',
+	cos_code_old: 'YOOOOOOO',
+	cos_cname_old:'YAAAAAAA',
+	cos_code: 'DCP1200',
+	cos_cname: '生涯規劃及導師時間',
+	credit: 0,
+	cos_type: '必修'
+	
+}
+m.CreateOffset(data,function(err,result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+}); // create offset
 
 
 // data1 = {student_id: '0516005'} // return single student offset apply form

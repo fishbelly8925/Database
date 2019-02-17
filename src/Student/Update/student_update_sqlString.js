@@ -56,7 +56,7 @@ exports.CreateOffset = "\
     insert into offset\
     values(:student_id, :apply_year, :apply_semester, :cos_code_old,\
         :cos_cname_old, :cos_code, :cos_cname, :credit, '免修',\
-        NULL, :cos_type)";
+        NULL, :cos_type, NULL)";
 
 exports.SetOffsetApplyFormAgreeStatus = "\
     update offset_apply_form\
