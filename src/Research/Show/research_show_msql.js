@@ -39,43 +39,85 @@ module.exports = {
             });
         });
     },    
-    ShowTeacherInfoResearchCnt: function(callback){
+    ShowTeacherInfoResearchCnt: function(data, callback){
+        if(typeof(data) === 'string')
+            data=JSON.parse(data);
         const resource=pool.acquire();
-        resource.then(function(c){
-            var sql_ShowTeacherInfoResearchCnt=c.prepare(s.ShowTeacherInfoResearchCnt);
-            c.query(sql_ShowTeacherInfoResearchCnt({}), function(err, result){
-                if(err){
-                    callback(err, undefined);
-                    pool.release(c);
-                    return;
-                }
-                var gradeCnt, temp={}, i, res=[];
-                result=JSON.parse(JSON.stringify(result));
-                for(i in result){
-                    gradeCnt={grade:result[i].year, scount:result[i].scount};
-                    if(i==0){
-                        temp={tname:result[i].tname, teacher_id:result[i].teacher_id, 
-                            phone:result[i].phone, email:result[i].email, 
-                            expertise:result[i].expertise, 
-                            info:result[i].info, gradeCnt:[gradeCnt]};
+
+        if(data['teacher_id'] == '')
+            resource.then(function(c){
+                var sql_ShowAllTeacherInfoResearchCnt=c.prepare(s.ShowAllTeacherInfoResearchCnt);
+                c.query(sql_ShowAllTeacherInfoResearchCnt(data), function(err, result){
+                    if(err){
+                        callback(err, undefined);
+                        pool.release(c);
+                        return;
                     }
-                    else if(result[i].tname===temp.tname){
-                        temp.gradeCnt.push(gradeCnt);
+                    var gradeCnt, temp={}, i, res=[];
+                    result=JSON.parse(JSON.stringify(result));
+                    for(i in result){
+                        gradeCnt={grade:result[i].year, scount:result[i].scount};
+                        if(i==0){
+                            temp={tname:result[i].tname, teacher_id:result[i].teacher_id, 
+                                phone:result[i].phone, email:result[i].email, 
+                                expertise:result[i].expertise, 
+                                info:result[i].info, gradeCnt:[gradeCnt]};
+                        }
+                        else if(result[i].tname===temp.tname){
+                            temp.gradeCnt.push(gradeCnt);
+                        }
+                        else{   
+                            res.push(temp);
+                            temp={tname:result[i].tname, teacher_id:result[i].teacher_id, 
+                                phone:result[i].phone, email:result[i].email, 
+                                expertise:result[i].expertise, 
+                                info:result[i].info, gradeCnt:[gradeCnt]};
+                        }
                     }
-                    else{   
+                    if(res[res.length-1].tname!==temp.tname)
                         res.push(temp);
-                        temp={tname:result[i].tname, teacher_id:result[i].teacher_id, 
-                            phone:result[i].phone, email:result[i].email, 
-                            expertise:result[i].expertise, 
-                            info:result[i].info, gradeCnt:[gradeCnt]};
-                    }
-                }
-                if(res[res.length-1].tname!==temp.tname)
-                    res.push(temp);
-                callback(null, JSON.stringify(res));
-                pool.release(c);
+                    callback(null, JSON.stringify(res));
+                    pool.release(c);
+                });
             });
-        });
+        else
+            resource.then(function(c){
+                var sql_ShowSingleTeacherInfoResearchCnt=c.prepare(s.ShowSingleTeacherInfoResearchCnt);
+                c.query(sql_ShowSingleTeacherInfoResearchCnt(data), function(err, result){
+                    if(err){
+                        callback(err, undefined);
+                        pool.release(c);
+                        return;
+                    }
+                    var gradeCnt, temp={}, i, res=[];
+                    result=JSON.parse(JSON.stringify(result));
+                    for(i in result){
+                        gradeCnt={grade:result[i].year, scount:result[i].scount};
+                        if(i==0){
+                            temp={tname:result[i].tname, teacher_id:result[i].teacher_id, 
+                                phone:result[i].phone, email:result[i].email, 
+                                expertise:result[i].expertise, 
+                                info:result[i].info, gradeCnt:[gradeCnt]};
+                        }
+                        else if(result[i].tname===temp.tname){
+                            temp.gradeCnt.push(gradeCnt);
+                        }
+                        else{   
+                            res.push(temp);
+                            temp={tname:result[i].tname, teacher_id:result[i].teacher_id, 
+                                phone:result[i].phone, email:result[i].email, 
+                                expertise:result[i].expertise, 
+                                info:result[i].info, gradeCnt:[gradeCnt]};
+                        }
+                    }
+                    if(res.length == 0)
+                        res.push(temp);
+                    else if(res[res.length-1].tname!==temp.tname)
+                        res.push(temp);
+                    callback(null, JSON.stringify(res));
+                    pool.release(c);
+                });
+            });
     }, 
     ShowGivenGradeStudentResearch:function(grade, callback){
         const resource=pool.acquire();

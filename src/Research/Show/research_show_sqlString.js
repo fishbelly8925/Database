@@ -12,7 +12,7 @@ exports.ShowGradeTeacherResearchStudent="\
     and r.teacher_id = :teacher_id \
     order by substring(s.student_id, 1, 2) desc";
     
-exports.ShowTeacherInfoResearchCnt="\
+exports.ShowSingleTeacherInfoResearchCnt="\
     select *\
     from\
     (\
@@ -21,7 +21,7 @@ exports.ShowTeacherInfoResearchCnt="\
         (\
             select distinct r.student_id, r.tname, t.teacher_id , r.semester \
             from research_student as r, teacher as t\
-            where r.tname = t.tname  and first_second = 1 \
+            where r.tname = t.tname and t.teacher_id = :teacher_id  and first_second = 1 \
         ) as r \
         where r.student_id IN \
         (\
@@ -56,9 +56,58 @@ exports.ShowTeacherInfoResearchCnt="\
     ) as o right join \
     (\
         select t.teacher_id,ti.phone, t.tname, ti.email, ti.expertise, ti.info\
-        from teacher_info as ti right join teacher as t on ti.tname = t.tname\
+        from teacher_info as ti right join teacher as t on ti.tname = t.tname and t.teacher_id = :teacher_id\
     ) as t\
-   on o.tname = t.tname";
+   on o.tname = t.tname\
+   where t.teacher_id = :teacher_id";
+
+exports.ShowAllTeacherInfoResearchCnt="\
+   select *\
+   from\
+   (\
+       select r.tname, substring(r.semester, 1, 3) as 'year', count(*) as 'scount'\
+       from \
+       (\
+           select distinct r.student_id, r.tname, t.teacher_id , r.semester \
+           from research_student as r, teacher as t\
+           where r.tname = t.tname  and first_second = 1 \
+       ) as r \
+       where r.student_id IN \
+       (\
+           select student_id \
+           from student \
+           where student_id NOT IN \
+           (\
+               select student_id \
+               from student \
+               where student_id LIKE '__4____' \
+           )\
+           and (substring(program,1,2) = '資工'\
+           or substring(program,1,2) = '資電'\
+           or substring(program,1,2) = '網多')\
+       )and r.student_id NOT IN\
+       (\
+           select cs.student_id\
+           from(\
+               select cs.student_id\
+               from (select distinct s.student_id, s.cos_year, s.semester \
+                       from cos_score as s \
+                       where concat(s.cos_year, s.semester) \
+                           not in (select concat(c.cos_year, c.semester) \
+                                   from cos_score as c \
+                                   where c.pass_fail = '修課中或休學' and c.student_id = s.student_id and semester != '3')\
+                       and semester != '3') as cs \
+               group by cs.student_id having count(distinct cs.student_id, cs.cos_year, cs.semester) >= 8\
+           ) as cs\
+       )\
+       group by substring(r.semester, 1, 3), r.tname \
+       order by r.tname, substring(r.semester, 1, 3)\
+   ) as o right join \
+   (\
+       select t.teacher_id,ti.phone, t.tname, ti.email, ti.expertise, ti.info\
+       from teacher_info as ti right join teacher as t on ti.tname = t.tname\
+   ) as t\
+    on o.tname = t.tname";
 
 exports.ShowGivenGradeStudentResearch="\
     select distinct s1.student_id, s1.sname as name, s1.program, t.teacher_id, s1.tname\
