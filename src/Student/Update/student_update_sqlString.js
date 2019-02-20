@@ -42,7 +42,7 @@ exports.ModifyOffsetApplyForm = "\
     cos_code = :cos_code, cos_type = :cos_type, credit = :credit, reason = :reason, credit_old = :credit_old,\
     file = :file, school_old = :school_old, dep_old = :dep_old, graduation_credit_old = :graduation_credit_old, \
     cos_year_old = :cos_year_old, cos_semester_old = :cos_semester_old, score_old = :score_old, \
-    reason_type = :reason_type, state = :state\
+    reason_type = :reason_type, agree = :state\
     where student_id = :student_id\
     and timestamp = :timestamp\
     ";
@@ -56,7 +56,7 @@ exports.CreateOffset = "\
     insert into offset\
     values(:student_id, :apply_year, :apply_semester, :cos_code_old,\
         :cos_cname_old, :cos_code, :cos_cname, :credit, '免修',\
-        NULL, :cos_type)";
+        NULL, :cos_type, NULL)";
 
 exports.SetOffsetApplyFormAgreeStatus = "\
     update offset_apply_form\
