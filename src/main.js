@@ -448,7 +448,7 @@ m.ShowTeacherInfoResearchCnt({teacher_id:''},function(err, result){
 // 	score_old: 90,
 // 	offset_type: 2,
 // 	reason_type: '被當QQ',
-// 	state: 2,	// 0 申請中，1 同意抵免，2 等候主管同意，3 等候老師同意，4 抵免失敗，5 退回等學生修改
+// 	state: 2,	// 0 申請中，1 等候主管同意，2 同意抵免，3 抵免失敗(助理不同意)，4 抵免失敗(教授不同意)，5 等候老師同意，6 退回等學生修改
 // 	timestamp: '2019-02-16 23:56:18'
 // };
 
