@@ -421,7 +421,7 @@ var m = require('./msql.js');
 // 		throw err;
 // 	console.log(JSON.parse(result));
 // }); // 	建立課程抵免申請單，回傳對DB造成的info 
-// 	   //	offset_type -> 0 外系抵免 1 英授抵免 2 免修單  3 學分抵免單
+// 	   //	offset_type -> 0 本系必修課程抵免 1 英授專業課程抵免 2 學分抵免  3 課程免修
 
 data = { 
 	student_id: '0516005',
@@ -510,7 +510,7 @@ m.ModifyOffsetApplyForm(data,function(err,result){
 // data = {
 // 	timestamp: '2019-02-16 01:03:24',
 // 	student_id: '0516005',
-// 	state: 1 ,// 0 申請中，1 同意抵免，2 等候主管同意，3 等候老師同意，4 抵免失敗，5 退回等學生修改 
+// 	state: 1 ,// 0 申請中，1 等候主管同意，2 同意抵免，3 抵免失敗(助理不同意)，4 抵免失敗(教授不同意)，5 等候老師同意，6 退回等學生修改
 // 	reject_reason: '被退回的原因',
 // 	transferto: '["T9505","T9125"]'
 // }
