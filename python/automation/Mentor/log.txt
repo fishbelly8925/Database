@@ -1,0 +1,4 @@
+2019-02-22 14:48:36 - root - ERROR: - mysql query error: name 'affect_rows' is not defined
+2019-02-22 14:53:11 - root - INFO: - Success: insert -1 rows to mentor_list
+2019-02-22 14:54:17 - root - INFO: - Success: insert and update to mentor_list
+2019-02-22 15:27:43 - root - INFO: - Success: insert and update to mentor_list
