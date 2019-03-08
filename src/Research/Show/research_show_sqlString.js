@@ -148,11 +148,19 @@ exports.ShowResearchGroup="\
     and semester = :semester";
 
 exports.ShowResearchTitleNumber="\
-    select count(distinct research_title)+1 as count\
-    from research_student\
-    where research_title like concat(:research_title, '_%') or research_title = :research_title\
-    and tname = :tname\
-    and semester = :semester";
+    select count(distinct t.research_title)+1 as count\
+    from\
+    (\
+        select distinct rs.research_title, rs.tname, rs.semester\
+        from research_student as rs\
+        union\
+        select distinct raf.research_title, raf.tname, raf.semester\
+        from research_apply_form as raf\
+    ) as t\
+    where t.research_title like concat(:research_title, '\\_%')\
+    and t.tname = :tname\
+    and t.semester = :semester";
+
 
 exports.ShowResearchFilePath="\
     select * from research_file where \

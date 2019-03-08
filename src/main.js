@@ -203,11 +203,11 @@ var m = require('./msql.js');
 // 	console.log(JSON.parse(result));
 // }); // ShowTeacherResearchStudent(teacher_id, callback) 回傳某教授指定系級的專題生和專題題目，1表示本系生，0表示外系生
 
-m.ShowTeacherInfoResearchCnt({teacher_id:''},function(err, result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-}); // ShowTeacherInfoResearchCnt(callback) 回傳教授各屆的學生人數
+// m.ShowTeacherInfoResearchCnt({teacher_id:''},function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); // ShowTeacherInfoResearchCnt(callback) 回傳教授各屆的學生人數
 
 // m.CreateMail({sender_id:'0516003', title:'test~~', receiver_id:'T9229', content:'這是一個測試信件這是一個測試信件'});
 // // CreateMail(data) data type 為JSON，新增一則信件，需有以上所有欄位
@@ -254,7 +254,7 @@ m.ShowTeacherInfoResearchCnt({teacher_id:''},function(err, result){
 // 	console.log(JSON.parse(result));
 // }); // 回傳教授id, 名字對應表
 
-// m.CreateResearchApplyForm({phone:'0900', student_id:'0516003', research_title:'我是專題標題~', tname:'彭文志', first_second:2, email:'wawawa@crayonSinJang', semester:'106-2'}, function(err){
+// m.CreateResearchApplyForm({phone:'0900', student_id:'0516006', research_title:'testttt_4', tname:'彭文志', first_second:2, email:'wawawa@crayonSinJang', semester:'106-2'}, function(err){
 // 	if(err)
 // 		throw err;
 // 		//老師名字若不存在，就會拋出ERROR
@@ -311,7 +311,7 @@ m.ShowTeacherInfoResearchCnt({teacher_id:''},function(err, result){
 // m.SetResearchScoreComment({student_id:'283u291', tname:'彭文志', research_title:'聊天機器人', first_second:2, semester:'106-2', new_score:88, new_comment:'Yee!'});
 // // 更新專題成績、評語
 
-// m.CreateNewResearch({ student_id:'0516003', tname : '彭文志', research_title : 'testttt_2', first_second:2, semester: '106-2'});
+// m.CreateNewResearch({ student_id:'0516022', tname : '彭文志', research_title : 'testttt+_8', first_second:2, semester: '106-2'});
 // // 申請專題同意後，新增此學生專題資料到資料庫
 
 // m.ChangeResearch({ student_id:'0516003', tname : '彭文志', research_title : 'testyeeeee', first_second:2, semester: '106-1'});
@@ -635,12 +635,12 @@ m.ShowTeacherInfoResearchCnt({teacher_id:''},function(err, result){
 // 	console.log(JSON.parse(result));
 // }); // 回傳當學期的專題是一或二
 
-// m.ShowResearchTitleNumber({tname:'彭文志', research_title:'testttt', semester:'106-2'}, function(err, result){
-// 	if(err)
-// 		throw err;
-// 	console.log(JSON.parse(result)[0]['count']);
-// });
-// // 查詢該學期該教授的此題目，目前有幾筆
+m.ShowResearchTitleNumber({tname:'彭文志', research_title:'testttt', semester:'106-2'}, function(err, result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result)[0]['count']);
+});
+// 查詢該學期該教授的此題目，目前有幾筆
 
 
 m.Drain(); // 關閉 connection pool
