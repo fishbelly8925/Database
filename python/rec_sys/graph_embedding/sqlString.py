@@ -100,3 +100,19 @@ findCurrentAdvanceCos = "\
 		where cos_cname not like '博士%%'\
 	) as cn\
 	where id.unique_id = cn.unique_id;"
+
+findGrad = "\
+	select cn.cos_cname, sc.score \
+	from \
+	(\
+		select cos_year, semester, cos_id, score \
+		from cos_score \
+		where student_id = %(id)s \
+		and score_type != '通過不通過' \
+		and pass_fail != 'W' \
+	) as sc ,\
+	(\
+		select unique_id, cos_cname \
+		from cos_name\
+	) as cn \
+	where cn.unique_id = concat(sc.cos_year,'-',sc.semester,'-',sc.cos_id);"
