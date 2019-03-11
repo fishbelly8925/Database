@@ -44,12 +44,31 @@ exports.setResearchComment="\
     and student_id = :student_id\
     and semester = :semester";
 
+exports.CheckResearchOne="\
+    select *\
+    from research_student \
+    where student_id = :student_id \
+    and first_second = 1";
+
+
+exports.CheckCPE="\
+    select * \
+    from cos_score \
+    where cos_cname like '基礎程式設計%' and student_id = :student_id";
+
 exports.CreateNewResearch="\
     insert into research_student\
     (student_id, tname, research_title, first_second, semester)\
     values\
     (:student_id, :tname, :research_title, :first_second, :semester)";
-    
+
+exports.CreateNewResearchThree="\
+    insert into research_student\
+    (student_id, tname, research_title, first_second, semester)\
+    values\
+    (:student_id, :tname, :research_title, 3, :semester)";
+
+
 exports.ChangeResearch="\
     insert into research_student\
     (student_id, tname, research_title, first_second, semester)\

@@ -70,20 +70,78 @@ module.exports = {
             });
         });
     }, 
-    CreateNewResearch:function(data){
+    CreateNewResearch:function(data, callback){
         if(typeof(data) === 'string')
             data=JSON.parse(data);
         const resource=pool.acquire();
         resource.then(function(c){
             var sql_CreateNewResearch=c.prepare(s.CreateNewResearch);
-            c.query(sql_CreateNewResearch(data), function(err){
-                if(err)
-                {
-                    pool.release(c);
-                    throw err;
-                }
-                pool.release(c);
-            });
+            var sql_CreateNewResearchThree=c.prepare(s.CreateNewResearchThree);
+            var sql_CheckCPE=c.prepare(s.CheckCPE);
+            var sql_CheckResearchOne=c.prepare(s.CheckResearchOne);
+            if(data['first_second'] == 1)
+                c.query(sql_CheckCPE(data), function(err, result){
+                    if(err)
+                    {
+                        callback(err, undefined);
+                        pool.release(c);
+                        throw err;
+                    }
+                    if(result == '')
+                    {
+                        c.query(sql_CreateNewResearchThree(data), function(err, result){
+                            if(err)
+                            {
+                                callback(err, undefined);
+                                pool.release(c);
+                                throw err;
+                            }
+                            callback(null, JSON.stringify(result));
+                            pool.release(c);
+                        });    
+                    }
+                    else
+                    {
+                        c.query(sql_CreateNewResearch(data), function(err, result){
+                            if(err)
+                            {
+                                callback(err, undefined);
+                                pool.release(c);
+                                throw err;
+                            }
+                            callback(null, JSON.stringify(result));
+                            pool.release(c);
+                        });    
+                    }
+                });
+            else
+                c.query(sql_CheckResearchOne(data), function(err, result){
+                    if(err)
+                    {
+                        callback(err, undefined);
+                        pool.release(c);
+                        throw err;
+                    }
+                    if(result == '')
+                    {
+                        callback(null, JSON.stringify('wrong'));
+                        pool.release(c);   
+                    }
+                    else
+                    {
+                        c.query(sql_CreateNewResearch(data), function(err, result){
+                            if(err)
+                            {
+                                callback(err, undefined);
+                                pool.release(c);
+                                throw err;
+                            }
+                            callback(null, JSON.stringify(result));
+                            pool.release(c);
+                        });    
+                    }
+                });
+                
         });
     }, 
     ChangeResearch:function(data){
