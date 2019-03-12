@@ -121,3 +121,10 @@ exports.DeleteResearchApplyForm="\
     where research_title = :research_title and \
     tname = :tname and first_second = :first_second \
     and semester = :semester";
+
+exports.SetResearchReplace="\
+    update research_student set replace_pro = :replace_pro \
+    where research_title = :research_title \
+    and student_id = :student_id \
+    and semester = :semester";
+    

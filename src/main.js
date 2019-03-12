@@ -311,12 +311,12 @@ var m = require('./msql.js');
 // m.SetResearchScoreComment({student_id:'283u291', tname:'彭文志', research_title:'聊天機器人', first_second:2, semester:'106-2', new_score:88, new_comment:'Yee!'});
 // // 更新專題成績、評語
 
-m.CreateNewResearch({ student_id:'0716001', tname : '彭文志', research_title : 'testttt+_6', first_second:2, semester: '106-2'}, function(err, result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-});
-// 申請專題同意後，新增此學生專題資料到資料庫
+// m.CreateNewResearch({ student_id:'0516001', tname : '彭文志', research_title : 'testttt+_10', first_second:1, semester: '106-2'}, function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// });
+// // 申請專題同意後，新增此學生專題資料到資料庫
 
 // m.ChangeResearch({ student_id:'0516003', tname : '彭文志', research_title : 'testyeeeee', first_second:2, semester: '106-1'});
 // // 申請換專題，修改此學生專題資料
@@ -646,5 +646,11 @@ m.CreateNewResearch({ student_id:'0716001', tname : '彭文志', research_title 
 // });
 // // 查詢該學期該教授的此題目，目前有幾筆
 
+m.SetResearchReplace({student_id: '0516001', research_title:'testttt+_9', semester:'106-2', replace_pro: '1'}, function(err, result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+}); 
+// 設定是否有申請更換教授 0:沒申請 1:有申請
 
 m.Drain(); // 關閉 connection pool
