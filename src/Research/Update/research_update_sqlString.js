@@ -62,13 +62,6 @@ exports.CreateNewResearch="\
     values\
     (:student_id, :tname, :research_title, :first_second, :semester)";
 
-exports.CreateNewResearchThree="\
-    insert into research_student\
-    (student_id, tname, research_title, first_second, semester)\
-    values\
-    (:student_id, :tname, :research_title, 3, :semester)";
-
-
 exports.ChangeResearch="\
     insert into research_student\
     (student_id, tname, research_title, first_second, semester)\
@@ -100,7 +93,7 @@ exports.CreateResearchFile="\
 
 exports.CreateResearchApplyForm="\
     insert into research_apply_form\
-    values(:student_id, :research_title, :tname, 0, :first_second, :semester)";
+    values(:student_id, :research_title, :tname, 0, :new_first_second, :semester)";
 
 exports.AddPhone="\
     update student set phone = :phone\

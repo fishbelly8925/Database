@@ -76,72 +76,16 @@ module.exports = {
         const resource=pool.acquire();
         resource.then(function(c){
             var sql_CreateNewResearch=c.prepare(s.CreateNewResearch);
-            var sql_CreateNewResearchThree=c.prepare(s.CreateNewResearchThree);
-            var sql_CheckCPE=c.prepare(s.CheckCPE);
-            var sql_CheckResearchOne=c.prepare(s.CheckResearchOne);
-            if(data['first_second'] == 1)
-                c.query(sql_CheckCPE(data), function(err, result){
-                    if(err)
-                    {
-                        callback(err, undefined);
-                        pool.release(c);
-                        throw err;
-                    }
-                    if(result == '')
-                    {
-                        c.query(sql_CreateNewResearchThree(data), function(err, result){
-                            if(err)
-                            {
-                                callback(err, undefined);
-                                pool.release(c);
-                                throw err;
-                            }
-                            callback(null, JSON.stringify(result));
-                            pool.release(c);
-                        });    
-                    }
-                    else
-                    {
-                        c.query(sql_CreateNewResearch(data), function(err, result){
-                            if(err)
-                            {
-                                callback(err, undefined);
-                                pool.release(c);
-                                throw err;
-                            }
-                            callback(null, JSON.stringify(result));
-                            pool.release(c);
-                        });    
-                    }
-                });
-            else
-                c.query(sql_CheckResearchOne(data), function(err, result){
-                    if(err)
-                    {
-                        callback(err, undefined);
-                        pool.release(c);
-                        throw err;
-                    }
-                    if(result == '')
-                    {
-                        callback(null, JSON.stringify('wrong'));
-                        pool.release(c);   
-                    }
-                    else
-                    {
-                        c.query(sql_CreateNewResearch(data), function(err, result){
-                            if(err)
-                            {
-                                callback(err, undefined);
-                                pool.release(c);
-                                throw err;
-                            }
-                            callback(null, JSON.stringify(result));
-                            pool.release(c);
-                        });    
-                    }
-                });
-                
+            c.query(sql_CreateNewResearch(data), function(err, result){
+                if(err)
+                {
+                    callback(err, undefined);
+                    pool.release(c);
+                    throw err;
+                }
+                callback(null, JSON.stringify(result));
+                pool.release(c);
+            });                   
         });
     }, 
     ChangeResearch:function(data){
@@ -233,28 +177,102 @@ module.exports = {
             var sql_AddPhone=c.prepare(s.AddPhone);
             var sql_CreateResearchApplyForm=c.prepare(s.CreateResearchApplyForm);
             var sql_AddEmail=c.prepare(s.AddEmail);
-            c.query(sql_AddPhone({student_id:data['student_id'], phone:data['phone']}), function(err){
-                if(err)
-                {
-                    pool.release(c);
-                    throw err;
-                }
-                c.query(sql_AddEmail({id:data['student_id'], email:data['email']}), function(err){
+            var sql_CheckCPE=c.prepare(s.CheckCPE);
+            var sql_CheckResearchOne=c.prepare(s.CheckResearchOne);
+
+            if(data['first_second'] == 1)
+                c.query(sql_CheckCPE(data), function(err, result){
                     if(err)
                     {
+                        callback(err, undefined);
                         pool.release(c);
                         throw err;
                     }
-                    c.query(sql_CreateResearchApplyForm(data), function(err){
+                    if(result == '')
+                    {
+                        data['new_first_second'] = 3;
+                    }
+                    else
+                    {
+                        data['new_first_second'] = 1;
+                    }
+
+                    c.query(sql_AddPhone({student_id:data['student_id'], phone:data['phone']}), function(err, result){
                         if(err)
                         {
-                            pool.release(c);
+                            callback(err, undefined);
+                            pool.release(c); 
                             throw err;
                         }
-                        pool.release(c);
+                        
+                        c.query(sql_AddEmail({id:data['student_id'], email:data['email']}), function(err, result){
+                            if(err)
+                            {
+                                callback(err, undefined);
+                                pool.release(c); 
+                                throw err;
+                            }
+                            c.query(sql_CreateResearchApplyForm(data), function(err, result){
+                                if(err)
+                                {
+                                    callback(err, undefined);
+                                    pool.release(c); 
+                                    throw err;
+                                }
+                                callback(null, JSON.stringify(result));
+                                pool.release(c); 
+                            });
+                        });
                     });
                 });
-            });
+            else
+                c.query(sql_CheckResearchOne(data), function(err, result){
+                    if(err)
+                    {
+                        callback(err, undefined);
+                        pool.release(c);
+                        throw err;
+                    }
+                    if(result == '')
+                    {
+                        callback(null, JSON.stringify('wrong'));
+                        pool.release(c);
+                    }
+                    else
+                    {
+                        data['new_first_second'] = 2;
+
+                        c.query(sql_AddPhone({student_id:data['student_id'], phone:data['phone']}), function(err, result){
+                            if(err)
+                            {
+                                callback(err, undefined);
+                                pool.release(c); 
+                                throw err;
+                            }
+                            
+                            c.query(sql_AddEmail({id:data['student_id'], email:data['email']}), function(err, result){
+                                if(err)
+                                {
+                                    callback(err, undefined);
+                                    pool.release(c); 
+                                    throw err;
+                                }
+                                c.query(sql_CreateResearchApplyForm(data), function(err, result){
+                                    if(err)
+                                    {
+                                        callback(err, undefined);
+                                        pool.release(c); 
+                                        throw err;
+                                    }
+                                    callback(null, JSON.stringify(result));
+                                    pool.release(c); 
+                                });
+                            });
+                        });
+                    }
+                });
+            
+            
         });
     }, 
     SetResearchApplyFormStatus:function(data){

@@ -254,11 +254,12 @@ var m = require('./msql.js');
 // 	console.log(JSON.parse(result));
 // }); // 回傳教授id, 名字對應表
 
-// m.CreateResearchApplyForm({phone:'0900', student_id:'0516006', research_title:'testttt_4', tname:'彭文志', first_second:2, email:'wawawa@crayonSinJang', semester:'106-2'}, function(err){
-// 	if(err)
-// 		throw err;
-// 		//老師名字若不存在，就會拋出ERROR
-// }); // create research apply form
+m.CreateResearchApplyForm({phone:'0900', student_id:'0716006', research_title:'testttt_14', tname:'彭文志', first_second:1, email:'wawawa@crayonSinJang', semester:'106-2'}, function(err,result){
+	if(err)
+		throw err;
+		//老師名字若不存在，就會拋出ERROR
+	console.log(JSON.parse(result));
+}); // create research apply form
 
 // m.SetResearchApplyFormStatus({research_title:'我是專題標題2~', tname:'彭文志', first_second:2, agree:3, semester:'106-2'});
 // // // set research apply form agree bit  0預設 1接受 2審核中 3拒絕
@@ -311,7 +312,7 @@ var m = require('./msql.js');
 // m.SetResearchScoreComment({student_id:'283u291', tname:'彭文志', research_title:'聊天機器人', first_second:2, semester:'106-2', new_score:88, new_comment:'Yee!'});
 // // 更新專題成績、評語
 
-// m.CreateNewResearch({ student_id:'0516001', tname : '彭文志', research_title : 'testttt+_10', first_second:1, semester: '106-2'}, function(err, result){
+// m.CreateNewResearch({ student_id:'0516001', tname : '彭文志', research_title : 'tesdtttt+_10', first_second:1, semester: '106-2'}, function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
@@ -646,11 +647,11 @@ var m = require('./msql.js');
 // });
 // // 查詢該學期該教授的此題目，目前有幾筆
 
-m.SetResearchReplace({student_id: '0516001', research_title:'testttt+_9', semester:'106-2', replace_pro: '1'}, function(err, result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-}); 
-// 設定是否有申請更換教授 0:沒申請 1:有申請
+// m.SetResearchReplace({student_id: '0516001', research_title:'testttt+_9', semester:'106-2', replace_pro: '1'}, function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); 
+// // 設定是否有申請更換教授 0:沒申請 1:有申請
 
 m.Drain(); // 關閉 connection pool
