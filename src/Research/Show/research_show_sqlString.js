@@ -1,9 +1,9 @@
 exports.ShowGradeTeacherResearchStudent="\
     select r.teacher_id,r.intro, s.sname, r.student_id, r.class_detail, r.research_title, r.first_second, r.score, r.semester, r.comment, r.add_status,\
-    if(substring(s.program,1,2)='資工' or substring(s.program,1,2)='網多' or substring(s.program,1,2)='資電',1,0) as status\
+    if(substring(s.program,1,2)='資工' or substring(s.program,1,2)='網多' or substring(s.program,1,2)='資電',1,0) as status, r.r.replace_pro \
     from \
     (\
-        select r.intro, t.teacher_id, r.student_id, r.class_detail, r.score, r.research_title, r.first_second, r.semester, r.comment, r.add_status\
+        select r.intro, t.teacher_id, r.student_id, r.class_detail, r.score, r.research_title, r.first_second, r.semester, r.comment, r.add_status, r.replace_pro \
         from research_student as r, teacher as t\
         where r.tname = t.tname\
     ) as r, student as s \
