@@ -274,7 +274,6 @@ module.exports = {
     },
     ShowUserOnCos: function(id, callback) {
         const resource = pool.acquire();
-        console.log(id);
         if(id == 'all')
             resource.then(function(c){
                 var sql_ShowUserOnCos_all = c.prepare(s.ShowUserOnCos_all);

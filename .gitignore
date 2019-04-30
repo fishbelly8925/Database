@@ -3,7 +3,7 @@ a.sql
 test.sql
 src/dbpsw.js
 test.py
-test.csv
+*.csv
 python/test.*
 python/*.csv
 scrapData/update_cos_data.sql

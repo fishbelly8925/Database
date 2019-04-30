@@ -22,7 +22,7 @@ with open('id_pair_list') as r:
 
 model_output = []
 # read all student and cos map vector
-with open('o_4243.csv') as r:
+with open('embedding.csv') as r:
     temp = r.readline()
     temp = r.readline()
     while temp:
@@ -69,6 +69,6 @@ print("Transfer to csv file . . .")
 result=pd.DataFrame(result)
 
 if mode=='a':
-	result.to_csv('RS_graph_under.csv', index=False)
+	result.to_csv('RS_graph_Attention_under.csv', index=False)
 elif mode=='b':
-	result.to_csv('RS_graph_graduated.csv', index=False)
+	result.to_csv('RS_graph_Attention_graduated.csv', index=False)
