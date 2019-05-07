@@ -150,19 +150,28 @@ exports.ShowUserAllScore = "\
                 select a.student_id, a.program, a.cos_code, a.cos_credit, a.cos_year, a.semester, a.cos_cname, a.cos_ename, a.cos_type, a.score_type, a.pass_fail, a.score_level, a.score, a.unique_id, t.type\
                 from \
                 (\
-                    select std.student_id, std.program, sc.cos_code, sc.cos_credit, sc.cos_year, sc.semester, sc.cos_cname, n.cos_ename, sc.cos_type, sc.score_type, sc.pass_fail, sc.score_level, sc.score, sc.unique_id\
-                    from \
+                    select a.student_id, a.program, a.cos_code, a.cos_credit, a.cos_year, a.semester, a.cos_cname, n.cos_ename, a.cos_type, a.score_type, a.pass_fail, a.score_level, a.score, a.unique_id\
+                    from\
                     (\
-                        select cos_code, cos_credit, cos_year, semester, cos_cname, cos_type, score_type, pass_fail, score_level, score,\
-                                case semester when '3' then concat(cos_year, '-', 'X', '-', cos_id) \
-                                                else concat(cos_year, '-', semester, '-', cos_id) \
-                                end as unique_id\
-                        from cos_score\
-                        where student_id = :id\
-                        and pass_fail='通過'\
-                    ) as sc, student as std, cos_name as n\
-                    where std.student_id = :id\
-                    and n.unique_id = sc.unique_id\
+                        select std.student_id, std.program, sc.cos_code, sc.cos_credit, sc.cos_year, sc.semester, sc.cos_cname, sc.cos_type, sc.score_type, sc.pass_fail, sc.score_level, sc.score, sc.unique_id\
+                        from \
+                        (\
+                            select cos_code, cos_credit, cos_year, semester, cos_cname, cos_type, score_type, pass_fail, score_level, score,\
+                                    case semester when '3' then concat(cos_year, '-', 'X', '-', cos_id) \
+                                                    else concat(cos_year, '-', semester, '-', cos_id) \
+                                    end as unique_id \
+                            from cos_score \
+                            where student_id = :id\
+                            and pass_fail='通過'\
+                        ) as sc, student as std\
+                        where std.student_id = :id \
+                    ) as a\
+                    left outer join \
+                    (\
+                        select cos_ename, unique_id \
+                        from cos_name\
+                    ) as n\
+                    on n.unique_id = a.unique_id \
                 ) as a \
                 left outer join cos_type as t\
                 on t.school_year = :enroll_year\
