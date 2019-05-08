@@ -144,7 +144,7 @@ exports.ShowUserAllScore = "\
         select a.student_id, a.program, a.cos_code, a.cos_year, a.semester, a.cos_cname, a.cos_ename, a.cos_type, a.score_type, a.pass_fail, a.score_level, a.score, a.unique_id, a.type, a.brief, a.brief_new, a.cos_credit, a.cos_typeext, tcr.tname\
         from \
         (\
-            select a.student_id, a.program, a.cos_code, a.cos_year, a.semester, a.cos_cname, a.cos_ename, a.cos_type, a.score_type, a.pass_fail, a.score_level, a.score, a.unique_id, a.type, if(ISNULL(d.brief),'',d.brief) as brief, if(ISNULL(d.brief_new),'',d.brief) as brief_new, a.cos_credit, d.teacher_id, d.cos_typeext\
+            select a.student_id, a.program, a.cos_code, a.cos_year, a.semester, a.cos_cname, a.cos_ename, a.cos_type, a.score_type, a.pass_fail, a.score_level, a.score, a.unique_id, a.type, if(ISNULL(d.brief),'',d.brief) as brief, if(ISNULL(d.brief_new),'',d.brief_new) as brief_new, a.cos_credit, d.teacher_id, d.cos_typeext\
             from \
             (\
                 select a.student_id, a.program, a.cos_code, a.cos_credit, a.cos_year, a.semester, a.cos_cname, a.cos_ename, a.cos_type, a.score_type, a.pass_fail, a.score_level, a.score, a.unique_id, t.type\
