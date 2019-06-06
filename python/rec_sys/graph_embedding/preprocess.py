@@ -1,7 +1,7 @@
 import func
 import json
 
-sem = '107-2'
+sem = '108-1'
 current_cos = func.findCurrentCos(sem)	# current cos name
 all_cos = func.findAllCos()				# all cos name
 all_student_id = func.findAllStudent()	# all student id

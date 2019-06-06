@@ -7,7 +7,7 @@ std = []        # student_id
 id_list = []    # map id with student
 vector = []     # map latent
 
-mode = input('Enter the mode (a: for undergraduated course, b: for graduated course) : ')
+# mode = input('Enter the mode (a: for undergraduated course, b: for graduated course) : ')
 sem = input('Enter the semester: ')
 
 # pick up student id and id of student in map
@@ -22,7 +22,7 @@ with open('id_pair_list') as r:
 
 model_output = []
 # read all student and cos map vector
-with open('embedding.csv') as r:
+with open('output_embedding.csv') as r:
     temp = r.readline()
     temp = r.readline()
     while temp:
@@ -63,12 +63,13 @@ pred = func.predict(similarity, score)
 suggest = func.generate(allCos, pred, 70)
 
 # Parse the recommend cos with specify semester and K courses
-result = func.parseCurrentCos_withMode(std, suggest, sem, K, mode)
+for mode in ['a', 'b']:
+    result = func.parseCurrentCos_withMode(std, suggest, sem, K, mode)
 
-print("Transfer to csv file . . .")
-result=pd.DataFrame(result)
+    print("Transfer to csv file . . .")
+    result=pd.DataFrame(result)
 
-if mode=='a':
-	result.to_csv('RS_graph_Attention_under.csv', index=False)
-elif mode=='b':
-	result.to_csv('RS_graph_Attention_graduated.csv', index=False)
+    if mode=='a':
+        result.to_csv('RS_graph_Attention_under.csv', index=False)
+    elif mode=='b':
+        result.to_csv('RS_graph_Attention_graduated.csv', index=False)
