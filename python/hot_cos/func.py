@@ -28,7 +28,7 @@ def CountHistoryCos(grade):
 
 	grade_dict={}
 	for i in range(len(result)):
-		if not isFour and result[i]['grade']==target_grade and result[i]['unique_id'][:5]=='106-2':
+		if not isFour and result[i]['grade']==target_grade and result[i]['unique_id'][:5]=='107-1':
 			key=result[i]['unique_id']
 			if has_key(grade_dict, key)==1:
 				grade_dict[key]['count']=grade_dict[key]['count']+1
