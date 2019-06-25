@@ -246,6 +246,6 @@ exports.ShowStudentFirstSecond = "\
     select first_second \
     from research_student \
     where student_id = :student_id \
-    order by first_second desc \
+    order by semester desc \
     limit 1\
     ";

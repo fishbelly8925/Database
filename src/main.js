@@ -65,11 +65,11 @@ var m = require('./msql.js');
 // 	   console.log(JSON.parse(result));
 // }); // ShowUserOffset 個人抵免資料 (輸入all顯示全部)
 
-m.ShowUserOnCos('all', function(err, result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-}); // ShowUserOnCos 大四個人當期修課資料 (輸入all顯示全部)
+// m.ShowUserOnCos('all', function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); // ShowUserOnCos 大四個人當期修課資料 (輸入all顯示全部)
 
 // m.general_cos_rule(function(err, result){
 // 	if(err)
@@ -288,13 +288,13 @@ m.ShowUserOnCos('all', function(err, result){
 // });
 // // 輸入系級，回傳該系級所有學生的專題資訊
 
-// m.ShowStudentResearchInfo('0410835', function(err, result){
-// 	if(err)
-// 		throw err;
-// 	console.log(JSON.parse(result));
-// });
-// // // 用學號查詢專題的標題、網址、介紹、年度，1表示本系生，0表示外系生
-// // 0410835 電機系
+m.ShowStudentResearchInfo('0411081', function(err, result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+});
+// // 用學號查詢專題的標題、網址、介紹、年度，1表示本系生，0表示外系生
+// 0410835 電機系
 
 // m.ShowResearchGroup({tname:'彭文志', research_title:'聊天機器人', first_second:2, semester:'106-2'}, function(err, result){
 // 	if(err)
@@ -634,11 +634,11 @@ m.ShowUserOnCos('all', function(err, result){
 // });
 // 顯示某一屆當期的熱門選課(會是自己沒有修過的課)
 
-// m.ShowStudentFirstSecond('0512204',function(err,result){
-// 	if(err)
-// 		throw err;
-// 	console.log(JSON.parse(result));
-// }); // 回傳當學期的專題是一或二
+m.ShowStudentFirstSecond('0411081',function(err,result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+}); // 回傳當學期的專題是一或二
 
 // m.ShowResearchTitleNumber({tname:'彭文志', research_title:'testttt', semester:'106-2'}, function(err, result){
 // 	if(err)
