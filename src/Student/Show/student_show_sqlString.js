@@ -492,13 +492,13 @@ exports.ShowUserOffsetApplyFormSingle = "\
         (\
             select cos_cname_old\
             from offset_apply_form\
-            where agree = 1 or agree = 2\
+            where agree = 6\
         )\
         and o.cos_code_old in\
         (\
             select cos_code_old\
             from offset_apply_form\
-            where agree = 1 or agree = 2\
+            where agree = 6\
         )\
         group by cos_cname_old, cos_code_old\
     ) as pre\
@@ -522,13 +522,13 @@ exports.ShowUserOffsetApplyFormAll = "\
         (\
             select cos_cname_old\
             from offset_apply_form\
-            where agree = 1 or agree = 2\
+            where agree = 6\
         )\
         and o.cos_code_old in\
         (\
             select cos_code_old\
             from offset_apply_form\
-            where agree = 1 or agree = 2\
+            where agree = 6\
         )\
         group by cos_cname_old, cos_code_old\
     ) as pre\
