@@ -53,11 +53,11 @@ var m = require('./msql.js');
 //     console.log(JSON.parse(result));
 // }); // ShowCosGroup 列出此學生畢業預審表上 必修、核心、副核心等課程分類
 
-// m.ShowGraduateRule('0316084', function(err, result){
-//     if(err)
-//         throw err;
-// 	   console.log(JSON.parse(result));
-// }); // ShowGraduateRule 列出此學生畢業標準
+m.ShowGraduateRule('0416016', function(err, result){
+    if(err)
+        throw err;
+	   console.log(JSON.parse(result));
+}); // ShowGraduateRule 列出此學生畢業標準
 
 // m.ShowUserOffset('0513311', function(err, result){
 //     if(err)
@@ -288,13 +288,13 @@ var m = require('./msql.js');
 // });
 // // 輸入系級，回傳該系級所有學生的專題資訊
 
-m.ShowStudentResearchInfo('0411081', function(err, result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-});
-// // 用學號查詢專題的標題、網址、介紹、年度，1表示本系生，0表示外系生
-// 0410835 電機系
+// m.ShowStudentResearchInfo('0411081', function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// });
+// // // 用學號查詢專題的標題、網址、介紹、年度，1表示本系生，0表示外系生
+// // 0410835 電機系
 
 // m.ShowResearchGroup({tname:'彭文志', research_title:'聊天機器人', first_second:2, semester:'106-2'}, function(err, result){
 // 	if(err)
@@ -634,11 +634,11 @@ m.ShowStudentResearchInfo('0411081', function(err, result){
 // });
 // 顯示某一屆當期的熱門選課(會是自己沒有修過的課)
 
-m.ShowStudentFirstSecond('0411081',function(err,result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-}); // 回傳當學期的專題是一或二
+// m.ShowStudentFirstSecond('0411081',function(err,result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); // 回傳當學期的專題是一或二
 
 // m.ShowResearchTitleNumber({tname:'彭文志', research_title:'testttt', semester:'106-2'}, function(err, result){
 // 	if(err)

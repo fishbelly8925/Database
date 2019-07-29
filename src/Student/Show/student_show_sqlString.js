@@ -395,9 +395,17 @@ exports.ShowGraduateRule = "\
     select\
         r.require_credit, r.pro_credit, r.free_credit,\
         r.core_credit, r.sub_core_credit, r.foreign_credit\
-    from graduate_rule as r, student as s\
-    where s.student_id = :id\
-    and s.program like concat(r.program, '%')\
+    from graduate_rule as r, \
+        (select \
+        case net_media when 0 then '網多' \
+                when 1 then '網多' \
+                when 2 then '資工' \
+                when 3 then '資電' end \
+                as professional_field\
+        from student\
+        where student_id = :id)\
+    as s\
+    where s.professional_field like concat(r.program, '%')\
     and r.school_year = :year";
 
 exports.ShowUserTotalCredit = "\
