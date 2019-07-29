@@ -431,9 +431,17 @@ exports.ShowCosGroup = "\
     left outer join\
     (\
         select t.cos_cname, t.type, t.school_year\
-        from student as s, cos_type as t\
-        where s.student_id = :id\
-        and s.program like concat(t.program, '%')\
+        from\
+            (select\
+            case net_media when 0 then '網多'\
+                    when 1 then '網多'\
+                    when 2 then '資工'\
+                    when 3 then '資電' end\
+                    as professional_field\
+            from student\
+            where student_id = :id)\
+        as s, cos_type as t\
+        where s.professional_field like concat(t.program, '%')\
         and t.school_year = :year\
     ) as a\
     on p.cos_cname = a.cos_cname\
@@ -442,10 +450,18 @@ exports.ShowCosGroup = "\
     or p.cos_cname in\
     (\
         select cos_cname\
-        from cos_require as r, student as s\
-        where s.student_id = :id\
-        and r.school_year = :year\
-        and s.program like concat(r.program, '%')\
+        from cos_require as r,\
+            (select\
+                case net_media when 0 then '網多'\
+                        when 1 then '網多'\
+                        when 2 then '資工'\
+                        when 3 then '資電' end\
+                        as professional_field\
+            from student\
+            where student_id = :id)\
+        as s\
+        where r.school_year = :year\
+        and s.professional_field like concat(r.program, '%')\
         union\
         select '物化生三選一(一)'\
         union\
