@@ -96,8 +96,8 @@ var m = require('./msql.js');
 // 		throw err;
 // 	console.log(JSON.parse(result));
 // });
-// SetGraduateSubmitStatus 設定某學生的畢業預審確認狀態(0未送審, 1送審中, 2審核通過, 3審核不通過)(0舊制,1 新制,2 不變更,3 null)
-// 設定學生選擇網路、多媒體net_media(0網路, 1多媒體, 其他值不更改)
+// // SetGraduateSubmitStatus 設定某學生的畢業預審確認狀態(0未送審, 1送審中, 2審核通過, 3審核不通過)(0舊制,1 新制,2 不變更,3 null)
+// // 設定學生選擇網路、多媒體net_media(0網路, 1多媒體, 2資工組, 3資電組, 其他值不更改)
 
 // m.SetUserOAuth('0516003', '456', 3);
 // // SetUserOAuth   1:set gmail   2:set fb_id   3:set github_id

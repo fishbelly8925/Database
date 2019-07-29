@@ -44,7 +44,7 @@ module.exports = {
                         }
                     })
                 }
-                if(data['net_media']==0 || data['net_media']==1){
+                if(data['net_media']==0 || data['net_media']==1 || data['net_media'] == 2 || data['net_media'] == 3){
                     c.query(sql_SetNetMediaStatus(data), function(err, result){
                         if(err)
                         {
