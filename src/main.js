@@ -47,11 +47,11 @@ var m = require('./msql.js');
 //     console.log(JSON.parse(result));
 // }); // ShowUserPartScore 列出此學生某向度中通過的課
 
-m.ShowCosGroup('0416016', function(err, result){
-    if(err)
-        throw err;
-    console.log(JSON.parse(result));
-}); // ShowCosGroup 列出此學生畢業預審表上 必修、核心、副核心等課程分類
+// m.ShowCosGroup('0416016', function(err, result){
+//     if(err)
+//         throw err;
+//     console.log(JSON.parse(result));
+// }); // ShowCosGroup 列出此學生畢業預審表上 必修、核心、副核心等課程分類
 
 // m.ShowGraduateRule('0416016', function(err, result){
 //     if(err)
@@ -653,5 +653,26 @@ m.ShowCosGroup('0416016', function(err, result){
 // 	console.log(JSON.parse(result));
 // }); 
 // // 設定是否有申請更換教授 0:沒申請 1:有申請
+
+// m.CreateApplyPeriod({semester: '108-1', type:'graduation', begin:'2019/9/1, 8:00AM', end: '2019/10/1, 10:00AM'}, function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); 
+// // 創建申請的期限 type: offset, research, graduation
+
+// m.SetApplyPeriod({semester: '108-1', type:'offset', begin:'2019/9/3, 8:00AM', end: '2019/10/2, 10:00AM'}, function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); 
+// // 修改申請的期限 type: offset, research, graduation
+
+m.ShowApplyPeriod({semester: '108-1'}, function(err, result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+}); 
+// 顯示申請的期限 offset, research, graduation
 
 m.Drain(); // 關閉 connection pool
