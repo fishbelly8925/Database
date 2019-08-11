@@ -103,15 +103,22 @@ module.exports = {
                         pool.release(c);
                         return ;
                     }
+                    var i
                     result=JSON.parse(JSON.stringify(result));
-                    for(i in result){
-                        type = result[i]["type"]
-                        if(period.hasOwnProperty(type)){
-                            period[type]["begin"] = result[i]["begin"]
-                            period[type]["end"] = result[i]["end"]
+                    if(result == '')
+                        callback(null, JSON.stringify(result));
+                    else
+                    {
+                        for(i in result){
+                            type = result[i]["type"]
+                            if(period.hasOwnProperty(type)){
+                                period[type]["begin"] = result[i]["begin"]
+                                period[type]["end"] = result[i]["end"]
+                            }
                         }
+                        callback(null, JSON.stringify(period));
                     }
-                    callback(null, JSON.stringify(period));
+                    
                     pool.release(c);
                 });  
         });
