@@ -47,11 +47,11 @@ var m = require('./msql.js');
 //     console.log(JSON.parse(result));
 // }); // ShowUserPartScore 列出此學生某向度中通過的課
 
-m.ShowCosGroup('0416016', function(err, result){
-    if(err)
-        throw err;
-    console.log(JSON.parse(result));
-}); // ShowCosGroup 列出此學生畢業預審表上 必修、核心、副核心等課程分類
+// m.ShowCosGroup('0416016', function(err, result){
+//     if(err)
+//         throw err;
+//     console.log(JSON.parse(result));
+// }); // ShowCosGroup 列出此學生畢業預審表上 必修、核心、副核心等課程分類
 
 // m.ShowGraduateRule('0416016', function(err, result){
 //     if(err)
@@ -410,7 +410,7 @@ m.ShowCosGroup('0416016', function(err, result){
 // 	credit: 3,
 // 	reason: 'YAAAA YOOOO YEEEE',
 // 	credit_old: 3,
-// 	file: 'LOOOOOOOOOO',
+// 	file: 'base64 file string',
 // 	school_old: 'NTCU',           
 // 	dep_old: '應數系',              
 // 	graduation_credit_old: 128,
@@ -444,7 +444,7 @@ m.ShowCosGroup('0416016', function(err, result){
 // 	credit: 3,
 // 	reason: 'YAAAA YOOOO YEEEE',
 // 	credit_old: 3,
-// 	file: 'LAAAAAAAAAAAAA',
+// 	file: 'base64 file string',
 // 	school_old: 'NTCU',           
 // 	dep_old: '應數系',              
 // 	graduation_credit_old: 128,
@@ -496,7 +496,7 @@ m.ShowCosGroup('0416016', function(err, result){
 
 // data1 = {student_id: '0516005'} // return single student offset apply form
 // data2 = {all_student: true} // return all student offset apply form
-// m.ShowUserOffsetApplyForm(data1,function(err,result){
+// m.ShowUserOffsetApplyForm(data2,function(err,result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
@@ -653,5 +653,6 @@ m.ShowCosGroup('0416016', function(err, result){
 // 	console.log(JSON.parse(result));
 // }); 
 // // 設定是否有申請更換教授 0:沒申請 1:有申請
+
 
 m.Drain(); // 關閉 connection pool
