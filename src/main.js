@@ -254,12 +254,12 @@ var m = require('./msql.js');
 // 	console.log(JSON.parse(result));
 // }); // 回傳教授id, 名字對應表
 
-// m.CreateResearchApplyForm({phone:'0900', student_id:'0716006', research_title:'testttt_14', tname:'彭文志', first_second:1, email:'wawawa@crayonSinJang', semester:'106-2'}, function(err,result){
-// 	if(err)
-// 		throw err;
-// 		//老師名字若不存在，就會拋出ERROR
-// 	console.log(JSON.parse(result));
-// }); // create research apply form
+m.CreateResearchApplyForm({phone:'0900', student_id:'0716001', research_title:'testttt_14', tname:'彭文志', first_second:1, email:'wawawa@crayonSinJang', semester:'106-2', program:'應數系', name:'王小明'}, function(err,result){
+	if(err)
+		throw err;
+		//老師名字若不存在，就會拋出ERROR
+	console.log(JSON.parse(result));
+}); // create research apply form
 
 // m.SetResearchApplyFormStatus({research_title:'我是專題標題2~', tname:'彭文志', first_second:2, agree:3, semester:'106-2'});
 // // // set research apply form agree bit  0預設 1接受 2審核中 3拒絕
@@ -668,11 +668,11 @@ var m = require('./msql.js');
 // }); 
 // // 修改申請的期限 type: offset, research, graduation
 
-m.ShowApplyPeriod({semester: '108-1'}, function(err, result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-}); 
-// 顯示申請的期限 offset, research, graduation
+// m.ShowApplyPeriod({semester: '108-1'}, function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); 
+// // 顯示申請的期限 offset, research, graduation
 
 m.Drain(); // 關閉 connection pool

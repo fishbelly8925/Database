@@ -44,6 +44,17 @@ exports.setResearchComment="\
     and student_id = :student_id\
     and semester = :semester";
 
+exports.CheckStudentProgram="\
+    select if(substring(program,1,2)='資工' or substring(program,1,2)='網多' or substring(program,1,2)='資電',1,0) as status\
+    from student\
+    where student_id = :student_id";
+
+exports.CreateOtherMajorStudent="\
+    insert into student\
+    (student_id, sname, program, email, phone)\
+    values\
+    (:student_id, :name, :program, :email, :phone)";
+
 exports.CheckResearchOne="\
     select *\
     from research_student \
@@ -95,13 +106,9 @@ exports.CreateResearchApplyForm="\
     insert into research_apply_form\
     values(:student_id, :research_title, :tname, 0, :new_first_second, :semester)";
 
-exports.AddPhone="\
-    update student set phone = :phone\
+exports.AddPhoneEmail="\
+    update student set phone = :phone, email = :email\
     where student_id = :student_id";
-
-exports.AddEmail="\
-    update student set email = :email \
-    where student_id = :id";
 
 exports.SetResearchApplyFormStatus="\
     update research_apply_form set agree = :agree \
