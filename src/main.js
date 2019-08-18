@@ -654,5 +654,25 @@ var m = require('./msql.js');
 // }); 
 // // 設定是否有申請更換教授 0:沒申請 1:有申請
 
+// m.CreateApplyPeriod({semester: '108-1', type:'graduation', begin:'2019/9/1, 8:00AM', end: '2019/10/1, 10:00AM'}, function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); 
+// // 創建申請的期限 type: offset, research, graduation
+
+// m.SetApplyPeriod({semester: '108-1', type:'offset', begin:'2019/9/3, 8:00AM', end: '2019/10/2, 10:00AM'}, function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); 
+// // 修改申請的期限 type: offset, research, graduation
+
+m.ShowApplyPeriod({semester: '108-1'}, function(err, result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+}); 
+// 顯示申請的期限 offset, research, graduation
 
 m.Drain(); // 關閉 connection pool
