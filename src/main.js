@@ -203,11 +203,17 @@ var m = require('./msql.js');
 // 	console.log(JSON.parse(result));
 // }); // ShowTeacherResearchStudent(teacher_id, callback) 回傳某教授指定系級的專題生和專題題目，1表示本系生，0表示外系生
 
-// m.ShowTeacherInfoResearchCnt({teacher_id:''},function(err, result){
+// m.SetTeacherPhoto({tname: '彭文志2', photo: 'base64 string2'}, function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
-// }); // ShowTeacherInfoResearchCnt(callback) 回傳教授各屆的學生人數
+// }); // SetTeacherPhoto(data, callback) 設定教授照片，回傳query結果
+
+m.ShowTeacherInfoResearchCnt({teacher_id:'T9229'},function(err, result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+}); // ShowTeacherInfoResearchCnt(callback) 回傳教授各屆的學生人數
 
 // m.CreateMail({sender_id:'0516003', title:'test~~', receiver_id:'T9229', content:'這是一個測試信件這是一個測試信件'});
 // // CreateMail(data) data type 為JSON，新增一則信件，需有以上所有欄位
@@ -668,11 +674,11 @@ var m = require('./msql.js');
 // }); 
 // // 修改申請的期限 type: offset, research, graduation
 
-m.ShowApplyPeriod({semester: '108-1'}, function(err, result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-}); 
-// 顯示申請的期限 offset, research, graduation
+// m.ShowApplyPeriod({semester: '108-1'}, function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); 
+// // 顯示申請的期限 offset, research, graduation
 
 m.Drain(); // 關閉 connection pool
