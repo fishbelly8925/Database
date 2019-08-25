@@ -120,11 +120,11 @@ module.exports = {
             });
         });
     },
-    SetOffsetApplyFormAgreeStatus(data,callback){
+    SetOffsetApplyFormResend(data,callback){
         const resource = pool.acquire();
         resource.then(function(c){
-            var sql_SetOffsetApplyFormAgreeStatus = c.prepare(s.SetOffsetApplyFormAgreeStatus)
-            c.query(sql_SetOffsetApplyFormAgreeStatus(data),function(err,result){
+            var sql_SetOffsetApplyFormResend = c.prepare(s.SetOffsetApplyFormResend)
+            c.query(sql_SetOffsetApplyFormResend(data),function(err,result){
                 if(err){
                     callback(err, undefined);
                     pool.release(c);
