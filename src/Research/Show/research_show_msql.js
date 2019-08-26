@@ -58,20 +58,32 @@ module.exports = {
                     for(i in result){
                         gradeCnt={grade:result[i].year, scount:result[i].scount};
                         if(i==0){
-                            temp={tname:result[i].tname, teacher_id:result[i].teacher_id, 
-                                phone:result[i].phone, email:result[i].email, 
-                                expertise:result[i].expertise, 
-                                info:result[i].info, gradeCnt:[gradeCnt]};
+                            temp = {
+                                tname: result[i].tname,
+                                teacher_id: result[i].teacher_id, 
+                                phone: result[i].phone,
+                                email: result[i].email, 
+                                expertise: result[i].expertise, 
+                                info: result[i].info,
+                                photo: result[i].photo,
+                                gradeCnt: [gradeCnt]
+                            };
                         }
                         else if(result[i].tname===temp.tname){
                             temp.gradeCnt.push(gradeCnt);
                         }
                         else{   
                             res.push(temp);
-                            temp={tname:result[i].tname, teacher_id:result[i].teacher_id, 
-                                phone:result[i].phone, email:result[i].email, 
-                                expertise:result[i].expertise, 
-                                info:result[i].info, gradeCnt:[gradeCnt]};
+                            temp = {
+                                tname: result[i].tname,
+                                teacher_id: result[i].teacher_id, 
+                                phone: result[i].phone,
+                                email: result[i].email, 
+                                expertise: result[i].expertise, 
+                                info: result[i].info,
+                                photo: result[i].photo,
+                                gradeCnt: [gradeCnt]
+                            };
                         }
                     }
                     if(res[res.length-1].tname!==temp.tname)
@@ -94,20 +106,32 @@ module.exports = {
                     for(i in result){
                         gradeCnt={grade:result[i].year, scount:result[i].scount};
                         if(i==0){
-                            temp={tname:result[i].tname, teacher_id:result[i].teacher_id, 
-                                phone:result[i].phone, email:result[i].email, 
-                                expertise:result[i].expertise, 
-                                info:result[i].info, gradeCnt:[gradeCnt]};
+                            temp = {
+                                tname: result[i].tname,
+                                teacher_id: result[i].teacher_id, 
+                                phone: result[i].phone,
+                                email: result[i].email, 
+                                expertise: result[i].expertise, 
+                                info: result[i].info,
+                                photo: result[i].photo,
+                                gradeCnt: [gradeCnt]
+                            };
                         }
                         else if(result[i].tname===temp.tname){
                             temp.gradeCnt.push(gradeCnt);
                         }
                         else{   
                             res.push(temp);
-                            temp={tname:result[i].tname, teacher_id:result[i].teacher_id, 
-                                phone:result[i].phone, email:result[i].email, 
-                                expertise:result[i].expertise, 
-                                info:result[i].info, gradeCnt:[gradeCnt]};
+                            temp = {
+                                tname: result[i].tname,
+                                teacher_id: result[i].teacher_id, 
+                                phone: result[i].phone,
+                                email: result[i].email, 
+                                expertise: result[i].expertise, 
+                                info: result[i].info,
+                                photo: result[i].photo,
+                                gradeCnt: [gradeCnt]
+                            };
                         }
                     }
                     if(res.length == 0)

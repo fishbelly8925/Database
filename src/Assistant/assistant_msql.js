@@ -59,6 +59,70 @@ module.exports = {
             });
         });
     },
+    CreateApplyPeriod: function(data, callback){
+        const resource=pool.acquire();
+        resource.then(function(c) {
+            var sql_CreateApplyPeriod = c.prepare(s.CreateApplyPeriod);
+            c.query(sql_CreateApplyPeriod(data), function(err, result){
+                if(err)
+                {
+                    callback(err, undefined);
+                    pool.release(c);
+                    return ;
+                }
+                callback(null, JSON.stringify(result));
+                pool.release(c);
+            })  
+        })
+    },
+    SetApplyPeriod: function(data, callback){
+        const resource=pool.acquire();
+        resource.then(function(c) {
+            var sql_SetApplyPeriod = c.prepare(s.SetApplyPeriod);
+            c.query(sql_SetApplyPeriod(data), function(err, result){
+                if(err)
+                {
+                    callback(err, undefined);
+                    pool.release(c);
+                    return ;
+                }
+                callback(null, JSON.stringify(result));
+                pool.release(c);
+            })  
+        })
+    },
+    ShowApplyPeriod: function(data, callback){
+        var period = {offset:{begin:null,end:null},research:{begin:null,end:null},graduation:{begin:null,end:null}}
+        const resource=pool.acquire();
+        resource.then(function(c) {
+            var sql_ShowApplyPeriod = c.prepare(s.ShowApplyPeriod);
+                c.query(sql_ShowApplyPeriod(data), function(err, result){
+                    if(err)
+                    {
+                        callback(err, undefined);
+                        pool.release(c);
+                        return ;
+                    }
+                    var i
+                    result=JSON.parse(JSON.stringify(result));
+                    if(result == '')
+                        callback(null, JSON.stringify(result));
+                    else
+                    {
+                        for(i in result){
+                            type = result[i]["type"]
+                            if(period.hasOwnProperty(type)){
+                                period[type]["begin"] = result[i]["begin"]
+                                period[type]["end"] = result[i]["end"]
+                            }
+                        }
+                        callback(null, JSON.stringify(period));
+                    }
+                    
+                    pool.release(c);
+                });  
+        });
+    },
     Drain: function() {
         pool.drain().then(function() {
             pool.clear();

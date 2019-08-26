@@ -1,3 +1,9 @@
+exports.SetTeacherPhoto = "\
+    insert into teacher_photo(tname, photo)\
+    values(:tname, :photo)\
+    on duplicate key update\
+        photo = :photo";
+
 exports.ShowTeacherCosNow = "\
     select *\
     from cos_name as n\

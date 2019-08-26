@@ -6,6 +6,24 @@ var s = require('./teacher_sqlString.js');
 var pool = psw.dbpsw();
 
 module.exports = {
+    SetTeacherPhoto: function(data, callback){
+        if(typeof(data) === 'string')
+            data=JSON.parse(data);
+        const resource = pool.acquire();
+        resource.then(function(c){
+            var sql_SetTeacherPhoto=c.prepare(s.SetTeacherPhoto);
+            c.query(sql_SetTeacherPhoto(data), function(err, result){
+                if(err)
+                {
+                    callback(err, undefined);
+                    pool.release(c);
+                    throw err;
+                }
+                callback(null, JSON.stringify(result));
+                pool.release(c);
+            });
+        });
+    },
 	ShowTeacherCosNow:function(id, callback){
         const resource = pool.acquire();
         resource.then(function(c){

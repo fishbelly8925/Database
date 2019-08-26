@@ -26,3 +26,14 @@ exports.SetNetMediaStatus='\
 	update student\
 	set net_media = :net_media\
 	where student_id = :id';
+exports.CreateApplyPeriod='\
+    insert into apply_period \
+    values (:semester,:type,:begin,:end)';
+exports.SetApplyPeriod='\
+    update apply_period \
+    set begin = :begin, end = :end \
+    where semester = :semester and type = :type';
+exports.ShowApplyPeriod='\
+    select type, begin, end \
+    from apply_period \
+    where semester = :semester';

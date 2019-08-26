@@ -47,11 +47,11 @@ var m = require('./msql.js');
 //     console.log(JSON.parse(result));
 // }); // ShowUserPartScore 列出此學生某向度中通過的課
 
-m.ShowCosGroup('0416016', function(err, result){
-    if(err)
-        throw err;
-    console.log(JSON.parse(result));
-}); // ShowCosGroup 列出此學生畢業預審表上 必修、核心、副核心等課程分類
+// m.ShowCosGroup('0416016', function(err, result){
+//     if(err)
+//         throw err;
+//     console.log(JSON.parse(result));
+// }); // ShowCosGroup 列出此學生畢業預審表上 必修、核心、副核心等課程分類
 
 // m.ShowGraduateRule('0416016', function(err, result){
 //     if(err)
@@ -203,7 +203,13 @@ m.ShowCosGroup('0416016', function(err, result){
 // 	console.log(JSON.parse(result));
 // }); // ShowTeacherResearchStudent(teacher_id, callback) 回傳某教授指定系級的專題生和專題題目，1表示本系生，0表示外系生
 
-// m.ShowTeacherInfoResearchCnt({teacher_id:''},function(err, result){
+// m.SetTeacherPhoto({tname: '彭文志2', photo: 'base64 string2'}, function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); // SetTeacherPhoto(data, callback) 設定教授照片，回傳query結果
+
+// m.ShowTeacherInfoResearchCnt({teacher_id:'T9229'},function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
@@ -254,7 +260,7 @@ m.ShowCosGroup('0416016', function(err, result){
 // 	console.log(JSON.parse(result));
 // }); // 回傳教授id, 名字對應表
 
-// m.CreateResearchApplyForm({phone:'0900', student_id:'0716006', research_title:'testttt_14', tname:'彭文志', first_second:1, email:'wawawa@crayonSinJang', semester:'106-2'}, function(err,result){
+// m.CreateResearchApplyForm({phone:'0900', student_id:'0716001', research_title:'testttt_14', tname:'彭文志', first_second:1, email:'wawawa@crayonSinJang', semester:'106-2', program:'應數系', name:'王小明'}, function(err,result){
 // 	if(err)
 // 		throw err;
 // 		//老師名字若不存在，就會拋出ERROR
@@ -410,7 +416,7 @@ m.ShowCosGroup('0416016', function(err, result){
 // 	credit: 3,
 // 	reason: 'YAAAA YOOOO YEEEE',
 // 	credit_old: 3,
-// 	file: 'LOOOOOOOOOO',
+// 	file: 'base64 file string',
 // 	school_old: 'NTCU',           
 // 	dep_old: '應數系',              
 // 	graduation_credit_old: 128,
@@ -428,41 +434,42 @@ m.ShowCosGroup('0416016', function(err, result){
 // }); // 	建立課程抵免申請單，回傳對DB造成的info 
 // 	   //	offset_type -> 0 本系必修課程抵免 1 英授專業課程抵免 2 學分抵免  3 課程免修
 
-// data = { 
-// 	student_id: '0516005',
-// 	phone: '0123456789',
-// 	class: 'ABCCBA',
-// 	apply_year: '107',
-// 	apply_semester: '1',
-// 	cos_dep_old: '電子系',
-// 	cos_tname_old: '桑梓賢',
-// 	cos_cname_old: '線性',
-// 	cos_code_old:  null,
-// 	cos_cname: '線性代數',
-// 	cos_code: 'DCP2354',
-// 	cos_type: '必修',
-// 	credit: 3,
-// 	reason: 'YAAAA YOOOO YEEEE',
-// 	credit_old: 3,
-// 	file: 'LAAAAAAAAAAAAA',
-// 	school_old: 'NTCU',           
-// 	dep_old: '應數系',              
-// 	graduation_credit_old: 128,
-// 	cos_year_old: 106,         
-// 	cos_semester_old: 2,     
-// 	score_old: 90,
-// 	offset_type: 2,
-// 	reason_type: '被當QQ',
-// 	state: 2,	// 0 申請中，1 等候主管同意，2 同意抵免，3 抵免失敗(助理不同意)，4 抵免失敗(教授不同意)，5 等候老師同意，6 退回等學生修改
-// 	timestamp: '2019-02-16 23:56:18'
-// };
+data = { 
+	student_id: '0613316',
+	phone: '0123456789',
+	class: 'ABCCBA',
+	apply_year: '107',
+	apply_semester: '1',
+	cos_dep_old: '電子系',
+	cos_tname_old: '桑梓賢',
+	cos_cname_old: '線性',
+	cos_code_old:  null,
+	cos_cname: '線性代數',
+	cos_code: 'DCP2354',
+	cos_type: '必修',
+	credit: 3,
+	reason: 'YAAAA YOOOO YEEEE',
+	credit_old: 3,
+	file: 'base64 file string',
+	school_old: 'NTCU',           
+	dep_old: '應數系',              
+	graduation_credit_old: 128,
+	cos_year_old: 106,         
+	cos_semester_old: 2,     
+	score_old: 90,
+	offset_type: 2,
+	reason_type: '被當QQ',
+	state: 2,	// 0 申請中，1 等候主管同意，2 同意抵免，3 抵免失敗(助理不同意)，4 抵免失敗(教授不同意)，5 等候老師同意，6 退回等學生修改
+	timestamp: '2019-08-01 18:12:13',
+	resend: 1 
+};
 
-// m.ModifyOffsetApplyForm(data,function(err,result){
-// 	if(err)
-// 		throw err;
-// 	console.log(JSON.parse(result));
-// }); // 	建立課程抵免申請單，回傳對DB造成的info 
-// 	   //	offset_type -> 0 外系抵免 1 英授抵免 2 免修單  3 學分抵免單
+m.ModifyOffsetApplyForm(data,function(err,result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+}); // 	建立課程抵免申請單，回傳對DB造成的info 
+	   //	offset_type -> 0 外系抵免 1 英授抵免 2 免修單  3 學分抵免單
 
 // data = {
 // 	timestamp: '2019-02-16 00:26:20',
@@ -496,7 +503,7 @@ m.ShowCosGroup('0416016', function(err, result){
 
 // data1 = {student_id: '0516005'} // return single student offset apply form
 // data2 = {all_student: true} // return all student offset apply form
-// m.ShowUserOffsetApplyForm(data1,function(err,result){
+// m.ShowUserOffsetApplyForm(data2,function(err,result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
@@ -653,5 +660,29 @@ m.ShowCosGroup('0416016', function(err, result){
 // 	console.log(JSON.parse(result));
 // }); 
 // // 設定是否有申請更換教授 0:沒申請 1:有申請
+
+// m.CreateApplyPeriod({semester: '108-1', type:'graduation', begin:'2019/9/1, 8:00AM', end: '2019/10/1, 10:00AM'}, function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); 
+// // 創建申請的期限 type: offset, research, graduation
+
+// m.SetApplyPeriod({semester: '108-1', type:'offset', begin:'2019/9/3, 8:00AM', end: '2019/10/2, 10:00AM'}, function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); 
+// // 修改申請的期限 type: offset, research, graduation
+
+// m.ShowApplyPeriod({semester: '108-1'}, function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); 
+// // 顯示申請的期限 offset, research, graduation
+
+
+
 
 m.Drain(); // 關閉 connection pool
