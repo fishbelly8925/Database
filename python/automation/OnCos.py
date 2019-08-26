@@ -87,7 +87,7 @@ def CheckFormat(file_name):
 def ImportData(file_name):
 	fileName = file_name
 	err_flag = 0
-	conn=pymysql.connect(host='localhost', user='root', password='', db='ca', charset='utf8mb4')
+	conn=pymysql.connect(host='localhost', user='root', password='mickey94378', db='ca', charset='utf8mb4')
 	sql_insert="""
 		insert into on_cos_data
 		(student_id, year, semester, code, cos_code, brief, brief_new, 
@@ -137,7 +137,7 @@ def ImportData(file_name):
 	if len(list_params) == affected_rows:
 		# success log
 		logger = CreateLog()
-		logger.info('Success: insert {} rows to cos_score'.format(affected_rows))
+		logger.info('Success: insert {} rows to on_cos_data'.format(affected_rows))
 
 	conn.close()
 

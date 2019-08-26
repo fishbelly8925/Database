@@ -88,7 +88,7 @@ def FormatInt(str):
 def ImportData(file_name):
 	fileName = file_name
 	err_flag = 0
-	conn=pymysql.connect(host='localhost', user='root', password='', db='ca', charset='utf8mb4')
+	conn=pymysql.connect(host='localhost', user='root', password='mickey94378', db='ca', charset='utf8mb4')
 	sql_insert="""
 		insert into cos_score
 		(student_id, cos_year, semester, cos_id, cos_dep, cos_cname, cos_code, cos_type, brief, cos_credit, score_type,

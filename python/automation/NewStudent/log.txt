@@ -1,0 +1,2 @@
+2019-08-26 22:06:55 - root - ERROR: - csv format error: line 1: 長度不等於9
+2019-08-26 22:08:38 - root - INFO: - Success: insert and update 796 rows to student

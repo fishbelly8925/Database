@@ -5,3 +5,4 @@
 2019-01-31 22:32:36 - root - ERROR: - mysql query error: (1062, "Duplicate entry '0216011-107-1-1194' for key 'PRIMARY'")
 2019-01-31 22:35:24 - root - ERROR: - csv format error: line 2: 第一欄「學號」格式錯誤
 2019-01-31 22:36:14 - root - INFO: - Success: insert 9 rows to cos_score
+2019-02-22 14:16:07 - root - ERROR: - csv format error: line 1: 長度不等於4
