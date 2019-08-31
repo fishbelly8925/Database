@@ -136,7 +136,7 @@ exports.ShowGivenGradeStudentResearch="\
     on t.tname = s1.tname";
 
 exports.ShowStudentResearchInfo="\
-    select rs.student_id, rs.tname, rs.research_title, rs.first_second, rs.memo, rs.link, rs.intro,\
+    select rs.student_id, rs.tname, rs.research_title, rs.first_second, rs.memo, rs.file, rs.photo, rs.filename, rs.intro,\
     rs.score, rs.semester, rs.comment, rs.video, rs.add_status,\
     case a.program when '資工A' then 1 when '資工B' then 1 when '網多' then 1 when '資電' then 1\
     else 0 end as status, rs.replace_pro \
