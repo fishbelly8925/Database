@@ -14,8 +14,22 @@ exports.setResearchTitle="\
     and first_second = :first_second\
     and semester = :semester";
 
-exports.setResearchLink="\
-    update research_student set link = :new_link\
+exports.setResearchFile="\
+    update research_student set file = :new_file\
+    where research_title = :research_title\
+    and tname = :tname\
+    and first_second = :first_second\
+    and semester = :semester";
+
+exports.setResearchPhoto="\
+    update research_student set photo = :new_photo\
+    where research_title = :research_title\
+    and tname = :tname\
+    and first_second = :first_second\
+    and semester = :semester";
+
+exports.setResearchFilename="\
+    update research_student set filename = :new_filename\
     where research_title = :research_title\
     and tname = :tname\
     and first_second = :first_second\
