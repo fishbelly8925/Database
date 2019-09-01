@@ -294,11 +294,11 @@ var m = require('./msql.js');
 // });
 // // 輸入系級，回傳該系級所有學生的專題資訊
 
-m.ShowStudentResearchInfo('0316002', function(err, result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-});
+// m.ShowStudentResearchInfo('0316002', function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// });
 // // 用學號查詢專題的標題、網址、介紹、年度，1表示本系生，0表示外系生
 // 0410835 電機系
 
@@ -403,7 +403,6 @@ m.ShowStudentResearchInfo('0316002', function(err, result){
 // data = { 
 // 	student_id: '0516005',
 // 	phone: '0123456789',
-// 	class: 'ABC',
 // 	apply_year: '107',
 // 	apply_semester: '1',
 // 	cos_dep_old: '電子系',
@@ -435,9 +434,8 @@ m.ShowStudentResearchInfo('0316002', function(err, result){
 // 	   //	offset_type -> 0 本系必修課程抵免 1 英授專業課程抵免 2 學分抵免  3 課程免修
 
 // data = { 
-// 	student_id: '0613316',
+// 	student_id: '0516005',
 // 	phone: '0123456789',
-// 	class: 'ABCCBA',
 // 	apply_year: '107',
 // 	apply_semester: '1',
 // 	cos_dep_old: '電子系',
@@ -460,7 +458,7 @@ m.ShowStudentResearchInfo('0316002', function(err, result){
 // 	offset_type: 2,
 // 	reason_type: '被當QQ',
 // 	state: 2,	// 0 申請中，1 等候主管同意，2 同意抵免，3 抵免失敗(助理不同意)，4 抵免失敗(教授不同意)，5 等候老師同意，6 退回等學生修改
-// 	timestamp: '2019-08-01 18:12:13',
+// 	timestamp: '2019-09-01 21:45:41',
 // 	resend: 1 
 // };
 
@@ -501,13 +499,13 @@ m.ShowStudentResearchInfo('0316002', function(err, result){
 // }); // create offset
 
 
-// data1 = {student_id: '0516005'} // return single student offset apply form
-// data2 = {all_student: true} // return all student offset apply form
-// m.ShowUserOffsetApplyForm(data2,function(err,result){
-// 	if(err)
-// 		throw err;
-// 	console.log(JSON.parse(result));
-// });	
+data1 = {student_id: '0516005'} // return single student offset apply form
+data2 = {all_student: true} // return all student offset apply form
+m.ShowUserOffsetApplyForm(data1,function(err,result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+});	
 
 // data = {
 // 	student_id: '0516003',
@@ -521,9 +519,9 @@ m.ShowStudentResearchInfo('0316002', function(err, result){
 // });// 顯示搜尋的申請單
 
 // data = {
-// 	timestamp: '2019-02-16 01:03:24',
-// 	student_id: '0516005',
-// 	state: 1 ,// 0 申請中，1 等候主管同意，2 同意抵免，3 抵免失敗(助理不同意)，4 抵免失敗(教授不同意)，5 等候老師同意，6 退回等學生修改
+// 	timestamp: '2019-08-24 21:10:29',
+// 	student_id: '0416004',
+// 	state: 2 ,// 0 申請中，1 等候主管同意，2 同意抵免，3 抵免失敗(助理不同意)，4 抵免失敗(教授不同意)，5 等候老師同意，6 退回等學生修改
 // 	reject_reason: '被退回的原因',
 // 	transferto: '["T9505","T9125"]'
 // }

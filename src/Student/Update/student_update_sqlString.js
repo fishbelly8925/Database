@@ -24,12 +24,12 @@ exports.SetUserPhone = "\
 
 exports.CreateOffsetApplyForm = "\
     insert into offset_apply_form\
-    (student_id, class, apply_year, apply_semester, cos_dep_old, \
+    (student_id, apply_year, apply_semester, cos_dep_old, \
     cos_tname_old, cos_cname_old, cos_code_old, cos_cname,\
     cos_code, cos_type, credit, reason, agree, credit_old,\
     file, timestamp, school_old, dep_old, graduation_credit_old, \
     cos_year_old, cos_semester_old, score_old, offset_type,reason_type)\
-    values (:student_id, :class, :apply_year, :apply_semester, :cos_dep_old,\
+    values (:student_id, :apply_year, :apply_semester, :cos_dep_old,\
         :cos_tname_old, :cos_cname_old, :cos_code_old, :cos_cname,\
         :cos_code, :cos_type, :credit, :reason, 0, :credit_old,\
         :file, NOW(), :school_old, :dep_old, :graduation_credit_old, \
@@ -37,7 +37,7 @@ exports.CreateOffsetApplyForm = "\
 
 exports.ModifyOffsetApplyForm = "\
     update offset_apply_form\
-    set class = :class, apply_year = :apply_year, apply_semester = :apply_semester, cos_dep_old = :cos_dep_old, \
+    set apply_year = :apply_year, apply_semester = :apply_semester, cos_dep_old = :cos_dep_old, \
     cos_tname_old = :cos_tname_old, cos_cname_old = :cos_cname_old, cos_code_old = :cos_code_old, cos_cname = :cos_cname,\
     cos_code = :cos_code, cos_type = :cos_type, credit = :credit, reason = :reason, credit_old = :credit_old,\
     file = :file, timestamp = NOW(), school_old = :school_old, dep_old = :dep_old, graduation_credit_old = :graduation_credit_old, \
@@ -62,12 +62,6 @@ exports.SetOffsetApplyFormAgreeStatus = "\
     update offset_apply_form\
     set agree = :state, transferto = :transferto,\
     reject_reason = :reject_reason\
-    where student_id = :student_id\
-    and timestamp = :timestamp";
-
-exports.SetOffsetApplyFormResend = "\
-    update offset_apply_form\
-    set resend = :resend\
     where student_id = :student_id\
     and timestamp = :timestamp";
 
