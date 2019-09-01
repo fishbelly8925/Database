@@ -40,10 +40,10 @@ exports.findCrossStudent = "\
     select *\
     from student\
     where student_id = :id\
-    and program != '資工A'\
-    and program != '資工B'\
-    and program != '資電'\
-    and program != '網多'";
+    and program != 'A'\
+    and program != 'B'\
+    and program != 'C'\
+    and program != 'D'";
 
 exports.findProfessor = "\
     select teacher_id, tname\

@@ -4,11 +4,11 @@
 
 var m = require('./msql.js');
 
-// m.ShowUserInfo('0316003', function(err, result){
-//     if(err)
-//         throw err;
-//     console.log(JSON.parse(result));
-// }); // ShowUserInfo 回傳學生資料
+m.ShowUserInfo('0516075', function(err, result){
+    if(err)
+        throw err;
+    console.log(JSON.parse(result));
+}); // ShowUserInfo 回傳學生資料
 
 //m.SetUserEmail('0516003', 'da2bct@test');
 // SetUserEmail(學號, email) 更新此學號學生之email
@@ -499,13 +499,13 @@ var m = require('./msql.js');
 // }); // create offset
 
 
-data1 = {student_id: '0516005'} // return single student offset apply form
-data2 = {all_student: true} // return all student offset apply form
-m.ShowUserOffsetApplyForm(data1,function(err,result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-});	
+// data1 = {student_id: '0516005'} // return single student offset apply form
+// data2 = {all_student: true} // return all student offset apply form
+// m.ShowUserOffsetApplyForm(data1,function(err,result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// });	
 
 // data = {
 // 	student_id: '0516003',
