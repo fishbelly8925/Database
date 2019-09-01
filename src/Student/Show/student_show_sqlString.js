@@ -502,7 +502,7 @@ exports.ShowUserOffsetApplyFormSingle = "\
     select body.*,if(pre.previous=1,1,0) as previous\
     from\
     (\
-        select o.*,s.sname,s.phone\
+        select o.*,s.sname,s.program,s.grade,s.phone\
         from offset_apply_form as o,student as s\
         where o.student_id = :student_id\
         and o.student_id = s.student_id\
@@ -533,7 +533,7 @@ exports.ShowUserOffsetApplyFormAll = "\
     select body.*,if(pre.previous=1,1,0) as previous\
     from\
     (\
-        select o.*,s.sname,s.phone\
+        select o.*,s.sname,s.program,s.grade,s.phone\
         from offset_apply_form as o,student as s\
         where o.student_id = s.student_id\
     ) as body\
@@ -563,7 +563,7 @@ exports.ShowGivenOffsetApplyForm = "\
     select body.*,if(pre.previous=1,1,0) as previous\
     from\
     (\
-        select o.*,s.sname,s.phone\
+        select o.*,s.sname,s.program,s.grade,s.phone\
         from offset_apply_form as o,student as s\
         where o.student_id = :student_id \
         and o.student_id = s.student_id \
