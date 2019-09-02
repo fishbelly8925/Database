@@ -36,10 +36,10 @@ var m = require('./msql.js');
 //         throw err;
 //     console.log(JSON.parse(result));
 // }); // ShowUserAllScore 列出此學生通過的課
-// 測試學號
-// 軍訓 0116089
-// 霹靂悠 0516007
-// 轉系抵免 0411276 
+// // 測試學號
+// // 軍訓 0116089
+// // 霹靂悠 0516007
+// // 轉系抵免 0411276 
 
 // m.ShowUserPartScore('0516003', '通識', function(err, result){
 //     if(err)
@@ -536,7 +536,7 @@ var m = require('./msql.js');
 // 		throw err;
 // 	console.log(JSON.parse(result));
 // });
-// 輸入一二三四，顯示某年級所有學生,1表示本系生，0表示外系生
+// // 輸入一二三四，顯示某年級所有學生,1表示本系生，0表示外系生
 
 // m.ShowStudentGraduate({student_id: '0516202'}, function(err, result){
 // 	if(err)

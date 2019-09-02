@@ -306,7 +306,7 @@ exports.ShowStudentIdList = "\
     from student";
 
 exports.ShowGradeStudentIdList = "\
-    select student_id, sname, program,if(substring(program,1,2)='資工' or substring(program,1,2)='網多' or substring(program,1,2)='資電',1,0) as status\
+    select student_id, sname, program,if(substring(program,1,1)='A' or substring(program,1,1)='B' or substring(program,1,2)='C' or substring(program,1,2)='D',1,0) as status\
     from student\
     where student_id like concat(:grade,'%')";
 
@@ -594,7 +594,7 @@ exports.ShowGivenOffsetApplyForm = "\
 
 exports.ShowGivenGradeStudent = "\
     select sname, student_id, program, graduate,\
-    if(substring(program,1,2)='資工' or substring(program,1,2)='網多' or substring(program,1,2)='資電',1,0) as status\
+    if(substring(program,1,1)='A' or substring(program,1,1)='B' or substring(program,1,1)='C' or substring(program,1,1)='D',1,0) as status\
     from student\
     where grade = :grade\
     and study_status !='休學'\

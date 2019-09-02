@@ -38,7 +38,11 @@ exports.ShowCosMapRule = "\
         from cos_require as c, student as s\
         where s.student_id = :id\
         and c.school_year = :year\
-        and s.program like concat(c.program, '%') \
+        and (case s.program when 'A' then '資工'\
+                            when 'B' then '資工'\
+                            when 'C' then '網多'\
+                            when 'D' then '資電'\
+            end) like concat(c.program, '%') \
         order by grade, semester\
     ) as a \
     left outer join \
@@ -46,7 +50,11 @@ exports.ShowCosMapRule = "\
         select pre_cos_cname, after_cos_cname\
         from cos_suggest as c, student as s\
         where s.student_id=:id\
-        and s.program like concat(c.program, '%')\
+        and (case s.program when 'A' then '資工'\
+                            when 'B' then '資工'\
+                            when 'C' then '網多'\
+                            when 'D' then '資電'\
+            end) like concat(c.program, '%') \
         and c.school_year = :year\
     ) as b\
     on a.cos_cname = b.after_cos_cname\
@@ -55,7 +63,11 @@ exports.ShowCosMapRule = "\
         select pre_cos_cname, after_cos_cname \
         from cos_pre as c, student as s \
         where s.student_id = :id\
-        and s.program like concat(c.program, '%')\
+        and (case s.program when 'A' then '資工'\
+                            when 'B' then '資工'\
+                            when 'C' then '網多'\
+                            when 'D' then '資電'\
+            end) like concat(c.program, '%') \
         and c.school_year = :year\
     ) as c\
     on a.cos_cname = c.after_cos_cname\
