@@ -1,6 +1,6 @@
 exports.ShowGradeTeacherResearchStudent="\
     select r.teacher_id,r.intro, s.sname, r.student_id, r.class_detail, r.research_title, r.first_second, r.score, r.semester, r.comment, r.add_status,\
-    if(substring(s.program,1,2)='資工' or substring(s.program,1,2)='網多' or substring(s.program,1,2)='資電',1,0) as status, r.replace_pro \
+    if(substring(s.program,1,1)='A' or substring(s.program,1,1)='B' or substring(s.program,1,1)='C' or substring(s.program,1,1)='D',1,0) as status, r.replace_pro \
     from \
     (\
         select r.intro, t.teacher_id, r.student_id, r.class_detail, r.score, r.research_title, r.first_second, r.semester, r.comment, r.add_status, r.replace_pro \
@@ -33,9 +33,10 @@ exports.ShowSingleTeacherInfoResearchCnt="\
                 from student \
                 where student_id LIKE '__4____' \
             )\
-            and (substring(program,1,2) = '資工'\
-            or substring(program,1,2) = '資電'\
-            or substring(program,1,2) = '網多')\
+            and (substring(program,1,1) = 'A'\
+            or substring(program,1,1) = 'B'\
+            or substring(program,1,1) = 'C'\
+            or substring(program,1,1) = 'D')\
         )and r.student_id NOT IN\
         (\
             select cs.student_id\
@@ -87,9 +88,10 @@ exports.ShowAllTeacherInfoResearchCnt="\
                 from student \
                 where student_id LIKE '__4____' \
             )\
-            and (substring(program,1,2) = '資工'\
-            or substring(program,1,2) = '資電'\
-            or substring(program,1,2) = '網多')\
+            and (substring(program,1,1) = 'A'\
+            or substring(program,1,1) = 'B'\
+            or substring(program,1,1) = 'C'\
+            or substring(program,1,1) = 'D')\
         )and r.student_id NOT IN\
         (\
             select cs.student_id\
@@ -138,7 +140,7 @@ exports.ShowGivenGradeStudentResearch="\
 exports.ShowStudentResearchInfo="\
     select rs.student_id, rs.tname, rs.research_title, rs.first_second, rs.memo, rs.file, rs.photo, rs.filename, rs.intro,\
     rs.score, rs.semester, rs.comment, rs.video, rs.add_status,\
-    case a.program when '資工A' then 1 when '資工B' then 1 when '網多' then 1 when '資電' then 1\
+    case a.program when 'A' then 1 when 'B' then 1 when 'C' then 1 when 'D' then 1\
     else 0 end as status, rs.replace_pro \
     from research_student as rs, \
     (\
@@ -179,7 +181,7 @@ exports.ShowResearchFilePath="\
     and first_second = :first_second;"
 
 exports.ShowResearchScoreComment="\
-    select r.tname, r.student_id, r.research_title, r.score, s.sname, r.comment,if(substring(s.program,1,2)='資工' or substring(s.program,1,2)='網多' or substring(s.program,1,2)='資電',1,0) as status\
+    select r.tname, r.student_id, r.research_title, r.score, s.sname, r.comment,if(substring(s.program,1,1)='A' or substring(s.program,1,1)='B' or substring(s.program,1,1)='C' or substring(s.program,1,1)='D',1,0) as status\
     from research_student as r, \
     (\
         select student_id, sname,program \
@@ -191,7 +193,7 @@ exports.ShowResearchScoreComment="\
 
 exports.ShowTeacherResearchApplyFormList="\
     select a.student_id, s.sname, s.program,a.research_title, a.teacher_id, a.tname, a.first_second, a.agree, s.phone, s.email, a.semester,\
-    if(substring(s.program,1,2)='資工' or substring(s.program,1,2)='網多' or substring(s.program,1,2)='資電',1,0) as status\
+    if(substring(s.program,1,1)='A' or substring(s.program,1,1)='B' or substring(s.program,1,1)='C' or substring(s.program,1,1)='D',1,0) as status\
     from \
     (\
         select t.teacher_id, r.student_id, r.research_title, r.tname, r.agree, r.first_second, r.semester\
@@ -210,7 +212,7 @@ exports.ShowStudentResearchApplyForm="\
     select a.student_id, s.sname, a.research_title, a.tname, a.agree, a.first_second, s.phone, s.email, a.semester,s.status\
     from research_apply_form as a, \
     (\
-        select sname, student_id, phone, email,if(substring(program,1,2)='資工' or substring(program,1,2)='網多' or substring(program,1,2)='資電',1,0) as status\
+        select sname, student_id, phone, email,if(substring(program,1,1)='A' or substring(program,1,1)='B' or substring(program,1,1)='C' or substring(program,1,1)='D',1,0) as status\
         from student\
         where student_id = :student_id\
     ) as s\

@@ -59,7 +59,7 @@ exports.setResearchComment="\
     and semester = :semester";
 
 exports.CheckStudentProgram="\
-    select if(substring(program,1,2)='資工' or substring(program,1,2)='網多' or substring(program,1,2)='資電',1,0) as status\
+    select if(substring(program,1,1)='A' or substring(program,1,1)='B' or substring(program,1,1)='C' or substring(program,1,1)='D',1,0) as status\
     from student\
     where student_id = :student_id";
 

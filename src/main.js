@@ -197,7 +197,7 @@ var m = require('./msql.js');
 
 // 設定推薦課程的星星等級，如果已經存在就覆寫
 
-// m.ShowGradeTeacherResearchStudent('T0009','',function(err, result){
+// m.ShowGradeTeacherResearchStudent('T9229','',function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
@@ -209,10 +209,10 @@ var m = require('./msql.js');
 // 	console.log(JSON.parse(result));
 // }); // SetTeacherPhoto(data, callback) 設定教授照片，回傳query結果
 
-// m.ShowTeacherInfoResearchCnt({teacher_id:'T9229'},function(err, result){
+// m.ShowTeacherInfoResearchCnt({teacher_id:''},function(err, result){
 // 	if(err)
 // 		throw err;
-// 	console.log(JSON.parse(result));
+// 	console.log(JSON.parse(result)[0]);
 // }); // ShowTeacherInfoResearchCnt(callback) 回傳教授各屆的學生人數
 
 // m.CreateMail({sender_id:'0516003', title:'test~~', receiver_id:'T9229', content:'這是一個測試信件這是一個測試信件'});
@@ -294,13 +294,13 @@ var m = require('./msql.js');
 // });
 // // 輸入系級，回傳該系級所有學生的專題資訊
 
-// m.ShowStudentResearchInfo('0316002', function(err, result){
+// m.ShowStudentResearchInfo('0516001', function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
 // });
 // // 用學號查詢專題的標題、網址、介紹、年度，1表示本系生，0表示外系生
-// 0410835 電機系
+// // 0410835 電機系
 
 // m.ShowResearchGroup({tname:'彭文志', research_title:'聊天機器人', first_second:2, semester:'106-2'}, function(err, result){
 // 	if(err)
@@ -356,12 +356,12 @@ var m = require('./msql.js');
 // }); 
 // // CPE未通過申請專題 first_second = 3 助理確認CPE通過後可將 3 改為 1
 
-// m.ShowResearchScoreComment({semester: '106-2', first_second: 2}, function(err, result){
+// m.ShowResearchScoreComment({semester: '107-2', first_second: 2}, function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
 // }); 
-// 回傳專題成績列表:教授名字, 學生姓名學號, 成績, 評論
+// // 回傳專題成績列表:教授名字, 學生姓名學號, 成績, 評論
 
 // m.ShowStudentMentor('0516003', function(err, result){
 // 	if(err)
@@ -625,12 +625,12 @@ var m = require('./msql.js');
 // });
 // 修改某學生畢業預審
 
-m.ShowGivenGradeStudentID({grade: '四'}, function(err, result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-});
-// 顯示某年及所有學號
+// m.ShowGivenGradeStudentID({grade: '四'}, function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// });
+// // 顯示某年及所有學號
 
 // m.ShowStudentHotCos({student_id: '0516205'}, function(err, result){
 // 	if(err)
