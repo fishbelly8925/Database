@@ -40,10 +40,10 @@ exports.findCrossStudent = "\
     select *\
     from student\
     where student_id = :id\
-    and program != '資工A'\
-    and program != '資工B'\
-    and program != '資電'\
-    and program != '網多'";
+    and program != 'A'\
+    and program != 'B'\
+    and program != 'C'\
+    and program != 'D'";
 
 exports.findProfessor = "\
     select teacher_id, tname\
@@ -306,7 +306,7 @@ exports.ShowStudentIdList = "\
     from student";
 
 exports.ShowGradeStudentIdList = "\
-    select student_id, sname, program,if(substring(program,1,2)='資工' or substring(program,1,2)='網多' or substring(program,1,2)='資電',1,0) as status\
+    select student_id, sname, program,if(substring(program,1,1)='A' or substring(program,1,1)='B' or substring(program,1,2)='C' or substring(program,1,2)='D',1,0) as status\
     from student\
     where student_id like concat(:grade,'%')";
 
@@ -502,7 +502,7 @@ exports.ShowUserOffsetApplyFormSingle = "\
     select body.*,if(pre.previous=1,1,0) as previous\
     from\
     (\
-        select o.*,s.sname,s.phone\
+        select o.*,s.sname,s.program,s.grade,s.phone\
         from offset_apply_form as o,student as s\
         where o.student_id = :student_id\
         and o.student_id = s.student_id\
@@ -533,7 +533,7 @@ exports.ShowUserOffsetApplyFormAll = "\
     select body.*,if(pre.previous=1,1,0) as previous\
     from\
     (\
-        select o.*,s.sname,s.phone\
+        select o.*,s.sname,s.program,s.grade,s.phone\
         from offset_apply_form as o,student as s\
         where o.student_id = s.student_id\
     ) as body\
@@ -563,7 +563,7 @@ exports.ShowGivenOffsetApplyForm = "\
     select body.*,if(pre.previous=1,1,0) as previous\
     from\
     (\
-        select o.*,s.sname,s.phone\
+        select o.*,s.sname,s.program,s.grade,s.phone\
         from offset_apply_form as o,student as s\
         where o.student_id = :student_id \
         and o.student_id = s.student_id \
@@ -594,7 +594,7 @@ exports.ShowGivenOffsetApplyForm = "\
 
 exports.ShowGivenGradeStudent = "\
     select sname, student_id, program, graduate,\
-    if(substring(program,1,2)='資工' or substring(program,1,2)='網多' or substring(program,1,2)='資電',1,0) as status\
+    if(substring(program,1,1)='A' or substring(program,1,1)='B' or substring(program,1,1)='C' or substring(program,1,1)='D',1,0) as status\
     from student\
     where grade = :grade\
     and study_status !='休學'\
