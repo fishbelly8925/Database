@@ -60,8 +60,10 @@ fh.setFormatter(formatter)
 logger.addHandler(fh)
 
 
-mypath = '/Users/holy/Desktop'
-base_path = '/Users/holy/Desktop'
+# mypath = '/Users/holy/Desktop'
+# base_path = '/Users/holy/Desktop'
+mypath = './'
+base_path = './'
 
 files = listdir(mypath)
 

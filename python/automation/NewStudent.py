@@ -39,7 +39,7 @@ def CheckFormat(file_name):
 	for row in csvCursor:
 		row_count = row_count + 1
 		# check row length
-		if len(row) != 8:
+		if len(row) != 9:
 			# error log
 			logger = CreateLog()
 			logger.error('csv format error: line {}: 長度不等於8'.format(row_count))
@@ -88,9 +88,9 @@ def ImportData(file_name):
 	sql_insert="""
 		insert into student
 		(student_id, sname, program, grade, gender, enroll_status, 
-		now_status, study_status, email)
+		now_status, study_status, email, ename)
 		values
-		(%s, %s, %s, %s, %s, %s, %s, %s, %s)
+		(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
 	"""
 	sql_update="""
 		update student
@@ -101,7 +101,8 @@ def ImportData(file_name):
 		enroll_status = %s, 
 		now_status = %s, 
 		study_status = %s, 
-		email = %s
+		email = %s,
+		ename = %s
 		where student_id = %s
 	"""
 	csvFile = open(fileName, 'r', encoding="utf8")
@@ -123,14 +124,15 @@ def ImportData(file_name):
 		now_status = row[5]
 		study_status = row[6]
 		email = row[7]
+		ename = row[8]
 		
 		cursor = conn.cursor()
 		cursor.execute(sql_select, student_id)
 		if cursor.fetchone() != None:
-			sql_data = (sname, program, grade, gender, enroll_status, now_status, study_status, email, student_id)
+			sql_data = (sname, program, grade, gender, enroll_status, now_status, study_status, email, ename, student_id)
 			list_update_params.append(sql_data)
 		else:
-			sql_data = (student_id, sname, program, grade, gender, enroll_status, now_status, study_status, email)
+			sql_data = (student_id, sname, program, grade, gender, enroll_status, now_status, study_status, email, ename)
 			list_insert_params.append(sql_data)
 	
 	affected_rows = 0

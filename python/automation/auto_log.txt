@@ -1,3 +1,6 @@
 2019-02-22 15:27:43 - root - INFO: - Success: insert and update to mentor_list
 2019-08-26 22:06:55 - root - ERROR: - csv format error: line 1: 長度不等於9
 2019-08-26 22:08:38 - root - INFO: - Success: insert and update 796 rows to student
+2019-09-02 00:07:53 - root - ERROR: - csv format error: line 1: 長度不等於8
+2019-09-02 00:09:55 - root - ERROR: - mysql query error: (1054, "Unknown column 'ename' in 'field list'")
+2019-09-02 00:10:59 - root - INFO: - Success: insert and update 831 rows to student
