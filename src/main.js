@@ -4,16 +4,16 @@
 
 var m = require('./msql.js');
 
-m.ShowUserInfo('0516075', function(err, result){
-    if(err)
-        throw err;
-    console.log(JSON.parse(result));
-}); // ShowUserInfo 回傳學生資料
+// m.ShowUserInfo('0516075', function(err, result){
+//     if(err)
+//         throw err;
+//     console.log(JSON.parse(result));
+// }); // ShowUserInfo 回傳學生資料
 
 //m.SetUserEmail('0516003', 'da2bct@test');
 // SetUserEmail(學號, email) 更新此學號學生之email
 
-// m.ShowCosMapRule('0316003', function(err, result){
+// m.ShowCosMapRule('0516075', function(err, result){
 //     if(err)
 //         throw err;
 //     console.log(JSON.parse(result));
@@ -625,12 +625,12 @@ m.ShowUserInfo('0516075', function(err, result){
 // });
 // 修改某學生畢業預審
 
-// m.ShowGivenGradeStudentID({grade: '四'}, function(err, result){
-// 	if(err)
-// 		throw err;
-// 	console.log(JSON.parse(result));
-// });
-// // 顯示某年及所有學號
+m.ShowGivenGradeStudentID({grade: '四'}, function(err, result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+});
+// 顯示某年及所有學號
 
 // m.ShowStudentHotCos({student_id: '0516205'}, function(err, result){
 // 	if(err)
