@@ -1,7 +1,7 @@
-import torch
-import torch.nn as nn
-import torch.utils.data as Data
-import torchvision
+# import torch
+# import torch.nn as nn
+# import torch.utils.data as Data
+# import torchvision
 import func
 import numpy as np
 
@@ -17,6 +17,8 @@ DROP_PROB = 0.2
 # Data prepare
 score = func.findGrades(func.findAllStudent_byGrades(),func.findAllCos())
 score = np.float32(np.nan_to_num(score))
+print(len(score[0]))
+input()
 cond = np.sum(score!=0,axis=1)>MIN_COS_NUM
 score = score[cond]
 train_loader = Data.DataLoader(dataset=score, batch_size=BATCH_SIZE,
@@ -29,20 +31,20 @@ class AutoEncoder(nn.Module):
 
 		self.encoder = nn.Sequential(
 			nn.Linear(len(score[0]),800),
-			nn.ELU(),
+			nn.ReLU(),
 			nn.Linear(800,500),
-			nn.ELU(),
+			nn.ReLU(),
 			nn.Linear(500,200),
-			nn.ELU()
+			nn.ReLU()
 		)
 		self.decoder = nn.Sequential(
 			nn.Linear(200,500),
-			nn.ELU(),
+			nn.ReLU(),
 			nn.Linear(500,800),
 			nn.Dropout(DROP_PROB),
-			nn.ELU(),
+			nn.ReLU(),
 			nn.Linear(800,len(score[0])),
-			nn.ELU()
+			nn.ReLU()
 		)
 
 	def forward(self,x):
