@@ -82,22 +82,40 @@ def findGradsAvgStd():
     cursor.close()
     return res
 
-def findGrads(stds, cos):
+def findGrads(stds, cos, test_list):
     cursor = conn.cursor()
     res = []
     avg_std_map = findGradsAvgStd()
     for std in stds:
-        cursor.execute(sql.findGrad, {'id':std})
+        cursor.execute(sql.findGrad, {'id':std, 'test1':test_list[0], 'test2':test_list[1]})
         temp = cursor.fetchall()
-        grad = np.full(len(cos),np.nan)
+        grad = np.full(len(cos), np.nan)
         for data in temp:
             try:
                 idx = cos.index(parseEng(data[1]))
                 grad[idx] = changeScore(data[2], avg_std_map[data[0]])
             except:
                 continue
-        res.append(grad)
-    res = np.array(res)
+
+        cursor.execute(sql.findTestGrad, {'id':std, 'test1':test_list[0], 'test2':test_list[1]})
+        temp = cursor.fetchall()
+        if len(temp) == 0:
+            test_grad = [None]
+        else:
+            test_grad = np.full(len(cos), np.nan)
+            for data in temp:
+                try:
+                    idx = cos.index(parseEng(data[1]))
+                    test_grad[idx] = 1
+                    # test_grad[idx] = changeScore(data[2], avg_std_map[data[0]])
+                except:
+                    continue
+        res.append({
+            'std_id': std,
+            'train_data': grad,
+            'test_ground': test_grad
+        })
+
     return res
 
 def getSimilarity(a,b):

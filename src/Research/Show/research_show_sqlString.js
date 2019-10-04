@@ -169,7 +169,7 @@ exports.ShowResearchTitleNumber="\
         select distinct raf.research_title, raf.tname, raf.semester\
         from research_apply_form as raf\
     ) as t\
-    where t.research_title like concat(:research_title, '\\_%')\
+    where t.research_title like concat(:research_title, '%')\
     and t.tname = :tname\
     and t.semester = :semester";
 

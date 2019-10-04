@@ -83,7 +83,46 @@ findGrad = "\
         and cos_cname not like '跨領域專題%%'\
         and cos_cname not like '服務學習%%'\
 	) as cn \
-	where cn.unique_id = concat(sc.cos_year,'-',sc.semester,'-',sc.cos_id);"
+	where cn.unique_id = concat(sc.cos_year,'-',sc.semester,'-',sc.cos_id)\
+		and cn.unique_id not like concat(%(test1)s,'%%')\
+		and cn.unique_id not like concat(%(test2)s,'%%');"
+
+findTestGrad = "\
+	select cn.unique_id, cn.cos_cname, sc.score \
+	from \
+	(\
+		select cos_year, semester, cos_id, score \
+		from cos_score \
+		where student_id = %(id)s \
+		and score_type != '通過不通過' \
+		and pass_fail != 'W' \
+	) as sc, \
+	(\
+		select unique_id, cos_cname \
+		from cos_name\
+		where (cos_code like 'DCP%%' \
+		or cos_code like 'IOC%%' \
+		or cos_code like 'IOE%%' \
+		or cos_code like 'ILE%%' \
+		or cos_code like 'IDS%%' \
+		or cos_code like 'CCS%%' \
+		or cos_code like 'ICP%%')\
+		and cos_cname not like '博士班書報%%'\
+        and cos_cname not like '論文研討%%'\
+        and cos_cname not like '個別研究%%'\
+        and cos_cname not like '博士學位%%'\
+        and cos_cname not like '教學實務%%'\
+        and cos_cname not like '資訊工程研討%%'\
+        and cos_cname not like '資訊工程專題%%'\
+        and cos_cname not like '%%導師時間%%'\
+        and cos_cname not like '跨領域專題%%'\
+        and cos_cname not like '服務學習%%'\
+	) as cn \
+	where cn.unique_id = concat(sc.cos_year,'-',sc.semester,'-',sc.cos_id)\
+		and (\
+			cn.unique_id like concat(%(test1)s,'%%')\
+			or cn.unique_id like concat(%(test2)s,'%%')\
+			);"
 
 findCurrentCos = "\
 	select distinct cn.cos_cname\
