@@ -174,5 +174,50 @@ module.exports = {
                 }
             })
         });
-    }
+    },
+    CreateBulletinMsg(data, callback){
+        const resource = pool.acquire();
+        resource.then(function(c){
+            var sql_CreateBulletinMsg = c.prepare(s.CreateBulletinMsg);
+            c.query(sql_CreateBulletinMsg(data), function(err, result){
+                if(err){
+                    callback(err, undefined);
+                    pool.release(c);
+                    return;
+                }
+                callback(null, JSON.stringify(result));
+                pool.release(c);
+            });
+        });
+    },
+    SetBulletinMsg(data, callback){
+        const resource = pool.acquire();
+        resource.then(function(c){
+            var sql_SetBulletinMsg = c.prepare(s.SetBulletinMsg);
+            c.query(sql_SetBulletinMsg(data), function(err, result){
+                if(err){
+                    callback(err, undefined);
+                    pool.release(c);
+                    return;
+                }
+                callback(null, JSON.stringify(result));
+                pool.release(c);
+            });
+        });
+    },
+    DeleteBulletinMsg(data, callback){
+        const resource = pool.acquire();
+        resource.then(function(c){
+            var sql_DeleteBulletinMsg = c.prepare(s.DeleteBulletinMsg);
+            c.query(sql_DeleteBulletinMsg(data), function(err, result){
+                if(err){
+                    callback(err, undefined);
+                    pool.release(c);
+                    return;
+                }
+                callback(null, JSON.stringify(result));
+                pool.release(c);
+            });
+        });
+    },
 }

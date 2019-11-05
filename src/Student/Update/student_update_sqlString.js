@@ -83,4 +83,17 @@ exports.UpdataRecommendCosStar = "\
     where student_id = :student_id \
     and unique_id = :unique_id";
 
+exports.CreateBulletinMsg = "\
+    insert into bulletin\
+    (cont_type, content)\
+    values\
+    (:cont_type, :content)";
 
+exports.SetBulletinMsg = "\
+    update bulletin \
+    set cont_type = :cont_type, content = :content , last_update_time = CURRENT_TIMESTAMP\
+    where unique_id = :msg_idx";
+
+exports.DeleteBulletinMsg = "\
+    delete from bulletin\
+    where unique_id = :msg_idx";

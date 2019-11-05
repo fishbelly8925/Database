@@ -535,4 +535,20 @@ module.exports = {
             })  
         })
     },
+    ShowBulletinMsg: function(callback){
+        const resource = pool.acquire();
+        resource.then(function(c) {
+            var sql_ShowBulletinMsg = c.prepare(s.ShowBulletinMsg);
+            c.query(sql_ShowBulletinMsg([]), function(err, result){
+                if(err)
+                {
+                    callback(err, undefined);
+                    pool.release(c);
+                    return ;
+                }
+                callback(null, JSON.stringify(result));
+                pool.release(c);
+            });
+        })
+    },
 }
