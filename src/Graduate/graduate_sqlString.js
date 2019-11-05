@@ -91,8 +91,9 @@ exports.ShowGivenGradeStudentID = "\
 	select student_id\
 	from student\
 	where grade = :grade\
-	and study_status !='畢業'\
-	and study_status !='休學'\
+	and study_status not like '%畢業%'\
+	and study_status not like '%休學%'\
+	and study_status not like '%退學%'\
 	and (\
 		substring(program, 1, 1) = 'A'\
 		or substring(program, 1, 1) = 'B'\

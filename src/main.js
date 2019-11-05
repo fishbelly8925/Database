@@ -625,12 +625,12 @@ var m = require('./msql.js');
 // });
 // 修改某學生畢業預審
 
-// m.ShowGivenGradeStudentID({grade: '四'}, function(err, result){
-// 	if(err)
-// 		throw err;
-// 	console.log(JSON.parse(result));
-// });
-// // 顯示某年及所有學號
+m.ShowGivenGradeStudentID({grade: '四'}, function(err, result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+});
+// 顯示某年及所有學號
 
 // m.ShowStudentHotCos({student_id: '0516205'}, function(err, result){
 // 	if(err)
@@ -680,28 +680,28 @@ var m = require('./msql.js');
 // }); 
 // // 顯示申請的期限 offset, research, graduation
 
-m.CreateBulletinMsg({cont_type: 0, content: "這是一個測試公告yoyoyoyoyoyo"}, function(err, result){
-    if(err)
-        throw err;
-    console.log(JSON.parse(result));
-});
+// m.CreateBulletinMsg({cont_type: 0, content: "這是一個測試公告yoyoyoyoyoyo"}, function(err, result){
+//     if(err)
+//         throw err;
+//     console.log(JSON.parse(result));
+// });
 
-m.SetBulletinMsg({msg_idx: 3, cont_type: 1, content: "這是一個修改後的測試公告yeeee"}, function(err, result){
-    if(err)
-        throw err;
-    console.log(JSON.parse(result));
-});
+// m.SetBulletinMsg({msg_idx: 3, cont_type: 1, content: "這是一個修改後的測試公告yeeee"}, function(err, result){
+//     if(err)
+//         throw err;
+//     console.log(JSON.parse(result));
+// });
 
-m.DeleteBulletinMsg({msg_idx: 1}, function(err, result){
-    if(err)
-        throw err;
-    console.log(JSON.parse(result));
-});
+// m.DeleteBulletinMsg({msg_idx: 1}, function(err, result){
+//     if(err)
+//         throw err;
+//     console.log(JSON.parse(result));
+// });
 
-m.ShowBulletinMsg(function(err, result){
-    if(err)
-        throw err;
-    console.log(JSON.parse(result));
-});
+// m.ShowBulletinMsg(function(err, result){
+//     if(err)
+//         throw err;
+//     console.log(JSON.parse(result));
+// });
 
 m.Drain(); // 關閉 connection pool
