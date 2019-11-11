@@ -176,6 +176,8 @@ module.exports = {
         });
     },
     CreateBulletinMsg(data, callback){
+        if(!("link" in data))
+            data['link'] = null;
         const resource = pool.acquire();
         resource.then(function(c){
             var sql_CreateBulletinMsg = c.prepare(s.CreateBulletinMsg);
