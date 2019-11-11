@@ -85,13 +85,13 @@ exports.UpdataRecommendCosStar = "\
 
 exports.CreateBulletinMsg = "\
     insert into bulletin\
-    (cont_type, content)\
+    (cont_type, content, link)\
     values\
-    (:cont_type, :content)";
+    (:cont_type, :content, :link)";
 
 exports.SetBulletinMsg = "\
     update bulletin \
-    set cont_type = :cont_type, content = :content , last_update_time = CURRENT_TIMESTAMP\
+    set cont_type = :cont_type, content = :content, link = :link , last_update_time = CURRENT_TIMESTAMP\
     where unique_id = :msg_idx";
 
 exports.DeleteBulletinMsg = "\

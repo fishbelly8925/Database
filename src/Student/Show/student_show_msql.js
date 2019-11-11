@@ -535,11 +535,11 @@ module.exports = {
             })  
         })
     },
-    ShowBulletinMsg: function(callback){
+    ShowAllBulletinMsg: function(callback){
         const resource = pool.acquire();
         resource.then(function(c) {
-            var sql_ShowBulletinMsg = c.prepare(s.ShowBulletinMsg);
-            c.query(sql_ShowBulletinMsg([]), function(err, result){
+            var sql_ShowAllBulletinMsg = c.prepare(s.ShowAllBulletinMsg);
+            c.query(sql_ShowAllBulletinMsg([]), function(err, result){
                 if(err)
                 {
                     callback(err, undefined);

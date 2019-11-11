@@ -651,6 +651,6 @@ exports.ShowStudentGrade = "\
     from student\
     where student_id=:student_id"
 
-exports.ShowBulletinMsg = "\
+exports.ShowAllBulletinMsg = "\
     select *\
     from bulletin";
