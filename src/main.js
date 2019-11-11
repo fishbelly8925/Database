@@ -701,10 +701,10 @@ var m = require('./msql.js');
 //     console.log(JSON.parse(result));
 // });
 
-m.ShowAllBulletinMsg(function(err, result){
-    if(err)
-        throw err;
-    console.log(JSON.parse(result));
-});
+// m.ShowAllBulletinMsg(function(err, result){
+//     if(err)
+//         throw err;
+//     console.log(JSON.parse(result));
+// });
 
 m.Drain(); // 關閉 connection pool
