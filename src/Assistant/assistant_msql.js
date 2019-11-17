@@ -27,6 +27,7 @@ module.exports = {
             var sql_SetGraduateSubmitStatus=c.prepare(s.SetGraduateSubmitStatus);
             var sql_SetNetMediaStatus=c.prepare(s.SetNetMediaStatus);
             var sql_SetSubmitTypeStatus=c.prepare(s.SetSubmitTypeStatus);
+            var sql_SetRejectReason=c.prepare(s.SetRejectReason);
             c.query(sql_SetGraduateSubmitStatus(data), function(err, result){
                 if(err)
                 {
@@ -46,6 +47,16 @@ module.exports = {
                 }
                 if(data['net_media']==0 || data['net_media']==1 || data['net_media'] == 2 || data['net_media'] == 3){
                     c.query(sql_SetNetMediaStatus(data), function(err, result){
+                        if(err)
+                        {
+                            callback(err, undefined);
+                            pool.release(c); 
+                            throw err;
+                        }
+                    })
+                }
+                if(data['graduate_submit'] == 3){
+                    c.query(sql_SetRejectReason(data), function(err, result){
                         if(err)
                         {
                             callback(err, undefined);

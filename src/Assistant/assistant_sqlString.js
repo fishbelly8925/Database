@@ -25,7 +25,11 @@ exports.SetSubmitTypeStatus='\
 exports.SetNetMediaStatus='\
 	update student\
 	set net_media = :net_media\
-	where student_id = :id';
+    where student_id = :id';
+exports.SetRejectReason='\
+    update student\
+    set reject_reason = :reject_reason\
+    where student_id = :id';
 exports.CreateApplyPeriod='\
     insert into apply_period \
     values (:semester,:type,:begin,:end)';

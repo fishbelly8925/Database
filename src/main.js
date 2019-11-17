@@ -91,13 +91,13 @@ var m = require('./msql.js');
 // 自行報考通過 → 一學分都不能底！ 可以修二外當大一英文或進階英文 -> 4
 // 1 → 英文一定要修滿八學分 不能用二外抵 -> 0
 
-// m.SetGraduateSubmitStatus({id:'0416016', graduate_submit: 0, submit_type: 3, net_media: 2}, function(err,result){
-// 	if(err)
-// 		throw err;
-// 	console.log(JSON.parse(result));
-// });
-// // SetGraduateSubmitStatus 設定某學生的畢業預審確認狀態(0未送審, 1送審中, 2審核通過, 3審核不通過)(0舊制,1 新制,2 不變更,3 null)
-// // 設定學生選擇網路、多媒體net_media(0網路, 1多媒體, 2資工組, 3資電組, 其他值不更改)
+m.SetGraduateSubmitStatus({id:'0516045', graduate_submit: 2, submit_type: 3, net_media: 2, reject_reason:'reject test'}, function(err,result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+});
+// SetGraduateSubmitStatus 設定某學生的畢業預審確認狀態(0未送審, 1送審中, 2審核通過, 3審核不通過)(0舊制,1 新制,2 不變更,3 null)
+// 設定學生選擇網路、多媒體net_media(0網路, 1多媒體, 2資工組, 3資電組, 其他值不更改)
 
 // m.SetUserOAuth('0516003', '456', 3);
 // // SetUserOAuth   1:set gmail   2:set fb_id   3:set github_id
