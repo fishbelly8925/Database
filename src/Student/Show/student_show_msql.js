@@ -373,8 +373,16 @@ module.exports = {
             var sql_ShowGraduateRule = c.prepare(s.ShowGraduateRule);
             var year = '1' + id[0] + id[1];
 
-            if(id == "0316084") // wait to delete
-                year = "104";
+            if(id == "0411306")
+                year = "105";
+            if(id == "0413234")
+                year = "105";
+            if(id == "0512217")
+                year = "106";
+            if(id == "0612213")
+                year = "107";
+            if(id == "0617054")
+                year = "107";
 
             c.query(sql_ShowGraduateRule({ id: id, year: year }), function(err, result) {
                 if (err){
@@ -408,10 +416,16 @@ module.exports = {
             var sql_ShowCosGroup = c.prepare(s.ShowCosGroup);
             var year = '1' + id[0] + id[1];
 
-            
-            if(id == "0316084") // wait to delete
-                year = "104";
-
+            if(id == "0411306")
+                year = "105";
+            if(id == "0413234")
+                year = "105";
+            if(id == "0512217")
+                year = "106";
+            if(id == "0612213")
+                year = "107";
+            if(id == "0617054")
+                year = "107";
 
             c.query(sql_ShowCosGroup({ id: id, year: year }), function(err, result) {
                 if (err){
