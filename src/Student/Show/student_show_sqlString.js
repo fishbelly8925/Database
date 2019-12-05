@@ -321,10 +321,10 @@ exports.ShowUserOnCos_single = "\
         on_cn.cos_ename, cd.brief, cd.brief_new, cd.cos_typeext\
     from \
     (\
-        select onc.student_id, onc.year, onc.semester, onc.code, onc.cos_code, onc.cos_type, \
+        select onc.student_id, onc.year, onc.semester, LPAD(onc.code,4,'0') as code, onc.cos_code, onc.cos_type, \
             onc.scr_summaryno, onc.cos_credit, cn.cos_cname, cn.cos_ename\
         from on_cos_data as onc, cos_name as cn\
-        where cn.unique_id = concat(onc.year, '-', onc.semester, '-', onc.code)\
+        where cn.unique_id = concat(onc.year, '-', onc.semester, '-', LPAD(onc.code,4,'0'))\
             and onc.student_id = :id\
     ) as on_cn, cos_data as cd\
     where \
@@ -336,10 +336,10 @@ exports.ShowUserOnCos_all = "\
         on_cn.cos_ename, cd.brief, cd.brief_new, cd.cos_typeext\
     from \
     (\
-        select onc.student_id, onc.year, onc.semester, onc.code, onc.cos_code, onc.cos_type, \
+        select onc.student_id, onc.year, onc.semester,  LPAD(onc.code,4,'0') as code, onc.cos_code, onc.cos_type, \
             onc.scr_summaryno, onc.cos_credit, cn.cos_cname, cn.cos_ename\
         from on_cos_data as onc, cos_name as cn\
-        where cn.unique_id = concat(onc.year, '-', onc.semester, '-', onc.code)\
+        where cn.unique_id = concat(onc.year, '-', onc.semester, '-',  LPAD(onc.code,4,'0'))\
     ) as on_cn, cos_data as cd\
     where \
     cd.unique_id = concat(on_cn.year, '-', on_cn.semester, '-', on_cn.code)";
