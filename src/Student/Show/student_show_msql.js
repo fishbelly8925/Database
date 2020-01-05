@@ -172,7 +172,7 @@ module.exports = {
     ShowRecommendCos:function(id, callback){
         const resource = pool.acquire();
         resource.then(function(c){
-            var semester = '108-1%';
+            var semester = '108-2%';
             var sql_ShowRecommendCos = c.prepare(s.ShowRecommendCos);
             var sql_findCurrentCos = c.prepare(s.findCurrentCos);
             var sql_findTeacher = c.prepare(s.findTeacher);
