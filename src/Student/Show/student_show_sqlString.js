@@ -282,13 +282,25 @@ exports.ShowRecommendCos = "\
     from rs\
     where student_id = :id";
 
+exports.ShowCurrentSem = "\
+    select distinct concat(cos_year.year, '-',\
+        max(convert(substring(cd.unique_id, 5, 1), SIGNED))) as semester\
+    from \
+    (\
+        select max(convert(substring(unique_id, 1, 3), SIGNED)) as year\
+        from cos_data\
+        where substring(unique_id,5,1) != 'X'\
+    ) as cos_year,\
+    cos_data as cd\
+    where convert(substring(cd.unique_id, 1, 3), SIGNED) = cos_year.year;";
+
 exports.findCurrentCos = "\
     select distinct cd.unique_id, cn.cos_cname, cd.teacher_id, cd.cos_time, cd.cos_code \
     from \
     (\
         select unique_id, teacher_id, cos_time, cos_code \
         from cos_data \
-        where unique_id like :semester \
+        where unique_id like concat(:semester, '%') \
         and \
         (\
             cos_code like 'DCP%' \
@@ -303,7 +315,7 @@ exports.findCurrentCos = "\
     (\
         select unique_id, cos_cname\
         from cos_name\
-        where unique_id like :semester\
+        where unique_id like concat(:semester, '%')\
     ) as cn\
     where cd.unique_id=cn.unique_id";
 

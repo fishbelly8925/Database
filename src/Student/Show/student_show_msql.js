@@ -172,55 +172,59 @@ module.exports = {
     ShowRecommendCos:function(id, callback){
         const resource = pool.acquire();
         resource.then(function(c){
-            var semester = '108-2%';
             var sql_ShowRecommendCos = c.prepare(s.ShowRecommendCos);
+            var sql_ShowCurrentSem = c.prepare(s.ShowCurrentSem);
             var sql_findCurrentCos = c.prepare(s.findCurrentCos);
             var sql_findTeacher = c.prepare(s.findTeacher);
             var result = [];
             c.query(sql_ShowRecommendCos({id}), function(err, reclist){
-                c.query(sql_findCurrentCos({semester}), function(err, cos){
-                    c.query(sql_findTeacher({}), function(err, tea){
-                        //select all recommend cos to variable rec
-                        if(reclist.length == 0)
-                        {
-                            pool.release(c);
-                            callback(null, JSON.stringify([]));
-                            return;
-                        }
-                        reclist = reclist[0]['cos_name_list'];
-                        let rec = reclist.split(",");
-
-                        cos = JSON.parse(JSON.stringify(cos));
-                        tea = JSON.parse(JSON.stringify(tea));
-
-                        for(let i = 0;i<rec.length;i++){
-                            //select all cos info into variable data
-                            let data = cos.filter(function(c){return parseEng(c.cos_cname)===rec[i]});
-                            //for every cos data
-                            for(let d_num = 0;d_num<data.length;d_num++)
+                c.query(sql_ShowCurrentSem({}), function(err, semester){
+                    // Get Current Semster
+                    semester = semester[0]['semester'];
+                    c.query(sql_findCurrentCos({semester}), function(err, cos){
+                        c.query(sql_findTeacher({}), function(err, tea){
+                            //select all recommend cos to variable rec
+                            if(reclist.length == 0)
                             {
-                                //select all teacher who teach the recommend cos
-                                var tea_list = data[d_num]['teacher_id'].split(",");
-
-                                //for every teacher
-                                for(let k = 0;k<tea_list.length;k++)
-                                    //iterate all teacher list 
-                                    for(let j=0;j<tea.length;j++)
-                                        //select the teacher name
-                                        if(tea_list[k].indexOf(tea[j]['teacher_id'])>-1)
-                                        {
-                                            tea_list[k] = tea[j]['tname'];
-                                            break
-                                        }
-                                delete data[d_num]['teacher_id'];
-                                data[d_num]['teacher'] = tea_list.join(',');
-                                data[d_num]['cos_time'] = data[d_num]['cos_time'].split('-')[0];
-                                
-                                result.push(data[d_num]);
+                                pool.release(c);
+                                callback(null, JSON.stringify([]));
+                                return;
                             }
-                        }
-                        pool.release(c);
-                        callback(null, JSON.stringify(result));
+                            reclist = reclist[0]['cos_name_list'];
+                            let rec = reclist.split(",");
+
+                            cos = JSON.parse(JSON.stringify(cos));
+                            tea = JSON.parse(JSON.stringify(tea));
+
+                            for(let i = 0;i<rec.length;i++){
+                                //select all cos info into variable data
+                                let data = cos.filter(function(c){return parseEng(c.cos_cname)===rec[i]});
+                                //for every cos data
+                                for(let d_num = 0;d_num<data.length;d_num++)
+                                {
+                                    //select all teacher who teach the recommend cos
+                                    var tea_list = data[d_num]['teacher_id'].split(",");
+
+                                    //for every teacher
+                                    for(let k = 0;k<tea_list.length;k++)
+                                        //iterate all teacher list 
+                                        for(let j=0;j<tea.length;j++)
+                                            //select the teacher name
+                                            if(tea_list[k].indexOf(tea[j]['teacher_id'])>-1)
+                                            {
+                                                tea_list[k] = tea[j]['tname'];
+                                                break
+                                            }
+                                    delete data[d_num]['teacher_id'];
+                                    data[d_num]['teacher'] = tea_list.join(',');
+                                    data[d_num]['cos_time'] = data[d_num]['cos_time'].split('-')[0];
+                                    
+                                    result.push(data[d_num]);
+                                }
+                            }
+                            pool.release(c);
+                            callback(null, JSON.stringify(result));
+                        });
                     });
                 });
             });

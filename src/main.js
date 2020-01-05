@@ -177,11 +177,11 @@ var m = require('./msql.js');
 // });
 // // ShowCosScoreInterval(cos_code, unique_id, callback) 某堂課的成績區間人數
 
-// m.ShowRecommendCos('0516003', function(err, result){
-// 	if(err)
-// 		throw err;
-// 	console.log(JSON.parse(result));
-// }); // ShowRecommendCos(student_id, callback) 回傳某學生的推薦課程
+m.ShowRecommendCos('0516003', function(err, result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+}); // ShowRecommendCos(student_id, callback) 回傳某學生的推薦課程
 
 // data_SetRecommendCosStar = {
 // 	student_id: '0516003',
