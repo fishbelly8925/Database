@@ -47,11 +47,11 @@ var m = require('./msql.js');
 //     console.log(JSON.parse(result));
 // }); // ShowUserPartScore 列出此學生某向度中通過的課
 
-// m.ShowCosGroup('0512217', function(err, result){
-//     if(err)
-//         throw err;
-//     console.log(JSON.parse(result));
-// }); // ShowCosGroup 列出此學生畢業預審表上 必修、核心、副核心等課程分類
+m.ShowCosGroup('0516003', function(err, result){
+    if(err)
+        throw err;
+    console.log(JSON.parse(result));
+}); // ShowCosGroup 列出此學生畢業預審表上 必修、核心、副核心等課程分類
 
 // m.ShowGraduateRule('0512217', function(err, result){
 //     if(err)
@@ -177,11 +177,11 @@ var m = require('./msql.js');
 // });
 // // ShowCosScoreInterval(cos_code, unique_id, callback) 某堂課的成績區間人數
 
-m.ShowRecommendCos('0516003', function(err, result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-}); // ShowRecommendCos(student_id, callback) 回傳某學生的推薦課程
+// m.ShowRecommendCos('0516003', function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); // ShowRecommendCos(student_id, callback) 回傳某學生的推薦課程
 
 // data_SetRecommendCosStar = {
 // 	student_id: '0516003',
