@@ -6,7 +6,6 @@ from wordcloud import WordCloud
 import PIL.Image as image
 import matplotlib.pyplot as plt
 
-from sklearn.cluster import DBSCAN
 from sklearn.cluster import SpectralClustering
 from sklearn.cluster import KMeans
 
