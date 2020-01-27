@@ -154,21 +154,6 @@ module.exports = {
             })
         })
     },
-    // general_cos_rule: function(callback) {
-    //     const resource = pool.acquire();
-    //     resource.then(function(c) {
-    //         var sql_general_cos_rule = c.prepare(s.general_cos_rule);
-    //         c.query(sql_general_cos_rule({}), function(err, result) {
-    //             if (err){
-    //                 callback(err, undefined);
-    //                 pool.release(c);
-    //                 return;
-    //             }
-    //             callback(null, JSON.stringify(result));
-    //             pool.release(c);
-    //         });
-    //     });
-    // },
     ShowRecommendCos:function(id, callback){
         const resource = pool.acquire();
         resource.then(function(c){

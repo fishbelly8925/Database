@@ -12,7 +12,7 @@
 - ```Top_K``` variable means how many courses this will recommend to every students
 - ```Type``` variable indicate the type of this program, ```test``` mode for evaluating which clustering method perform well, ```eval``` mode for generating the recommended courses for next semester
 - Notice that you should also change ```cur_setting``` according to what ```Type``` variable you set.
-    - For ```test mode``` , you must have the student's score in your database
+    - For ```test mode```, you must have the student's score in your database
     - For ```eval mode```, you must have the courses information (cos_data) in your database
 ### Import to DB
 - After generate recommended courses, you should load the result (```blablabla_pred_db.csv```) to the ```rs``` table

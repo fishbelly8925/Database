@@ -273,10 +273,6 @@ exports.ShowUserPartScore = "\
     where a.pass_fail = '通過' and a.cos_type = :category\
     order by a.year, a.semester asc";
 
-// exports.general_cos_rule = "\
-//     select cos_code, cos_cname, brief, brief_new\
-//     from general_cos_rule";
-
 exports.ShowRecommendCos = "\
     select cos_name_list\
     from rs\

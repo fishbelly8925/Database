@@ -71,12 +71,6 @@ m.ShowCosGroup('0516003', function(err, result){
 // 	console.log(JSON.parse(result));
 // }); // ShowUserOnCos 大四個人當期修課資料 (輸入all顯示全部)
 
-// m.general_cos_rule(function(err, result){
-// 	if(err)
-// 		throw err;
-// 	console.log(JSON.parse(result));
-// }); // general_cos_rule 外系通識規則
-
 // m.ShowGraduateStudentList('04', function(err, result){
 // 	if(err)
 // 		throw err;
