@@ -1,3 +1,3 @@
 # csca_db
 - This is database code for NCTU CS Course Assistant, DinoDino System
-- You can check [here](https://dinodino.nctu.edu.tw/) for more information
+- The system is currently running at [here](https://dinodino.nctu.edu.tw/)
