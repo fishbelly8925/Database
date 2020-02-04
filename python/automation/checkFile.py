@@ -2,7 +2,7 @@ import logging
 import os
 
 #Store in log file
-def create_logger():
+def createlogger():
     dir_path = './autolog/'
     filename = 'autocheck.log'
     if not os.path.exists(dir_path):
@@ -20,20 +20,15 @@ def create_logger():
     return logger
 
 #Store in DB, 0 : FAIL, 1 : SUCCESS
-def record_log(calling_file, record_status, mycursor, connection):
+def recordlog(calling_file, record_status, message, mycursor, connection):
     sql_log = """INSERT INTO log_file (calling_file, status, message)
     VALUES (%s,%s,%s);
     """
-    message = None
-    if record_status == 1:
-        message = "Successfully completed"
-    elif record_status == 0:
-        message = "Failed to complete"
     check = [calling_file, record_status, message]
     mycursor.execute(sql_log, tuple(check))
-    myresult = mycursor.fetchall()
+    connection.commit()
 
 if __name__ == '__main__':
-    logger = create_logger()
+    logger = createlogger()
     logger.warning('HIHI')
     print(logger.asctime)
