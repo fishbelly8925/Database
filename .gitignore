@@ -1,4 +1,5 @@
 node_modules
+package-lock.json
 python/rec_sys/graph_embedding/id_pair_list
 a.sql
 src/dbpsw.js

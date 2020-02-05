@@ -31,15 +31,15 @@ var m = require('./msql.js');
 //     console.log(JSON.parse(result));
 // }); // ShowUserTotalCredit 回傳某學生總學分數
 
-// m.ShowUserAllScore('0516003', function(err, result){
-//     if(err)
-//         throw err;
-//     console.log(JSON.parse(result));
-// }); // ShowUserAllScore 列出此學生通過的課
-// // // 測試學號
-// // // 軍訓 0116089
-// // // 霹靂悠 0516007
-// // // 轉系抵免 0411276 
+m.ShowUserAllScore('0616336', function(err, result){
+    if(err)
+        throw err;
+    console.log(JSON.parse(result));
+}); // ShowUserAllScore 列出此學生通過的課
+// // 測試學號
+// // 軍訓 0116089
+// // 霹靂悠 0516007
+// // 轉系抵免 0411276 
 
 // m.ShowUserPartScore('0516003', '通識', function(err, result){
 //     if(err)
@@ -47,11 +47,11 @@ var m = require('./msql.js');
 //     console.log(JSON.parse(result));
 // }); // ShowUserPartScore 列出此學生某向度中通過的課
 
-m.ShowCosGroup('0516003', function(err, result){
-    if(err)
-        throw err;
-    console.log(JSON.parse(result));
-}); // ShowCosGroup 列出此學生畢業預審表上 必修、核心、副核心等課程分類
+// m.ShowCosGroup('0516003', function(err, result){
+//     if(err)
+//         throw err;
+//     console.log(JSON.parse(result));
+// }); // ShowCosGroup 列出此學生畢業預審表上 必修、核心、副核心等課程分類
 
 // m.ShowGraduateRule('0512217', function(err, result){
 //     if(err)
