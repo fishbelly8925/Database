@@ -31,11 +31,11 @@ var m = require('./msql.js');
 //     console.log(JSON.parse(result));
 // }); // ShowUserTotalCredit 回傳某學生總學分數
 
-m.ShowUserAllScore('0616336', function(err, result){
-    if(err)
-        throw err;
-    console.log(JSON.parse(result));
-}); // ShowUserAllScore 列出此學生通過的課
+// m.ShowUserAllScore('0616336', function(err, result){
+//     if(err)
+//         throw err;
+//     console.log(JSON.parse(result));
+// }); // ShowUserAllScore 列出此學生通過的課
 // // 測試學號
 // // 軍訓 0116089
 // // 霹靂悠 0516007
@@ -65,11 +65,11 @@ m.ShowUserAllScore('0616336', function(err, result){
 // 	   console.log(JSON.parse(result));
 // }); // ShowUserOffset 個人抵免資料 (輸入all顯示全部)
 
-// m.ShowUserOnCos('all', function(err, result){
-// 	if(err)
-// 		throw err;
-// 	console.log(JSON.parse(result));
-// }); // ShowUserOnCos 大四個人當期修課資料 (輸入all顯示全部)
+m.ShowUserOnCos('all', function(err, result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+}); // ShowUserOnCos 大四個人當期修課資料 (輸入all顯示全部)
 
 // m.ShowGraduateStudentList('04', function(err, result){
 // 	if(err)
