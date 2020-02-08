@@ -6,8 +6,8 @@ import checkFile
 import connect
 
 def validatecsv(file_path):
-    needed_column = ['學號', '學年度', '學期', '當期課號', '永久課號', '學生選別', 'scr_summaryno', '學分數']
-    needed_type = [np.int64, np.int64, np.int64, np.int64, object, object, object, np.int64]
+    needed_column = ['學號', '學年度', '學期', '當期課號', '開課系所', '永久課號', '學生選別', 'scr_summaryno', '學分數']
+    needed_type = [np.int64, np.int64, np.int64, np.int64, object, object, object, object, np.int64]
     record_status = 1
     validate_flag = True
     df = pd.read_csv(file_path)
@@ -73,7 +73,7 @@ def insert2db(file_path, mycursor, connection):
     return record_status, code, message, affect_count
 
 if __name__ == '__main__':
-    file_path = "./original/undergraduate_on_cos.csv"
+    file_path = "./original/new_on_cos_data.csv"
     global calling_file
     calling_file = __file__
     # logger = checkFile.createlogger()
