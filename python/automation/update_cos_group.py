@@ -2,6 +2,25 @@ import ast
 from datetime import date
 import connect
 
+## This is an auto-update script for `cos_group` table.
+## It will query the newest course cos_code for the following course.
+##      (1) the course which has already in the `cos_group` table.
+##      (2) the course which is in `cos_type` table for that year's graduation rules.
+## 
+## This script may need to be modified if the graduation rules have changed.
+## This script is currently (109/2/14) following the follow rules.
+##
+## Rule:
+##      必修課程須修習本系所開授之課程
+##      (例外：
+##          ①三選一課程；
+##          ②微積分課程；
+##          ③「電資共同」下所開授的「微分方程」和「訊號與系統」課程，不論是否為本系教師所開，皆可計入
+##      )
+##      若要修習外系所課程來抵免本系必修，須透過申請，系統請不要預設課程名稱一致者，即學生擬申請拿來抵免本系必修課程，這樣會誤導學生以為該門課可以抵免，只是缺少申請手續而已。
+##      ※「訊號與系統」和「微分方程」請用開課單位(電資共同)+課程名稱(微分方程或訊號與系統)一起核對，符合就可計入。
+
+
 def get_cur_cos_grp():
     ## Get current course group
     ## res_dict: {cos_cname: [cos_codes_list]}
