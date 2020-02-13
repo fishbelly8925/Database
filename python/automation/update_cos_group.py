@@ -1,13 +1,6 @@
 import ast
 from datetime import date
-import pymysql
-
-def connect2db():
-    connection = pymysql.connect(
-                host='localhost', db='ca',
-                user='root', passwd='jack02', local_infile=True)
-    mycursor = connection.cursor()
-    return mycursor, connection
+import connect
 
 def get_cur_cos_grp():
     ## Get current course group
@@ -194,11 +187,12 @@ def update_db_cos_grp(mycursor, connection, new_cos_grp, mapping_dict):
     
 
 if __name__ == '__main__':
-    mycursor, connection = connect2db()
+    mycursor, connection = connect.connect2db()
     cur_cos_grp, mapping_dict = get_cur_cos_grp()
     
     ## Get newest course semester
     year, sem = get_newest_cos_sem()
+    print(year,sem)
 
     ## Get all cos group keys
     cos_grp_keys = get_all_cos_group_keys(mycursor, cur_cos_grp, year)
