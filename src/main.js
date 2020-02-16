@@ -4,7 +4,7 @@
 
 var m = require('./msql.js');
 
-// m.ShowUserInfo('0516075', function(err, result){
+// m.ShowUserInfo('0316201', function(err, result){
 //     if(err)
 //         throw err;
 //     console.log(JSON.parse(result));
@@ -53,7 +53,7 @@ var m = require('./msql.js');
 //     console.log(JSON.parse(result));
 // }); // ShowCosGroup 列出此學生畢業預審表上 必修、核心、副核心等課程分類
 
-// m.ShowGraduateRule('0512217', function(err, result){
+// m.ShowGraduateRule('0516003', function(err, result){
 //     if(err)
 //         throw err;
 // 	   console.log(JSON.parse(result));
@@ -65,11 +65,11 @@ var m = require('./msql.js');
 // 	   console.log(JSON.parse(result));
 // }); // ShowUserOffset 個人抵免資料 (輸入all顯示全部)
 
-m.ShowUserOnCos('all', function(err, result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-}); // ShowUserOnCos 大四個人當期修課資料 (輸入all顯示全部)
+// m.ShowUserOnCos('all', function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); // ShowUserOnCos 大四個人當期修課資料 (輸入all顯示全部)
 
 // m.ShowGraduateStudentList('04', function(err, result){
 // 	if(err)

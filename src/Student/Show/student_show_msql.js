@@ -48,7 +48,6 @@ module.exports = {
                         pool.release(c);
                         return;
                     }
-                    console.log(result.length)
                     if(result.length)
                     {
                         result[0]['status'] = 'c';
@@ -360,27 +359,19 @@ module.exports = {
         const resource = pool.acquire();
         resource.then(function(c) {
             var sql_ShowGraduateRule = c.prepare(s.ShowGraduateRule);
-            var year = '1' + id[0] + id[1];
+            var sql_ShowUserGradYearRule_single = c.prepare(s.ShowUserGradYearRule_single);
 
-            if(id == "0411306")
-                year = "105";
-            if(id == "0413234")
-                year = "105";
-            if(id == "0512217")
-                year = "106";
-            if(id == "0612213")
-                year = "107";
-            if(id == "0617054")
-                year = "107";
-
-            c.query(sql_ShowGraduateRule({ id: id, year: year }), function(err, result) {
-                if (err){
-                    callback(err, undefined);
+            c.query(sql_ShowUserGradYearRule_single({ id: id }),function(err, result){
+                let year = result[0]['grad_rule_year'];
+                c.query(sql_ShowGraduateRule({ id: id, year: year }), function(err, result) {
+                    if (err){
+                        callback(err, undefined);
+                        pool.release(c);
+                        return;
+                    }
+                    callback(null, JSON.stringify(result));
                     pool.release(c);
-                    return;
-                }
-                callback(null, JSON.stringify(result));
-                pool.release(c);
+                })
             })
         })
     },
@@ -403,27 +394,19 @@ module.exports = {
         const resource = pool.acquire();
         resource.then(function(c) {
             var sql_ShowCosGroup = c.prepare(s.ShowCosGroup);
-            var year = '1' + id[0] + id[1];
+            var sql_ShowUserGradYearRule_single = c.prepare(s.ShowUserGradYearRule_single);
 
-            if(id == "0411306")
-                year = "105";
-            if(id == "0413234")
-                year = "105";
-            if(id == "0512217")
-                year = "106";
-            if(id == "0612213")
-                year = "107";
-            if(id == "0617054")
-                year = "107";
-
-            c.query(sql_ShowCosGroup({ id: id, year: year }), function(err, result) {
-                if (err){
-                    callback(err, undefined);
+            c.query(sql_ShowUserGradYearRule_single({ id: id }),function(err, result){
+                let year = result[0]['grad_rule_year'];
+                c.query(sql_ShowCosGroup({ id: id, year: year }), function(err, result) {
+                    if (err){
+                        callback(err, undefined);
+                        pool.release(c);
+                        return;
+                    }
+                    callback(null, JSON.stringify(result).replace(/\"\[/g, "\[").replace(/\]\"/g, "\]").replace(/\\\"/g, "\""));
                     pool.release(c);
-                    return;
-                }
-                callback(null, JSON.stringify(result).replace(/\"\[/g, "\[").replace(/\]\"/g, "\]").replace(/\\\"/g, "\""));
-                pool.release(c);
+                })
             })
         })
     },

@@ -437,6 +437,9 @@ exports.ShowUserTotalCredit = "\
         where s.cos_code = d.cos_code\
     ) as t";
 
+exports.ShowUserGradYearRule_single = "\
+    select grad_rule_year from student where student_id=:id;"
+
 exports.ShowCosGroup = "\
     select\
         p.cos_cname, p.cos_ename, p.cos_codes,\
