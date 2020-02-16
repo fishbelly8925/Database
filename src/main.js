@@ -13,6 +13,12 @@ m.ShowUserInfo('0516003', function(err, result){
 //m.SetUserEmail('0516003', 'da2bct@test');
 // SetUserEmail(學號, email) 更新此學號學生之email
 
+m.SetUserGradRuleYear({id: '0516003', grad_rule_year: '105'}, function(err, result){
+    if(err)
+        throw err;
+    console.log(JSON.parse(result));
+}) // 設定學生畢業標準年份(id: 學號(字串), grad_rule_year: 學年(字串))
+
 // m.ShowCosMapRule('0516075', function(err, result){
 //     if(err)
 //         throw err;

@@ -58,7 +58,17 @@ module.exports = {
                     else
                     {
                         c.query(sql_ShowCurrentSem({id}), function(err, sem){
+                            if(err){
+                                callback(err, undefined);
+                                pool.release(c);
+                                return;
+                            }
                             c.query(sql_findStudentFailed({id}), function(err, failed){
+                                if(err){
+                                    callback(err, undefined);
+                                    pool.release(c);
+                                    return;
+                                }
                                 c.query(sql_findStudent({id}), function(err, result) {
                                     if(err){
                                         callback(err, undefined);

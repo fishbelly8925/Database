@@ -17,6 +17,23 @@ module.exports = {
             });
         })
     },
+    SetUserGradRuleYear(data, callback){
+        if(typeof(data['grad_rule_year']) != 'string')
+            data['grad_rule_year'] = data['grad_rule_year'].toString()
+        const resource = pool.acquire();
+        resource.then(function(c){
+            var sql_SetUserGradRuleYear = c.prepare(s.SetUserGradRuleYear);
+            c.query(sql_SetUserGradRuleYear(data), function(err, result){
+                if(err){
+                    callback(err, undefined);
+                    pool.release(c);
+                    return;
+                }
+                callback(null, JSON.stringify(result));
+                pool.release(c);
+            });
+        });
+    },
     SetUserOAuth: function(id, str, type) {
         const resource = pool.acquire();
         resource.then(function(c) {

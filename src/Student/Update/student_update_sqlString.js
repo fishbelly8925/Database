@@ -3,6 +3,11 @@ exports.SetUserEmail = "\
     set email = :email \
     where student_id = :id";
 
+exports.SetUserGradRuleYear = "\
+    update student\
+    set grad_rule_year = :grad_rule_year\
+    where student_id = :id";
+
 exports.setGmail = "\
     update student\
     set gmail = :gmail\
