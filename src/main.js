@@ -4,20 +4,20 @@
 
 var m = require('./msql.js');
 
-m.ShowUserInfo('0516003', function(err, result){
-    if(err)
-        throw err;
-    console.log(JSON.parse(result));
-}); // ShowUserInfo 回傳學生資料
+// m.ShowUserInfo('0617054', function(err, result){
+//     if(err)
+//         throw err;
+//     console.log(JSON.parse(result));
+// }); // ShowUserInfo 回傳學生資料
 
-//m.SetUserEmail('0516003', 'da2bct@test');
-// SetUserEmail(學號, email) 更新此學號學生之email
+// //m.SetUserEmail('0516003', 'da2bct@test');
+// // SetUserEmail(學號, email) 更新此學號學生之email
 
-m.SetUserGradRuleYear({id: '0516003', grad_rule_year: '105'}, function(err, result){
-    if(err)
-        throw err;
-    console.log(JSON.parse(result));
-}) // 設定學生畢業標準年份(id: 學號(字串), grad_rule_year: 學年(字串))
+// m.SetUserGradRuleYear({id: '0516003', grad_rule_year: '105'}, function(err, result){
+//     if(err)
+//         throw err;
+//     console.log(JSON.parse(result));
+// }) // 設定學生畢業標準年份(id: 學號(字串), grad_rule_year: 學年(字串))
 
 // m.ShowCosMapRule('0516075', function(err, result){
 //     if(err)
@@ -37,7 +37,7 @@ m.SetUserGradRuleYear({id: '0516003', grad_rule_year: '105'}, function(err, resu
 //     console.log(JSON.parse(result));
 // }); // ShowUserTotalCredit 回傳某學生總學分數
 
-// m.ShowUserAllScore('0616336', function(err, result){
+// m.ShowUserAllScore('0617054', function(err, result){
 //     if(err)
 //         throw err;
 //     console.log(JSON.parse(result));
@@ -53,13 +53,13 @@ m.SetUserGradRuleYear({id: '0516003', grad_rule_year: '105'}, function(err, resu
 //     console.log(JSON.parse(result));
 // }); // ShowUserPartScore 列出此學生某向度中通過的課
 
-// m.ShowCosGroup('0516003', function(err, result){
+// m.ShowCosGroup('0617054', function(err, result){
 //     if(err)
 //         throw err;
 //     console.log(JSON.parse(result));
 // }); // ShowCosGroup 列出此學生畢業預審表上 必修、核心、副核心等課程分類
 
-// m.ShowGraduateRule('0516003', function(err, result){
+// m.ShowGraduateRule('0617054', function(err, result){
 //     if(err)
 //         throw err;
 // 	   console.log(JSON.parse(result));
@@ -531,12 +531,12 @@ m.SetUserGradRuleYear({id: '0516003', grad_rule_year: '105'}, function(err, resu
 // 	console.log(JSON.parse(result));
 // });
 
-// m.ShowGivenGradeStudent({grade: '四'}, function(err, result){
-// 	if(err)
-// 		throw err;
-// 	console.log(JSON.parse(result));
-// });
-// // 輸入一二三四，顯示某年級所有學生,1表示本系生，0表示外系生
+m.ShowGivenGradeStudent({grade: '四'}, function(err, result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+});
+// 輸入一二三四，顯示某年級所有學生,1表示本系生，0表示外系生
 
 // m.ShowStudentGraduate({student_id: '0516075'}, function(err, result){
 // 	if(err)

@@ -615,8 +615,7 @@ exports.ShowGivenGradeStudent = "\
     if(substring(program,1,1)='A' or substring(program,1,1)='B' or substring(program,1,1)='C' or substring(program,1,1)='D',1,0) as status\
     from student\
     where grade = :grade\
-    and study_status !='休學'\
-    and study_status !='畢業'";
+    and study_status ='在學'";
 
 exports.ShowStudentHotCos = "\
     select a.grade, a.unique_id, a.count, a.url, a.cos_credit, a.cos_time, a.depType, a.tname, a.cos_cname \
