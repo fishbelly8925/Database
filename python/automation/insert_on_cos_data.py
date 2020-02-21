@@ -5,7 +5,7 @@ import numpy as np
 import checkFile
 import connect
 
-def validatecsv(file_path):
+def validateCSV(file_path):
     needed_column = ['學號', '學年度', '學期', '當期課號', '開課系所', '永久課號', '學生選別', 'scr_summaryno', '學分數']
     needed_type = [np.int64, np.int64, np.int64, np.int64, object, object, object, object, np.int64]
     record_status = 1
@@ -19,7 +19,7 @@ def validatecsv(file_path):
         error_column = str(set(needed_column) - set(csv_column))
         message = "錯誤：名稱有誤 : " + error_column
         validate_flag = False
-        checkFile.recordlog(calling_file, record_status, message, mycursor, connection)
+        checkFile.recordLog(calling_file, record_status, message, mycursor, connection)
         return validate_flag
     
     #pandas type : object, int64, float64, bool, datetime64, timedelta[ns], category
@@ -29,7 +29,7 @@ def validatecsv(file_path):
             message = "錯誤：" + needed_column[i] + "格式有誤 : " + str(df[needed_column[i]].dtype)
             record_status = 0
             validate_flag = False
-            checkFile.recordlog(calling_file, record_status, message, mycursor, connection)
+            checkFile.recordLog(calling_file, record_status, message, mycursor, connection)
             return validate_flag              
     return validate_flag
 
@@ -50,7 +50,7 @@ def deletelastcourse(mycursor, connection):
         record_status = 0
     return record_status, code, message, affect_count
 
-def insert2db(file_path, mycursor, connection):
+def insertDB(file_path, mycursor, connection):
     record_status = None
     code = None
     message = None
@@ -80,7 +80,7 @@ if __name__ == '__main__':
     mycursor, connection = connect.connect2db()
 
     #Check csv file
-    validate_flag = validatecsv(file_path)
+    validate_flag = validateCSV(file_path)
     # print(validate_flag)
 
     if validate_flag == True:
@@ -88,15 +88,15 @@ if __name__ == '__main__':
         record_status, code, message, affect_count = deletelastcourse(mycursor, connection)
         if record_status == 0:
             message = "刪除上學期課程錯誤：" + message
-            checkFile.recordlog(calling_file, record_status, message, mycursor, connection)
+            checkFile.recordLog(calling_file, record_status, message, mycursor, connection)
         elif record_status == 1:
             #Import this semester's on cos data
-            record_status, code, message, affect_count = insert2db(file_path, mycursor, connection)
+            record_status, code, message, affect_count = insertDB(file_path, mycursor, connection)
             if record_status == 0:
                 message = "匯入當期課程錯誤：" + message
-                checkFile.recordlog(calling_file, record_status, message, mycursor, connection)
+                checkFile.recordLog(calling_file, record_status, message, mycursor, connection)
         if record_status == 1:
             message = "已匯入本學期當期課程共 " + str(affect_count) + ' 筆'
-            checkFile.recordlog(calling_file, record_status, message, mycursor, connection)
+            checkFile.recordLog(calling_file, record_status, message, mycursor, connection)
     mycursor.close()  ## here all loops done
     connection.close()  ## close db connection
