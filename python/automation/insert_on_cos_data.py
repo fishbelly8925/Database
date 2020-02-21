@@ -94,16 +94,6 @@ def insertDB(file_path, mycursor, connection):
         drop temporary table temp_on_cos_data;
     '''
 
-    # try:
-    #     affect_count = mycursor.execute(sql.format(file_path))
-    #     connection.commit()
-    #     record_status = 1
-    # except pymysql.InternalError as error:
-    #     code, message = error.args
-    #     record_status = 0
-    #     # Rollback in case there is any error
-    #     # connection.rollback()
-
     try:
         mycursor.execute(dump_sql1)
         mycursor.execute(dump_sql2.format(file_path))
@@ -124,12 +114,10 @@ if __name__ == '__main__':
     file_path = "./original/new_on_cos_data.csv"
     global calling_file
     calling_file = __file__
-    # logger = checkFile.createlogger()
     mycursor, connection = connect.connect2db()
 
     #Check csv file
     validate_flag = validateCSV(file_path)
-    # print(validate_flag)
 
     if validate_flag == True:
         #Delete last semester's on cos data
