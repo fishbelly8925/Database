@@ -20,7 +20,7 @@ def createlogger():
     return logger
 
 #Store in DB, 0 : FAIL, 1 : SUCCESS
-def recordlog(calling_file, record_status, message, mycursor, connection):
+def recordLog(calling_file, record_status, message, mycursor, connection):
     sql_log = """INSERT INTO log_file (calling_file, status, message)
     VALUES (%s,%s,%s);
     """
