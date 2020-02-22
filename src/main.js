@@ -531,12 +531,12 @@ var m = require('./msql.js');
 // 	console.log(JSON.parse(result));
 // });
 
-m.ShowGivenGradeStudent({grade: '四'}, function(err, result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-});
-// 輸入一二三四，顯示某年級所有學生,1表示本系生，0表示外系生
+// m.ShowGivenGradeStudent({grade: '四'}, function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// });
+// // 輸入一二三四，顯示某年級所有學生,1表示本系生，0表示外系生
 
 // m.ShowStudentGraduate({student_id: '0516075'}, function(err, result){
 // 	if(err)
@@ -569,7 +569,8 @@ m.ShowGivenGradeStudent({grade: '四'}, function(err, result){
 //     new_basic: 1,
 //     new_cross: 1,
 //     en_basic: 1,
-//     en_advanced: 1,
+// 	en_advanced: 1,
+// 	en_uncertified: 1,
 //     pe: 1,
 //     service: 1,
 //     art: 1,
@@ -583,7 +584,7 @@ m.ShowGivenGradeStudent({grade: '四'}, function(err, result){
 // 		throw err;
 // 	console.log(JSON.parse(result));
 // });
-// 建立某學生畢業預審
+// // 建立某學生畢業預審
 
 // data_SetStudentGraduate = {
 //     student_id: '0516202',
@@ -610,6 +611,7 @@ m.ShowGivenGradeStudent({grade: '四'}, function(err, result){
 //     en_total: 1,
 //     en_basic: 1,
 //     en_advanced: 1,
+// 	en_uncertified: 0,
 //     pe: 1,
 //     service: 1,
 //     art: 1,
@@ -623,7 +625,7 @@ m.ShowGivenGradeStudent({grade: '四'}, function(err, result){
 // 		throw err;
 // 	console.log(JSON.parse(result));
 // });
-// 修改某學生畢業預審
+// // 修改某學生畢業預審
 
 // m.ShowGivenGradeStudentID({grade: '四'}, function(err, result){
 // 	if(err)
