@@ -83,8 +83,9 @@ module.exports = {
                                         }
                                     result[0]['recent_failed'] = 'false';
                                     sem = sem[0]['semester'].split('-')
-                                    year = sem[0]
+                                    let year = sem[0]
                                     sem = sem[1]
+                                    let recent_sem = null
                                     if(sem == '2')
                                         recent_sem = year + '-' + '1'
                                     else
