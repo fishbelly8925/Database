@@ -1,9 +1,16 @@
-import MySQLdb
+import pymysql
 import sqlString as sql
 import numpy as np
 import re
 
-conn = MySQLdb.connect(db='ca',user='root',passwd='jack02',charset='utf8')
+def connect2db():
+    connection = pymysql.connect(
+                host='localhost', db='ca',
+                user='root', passwd='jack02', local_infile=True)
+    mycursor = connection.cursor()
+    return mycursor, connection
+
+cursor, _ = connect2db()
 
 def parseEng(cos):
     cos = cos.strip()
@@ -37,7 +44,6 @@ def parseEng(cos):
     return cos
 
 def findAllCos():
-    cursor = conn.cursor()
     cursor.execute(sql.findAllCos)
     temp = cursor.fetchall()
     res = set()
@@ -47,13 +53,11 @@ def findAllCos():
         res.add(i)
     res = list(res)
     res.sort()
-    cursor.close()
     return res
 
 
 def findCurCos(year_sem):
-    cursor = conn.cursor()
-    cursor.execute(sql.findCurCos, {'prefix': f"{year_sem['year']}-{year_sem['semester']}"})
+    cursor.execute(sql.findCurCos.format(prefix=f"{year_sem['year']}-{year_sem['semester']}"))
     temp = cursor.fetchall()
     res = set()
     for i in temp:
@@ -62,11 +66,9 @@ def findCurCos(year_sem):
         res.add(i)
     res = list(res)
     res.sort()
-    cursor.close()
     return res
 
 def Student_fromScore():
-    cursor = conn.cursor()
     cursor.execute("select distinct student_id from cos_score\
         where student_id like '0716%' \
             or student_id like '0616%' \
@@ -83,11 +85,9 @@ def Student_fromScore():
         res.add(i)
     res = list(res)
     res.sort()
-    cursor.close()
     return res
 
 def Student_fromTable():
-    cursor = conn.cursor()
     cursor.execute("select distinct student_id from student;")
     temp = cursor.fetchall()
     res=set()
@@ -99,7 +99,6 @@ def Student_fromTable():
         res.add(i)
     res = list(res)
     res.sort()
-    cursor.close()
     return res
 
 def normByCos(s, avg_std):
@@ -111,7 +110,6 @@ def normByStudent(s, score):
     return new_s
 
 def findGradsAvgStd():
-    cursor = conn.cursor()
     cursor.execute(sql.findGradAvgStd)
     temp = cursor.fetchall()
     res = dict()
@@ -120,18 +118,20 @@ def findGradsAvgStd():
             'avg': data[1], 
             'std': data[2]
         }
-    cursor.close()
     return res
 
-def findGrads(stds, cos):
-    cursor = conn.cursor()
+def findGrads(stds, cos, skip_year_sem=None):
     res = []
     avg_std_map = findGradsAvgStd()
     for std in stds:
         score_list = []
 
         ### Specific Semester Score
-        cursor.execute(sql.findGrad, {'id':std})
+        if skip_year_sem:
+            cursor.execute(sql.findGrad_with_skip.format(id=std,\
+                year=skip_year_sem['year'], semester=skip_year_sem['semester']))
+        else:
+            cursor.execute(sql.findGrad.format(id=std))
         temp = cursor.fetchall()
         if len(temp) == 0:
             continue
@@ -162,15 +162,14 @@ def findGrads(stds, cos):
     return res
 
 def findGradsSpecify(stds, cos2num, test_list):
-    cursor = conn.cursor()
     res = dict()
     avg_std_map = findGradsAvgStd()
     for std in stds:
         score_list = []
 
         ### Specific Semester Score
-        cursor.execute(sql.findGradSpecify, {'id':std, 'year': test_list['year'],\
-             'semester': test_list['semester']})
+        cursor.execute(sql.findGradSpecify.format(id=std, year=test_list['year'],\
+             semester=test_list['semester']))
         temp = cursor.fetchall()
         if len(temp) == 0:
             continue
@@ -187,7 +186,7 @@ def findGradsSpecify(stds, cos2num, test_list):
             grad[idx] = 1
         ################
         ### Remaining Semester Score
-        cursor.execute(sql.findGrad, {'id':std})
+        cursor.execute(sql.findGrad.format(id=std))
         temp = cursor.fetchall()
         if len(temp) == 0:
             continue

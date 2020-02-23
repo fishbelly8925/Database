@@ -5,12 +5,19 @@ import json
 from wordcloud import WordCloud
 import PIL.Image as image
 import matplotlib.pyplot as plt
+import os
 
 from sklearn.cluster import SpectralClustering
 from sklearn.cluster import KMeans
 
 ##############################
 Number_Of_Cluster = 30
+
+skip_year_sem = None ## for eval mode
+# skip_year_sem = {
+#     'year':107,
+#     'semester':2
+# } ## for test mode
 ##############################
 
 def show_cluster_res(data, std_list, cluster, num_to_cos, method):
@@ -37,6 +44,9 @@ def show_cluster_res(data, std_list, cluster, num_to_cos, method):
         for std in stds:
             res[std] = coses
     ###########################
+    if not os.path.isdir('./res'):
+        os.mkdir('./res')
+
     std_cnt = [len(stds) for stds in clu_stds_list]
     plt.bar(range(len(std_cnt)), std_cnt)
     plt.xlabel('Cluster Idx')
@@ -59,7 +69,7 @@ with open('cos_to_num.json', 'w') as f1, open('num_to_cos.json', 'w') as f2:
     json.dump(cos_to_num, f1, indent=4, ensure_ascii=False)
     json.dump(num_to_cos, f2, indent=4, ensure_ascii=False)
 
-score = func.findGrads(all_student, all_cos)
+score = func.findGrads(all_student, all_cos, skip_year_sem)
 data = np.stack([i['data'] for i in score])
 std_list = np.stack([i['std_id'] for i in score])
 print('Spectral Clustering')

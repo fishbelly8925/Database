@@ -6,11 +6,11 @@ import matplotlib.pyplot as plt
 import csv
 
 Top_K = 15
-Type = 'test' ### test, eval
+Type = 'eval' ### test, eval
 cur_setting = {
-    'year': 107,
+    'year': 108,
     'semester': 2
-}
+}   
 
 with open('./num_to_cos.json', 'r') as f1,\
     open('./cos_to_num.json', 'r') as f2, \
