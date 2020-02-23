@@ -20,7 +20,7 @@ def validateCSV(file_path):
         error_column = str(set(needed_column) - set(csv_column))
         message = "錯誤：名稱有誤 : " + error_column
         validate_flag = False
-        checkFile.recordlog(calling_file, record_status, message, mycursor, connection)
+        checkFile.recordLog(calling_file, record_status, message, mycursor, connection)
         return validate_flag
     
     #pandas type : object, int64, float64, bool, datetime64, timedelta[ns], category
@@ -31,7 +31,7 @@ def validateCSV(file_path):
             message = "錯誤：" + needed_column[i] + "格式有誤 : " + str(df[needed_column[i]].dtype)
             record_status = 0
             validate_flag = False
-            checkFile.recordlog(calling_file, record_status, message, mycursor, connection)
+            checkFile.recordLog(calling_file, record_status, message, mycursor, connection)
             return validate_flag              
     return validate_flag
 
