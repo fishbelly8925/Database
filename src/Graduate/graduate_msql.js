@@ -93,16 +93,16 @@ module.exports = {
 
 				let compulse = {};
 				compulse['student_id'] = data['student_id']; 
-				compulse['cos_cname'] = data['compulse']
+				compulse['cos_cname'] = data['compulse'];
 				delete data['compulse'];
 
 				let current = {};
 				current['student_id'] = data['student_id']; 
-				current['cos_cname'] = data['current']
+				current['cos_cname'] = data['current'];
 				delete data['current'];
 
-				data['net'] = JSON.stringify(data['net'])
-				data['media'] = JSON.stringify(data['media'])
+				data['net'] = JSON.stringify(data['net']);
+				data['media'] = JSON.stringify(data['media']);
 				c.query(sql_CreateStudentGraduate(data), function(err, result){
 					if(err){
 						callback(err, undefined);

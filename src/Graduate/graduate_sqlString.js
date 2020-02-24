@@ -41,7 +41,7 @@ exports.CreateStudentGraduate = "\
 		:old_total, :old_contemp, :old_culture, :old_history,\
 		:old_citizen, :old_group, :old_science,\
 		:new_total, :new_core_total, :new_core_society, :new_core_humanity, :new_basic, :new_cross,\
-		:en_total, :en_basic, :en_advanced, :en_uncertified, :pe, :service, :art, :mentor\
+		:en_total, :en_basic, :en_advanced, :pe, :service, :art, :mentor, :en_uncertified\
 	)";
 
 exports.CreateStudentCompulse = "\

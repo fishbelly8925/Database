@@ -4,11 +4,11 @@
 
 var m = require('./msql.js');
 
-m.ShowUserInfo('0516003', function(err, result){
-    if(err)
-        throw err;
-    console.log(JSON.parse(result));
-}); // ShowUserInfo 回傳學生資料
+// m.ShowUserInfo('0516003', function(err, result){
+//     if(err)
+//         throw err;
+//     console.log(JSON.parse(result));
+// }); // ShowUserInfo 回傳學生資料
 
 // //m.SetUserEmail('0516003', 'da2bct@test');
 // // SetUserEmail(學號, email) 更新此學號學生之email
@@ -569,10 +569,10 @@ m.ShowUserInfo('0516003', function(err, result){
 //     new_basic: 1,
 //     new_cross: 1,
 //     en_basic: 1,
-// 	en_advanced: 1,
-// 	en_uncertified: 1,
+//     en_advanced: 1,
+//     en_uncertified: 0,
 //     pe: 1,
-//     service: 1,
+//     service: 0,
 //     art: 1,
 //     mentor: 1,
 //     compulse: ['計算機a', '計算機1', '計算機2'],
@@ -611,9 +611,9 @@ m.ShowUserInfo('0516003', function(err, result){
 //     en_total: 1,
 //     en_basic: 1,
 //     en_advanced: 1,
-// 	en_uncertified: 0,
+// 	en_uncertified: 2,
 //     pe: 1,
-//     service: 1,
+//     service: 2,
 //     art: 1,
 //     mentor: 1,
 // 	compulse: ['計算機a', '計算機b', '計算機c'],
