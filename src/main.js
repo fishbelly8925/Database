@@ -177,11 +177,11 @@ var m = require('./msql.js');
 // });
 // // ShowCosScoreInterval(cos_code, unique_id, callback) 某堂課的成績區間人數
 
-// m.ShowRecommendCos('0516003', function(err, result){
-// 	if(err)
-// 		throw err;
-// 	console.log(JSON.parse(result));
-// }); // ShowRecommendCos(student_id, callback) 回傳某學生的推薦課程
+m.ShowRecommendCos('0516003', function(err, result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+}); // ShowRecommendCos(student_id, callback) 回傳某學生的推薦課程
 
 // data_SetRecommendCosStar = {
 // 	student_id: '0516003',
@@ -531,12 +531,12 @@ var m = require('./msql.js');
 // 	console.log(JSON.parse(result));
 // });
 
-// m.ShowGivenGradeStudent({grade: '四'}, function(err, result){
+// m.ShowGivenGradeStudent({grade: '二'}, function(err, result){
 // 	if(err)
-// 		throw err;
-// 	console.log(JSON.parse(result));
+//         throw err;
+//     console.log(JSON.parse(result));
 // });
-// // 輸入一二三四，顯示某年級所有學生,1表示本系生，0表示外系生
+// // // 輸入一二三四，顯示某年級所有學生,1表示本系生，0表示外系生
 
 // m.ShowStudentGraduate({student_id: '0516075'}, function(err, result){
 // 	if(err)

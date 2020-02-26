@@ -222,6 +222,9 @@ module.exports = {
                                     data[d_num]['teacher'] = tea_list.join(',');
                                     data[d_num]['cos_time'] = data[d_num]['cos_time'].split('-')[0];
                                     
+                                    let cos_info = data[d_num]['unique_id'].split('-')
+                                    let cos_url = 'https://timetable.nctu.edu.tw/?r=main/crsoutline&Acy='+cos_info[0]+'&Sem='+cos_info[1]+'&CrsNo='+cos_info[2]+'&lang=zh-tw';
+                                    data[d_num]['cos_url'] = cos_url;
                                     result.push(data[d_num]);
                                 }
                             }
