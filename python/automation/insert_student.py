@@ -1,3 +1,4 @@
+import sys
 import pymysql
 import csv
 import pandas as pd
@@ -114,7 +115,8 @@ def update_db_student_grad_rule_year(mycurser, connection):
     return record_status, code, message, affect_count
 
 if __name__ == "__main__":
-    file_path = "./original/108student_new.csv"
+    """./original/108student_new.csv"""
+    file_path = sys.argv[1]
     global calling_file
     calling_file = __file__
     mycursor, connection = connect.connect2db()
