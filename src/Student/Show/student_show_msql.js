@@ -144,15 +144,35 @@ module.exports = {
         const resource = pool.acquire();
         resource.then(function(c) {
             var sql_ShowUserAllScore = c.prepare(s.ShowUserAllScore);
-            var enroll_year = '1' + id[0] + id[1];
-            c.query(sql_ShowUserAllScore({ id: id, enroll_year: enroll_year }), function(err, result) {
-                if (err){
-                    callback(err, undefined);
+            var sql_ShowUserGradYearRule_single = c.prepare(s.ShowUserGradYearRule_single);
+
+            c.query(sql_ShowUserGradYearRule_single({ id: id }),function(err, result){
+                let enroll_year = result[0]['grad_rule_year'];
+                c.query(sql_ShowUserAllScore({ id: id, enroll_year: enroll_year }), function(err, data) {
+                    if (err){
+                        callback(err, undefined);
+                        pool.release(c);
+                        return;
+                    }
+                    
+                    // Check course "Mentor's Hours" (the offset of this course could have two type, see 0513407's case)
+                    var result = [];
+                    var year_sem_arr = [];
+                    for(let i=0; i<data.length; i+=1)
+                        if(data[i]['cos_cname_old'] != '導師時間')
+                            result.push(data[i])
+                        else
+                            if(year_sem_arr.includes(data[i]['cos_year']+'-'+data[i]['semester']))
+                                continue;
+                            else
+                            {
+                                year_sem_arr.push(data[i]['cos_year']+'-'+data[i]['semester']);
+                                result.push(data[i]);
+                            }
+
+                    callback(null, JSON.stringify(result));
                     pool.release(c);
-                    return;
-                }
-                callback(null, JSON.stringify(result));
-                pool.release(c);
+                })
             })
         })
     },
