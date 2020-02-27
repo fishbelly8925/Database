@@ -1,3 +1,4 @@
+import sys
 import pymysql
 import csv
 import pandas as pd
@@ -109,7 +110,8 @@ def insertDB(file_path, mycursor, connection):
     return record_status, code, message, affect_count
 
 if __name__ == "__main__":
-    file_path = "./original/cos_score.csv"
+    """./original/cos_score.csv"""
+    file_path = sys.argv[1]
     global calling_file
     calling_file = __file__
     mycursor, connection = connect.connect2db()
