@@ -179,19 +179,51 @@ module.exports = {
         exec('python3 '+program_path+program_name+' '+data_path);
     },
     ShowAllDataLog: function(callback){
-        const resource=pool.acquire();
-        resource.then(function(c) {
+        const resource = pool.acquire();
+        resource.then(function(c){
             var sql_ShowAllDataLog = c.prepare(s.ShowAllDataLog);
-                c.query(sql_ShowAllDataLog({}), function(err, result){
-                    if(err)
-                    {
-                        callback(err, undefined);
-                        pool.release(c);
-                        return ;
-                    }
-                    callback(null, JSON.stringify(result));
+            c.query(sql_ShowAllDataLog({}), function(err, result){
+                if(err)
+                {
+                    callback(err, undefined);
                     pool.release(c);
-                });  
+                    return ;
+                }
+                callback(null, JSON.stringify(result));
+                pool.release(c);
+            });  
+        });
+    },
+    DeleteDataLog: function(data, callback){
+        const resource = pool.acquire();
+        resource.then(function(c){
+            var sql_DeleteDataLog = c.prepare(s.DeleteDataLog);
+            c.query(sql_DeleteDataLog(data), function(err, result){
+                if(err)
+                {
+                    callback(err, undefined);
+                    pool.release(c);
+                    return;
+                }
+                callback(null, JSON.stringify(result));
+                pool.release(c);
+            });
+        });
+    },
+    DeleteAllDataLog: function(callback){
+        const resource = pool.acquire();
+        resource.then(function(c){
+            var sql_DeleteAllDataLog = c.prepare(s.DeleteAllDataLog);
+            c.query(sql_DeleteAllDataLog({}), function(err, result){
+                if(err)
+                {
+                    callback(err, undefined);
+                    pool.release(c);
+                    return;
+                }
+                callback(null, JSON.stringify(result));
+                pool.release(c);
+            });
         });
     },
     Drain: function() {

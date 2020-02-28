@@ -717,10 +717,26 @@ var m = require('./msql.js');
 // //      "課程成績資料", "新老師資料", "當期修課資料", "學生資料", "抵免資料", "英文換修資料"
 // // semester: "108-1", "108-2", "109-1" ... 
 
-m.ShowAllDataLog(function(err, result){
-    if(err)
-        throw err;
-    console.log(JSON.parse(result))
-})
+// m.ShowAllDataLog(function(err, result){
+//     if(err)
+//         throw err;
+//     console.log(JSON.parse(result))
+// })
+// // 顯示所有自動化匯入結果 log
+
+// m.DeleteDataLog({id: 17}, function(err, result){
+//     if(err)
+//         throw err;
+//     console.log(result);
+// })
+// // 刪除指定自動化結果 log
+// // id: unique_id (int)
+
+// m.DeleteAllDataLog(function(err, result){
+//     if(err)
+//         throw err;
+//     console.log(result);
+// })
+// // 刪除所有自動化結果 log
 
 m.Drain(); // 關閉 connection pool

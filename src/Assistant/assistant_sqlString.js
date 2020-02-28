@@ -44,3 +44,8 @@ exports.ShowApplyPeriod = '\
 
 exports.ShowAllDataLog = '\
     select * from log_file;'
+exports.DeleteDataLog = '\
+    delete from log_file \
+    where unique_id = :id';
+exports.DeleteAllDataLog = '\
+    delete from log_file;'
