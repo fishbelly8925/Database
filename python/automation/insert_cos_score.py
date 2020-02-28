@@ -6,7 +6,7 @@ import numpy as np
 import checkFile
 import connect
 
-def validateCSV(file_path):
+def validateCSV(file_path, unique_id):
     #since score has NaN, so its type will be float64
     needed_column = ['學號', '學年度', '學期', '當期課號', '開課系所', '課程名稱', '永久課號', '課程向度', '學生選別', '學分數', '評分方式', '評分狀態', '成績', '等級成績', 'GP']
     needed_type = [object, np.int64, np.int64, object, object, object, object, object, object, np.float64, object, object, np.float64, object, np.float64]
@@ -21,7 +21,7 @@ def validateCSV(file_path):
         error_column = str(set(needed_column) - set(csv_column))
         message = "錯誤：名稱有誤 : " + error_column
         validate_flag = False
-        checkFile.recordLog(calling_file, record_status, message, mycursor, connection)
+        checkFile.recordLog(unique_id, record_status, message, mycursor, connection)
         return validate_flag
     
     #pandas type : object, int64, float64, bool, datetime64, timedelta[ns], category
@@ -32,7 +32,7 @@ def validateCSV(file_path):
             message = "錯誤：" + needed_column[i] + "格式有誤 : " + str(df[needed_column[i]].dtype)
             record_status = 0
             validate_flag = False
-            checkFile.recordLog(calling_file, record_status, message, mycursor, connection)
+            checkFile.recordLog(unique_id, record_status, message, mycursor, connection)
             return validate_flag              
     return validate_flag
 
@@ -121,7 +121,7 @@ if __name__ == "__main__":
     unique_id = checkFile.initialLog(calling_file, record_status, mycursor, connection)
 
     #Check csv file
-    validate_flag = validateCSV(file_path)
+    validate_flag = validateCSV(file_path, unique_id)
     # print(validate_flag)
 
     if validate_flag == True:

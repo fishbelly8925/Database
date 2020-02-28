@@ -6,7 +6,7 @@ import numpy as np
 import checkFile
 import connect
 
-def validateCSV(file_path):
+def validateCSV(file_path, unique_id):
     needed_column = ['學號', '姓名', '班級', '年級', '性別', '入學身份', '在學身份', '在學狀況', 'eMail']
     record_status = 1
     validate_flag = True
@@ -19,7 +19,7 @@ def validateCSV(file_path):
         error_column = str(set(needed_column) - set(csv_column))
         message = "錯誤：名稱有誤 : " + error_column
         validate_flag = False
-        checkFile.recordLog(calling_file, record_status, message, mycursor, connection)
+        checkFile.recordLog(unique_id, record_status, message, mycursor, connection)
         return validate_flag
                  
     return validate_flag
@@ -126,7 +126,7 @@ if __name__ == "__main__":
     unique_id = checkFile.initialLog(calling_file, record_status, mycursor, connection)
 
     #Check csv file
-    validate_flag = validateCSV(file_path)
+    validate_flag = validateCSV(file_path, unique_id)
 
     if validate_flag == True:
         #Import this semester's on cos data
