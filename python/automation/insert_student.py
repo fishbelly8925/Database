@@ -50,7 +50,7 @@ def insertDB(file_path, mycursor, connection):
         character set 'utf8mb4'
         fields terminated by ','
         enclosed by '"'
-        lines terminated by '\r\n'
+        lines terminated by '\n'
         ignore 1 lines;
     '''
     dump_sql3 = '''
@@ -74,7 +74,8 @@ def insertDB(file_path, mycursor, connection):
     try:
         mycursor.execute(dump_sql1)
         mycursor.execute(dump_sql2.format(file_path))
-        affect_count = mycursor.execute(dump_sql3)
+        mycursor.execute(dump_sql3)
+        affect_count = mycursor.rowcount
         mycursor.execute(dump_sql4)
     except pymysql.InternalError as error:
         code, message = error.args
@@ -94,7 +95,6 @@ def update_db_student_grad_rule_year(mycurser, connection):
     record_status = None
     code = None
     message = None
-    affect_count = None
 
     sql = '''
         update student 
@@ -112,7 +112,7 @@ def update_db_student_grad_rule_year(mycurser, connection):
         connection.commit()
         record_status = 1
 
-    return record_status, code, message, affect_count
+    return record_status, code, message
 
 if __name__ == "__main__":
     """./original/108student_new.csv"""
@@ -135,7 +135,7 @@ if __name__ == "__main__":
             message = "匯入學生資料錯誤：" + message
             checkFile.recordLog(unique_id, record_status, message, mycursor, connection)
         if record_status == 1:
-            record_status, code, message, affect_count = update_db_student_grad_rule_year(mycursor, connection)
+            record_status, code, message = update_db_student_grad_rule_year(mycursor, connection)
             if record_status == 1:
                 message = "已匯入學生資料共 " + str(affect_count) + ' 筆'
                 checkFile.recordLog(unique_id, record_status, message, mycursor, connection)

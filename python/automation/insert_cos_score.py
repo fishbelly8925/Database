@@ -96,7 +96,8 @@ def insertDB(file_path, mycursor, connection):
     try:
         mycursor.execute(dump_sql1)
         mycursor.execute(dump_sql2.format(file_path))
-        affect_count = mycursor.execute(dump_sql3)
+        mycursor.execute(dump_sql3)
+        affect_count = mycursor.rowcount
         mycursor.execute(dump_sql4)
     except pymysql.InternalError as error:
         code, message = error.args
