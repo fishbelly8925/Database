@@ -121,23 +121,26 @@ if __name__ == "__main__":
     calling_file = __file__
     mycursor, connection = connect.connect2db()
 
+    #Insert pending status (2) into database
+    record_status = 2
+    unique_id = checkFile.initialLog(calling_file, record_status, mycursor, connection)
+
     #Check csv file
     validate_flag = validateCSV(file_path)
-    # print(validate_flag)
 
     if validate_flag == True:
         #Import this semester's on cos data
         record_status, code, message, affect_count = insertDB(file_path, mycursor, connection)
         if record_status == 0:
             message = "匯入學生資料錯誤：" + message
-            checkFile.recordLog(calling_file, record_status, message, mycursor, connection)
+            checkFile.recordLog(unique_id, record_status, message, mycursor, connection)
         if record_status == 1:
             record_status, code, message, affect_count = update_db_student_grad_rule_year(mycursor, connection)
             if record_status == 1:
                 message = "已匯入學生資料共 " + str(affect_count) + ' 筆'
-                checkFile.recordLog(calling_file, record_status, message, mycursor, connection)
+                checkFile.recordLog(unique_id, record_status, message, mycursor, connection)
             else:
                 message = "更新學生畢業預審年度錯誤：" + message
-                checkFile.recordLog(calling_file, record_status, message, mycursor, connection)
+                checkFile.recordLog(unique_id, record_status, message, mycursor, connection)
     mycursor.close()  ## here all loops done
     connection.close()  ## close db connection

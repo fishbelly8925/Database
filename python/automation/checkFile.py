@@ -19,14 +19,23 @@ def createlogger():
     logger.addHandler(fh)
     return logger
 
-#Store in DB, 0 : FAIL, 1 : SUCCESS
-def recordLog(calling_file, record_status, message, mycursor, connection):
-    sql_log = """INSERT INTO log_file (calling_file, status, message)
-    VALUES (%s,%s,%s);
-    """
-    check = [calling_file, record_status, message]
+#Store in DB, 0 : FAIL, 1 : SUCCESS, 2 : PENDING
+def recordLog(unique_id, record_status, message, mycursor, connection):
+    sql_log = '''UPDATE log_file SET status=%s, message=%s
+    WHERE unique_id=%s;
+    '''
+    check = [record_status, message, unique_id]
     mycursor.execute(sql_log, tuple(check))
     connection.commit()
+
+def initialLog(calling_file, record_status, mycursor, connection):
+    sql_log = '''INSERT INTO log_file (calling_file, status)
+        VALUES (%s,%s);
+        '''
+    check = [calling_file, record_status]
+    mycursor.execute(sql_log, tuple(check))
+    connection.commit()
+    return mycursor.lastrowid
 
 if __name__ == '__main__':
     logger = createlogger()
