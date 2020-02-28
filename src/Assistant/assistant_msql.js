@@ -178,6 +178,22 @@ module.exports = {
         console.log('python3 '+program_path+program_name+' '+data_path)
         exec('python3 '+program_path+program_name+' '+data_path);
     },
+    ShowAllDataLog: function(callback){
+        const resource=pool.acquire();
+        resource.then(function(c) {
+            var sql_ShowAllDataLog = c.prepare(s.ShowAllDataLog);
+                c.query(sql_ShowAllDataLog({}), function(err, result){
+                    if(err)
+                    {
+                        callback(err, undefined);
+                        pool.release(c);
+                        return ;
+                    }
+                    callback(null, JSON.stringify(result));
+                    pool.release(c);
+                });  
+        });
+    },
     Drain: function() {
         pool.drain().then(function() {
             pool.clear();
