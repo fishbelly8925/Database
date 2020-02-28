@@ -1,5 +1,7 @@
 import logging
 import os
+import pandas as pd
+import sys
 
 #Store in log file
 def createlogger():
@@ -38,7 +40,14 @@ def initialLog(calling_file, record_status, mycursor, connection):
     connection.commit()
     return mycursor.lastrowid
 
+def convertExcelToCsv(input_path, output_path):
+    df = pd.read_excel(input_path)
+    # print(df.keys())
+    df.to_csv(output_path, index=False)
+
 if __name__ == '__main__':
-    logger = createlogger()
-    logger.warning('HIHI')
-    print(logger.asctime)
+    """./upload/106B、106暑期資訊學院全體學生修課成績資料-資工學院-20181022.xlsx"""
+    """./original/on_cos_data_test.csv"""
+    input_path = sys.argv[1]
+    output_path = sys.argv[2]
+    convertExcelToCsv(input_path, output_path)
