@@ -1,4 +1,4 @@
-var CONST = require('../constant.js')
+var CONST = require('../constant.js');
 
 var psw = require(CONST.FILE_PATH);
 var s = require('./assistant_sqlString.js');
@@ -133,6 +133,44 @@ module.exports = {
                     pool.release(c);
                 });  
         });
+    },
+    InsertNewData: function(data){
+        // data => {file_name: 'yoyoabc.csv', data_type: "課程成績資料", semester: '108-2'}
+        // "課程成績資料" => "cos_score"
+        // "新老師資料"   => "new_teacher_info"
+        // "當期修課資料" => "on_cos_data"
+        // "學生資料"    => "student"
+
+        let exec = require('child_process').exec;
+        let data_path_base = '/home/nctuca/dinodino-extension/automation/data/'
+        let program_path = '/home/nctuca/dinodino-extension/automation/'
+        let sub_data_name = data['file_name'].split('.')[1]
+        if(data['data_type'] == '課程成績資料')
+        {
+            var program_name = 'insert_cos_score.py';
+            var data_path = data_path_base+data['semester']+'_cos_score.'+sub_data_name;
+            exec('mv '+data_path_base+data['file_name']+' '+data_path);
+        }
+        else if(data['data_type'] == '新老師資料')
+        {
+            var program_name = 'insert_new_teacher_info.py';
+            var data_path = data_path_base+data['semester']+'_new_teacher_info.'+sub_data_name;
+            exec('mv '+data_path_base+data['file_name']+' '+data_path);
+        }
+        else if(data['data_type'] == '當期修課資料')
+        {
+            var program_name = 'insert_on_cos_data.py';
+            var data_path = data_path_base+data['semester']+'_on_cos_data.'+sub_data_name;
+            exec('mv '+data_path_base+data['file_name']+' '+data_path);
+        }
+        else if(data['data_type'] == '學生資料')
+        {
+            var program_name = 'insert_student.py';
+            var data_path = data_path_base+data['semester']+'_student.'+sub_data_name;
+            exec('mv '+data_path_base+data['file_name']+' '+data_path);
+        }
+
+        exec('python3 '+program_path+program_name+' '+data_path);
     },
     Drain: function() {
         pool.drain().then(function() {

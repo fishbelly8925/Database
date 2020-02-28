@@ -37,11 +37,11 @@ var m = require('./msql.js');
 //     console.log(JSON.parse(result));
 // }); // ShowUserTotalCredit 回傳某學生總學分數
 
-m.ShowUserAllScore('0513407', function(err, result){
-    if(err)
-        throw err;
-    console.log(JSON.parse(result));
-}); // ShowUserAllScore 列出此學生通過的課
+// m.ShowUserAllScore('0516003', function(err, result){
+//     if(err)
+//         throw err;
+//     console.log(JSON.parse(result));
+// }); // ShowUserAllScore 列出此學生通過的課
 // // 測試學號
 // // 軍訓 0116089
 // // 霹靂悠 0516007
@@ -708,5 +708,13 @@ m.ShowUserAllScore('0513407', function(err, result){
 //         throw err;
 //     console.log(JSON.parse(result));
 // });
+
+m.InsertNewData({file_name: 'yoyoabc.csv', data_type: "課程成績資料", semester: '108-2'});
+// 執行自動化匯入，因為是offline的作法，所以沒有call back function
+// 參數：
+// file_name: 檔案名稱
+// data_type:
+//      "課程成績資料", "新老師資料", "當期修課資料", "學生資料", "抵免資料", "英文換修資料"
+// semester: "108-1", "108-2", "109-1" ... 
 
 m.Drain(); // 關閉 connection pool
