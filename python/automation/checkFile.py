@@ -29,6 +29,7 @@ def recordLog(unique_id, record_status, message, mycursor, connection):
     connection.commit()
 
 def initialLog(calling_file, record_status, mycursor, connection):
+    calling_file = calling_file.split('/')[-1]
     sql_log = '''INSERT INTO log_file (calling_file, status)
         VALUES (%s,%s);
         '''

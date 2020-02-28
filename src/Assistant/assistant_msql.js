@@ -141,9 +141,11 @@ module.exports = {
         // "當期修課資料" => "on_cos_data"
         // "學生資料"    => "student"
 
-        let exec = require('child_process').exec;
-        let data_path_base = '/home/nctuca/dinodino-extension/automation/data/'
-        let program_path = '/home/nctuca/dinodino-extension/automation/'
+        let exec = require('child_process').execSync;
+        // let data_path_base = '/home/nctuca/dinodino-extension/automation/data/'
+        // let program_path = '/home/nctuca/dinodino-extension/automation/'
+        let data_path_base = '/home/karljackab/'
+        let program_path = '/home/karljackab/Database/python/automation/'
         let sub_data_name = data['file_name'].split('.')[1]
         if(data['data_type'] == '課程成績資料')
         {
