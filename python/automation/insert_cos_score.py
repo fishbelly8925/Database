@@ -57,7 +57,7 @@ def insertDB(file_path, mycursor, connection):
         character set 'utf8'
         fields terminated by ','
         enclosed by '"'
-        lines terminated by '\r\n'
+        lines terminated by '\n'
         ignore 1 lines;
     '''
     dump_sql3 = '''
