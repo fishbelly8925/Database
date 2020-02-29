@@ -709,7 +709,7 @@ var m = require('./msql.js');
 //     console.log(JSON.parse(result));
 // });
 
-m.InsertNewData({file_name: '學生資料範例.xlsx', data_type: "學生資料", semester: '108-2'});
+m.InsertNewData({file_name: '修課成績範例.xlsx', data_type: "課程成績資料", semester: '108-2'});
 // 執行自動化匯入，因為是offline的作法，所以沒有call back function
 // 參數：
 // file_name: 檔案名稱

@@ -142,10 +142,10 @@ module.exports = {
         // "學生資料"    => "student"
 
         let exec = require('child_process').execSync;
-        // let data_path_base = '/home/nctuca/dinodino-extension/automation/data/'
-        // let program_path = '/home/nctuca/dinodino-extension/automation/'
-        let data_path_base = '/home/karljackab/'
-        let program_path = '/home/karljackab/Database/python/automation/'
+        let data_path_base = '/home/nctuca/dinodino-extension/automation/data/'
+        let program_path = '/home/nctuca/dinodino-extension/automation/'
+        // let data_path_base = '/home/karljackab/'
+        // let program_path = '/home/karljackab/Database/python/automation/'
         let convertProgram = 'checkFile.py'
         let sub_data_name = 'csv'
         if(data['data_type'] == '課程成績資料')
@@ -176,7 +176,7 @@ module.exports = {
             if(data_path_base+data['file_name'] != data_path)
             exec('python3 '+program_path+convertProgram+' '+data_path_base+data['file_name']+' '+data_path);
         }
-        console.log('python3 '+program_path+program_name+' '+data_path)
+        // console.log('python3 '+program_path+program_name+' '+data_path)
         exec('python3 '+program_path+program_name+' '+data_path);
     },
     ShowAllDataLog: function(callback){
