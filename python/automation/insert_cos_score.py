@@ -25,11 +25,22 @@ def validateCSV(file_path, unique_id):
 
     #check cos_id length == 4
     df['cos_id_len'] = df['當期課號'].str.len()
-    cos_id_check = (df['cos_id_len'] != 4)
-    if False in cos_id_check:
+    cos_id_check = list(df['cos_id_len'] != 4)
+    if True in cos_id_check:
         record_status = 0
         error_cos_id_count = len(df[df['cos_id_len']!=4]['當期課號'].values)
         message = "錯誤：當期課號長度有誤 (可能為開頭缺少0) 共 : " + str(error_cos_id_count) + "筆"
+        validate_flag = False
+        checkFile.recordLog(unique_id, record_status, message, mycursor, connection)
+        return validate_flag
+
+    #check student length == 7
+    df['student_id_len'] = df['學號'].str.len()
+    student_id_check = list(df['student_id_len'] != 7)
+    if True in student_id_check:
+        record_status = 0
+        error_student_id_count = len(df[df['student_id_len']!=4]['學號'].values)
+        message = "錯誤：學號長度有誤 (可能為開頭缺少0) 共 : " + str(error_student_id_count) + "筆"
         validate_flag = False
         checkFile.recordLog(unique_id, record_status, message, mycursor, connection)
         return validate_flag
