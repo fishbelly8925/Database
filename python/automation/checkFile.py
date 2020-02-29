@@ -41,8 +41,14 @@ def initialLog(calling_file, record_status, mycursor, connection):
     return mycursor.lastrowid
 
 def convertExcelToCsv(input_path, output_path):
-    df = pd.read_excel(input_path)
-    # print(df.keys())
+    check_column = '當期課號'
+    df = None
+    df_varify = pd.read_excel(input_path)
+    df_key = list(df_varify.keys())
+    if check_column in df_key:
+        df = pd.read_excel(input_path, dtype={'學號': object, '當期課號': object})
+    else:
+        df = pd.read_excel(input_path, dtype={'學號': object})
     df.to_csv(output_path, index=False)
 
 if __name__ == '__main__':
