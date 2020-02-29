@@ -8,7 +8,6 @@ import connect
 
 def validateCSV(file_path, unique_id):
     needed_column = ['學號', '學年度', '學期', '當期課號', '開課系所', '永久課號', '學生選別', 'scr_summaryno', '學分數']
-    needed_type = [np.int64, np.int64, np.int64, np.int64, object, object, object, object, np.int64]
     record_status = 1
     validate_flag = True
     df = pd.read_csv(file_path)
@@ -22,16 +21,7 @@ def validateCSV(file_path, unique_id):
         validate_flag = False
         checkFile.recordLog(unique_id, record_status, message, mycursor, connection)
         return validate_flag
-    
-    #pandas type : object, int64, float64, bool, datetime64, timedelta[ns], category
-    # print(df.info())
-    for i in range(len(needed_column)):
-        if df[needed_column[i]].dtype != needed_type[i]:
-            message = "錯誤：" + needed_column[i] + "格式有誤 : " + str(df[needed_column[i]].dtype)
-            record_status = 0
-            validate_flag = False
-            checkFile.recordLog(unique_id, record_status, message, mycursor, connection)
-            return validate_flag              
+                 
     return validate_flag
 
 def deleteLastCourse(mycursor, connection):

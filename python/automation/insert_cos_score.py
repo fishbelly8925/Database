@@ -9,7 +9,6 @@ import connect
 def validateCSV(file_path, unique_id):
     #since score has NaN, so its type will be float64
     needed_column = ['學號', '學年度', '學期', '當期課號', '開課系所', '課程名稱', '永久課號', '課程向度', '學生選別', '學分數', '評分方式', '評分狀態', '成績', '等級成績', 'GP']
-    needed_type = [object, np.int64, np.int64, object, object, object, object, object, object, np.float64, object, object, np.float64, object, np.float64]
     record_status = 1
     validate_flag = True
     df = pd.read_csv(file_path, dtype={'學號': object, '當期課號': object})
@@ -23,17 +22,7 @@ def validateCSV(file_path, unique_id):
         validate_flag = False
         checkFile.recordLog(unique_id, record_status, message, mycursor, connection)
         return validate_flag
-    
-    #pandas type : object, int64, float64, bool, datetime64, timedelta[ns], category
-    # print(df.info())
-    # print(df[0:5])
-    for i in range(len(needed_column)):
-        if df[needed_column[i]].dtype != needed_type[i]:
-            message = "錯誤：" + needed_column[i] + "格式有誤 : " + str(df[needed_column[i]].dtype)
-            record_status = 0
-            validate_flag = False
-            checkFile.recordLog(unique_id, record_status, message, mycursor, connection)
-            return validate_flag              
+                 
     return validate_flag
 
 def insertDB(file_path, mycursor, connection):
