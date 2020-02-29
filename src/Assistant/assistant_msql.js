@@ -190,6 +190,19 @@ module.exports = {
                     pool.release(c);
                     return ;
                 }
+                console.log(result);
+                for(let i=0; i<result.length; i+=1)
+                {
+                    if(result[i]['calling_file'] == 'insert_cos_score.py')
+                        result[i]['data_type'] = '課程成績資料'
+                    else if(result[i]['calling_file'] == 'insert_new_teacher_info.py')
+                        result[i]['data_type'] = '新老師資料'
+                    else if(result[i]['calling_file'] == 'insert_on_cos_data.py')
+                        result[i]['data_type'] = '當期修課資料'
+                    else if(result[i]['calling_file'] == 'insert_student.py')
+                        result[i]['data_type'] = '學生資料' 
+                    delete result[i]['calling_file']
+                }
                 callback(null, JSON.stringify(result));
                 pool.release(c);
             });  
