@@ -37,11 +37,11 @@ var m = require('./msql.js');
 //     console.log(JSON.parse(result));
 // }); // ShowUserTotalCredit 回傳某學生總學分數
 
-// m.ShowUserAllScore('0516003', function(err, result){
-//     if(err)
-//         throw err;
-//     console.log(JSON.parse(result));
-// }); // ShowUserAllScore 列出此學生通過的課
+m.ShowUserAllScore('0616078', function(err, result){
+    if(err)
+        throw err;
+    console.log(JSON.parse(result));
+}); // ShowUserAllScore 列出此學生通過的課
 // // 測試學號
 // // 軍訓 0116089
 // // 霹靂悠 0516007
@@ -717,11 +717,11 @@ var m = require('./msql.js');
 // //      "課程成績資料", "新老師資料", "當期修課資料", "學生資料", "抵免資料", "英文換修資料"
 // // semester: "108-1", "108-2", "109-1" ... 
 
-m.ShowAllDataLog(function(err, result){
-    if(err)
-        throw err;
-    console.log(JSON.parse(result))
-})
+// m.ShowAllDataLog(function(err, result){
+//     if(err)
+//         throw err;
+//     console.log(JSON.parse(result))
+// })
 // 顯示所有自動化匯入結果 log
 
 // m.DeleteDataLog({id: 17}, function(err, result){

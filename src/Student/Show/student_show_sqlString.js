@@ -200,8 +200,28 @@ exports.ShowUserAllScore = "\
     on a.student_id = b.student_id\
     and a.cos_code = b.cos_code_old\
     and a.cos_cname = b.cos_cname_old\
-    order by a.cos_year, a.semester asc"
-
+    union\
+    select distinct ost.cos_code as cos_code, ost.cos_cname as cos_cname, k.cos_ename as cos_ename,\
+            ost.cos_code_old as cos_code_old, ost.cos_cname_old as cos_cname_old, k.cos_ename as cos_ename, k.pass_fail as pass_fail,\
+            ost.cos_type as cos_type, k.score as score, k.score_level as score_level, k.cos_typeext as cos_typeext,\
+            k.type as type, k.cos_dep as cos_dep, ost.brief as brief, ost.brief_new as brief_new,\
+            k.brief_status as brief_status, ost.credit as cos_credit, k.cos_year as cos_year,\
+            k.semester as semester, ost.offset_type as offset_type, k.tname as tname\
+    from offset as ost\
+    left outer join\
+    (\
+        select o.student_id, o.cos_code as cos_code, o.cos_cname as cos_cname, if(ISNULL(cn.cos_ename), '', cn.cos_ename) as cos_ename,\
+            o.cos_code_old as cos_code_old, o.cos_cname_old as cos_cname_old, '' as pass_fail,\
+            o.cos_type as cos_type, '' as score, '' as score_level, if(ISNULL(cd.cos_typeext), '', cd.cos_typeext) as cos_typeext,\
+            if(ISNULL(ct.type), '', ct.type) as type, NULL as cos_dep, o.brief as brief, o.brief_new as brief_new,\
+            if(o.brief_new like '%跨院基本素養%', 0, 0) as brief_status, o.credit as cos_credit, '' as cos_year,\
+            '' as semester, o.offset_type as offset_type, '' as tname\
+        from offset as o, cos_name as cn, cos_data as cd, cos_type as ct\
+        where o.student_id = :id and cn.cos_cname = o.cos_cname and cd.cos_code = o.cos_code and ct.cos_cname = o.cos_cname\
+    ) as k\
+    on ost.student_id = k.student_id\
+    where ost.student_id = :id\
+    "
 exports.ShowUserPartScore = "\
     select DISTINCT\
         if(ISNULL(c.cos_code), a.cos_code, c.cos_code) as cos_code,\
