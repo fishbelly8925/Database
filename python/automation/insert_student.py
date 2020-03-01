@@ -23,11 +23,12 @@ def validateCSV(file_path, unique_id):
         return validate_flag
 
     #check student length == 7
+    student_len = 7
     df['student_id_len'] = df['學號'].str.len()
-    student_id_check = list(df['student_id_len'] != 7)
+    student_id_check = list(df['student_id_len']!=student_len)
     if True in student_id_check:
         record_status = 0
-        error_student_id_count = len(df[df['student_id_len']!=4]['學號'].values)
+        error_student_id_count = len(df[df['student_id_len']!=student_len]['學號'].values)
         message = "錯誤：學號長度有誤 (可能為開頭缺少0) 共 : " + str(error_student_id_count) + "筆"
         validate_flag = False
         checkFile.recordLog(unique_id, record_status, message, mycursor, connection)
