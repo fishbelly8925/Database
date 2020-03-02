@@ -154,22 +154,60 @@ module.exports = {
                         pool.release(c);
                         return;
                     }
-                    
+
+                    // check for sql
+                    var orig = [];
+                    var temp_data = [];
+                    var code_arr = [];
+                    for(let i = 0; i < data.length; i += 1){
+                        if(code_arr.includes(data[i]['cos_code'] + '-' + data[i]['cos_code_old'])){
+                            if(data[i]['offset_type'] == null){   //for 大一體育＆藝文賞析教育
+                                orig.push(data[i]);
+                            }
+                            else{
+                                // console.log("重複課程1：", data[i]['cos_cname'], '-', data[i]['cos_year'], '-', data[i]['semester'])
+                                temp_data.push(data[i]);
+                                continue;
+                            }
+                        }
+                        else{
+                            code_arr.push(data[i]['cos_code'] + '-' + data[i]['cos_code_old']);
+                            orig.push(data[i]);
+                        }
+                    }
+                    for(let i = 0; i < temp_data.length; i++){
+                        if(temp_data[i]['tname'] != ''){
+                            orig.push(temp_data[i]);
+                        }
+                        else{
+                            // console.log("重複課程2：", temp_data[i]['cos_cname'], '-', temp_data[i]['cos_year'], '-', temp_data[i]['semester'])
+                            continue;
+                        }
+                    }
                     // Check course "Mentor's Hours" (the offset of this course could have two type, see 0513407's case)
                     var result = [];
                     var year_sem_arr = [];
-                    for(let i=0; i<data.length; i+=1)
-                        if(data[i]['cos_cname_old'] != '導師時間')
-                            result.push(data[i])
+                    for(let i=0; i<orig.length; i+=1)
+                        if(orig[i]['cos_cname_old'] != '導師時間')
+                            result.push(orig[i])
                         else
-                            if(year_sem_arr.includes(data[i]['cos_year']+'-'+data[i]['semester']))
+                        {
+                            if(year_sem_arr.includes(orig[i]['cos_year']+'-'+orig[i]['semester']))
+                            {
+                                // console.log("重複課程3：", orig[i]['cos_cname'], '-', orig[i]['cos_year'], '-', orig[i]['semester'])
                                 continue;
+                            }
+                                
                             else
                             {
-                                year_sem_arr.push(data[i]['cos_year']+'-'+data[i]['semester']);
-                                result.push(data[i]);
+                                if(orig[i]['tname'] != null)
+                                {
+                                    year_sem_arr.push(orig[i]['cos_year']+'-'+orig[i]['semester']);
+                                    result.push(orig[i]);
+                                }
                             }
-
+                        }
+                    
                     callback(null, JSON.stringify(result));
                     pool.release(c);
                 })
