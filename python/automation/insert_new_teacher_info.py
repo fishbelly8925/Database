@@ -6,7 +6,7 @@ import connect
 import checkFile
 import sys
 
-def validatecsv(file_path):
+def validatecsv(file_path, unique_id):
     needed_column = ['電話', '教授姓名', 'email', '研究領域', '簡介', '教授id']
     record_status = 1
     validate_flag = True
@@ -19,7 +19,7 @@ def validatecsv(file_path):
         err_col = str(set(needed_column) - set(csv_column))
         message = "錯誤：名稱有誤：" + err_col
         validate_flag = False
-        checkFile.recordLog(calling_file, record_status, message, mycursor, connection)
+        checkFile.recordLog(unique_id, record_status, message, mycursor, connection)
         return validate_flag
     return validate_flag
 
@@ -84,15 +84,20 @@ if __name__ == '__main__':
     calling_file = __file__
     mycursor, connection = connect.connect2db()
 
-    validate_flag = validatecsv(file_path)
+    # Insert pending status (2) into database
+    record_status = 2
+    unique_id = checkFile.initialLog(calling_file, record_status, mycursor, connection)
+
+    # Check csv file
+    validate_flag = validatecsv(file_path, unique_id)
 
     if validate_flag == True:
         record_status, code, message, affect_count = insert2db(file_path, mycursor, connection)
         if record_status == 0:
             message = "匯入新老師資料錯誤：" + message
-            checkFile.recordLog(calling_file, record_status, message, mycursor, connection)
+            checkFile.recordLog(unique_id, record_status, message, mycursor, connection)
         if record_status == 1:
             message = "已匯入新老師資料共" + str(affect_count) + "筆"
-            checkFile.recordLog(calling_file, record_status, message, mycursor, connection)
+            checkFile.recordLog(unique_id, record_status, message, mycursor, connection)
     mycursor.close()
     connection.close()
