@@ -41,11 +41,10 @@ def initialLog(calling_file, record_status, year, semester, mycursor, connection
     return mycursor.lastrowid
 
 def convertExcelToCsv(input_path, output_path):
-    # enter 1 for converting others
-    # enter 2 for converting offset file
-    convert_type = input("輸入1來轉換其他資料，輸入2來轉換抵免資料：")
+    ost = '抵免'
+    convert_type = ost in output_path
     df = None
-    if convert_type == '1':
+    if convert_type == False:
         check_column = '當期課號'
         df_varify = pd.read_excel(input_path)
         df_key = list(df_varify.keys())
@@ -53,10 +52,8 @@ def convertExcelToCsv(input_path, output_path):
             df = pd.read_excel(input_path, dtype={'學號': object, '當期課號': object})
         else:
             df = pd.read_excel(input_path, dtype={'學號': object})
-    elif convert_type == '2':
-        df = pd.read_excel(input_path, encoding = 'utf-8', dtype = {'學號':object, '原修課學年度':object, '原修課學期':object, '原修課當期課號':object})
     else:
-        print("錯誤。請輸入1或2")
+        df = pd.read_excel(input_path, encoding = 'utf-8', dtype = {'學號':object, '原修課學年度':object, '原修課學期':object, '原修課當期課號':object})
     df.to_csv(output_path, index=False)
 
 if __name__ == '__main__':
