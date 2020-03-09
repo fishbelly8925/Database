@@ -22,14 +22,13 @@ def validateCSV(file_path, unique_id):
         checkFile.recordLog(unique_id, record_status, message, mycursor, connection)
         return validate_flag
 
-    #check student length == 7
-    student_len = 7
+    #check student length == 7 or 9
+    student_len = [7, 9]
     df['student_id_len'] = df['學號'].str.len()
-    student_id_check = list(df['student_id_len']!=student_len)
-    if True in student_id_check:
-        record_status = 0
-        error_student_id_count = len(df[df['student_id_len']!=student_len]['學號'].values)
-        message = "錯誤：學號長度有誤 (可能為開頭缺少0) 共 : " + str(error_student_id_count) + "筆"
+    student_id_check = all(_ in student_len for _ in list(df['student_id_len']))
+    if student_id_check == False:
+        error_count = len(df[~df['student_id_len'].isin(student_len)])
+        message = "錯誤：學號長度有誤 (可能為開頭缺少0) 共 : " + str(error_count) + "筆"
         validate_flag = False
         checkFile.recordLog(unique_id, record_status, message, mycursor, connection)
         return validate_flag
@@ -127,15 +126,17 @@ def update_db_student_grad_rule_year(mycurser, connection):
     return record_status, code, message
 
 if __name__ == "__main__":
-    """./original/108student_new.csv"""
+    """./original/108-2-student_new.csv"""
     file_path = sys.argv[1]
+    year = file_path.split('/')[-1].split('-')[0]
+    semester = file_path.split('/')[-1].split('-')[1]
     global calling_file
     calling_file = __file__
     mycursor, connection = connect.connect2db()
 
     #Insert pending status (2) into database
     record_status = 2
-    unique_id = checkFile.initialLog(calling_file, record_status, mycursor, connection)
+    unique_id = checkFile.initialLog(calling_file, record_status, year, semester, mycursor, connection)
 
     #Check csv file
     validate_flag = validateCSV(file_path, unique_id)

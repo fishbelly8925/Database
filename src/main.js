@@ -37,11 +37,11 @@ var m = require('./msql.js');
 //     console.log(JSON.parse(result));
 // }); // ShowUserTotalCredit 回傳某學生總學分數
 
-m.ShowUserAllScore('0513407', function(err, result){
-    if(err)
-        throw err;
-    console.log(JSON.parse(result));
-}); // ShowUserAllScore 列出此學生通過的課
+// m.ShowUserAllScore('0513407', function(err, result){
+//     if(err)
+//         throw err;
+//     console.log(JSON.parse(result));
+// }); // ShowUserAllScore 列出此學生通過的課
 // // 測試學號
 // // 軍訓 0116089
 // // 霹靂悠 0516007
@@ -709,7 +709,7 @@ m.ShowUserAllScore('0513407', function(err, result){
 //     console.log(JSON.parse(result));
 // });
 
-// m.InsertNewData({file_name: '修課成績範例.xlsx', data_type: "課程成績資料", semester: '108-2'});
+// m.InsertNewData({file_name: '課程成績資料範例.xlsx', data_type: "課程成績資料", semester: '108-2'});
 // // 執行自動化匯入，因為是offline的作法，所以沒有call back function
 // // 參數：
 // // file_name: 檔案名稱
@@ -722,7 +722,7 @@ m.ShowUserAllScore('0513407', function(err, result){
 //         throw err;
 //     console.log(JSON.parse(result))
 // })
-// 顯示所有自動化匯入結果 log
+// // 顯示所有自動化匯入結果 log
 
 // m.DeleteDataLog({id: 17}, function(err, result){
 //     if(err)

@@ -151,28 +151,28 @@ module.exports = {
         if(data['data_type'] == '課程成績資料')
         {
             var program_name = 'insert_cos_score.py';
-            var data_path = data_path_base+data['semester']+'_cos_score.'+sub_data_name;
+            var data_path = data_path_base+data['semester']+'-cos_score.'+sub_data_name;
             if(data_path_base+data['file_name'] != data_path)
                 exec('python3 '+program_path+convertProgram+' '+data_path_base+data['file_name']+' '+data_path);
         }
         else if(data['data_type'] == '新老師資料')
         {
             var program_name = 'insert_new_teacher_info.py';
-            var data_path = data_path_base+data['semester']+'_new_teacher_info.'+sub_data_name;
+            var data_path = data_path_base+data['semester']+'-new_teacher_info.'+sub_data_name;
             if(data_path_base+data['file_name'] != data_path)
             exec('python3 '+program_path+convertProgram+' '+data_path_base+data['file_name']+' '+data_path);
         }
         else if(data['data_type'] == '當期修課資料')
         {
             var program_name = 'insert_on_cos_data.py';
-            var data_path = data_path_base+data['semester']+'_on_cos_data.'+sub_data_name;
+            var data_path = data_path_base+data['semester']+'-on_cos_data.'+sub_data_name;
             if(data_path_base+data['file_name'] != data_path)
             exec('python3 '+program_path+convertProgram+' '+data_path_base+data['file_name']+' '+data_path);
         }
         else if(data['data_type'] == '學生資料')
         {
             var program_name = 'insert_student.py';
-            var data_path = data_path_base+data['semester']+'_student.'+sub_data_name;
+            var data_path = data_path_base+data['semester']+'-student.'+sub_data_name;
             if(data_path_base+data['file_name'] != data_path)
             exec('python3 '+program_path+convertProgram+' '+data_path_base+data['file_name']+' '+data_path);
         }
@@ -190,7 +190,7 @@ module.exports = {
                     pool.release(c);
                     return ;
                 }
-                console.log(result);
+                // console.log(result);
                 for(let i=0; i<result.length; i+=1)
                 {
                     if(result[i]['calling_file'] == 'insert_cos_score.py')

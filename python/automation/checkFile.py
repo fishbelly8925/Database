@@ -30,12 +30,12 @@ def recordLog(unique_id, record_status, message, mycursor, connection):
     mycursor.execute(sql_log, tuple(check))
     connection.commit()
 
-def initialLog(calling_file, record_status, mycursor, connection):
+def initialLog(calling_file, record_status, year, semester, mycursor, connection):
     calling_file = calling_file.split('/')[-1]
-    sql_log = '''INSERT INTO log_file (calling_file, status)
-        VALUES (%s,%s);
+    sql_log = '''INSERT INTO log_file (calling_file, status, year, semester)
+        VALUES (%s,%s,%s,%s);
         '''
-    check = [calling_file, record_status]
+    check = [calling_file, record_status, year, semester]
     mycursor.execute(sql_log, tuple(check))
     connection.commit()
     return mycursor.lastrowid
