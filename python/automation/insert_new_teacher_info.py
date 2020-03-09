@@ -80,13 +80,15 @@ def insert2db(file_path, mycursor, connection):
 
 if __name__ == '__main__':
     file_path = sys.argv[1]
+    year = file_path.split('/')[-1].split('-')[0]
+    semester = file_path.split('/')[-1].split('-')[1]
     global calling_file
     calling_file = __file__
     mycursor, connection = connect.connect2db()
 
     # Insert pending status (2) into database
     record_status = 2
-    unique_id = checkFile.initialLog(calling_file, record_status, mycursor, connection)
+    unique_id = checkFile.initialLog(calling_file, record_status, year, semester, mycursor, connection)
 
     # Check csv file
     validate_flag = validatecsv(file_path, unique_id)
