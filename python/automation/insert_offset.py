@@ -161,7 +161,7 @@ if __name__ == '__main__':
 			checkFile.recordLog(unique_id, record_status, message, mycursor, connection)
 	mycursor.close()
 	connection.close()
-	# try:
-	# 	os.remove(output_path)
-	# except OSError as e:
-	# 	print(e)
+	try:
+		os.remove(output_path)
+	except OSError as e:
+		print(e)
