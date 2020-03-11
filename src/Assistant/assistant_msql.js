@@ -140,6 +140,16 @@ module.exports = {
         // "新老師資料"   => "new_teacher_info"
         // "當期修課資料" => "on_cos_data"
         // "學生資料"    => "student"
+        // "抵免資料"    => "offset"
+        // "英文換修資料" => "en_certificate"
+        var type_mapping = {
+            "課程成績資料": "cos_score",
+            "新老師資料": "new_teacher_info",
+            "當期修課資料": "on_cos_data",
+            "學生資料": "student",
+            "抵免資料": "offset",
+            "英文換修資料":"en_certificate"
+        }
 
         let exec = require('child_process').execSync;
         let data_path_base = '/home/nctuca/dinodino-extension/automation/data/'
@@ -147,36 +157,15 @@ module.exports = {
         // let data_path_base = '/home/karljackab/'
         // let program_path = '/home/karljackab/Database/python/automation/'
         let convertProgram = 'checkFile.py'
-        let sub_data_name = 'csv'
-        if(data['data_type'] == '課程成績資料')
-        {
-            var program_name = 'insert_cos_score.py';
-            var data_path = data_path_base+data['semester']+'-cos_score.'+sub_data_name;
-            if(data_path_base+data['file_name'] != data_path)
-                exec('python3 '+program_path+convertProgram+' '+data_path_base+data['file_name']+' '+data_path);
-        }
-        else if(data['data_type'] == '新老師資料')
-        {
-            var program_name = 'insert_new_teacher_info.py';
-            var data_path = data_path_base+data['semester']+'-new_teacher_info.'+sub_data_name;
-            if(data_path_base+data['file_name'] != data_path)
-            exec('python3 '+program_path+convertProgram+' '+data_path_base+data['file_name']+' '+data_path);
-        }
-        else if(data['data_type'] == '當期修課資料')
-        {
-            var program_name = 'insert_on_cos_data.py';
-            var data_path = data_path_base+data['semester']+'-on_cos_data.'+sub_data_name;
-            if(data_path_base+data['file_name'] != data_path)
-            exec('python3 '+program_path+convertProgram+' '+data_path_base+data['file_name']+' '+data_path);
-        }
-        else if(data['data_type'] == '學生資料')
-        {
-            var program_name = 'insert_student.py';
-            var data_path = data_path_base+data['semester']+'-student.'+sub_data_name;
-            if(data_path_base+data['file_name'] != data_path)
-            exec('python3 '+program_path+convertProgram+' '+data_path_base+data['file_name']+' '+data_path);
-        }
-        // console.log('python3 '+program_path+program_name+' '+data_path)
+
+        var program_name = 'insert_'+type_mapping[data['data_type']]+'.py';
+        var data_path = data_path_base+data['semester']+'-'+type_mapping[data['data_type']]+'.csv';
+
+        let convart_file_name = data_path_base+data['semester']+'-'+data['data_type']+'.xlsx'
+        if(data_path_base+data['file_name'] != convart_file_name)
+            exec('cp '+data_path_base+data['file_name']+' '+convart_file_name)
+        exec('python3 '+program_path+convertProgram+' '+convart_file_name+' '+data_path)
+
         exec('python3 '+program_path+program_name+' '+data_path);
     },
     ShowAllDataLog: function(callback){
