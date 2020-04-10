@@ -2,6 +2,7 @@ var CONST = require('../../constant.js')
 
 var psw = require(CONST.FILE_PATH);
 var s = require('./student_update_sqlString.js');
+var utils = require('../../utils.js')
 
 var pool = psw.dbpsw();
 
@@ -65,6 +66,8 @@ module.exports = {
         resource.then(function(c){
             var sql_CreateOffsetApplyForm = c.prepare(s.CreateOffsetApplyForm);
             var sql_SetUserPhone = c.prepare(s.SetUserPhone);
+            data = utils.stripStrNewLineBreak(data);
+
             c.query(sql_CreateOffsetApplyForm(data),function(err,result){
                 if(err){
                     callback(err, undefined);
@@ -88,6 +91,8 @@ module.exports = {
         resource.then(function(c){
             var sql_ModifyOffsetApplyForm = c.prepare(s.ModifyOffsetApplyForm);
             var sql_SetUserPhone = c.prepare(s.SetUserPhone);
+            data = utils.stripStrNewLineBreak(data);
+
             c.query(sql_ModifyOffsetApplyForm(data),function(err,result){
                 if(err){
                     callback(err, undefined);

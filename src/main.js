@@ -260,7 +260,7 @@ var m = require('./msql.js');
 // 	console.log(JSON.parse(result));
 // }); // 回傳教授id, 名字對應表
 
-// m.CreateResearchApplyForm({phone:'0900', student_id:'0716001', research_title:'testttt_14', tname:'彭文志', first_second:1, email:'wawawa@crayonSinJang', semester:'106-2', program:'應數系', name:'王小明'}, function(err,result){
+// m.CreateResearchApplyForm({phone:'0900', student_id:'', research_title:'testttt_14', tname:'彭文志', first_second:2, email:'wawawa@crayonSinJang', semester:'106-2', program:'應數系', name:'王小明'}, function(err,result){
 // 	if(err)
 // 		throw err;
 // 		//老師名字若不存在，就會拋出ERROR
@@ -709,13 +709,13 @@ var m = require('./msql.js');
 //     console.log(JSON.parse(result));
 // });
 
-m.InsertNewData({file_name: '抵免免修資料範例.xlsx', data_type: "抵免資料", semester: '108-2'});
-// 執行自動化匯入，因為是offline的作法，所以沒有call back function
-// 參數：
-// file_name: 檔案名稱
-// data_type:
-//      "課程成績資料", "新老師資料", "當期修課資料", "學生資料", "抵免資料", "英文換修資料"
-// semester: "108-1", "108-2", "109-1" ... 
+// m.InsertNewData({file_name: '抵免免修資料範例.xlsx', data_type: "抵免資料", semester: '108-2'});
+// // 執行自動化匯入，因為是offline的作法，所以沒有call back function
+// // 參數：
+// // file_name: 檔案名稱
+// // data_type:
+// //      "課程成績資料", "新老師資料", "當期修課資料", "學生資料", "抵免資料", "英文換修資料"
+// // semester: "108-1", "108-2", "109-1" ... 
 
 // m.ShowAllDataLog(function(err, result){
 //     if(err)
