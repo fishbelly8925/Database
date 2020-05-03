@@ -1,6 +1,7 @@
 import ast
 from datetime import date
 import connect
+import os
 
 ## This is an auto-update script for `cos_group` table.
 ## It will query the newest course cos_code for the following course.
@@ -203,7 +204,7 @@ def update_db_cos_grp(mycursor, connection, new_cos_grp, mapping_dict):
     else:
         print('Success')
         connection.commit()
-    
+    os.remove('./new_cos_group.csv')
 
 if __name__ == '__main__':
     mycursor, connection = connect.connect2db()
