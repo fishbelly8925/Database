@@ -1,5 +1,5 @@
-Store_dir='/home/nctuca/db_backup'
-Max_back_file_num=20
+Store_dir='/home/nctuca/dinodino-extension/db_backup'
+Max_back_file_num=42
 ####################################
 now="$(date +'%Y %m %d %T')"
 year=$(echo ${now} | cut -d" " -f1)

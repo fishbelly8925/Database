@@ -6,7 +6,7 @@
 import csv
 import sys
 
-base_dir = '/home/nctuca/db_data/scrapCosTea/'
+base_dir = '/home/nctuca/dinodino-extension/db_data/crawlCosData/'
 
 dtHeader = ['unique_id','brief','brief_new','cos_code','cos_credit','cos_hours','cos_id','cos_time','cos_type','cos_typeext','degree','depType','dep_id','memo','num_limit','reg_num','teacher','grade']
 cnHeader = ['unique_id','cos_code','cos_cname','cos_ename']
