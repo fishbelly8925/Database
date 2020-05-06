@@ -10,8 +10,20 @@ exports.ShowTeacherCosNow = "\
     where n.cos_code IN\
     (\
         select c.cos_code\
-        from cos_data as c\
-        where c.unique_id LIKE '107-1%'\
+        from cos_data as c,\
+        (\
+            select distinct concat(cos_year.year, '-',\
+                max(convert(substring(cd.unique_id, 5, 1), SIGNED)), '%') as semester\
+            from \
+            (\
+                select max(convert(substring(unique_id, 1, 3), SIGNED)) as year\
+                from cos_data\
+                where substring(unique_id,5,1) != 'X'\
+            ) as cos_year,\
+            cos_data as cd\
+            where convert(substring(cd.unique_id, 1, 3), SIGNED) = cos_year.year\
+        ) as sem\
+        where c.unique_id LIKE sem.semester\
         and c.teacher_id IN\
         (\
             select tc.teacher_id\
