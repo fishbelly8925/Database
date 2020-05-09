@@ -6,6 +6,7 @@ import checkFile
 import connect
 import sys
 import os
+import time
 
 def validateCSV(file_path, unique_id):
 	needed_column = ['學號', '申請年度', '申請學期', '原修課學年度', '原修課學期', '原修課當期課號', '原修課課名', 
@@ -26,7 +27,7 @@ def validateCSV(file_path, unique_id):
 	return validate_flag
 	
 
-def convert_coscode(file_path, mycursor, connection):
+def convert_coscode(file_path, mycursor, connection, unique_id):
 
 	df = pd.read_csv(file_path, encoding = 'utf-8', dtype = {'學號':object, '原修課學年度':object, '原修課學期':object, '原修課當期課號':object})
 
@@ -59,7 +60,15 @@ def convert_coscode(file_path, mycursor, connection):
 		   '欲抵免免修永久課號', '欲抵免免修課名', '學分數', '抵免或免修', '原課程向度', '學生選別', '欲抵免免修課程向度']
 	df = df[col]
 
-	df['欲抵免免修課程向度'] = df['欲抵免免修課程向度'].astype(str).str.replace('院基本素養', '跨院基本素養')
+	try:
+		df['欲抵免免修課程向度'] = df['欲抵免免修課程向度'].astype(str).str.replace('院基本素養', '跨院基本素養')
+	except Exception as e:
+		record_status = 0
+		msg = '錯誤：欄位資料可能有錯，'
+		msg += str(e)
+		checkFile.recordLog(unique_id, record_status, msg, mycursor, connection)
+		exit(0)
+
 
 	output_path = os.getcwd() + "/temp_offset.csv"
 	df.to_csv(output_path, index = False, encoding = 'utf-8')
@@ -151,7 +160,7 @@ if __name__ == '__main__':
 	# Check csv file
 	validate_flag = validateCSV(file_path, unique_id)
 
-	output_path = convert_coscode(file_path, mycursor, connection)
+	output_path = convert_coscode(file_path, mycursor, connection, unique_id)
 	
 	if validate_flag == True:
 		record_status, code, message, affect_count = insert2db(output_path, mycursor, connection)
