@@ -140,14 +140,14 @@ module.exports = {
         // "新老師資料"   => "new_teacher_info"
         // "當期修課資料" => "on_cos_data"
         // "學生資料"    => "student"
-        // "抵免資料"    => "offset"
+        // "抵免免修資料"    => "offset"
         // "英文換修資料" => "en_certificate"
         var type_mapping = {
             "課程成績資料": "cos_score",
             "新老師資料": "new_teacher_info",
             "當期修課資料": "on_cos_data",
             "學生資料": "student",
-            "抵免資料": "offset",
+            "抵免免修資料": "offset",
             "英文換修資料":"en_certificate"
         }
 
