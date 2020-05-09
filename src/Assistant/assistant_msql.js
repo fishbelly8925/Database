@@ -151,11 +151,14 @@ module.exports = {
             "英文換修資料":"en_certificate"
         }
 
-        let exec = require('child_process').execSync;
-        let data_path_base = '/home/nctuca/dinodino-extension/automation/data/'
-        let program_path = '/home/nctuca/dinodino-extension/automation/'
-        // let data_path_base = '/home/karljackab/'
-        // let program_path = '/home/karljackab/Database/python/automation/'
+        let exec_sync = require('child_process').execSync;
+        let exec = require('child_process').exec;
+
+
+        // let data_path_base = '/home/nctuca/dinodino-extension/automation/data/'
+        // let program_path = '/home/nctuca/dinodino-extension/automation/'
+        let data_path_base = '/home/karljackab/'
+        let program_path = '/home/karljackab/Database/python/automation/'
         let convertProgram = 'checkFile.py'
 
         var program_name = 'insert_'+type_mapping[data['data_type']]+'.py';
@@ -163,10 +166,19 @@ module.exports = {
 
         let convart_file_name = data_path_base+data['semester']+'-'+data['data_type']+'.xlsx'
         if(data_path_base+data['file_name'] != convart_file_name)
-            exec('cp '+data_path_base+data['file_name']+' '+convart_file_name)
-        exec('python3 '+program_path+convertProgram+' '+convart_file_name+' '+data_path)
-
-        exec('python3 '+program_path+program_name+' '+data_path);
+            exec_sync('cp '+data_path_base+data['file_name']+' '+convart_file_name)
+       
+        exec('python3 '+program_path+convertProgram+' '+convart_file_name+' '+data_path, function(error, stdout, stderr) {
+            if(error != null)
+                console.log("Convert Error!")
+            else
+                exec('python3 '+program_path+program_name+' '+data_path, function(error, stdout, stderr){
+                    if(error != null)
+                        console.log("Import Error!")
+                    console.log(error);
+                });
+        });
+        console.log("bye~")
     },
     ShowAllDataLog: function(callback){
         const resource = pool.acquire();
