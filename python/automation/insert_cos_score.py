@@ -130,7 +130,7 @@ def insertDB(file_path, mycursor, connection):
     return record_status, code, message, affect_count
 
 
-def parseXLSX(file_path):
+def parseXLSX(file_path, output_path):
     df = pd.read_excel(file_path, dtype={'學號': object, '當期課號': object})
     df = df[df['備註']!='未送達'].reset_index(drop=True)
     df_parse = df.copy()
@@ -209,14 +209,14 @@ def parseXLSX(file_path):
     columns_order = ['學號', '學年度', '學期', '當期課號', '開課單位', '課名', '永久課號', '課程向度', '選別', '學分數', '評分方式', '評分狀態', '成績', '等級成績', 'GP']
     cols = list(df.columns)
     df_parse = df_parse[columns_order]
-    output_path = './original/108-2-parsed_cos_score.csv'
     df_parse.to_csv(output_path, index = False, encoding = 'utf-8')
 
 
 if __name__ == "__main__":
     """./original/108-2-cos_score.csv"""
     file_path = sys.argv[1]
-    # parseXLSX(file_path)
+    csv_path = file_path.split('.xlsx')[0] + '.csv'
+    parseXLSX(file_path, csv_path)
     year = file_path.split('/')[-1].split('-')[0]
     semester = file_path.split('/')[-1].split('-')[1]
     global calling_file
@@ -228,12 +228,12 @@ if __name__ == "__main__":
     unique_id = checkFile.initialLog(calling_file, record_status, year, semester, mycursor, connection)
 
     #Check csv file
-    validate_flag = validateCSV(file_path, unique_id)
+    validate_flag = validateCSV(csv_path, unique_id)
     # print(validate_flag)
 
     if validate_flag == True:
         #Import this semester's on cos data
-        record_status, code, message, affect_count = insertDB(file_path, mycursor, connection)
+        record_status, code, message, affect_count = insertDB(csv_path, mycursor, connection)
         if record_status == 0:
             message = "匯入成績錯誤：" + message
             checkFile.recordLog(unique_id, record_status, message, mycursor, connection)
