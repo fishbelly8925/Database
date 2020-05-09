@@ -37,15 +37,11 @@ var m = require('./msql.js');
 //     console.log(JSON.parse(result));
 // }); // ShowUserTotalCredit 回傳某學生總學分數
 
-// m.ShowUserAllScore('0513407', function(err, result){
+// m.ShowUserAllScore('0516003', function(err, result){
 //     if(err)
 //         throw err;
 //     console.log(JSON.parse(result));
 // }); // ShowUserAllScore 列出此學生通過的課
-// // 測試學號
-// // 軍訓 0116089
-// // 霹靂悠 0516007
-// // 轉系抵免 0411276 
 
 // m.ShowUserPartScore('0516003', '通識', function(err, result){
 //     if(err)
@@ -53,13 +49,13 @@ var m = require('./msql.js');
 //     console.log(JSON.parse(result));
 // }); // ShowUserPartScore 列出此學生某向度中通過的課
 
-// m.ShowCosGroup('0617054', function(err, result){
+// m.ShowCosGroup('0516003', function(err, result){
 //     if(err)
 //         throw err;
 //     console.log(JSON.parse(result));
 // }); // ShowCosGroup 列出此學生畢業預審表上 必修、核心、副核心等課程分類
 
-// m.ShowGraduateRule('0617054', function(err, result){
+// m.ShowGraduateRule('0516003', function(err, result){
 //     if(err)
 //         throw err;
 // 	   console.log(JSON.parse(result));
@@ -71,13 +67,13 @@ var m = require('./msql.js');
 // 	   console.log(JSON.parse(result));
 // }); // ShowUserOffset 個人抵免資料 (輸入all顯示全部)
 
-// m.ShowUserOnCos('all', function(err, result){
+// m.ShowUserOnCos('0516003', function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
 // }); // ShowUserOnCos 大四個人當期修課資料 (輸入all顯示全部)
 
-// m.ShowGraduateStudentList('04', function(err, result){
+// m.ShowGraduateStudentList('05', function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
@@ -188,14 +184,12 @@ var m = require('./msql.js');
 // 	unique_id: '107-2-5258',
 // 	star_level: 4
 // }
-
 // m.SetRecommendCosStar(data_SetRecommendCosStar, function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
 // })
-
-// 設定推薦課程的星星等級，如果已經存在就覆寫
+// // 設定推薦課程的星星等級，如果已經存在就覆寫
 
 // m.ShowGradeTeacherResearchStudent('T9229','',function(err, result){
 // 	if(err)
@@ -215,40 +209,13 @@ var m = require('./msql.js');
 // 	console.log(JSON.parse(result)[0]);
 // }); // ShowTeacherInfoResearchCnt(callback) 回傳教授各屆的學生人數
 
-// m.CreateMail({sender_id:'0516003', title:'test~~', receiver_id:'T9229', content:'這是一個測試信件這是一個測試信件'});
-// // CreateMail(data) data type 為JSON，新增一則信件，需有以上所有欄位
-
-// m.DeleteMail('0516003-2018-04-21 02:51:50');
-// // DeleteMail(mail_id)
-
-// m.SetMailRead('0516003-2018-04-21 14:03:44-T9229', 1);
-// // SetMailRead(mail_id, read_bit) set mail read_bit
-
-// m.ShowMailInfo('0516003-2018-04-21 03:29:10', function(err, result){
-// 	if(err)
-// 		throw err;
-// 	console.log(JSON.parse(result));
-// }); // ShowMailInfo(mail_id) 回傳單一mail詳細資訊
-
-// m.ShowMailRcdList('T9229', function(err, result){
-// 	if(err)
-// 		throw err;
-// 	console.log(JSON.parse(result));
-// }); // ShowMailRcdList(receiver_id) 回傳該使用者所收到mail清單（沒有信件內文）
-
-// m.ShowMailSendList('0516003', function(err, result){
-// 	if(err)
-// 		throw err;
-// 	console.log(JSON.parse(result));
-// }); // ShowMailSendList(sender_id) 回傳該使用者所寄發mail清單（沒有信件內文）
-
 // m.ShowStudentIdList(function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
 // }); // 回傳學生id, 名字對應表
 
-// m.ShowGradeStudentIdList('05', function(err, result){
+// m.ShowGradeStudentIdList('07', function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
@@ -369,10 +336,10 @@ var m = require('./msql.js');
 // 	console.log(JSON.parse(result));
 // }); // 輸入學生學號，回傳該學生導師
 
-// m.ShowSemesterScore('0513109', function(err, result){
+// m.ShowSemesterScore('0516003', function(err, result){
 // 	if(err)
 // 		throw err;
-// 	console.log(JSON.parse(result)[3]);
+// 	console.log(JSON.parse(result));
 // }); // 輸入學生學號，回傳該學生每學期平均,有無被21,學期平均,各科成績
 
 // m.ShowStudentResearchStatus('0413328', function(err, result){
@@ -401,7 +368,7 @@ var m = require('./msql.js');
 
 
 // data = { 
-// 	student_id: '0516005',
+// 	student_id: '0516003',
 // 	phone: '0123456789',
 // 	apply_year: '107',
 // 	apply_semester: '1',
@@ -490,7 +457,6 @@ var m = require('./msql.js');
 // 	cos_cname: '生涯規劃及導師時間',
 // 	credit: 0,
 // 	cos_type: '必修'
-	
 // }
 // m.CreateOffset(data,function(err,result){
 // 	if(err)
@@ -499,18 +465,18 @@ var m = require('./msql.js');
 // }); // create offset
 
 
-// data1 = {student_id: '0516005'} // return single student offset apply form
+// data1 = {student_id: '0416104'} // return single student offset apply form
 // data2 = {all_student: true} // return all student offset apply form
 // m.ShowUserOffsetApplyForm(data1,function(err,result){
 // 	if(err)
-// 		throw err;
+//         throw err;
 // 	console.log(JSON.parse(result));
 // });	
 
 // data = {
-// 	student_id: '0516003',
-// 	cos_cname_old: '線性',
-// 	cos_cname: '線性代數'
+// 	student_id: '0716308',
+// 	cos_cname_old: '正規語言概論',
+// 	cos_cname: '正規語言與計算理論'
 // }
 // m.ShowGivenOffsetApplyForm(data,function(err,result){
 // 	if(err)
@@ -536,7 +502,7 @@ var m = require('./msql.js');
 //         throw err;
 //     console.log(JSON.parse(result));
 // });
-// // // 輸入一二三四，顯示某年級所有學生,1表示本系生，0表示外系生
+// // 輸入一二三四，顯示某年級所有學生,1表示本系生，0表示外系生
 
 // m.ShowStudentGraduate({student_id: '0516075'}, function(err, result){
 // 	if(err)
@@ -639,7 +605,7 @@ var m = require('./msql.js');
 // 		throw err;
 // 	console.log(JSON.parse(result));
 // });
-// 顯示某一屆當期的熱門選課(會是自己沒有修過的課)
+// // 顯示某一屆當期的熱門選課(會是自己沒有修過的課)
 
 // m.ShowStudentFirstSecond('0411081',function(err,result){
 // 	if(err)
