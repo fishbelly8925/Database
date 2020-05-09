@@ -31,11 +31,26 @@ def recordLog(unique_id, record_status, message, mycursor, connection):
     connection.commit()
 
 def initialLog(calling_file, record_status, year, semester, mycursor, connection):
+    type_mapping = {
+        "cos_score": "課程成績資料",
+        "new_teacher_info": "新老師資料",
+        "on_cos_data": "當期修課資料",
+        "student": "學生資料",
+        "offset": "抵免免修資料",
+        "en_certificate": "英文換修資料"
+    }
+
     calling_file = calling_file.split('/')[-1]
-    sql_log = '''INSERT INTO log_file (calling_file, status, year, semester)
-        VALUES (%s,%s,%s,%s);
+    log_type = '_'.join(calling_file.split('_')[1:]).split('.')[0]
+    if log_type in type_mapping:
+        log_type = type_mapping[log_type]
+    else:
+        log_type = "其他"
+
+    sql_log = '''INSERT INTO log_file (calling_file, status, year, semester, log_type)
+        VALUES (%s,%s,%s,%s, %s);
         '''
-    check = [calling_file, record_status, year, semester]
+    check = [calling_file, record_status, year, semester, log_type]
     mycursor.execute(sql_log, tuple(check))
     connection.commit()
     return mycursor.lastrowid

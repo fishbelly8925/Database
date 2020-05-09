@@ -5,9 +5,10 @@ import pandas as pd
 import numpy as np
 import checkFile
 import connect
+import os
 
 def validateCSV(file_path, unique_id):
-    needed_column = ['學號', '姓名', '班級', '年級', '性別', '入學身份', '在學身份', '在學狀況', 'eMail']
+    needed_column = ['學號', '姓名', '班級', '性別', '入學身份', '在學身份', '在學狀況', 'eMail']
     record_status = 1
     validate_flag = True
     df = pd.read_csv(file_path, dtype={'學號': object})
@@ -35,6 +36,21 @@ def validateCSV(file_path, unique_id):
                  
     return validate_flag
 
+def convert_data(file_path):
+    success_flag = True
+    try:
+        order = ['學號', '姓名', '班級', '年級', '性別', '入學身份', '在學身份', '在學狀況', 'eMail']
+        df = pd.read_csv(file_path, dtype={'學號': object})
+        df['年級'] = df['班級'].str[3]
+        df['班級'] = df['班級'].str[4]
+        df = df[order]
+
+        output_path = os.getcwd() + "/temp_student.csv"
+        df.to_csv(output_path, index = False, encoding = 'utf-8')
+        return output_path, success_flag
+    except:
+        return None, False
+
 def insertDB(file_path, mycursor, connection):
     record_status = None
     code = None
@@ -51,7 +67,7 @@ def insertDB(file_path, mycursor, connection):
             enroll_status varchar(20),
             now_status varchar(10),
             study_status varchar(10),
-            email varchar(50),
+            email varchar(70),
             primary key(student_id)
         )DEFAULT CHARSET=utf8mb4;
     '''
@@ -79,6 +95,17 @@ def insertDB(file_path, mycursor, connection):
         ;
     '''
     dump_sql4 = '''
+        update student
+        set study_status = "畢業/休學/已離校"
+        where student_id not in
+        (
+            select student_id
+            from temp_student
+        )
+        and study_status != "畢業"
+        and study_status != "休學";
+    '''
+    dump_sql5 = '''
         drop temporary table temp_student;
     '''
 
@@ -88,6 +115,7 @@ def insertDB(file_path, mycursor, connection):
         mycursor.execute(dump_sql3)
         affect_count = mycursor.rowcount
         mycursor.execute(dump_sql4)
+        mycursor.execute(dump_sql5)
     except pymysql.InternalError as error:
         code, message = error.args
         record_status = 0
@@ -142,18 +170,33 @@ if __name__ == "__main__":
     validate_flag = validateCSV(file_path, unique_id)
 
     if validate_flag == True:
-        #Import this semester's on cos data
-        record_status, code, message, affect_count = insertDB(file_path, mycursor, connection)
-        if record_status == 0:
-            message = "匯入學生資料錯誤：" + message
-            checkFile.recordLog(unique_id, record_status, message, mycursor, connection)
-        if record_status == 1:
-            record_status, code, message = update_db_student_grad_rule_year(mycursor, connection)
+        #Convert csv file
+        output_pth, success_flag = convert_data(file_path)
+
+        if success_flag:
+            #Import this semester's on cos data
+            record_status, code, message, affect_count = insertDB(output_pth, mycursor, connection)
+            if record_status == 0:
+                message = "匯入學生資料錯誤：" + message
+                checkFile.recordLog(unique_id, record_status, message, mycursor, connection)
             if record_status == 1:
-                message = "已匯入學生資料共 " + str(affect_count) + ' 筆'
-                checkFile.recordLog(unique_id, record_status, message, mycursor, connection)
-            else:
-                message = "更新學生畢業預審年度錯誤：" + message
-                checkFile.recordLog(unique_id, record_status, message, mycursor, connection)
+                record_status, code, message = update_db_student_grad_rule_year(mycursor, connection)
+                if record_status == 1:
+                    message = "已匯入學生資料共 " + str(affect_count) + ' 筆'
+                    checkFile.recordLog(unique_id, record_status, message, mycursor, connection)
+                else:
+                    message = "更新學生畢業預審年度錯誤：" + message
+                    checkFile.recordLog(unique_id, record_status, message, mycursor, connection)
+            try:
+                os.remove(output_pth)
+            except OSError as e:
+                print(e)
+        else:
+            message = "匯入學生資料錯誤： 班級資料錯誤 (可能有特例學生，年級與組別皆需存在)"
+            record_status = 0
+            checkFile.recordLog(unique_id, record_status, message, mycursor, connection)
+    
     mycursor.close()  ## here all loops done
     connection.close()  ## close db connection
+
+    

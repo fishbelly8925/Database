@@ -151,7 +151,10 @@ module.exports = {
             "英文換修資料":"en_certificate"
         }
 
-        let exec = require('child_process').execSync;
+        let exec_sync = require('child_process').execSync;
+        let exec = require('child_process').exec;
+
+
         let data_path_base = '/home/nctuca/dinodino-extension/automation/data/'
         let program_path = '/home/nctuca/dinodino-extension/automation/'
         // let data_path_base = '/home/karljackab/'
@@ -163,10 +166,12 @@ module.exports = {
 
         let convart_file_name = data_path_base+data['semester']+'-'+data['data_type']+'.xlsx'
         if(data_path_base+data['file_name'] != convart_file_name)
-            exec('cp '+data_path_base+data['file_name']+' '+convart_file_name)
-        exec('python3 '+program_path+convertProgram+' '+convart_file_name+' '+data_path)
-
-        exec('python3 '+program_path+program_name+' '+data_path);
+            exec_sync('cp '+data_path_base+data['file_name']+' '+convart_file_name)
+       
+        exec('python3 '+program_path+convertProgram+' '+convart_file_name+' '+data_path, function(error, stdout, stderr) {
+            if(error == null)
+                exec('python3 '+program_path+program_name+' '+data_path);
+        });
     },
     ShowAllDataLog: function(callback){
         const resource = pool.acquire();
@@ -178,19 +183,6 @@ module.exports = {
                     callback(err, undefined);
                     pool.release(c);
                     return ;
-                }
-                // console.log(result);
-                for(let i=0; i<result.length; i+=1)
-                {
-                    if(result[i]['calling_file'] == 'insert_cos_score.py')
-                        result[i]['data_type'] = '課程成績資料'
-                    else if(result[i]['calling_file'] == 'insert_new_teacher_info.py')
-                        result[i]['data_type'] = '新老師資料'
-                    else if(result[i]['calling_file'] == 'insert_on_cos_data.py')
-                        result[i]['data_type'] = '當期修課資料'
-                    else if(result[i]['calling_file'] == 'insert_student.py')
-                        result[i]['data_type'] = '學生資料' 
-                    delete result[i]['calling_file']
                 }
                 callback(null, JSON.stringify(result));
                 pool.release(c);

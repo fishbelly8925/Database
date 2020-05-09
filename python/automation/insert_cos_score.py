@@ -1,14 +1,20 @@
 import sys
 import pymysql
 import csv
+import os
 import pandas as pd
 import numpy as np
 import checkFile
 import connect
 
+# 學號、班別、姓名、學期、當期課號、永久課號、課名、學分數、開課單位、選別、摘要、評分方式、成績、備註、GP
+
+
 def validateCSV(file_path, unique_id):
     #since score has NaN, so its type will be float64
-    needed_column = ['學號', '學年度', '學期', '當期課號', '開課系所', '課程名稱', '永久課號', '課程向度', '學生選別', '學分數', '評分方式', '評分狀態', '成績', '等級成績', 'GP']
+    needed_column = ['學號', '學期', '當期課號', '永久課號', '課名',
+                     '學分數', '開課單位', '選別', '評分方式', '評分狀態', '成績',
+                     'GP']
     record_status = 1
     validate_flag = True
     df = pd.read_csv(file_path, dtype={'學號': object, '當期課號': object})
@@ -45,8 +51,9 @@ def validateCSV(file_path, unique_id):
         validate_flag = False
         checkFile.recordLog(unique_id, record_status, message, mycursor, connection)
         return validate_flag
-                 
+
     return validate_flag
+
 
 def insertDB(file_path, mycursor, connection):
     record_status = None
@@ -122,9 +129,94 @@ def insertDB(file_path, mycursor, connection):
 
     return record_status, code, message, affect_count
 
+
+def parseXLSX(file_path, output_path):
+    df = pd.read_excel(file_path, dtype={'學號': object, '當期課號': object})
+    df = df[df['備註']!='未送達'].reset_index(drop=True)
+    df_parse = df.copy()
+    df_parse = df_parse.drop(columns=['班別', '姓名', '摘要', '備註'])
+    # Processing to fit table columns
+    year = []
+    semester = []
+    brief = []
+    pass_fail = []
+    score_level = []
+    for i in range(len(df)):
+        year.append(df['學期'][i] // 10)
+        semester.append(df['學期'][0] % 10)
+        brief.append(df['摘要'][i])
+        # Parse score level by score
+        if df['成績'][i].isnumeric():
+            if int(df['成績'][i]) >= 90 and int(df['成績'][i]) <= 100:
+                score_level.append('A+')
+            elif int(df['成績'][i]) >= 85 and int(df['成績'][i]) <= 89:
+                score_level.append('A')
+            elif int(df['成績'][i]) >= 80 and int(df['成績'][i]) <= 84:
+                score_level.append('A-')
+            elif int(df['成績'][i]) >= 77 and int(df['成績'][i]) <= 79:
+                score_level.append('B+')
+            elif int(df['成績'][i]) >= 73 and int(df['成績'][i]) <= 76:
+                score_level.append('B')
+            elif int(df['成績'][i]) >= 70 and int(df['成績'][i]) <= 72:
+                score_level.append('B-')
+            elif int(df['成績'][i]) >= 67 and int(df['成績'][i]) <= 69:
+                score_level.append('C+')
+            elif int(df['成績'][i]) >= 63 and int(df['成績'][i]) <= 66:
+                score_level.append('C')
+            elif int(df['成績'][i]) >= 60 and int(df['成績'][i]) <= 62:
+                score_level.append('C-')
+            elif int(df['成績'][i]) >= 50 and int(df['成績'][i]) <= 59:
+                score_level.append('D')
+            elif int(df['成績'][i]) >= 1 and int(df['成績'][i]) <= 49:
+                score_level.append('E')
+            elif int(df['成績'][i]) == 0:
+                score_level.append('X')
+        else:
+            if df['評分方式'][i] == '通過不通過' or df['評分方式'][i] == '等級' or (df['評分方式'][i] == '百分'):
+                score_level.append(None)
+        # Parse pass fail by score
+        if df['成績'][i].isnumeric():
+            if int(df['成績'][i]) >= 60:
+                pass_fail.append('通過')
+            else:
+                pass_fail.append('不通過')
+        elif df['成績'][i] == 'A+' or df['成績'][i] == 'A' or df['成績'][i] == 'A-' or \
+             df['成績'][i] == 'B+' or df['成績'][i] == 'B' or df['成績'][i] == 'B-' or \
+             df['成績'][i] == 'C+' or df['成績'][i] == 'C' or df['成績'][i] == 'C-':
+            pass_fail.append('通過')
+            df_parse['成績'][i] = None
+        elif df['成績'][i] == 'D' or df['成績'][i] == 'E' or df['成績'][i] == 'X':
+            pass_fail.append('不通過')
+            df_parse['成績'][i] = None
+        elif df['成績'][i] == 'P':
+            pass_fail.append('通過')
+            df_parse['成績'][i] = None
+        elif df['成績'][i] == 'F':
+            pass_fail.append('不通過')
+            df_parse['成績'][i] = None
+        elif df['成績'][i] == 'W':
+            pass_fail.append('W')
+            df_parse['成績'][i] = None
+        elif df['成績'][i] == 'Y':
+            pass_fail.append('Y')
+
+    df_parse['學年度'] = year
+    df_parse['學期'] = semester
+    df_parse['課程向度'] = brief
+    df_parse['評分狀態'] = pass_fail
+    df_parse['等級成績'] =  score_level
+    # Swap columns
+    columns_order = ['學號', '學年度', '學期', '當期課號', '開課單位', '課名', '永久課號', '課程向度', '選別', '學分數', '評分方式', '評分狀態', '成績', '等級成績', 'GP']
+    cols = list(df.columns)
+    df_parse = df_parse[columns_order]
+    df_parse.to_csv(output_path, index = False, encoding = 'utf-8')
+
+
 if __name__ == "__main__":
     """./original/108-2-cos_score.csv"""
     file_path = sys.argv[1]
+    csv_path = file_path.split('.xlsx')[0] + '.csv'
+    parseXLSX(file_path, csv_path)
     year = file_path.split('/')[-1].split('-')[0]
     semester = file_path.split('/')[-1].split('-')[1]
     global calling_file
@@ -136,12 +228,12 @@ if __name__ == "__main__":
     unique_id = checkFile.initialLog(calling_file, record_status, year, semester, mycursor, connection)
 
     #Check csv file
-    validate_flag = validateCSV(file_path, unique_id)
+    validate_flag = validateCSV(csv_path, unique_id)
     # print(validate_flag)
 
     if validate_flag == True:
         #Import this semester's on cos data
-        record_status, code, message, affect_count = insertDB(file_path, mycursor, connection)
+        record_status, code, message, affect_count = insertDB(csv_path, mycursor, connection)
         if record_status == 0:
             message = "匯入成績錯誤：" + message
             checkFile.recordLog(unique_id, record_status, message, mycursor, connection)
