@@ -131,7 +131,7 @@ def insertDB(file_path, mycursor, connection):
 
 
 def parseXLSX(file_path, output_path):
-    df = pd.read_excel(file_path, dtype={'學號': object, '當期課號': object})
+    df = pd.read_csv(file_path, dtype={'學號': object, '當期課號': object})
     df = df[df['備註']!='未送達'].reset_index(drop=True)
     df_parse = df.copy()
     df_parse = df_parse.drop(columns=['班別', '姓名', '摘要', '備註'])
@@ -215,7 +215,7 @@ def parseXLSX(file_path, output_path):
 if __name__ == "__main__":
     """./original/108-2-cos_score.csv"""
     file_path = sys.argv[1]
-    csv_path = file_path.split('.xlsx')[0] + '.csv'
+    csv_path = file_path + '_parsed.csv'
     parseXLSX(file_path, csv_path)
     year = file_path.split('/')[-1].split('-')[0]
     semester = file_path.split('/')[-1].split('-')[1]
