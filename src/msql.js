@@ -16,4 +16,4 @@ function merge(modu){
     return result;
 }
 
-module.exports = merge([StudentUpdate, StudentShow, Course, Teacher, ResearchShow, ResearchUpdate, Mail, Assistant, Graduate, Chatbot]);
+module.exports = merge([StudentUpdate, StudentShow, Course, Teacher, ResearchShow, ResearchUpdate, Assistant, Graduate, Chatbot]);
