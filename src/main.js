@@ -37,11 +37,11 @@ var m = require('./msql.js');
 //     console.log(JSON.parse(result));
 // }); // ShowUserTotalCredit 回傳某學生總學分數
 
-// m.ShowUserAllScore('0516003', function(err, result){
-//     if(err)
-//         throw err;
-//     console.log(JSON.parse(result));
-// }); // ShowUserAllScore 列出此學生通過的課
+m.ShowUserAllScore('0516003', function(err, result){
+    if(err)
+        throw err;
+    console.log(JSON.parse(result));
+}); // ShowUserAllScore 列出此學生通過的課
 
 // m.ShowUserPartScore('0516003', '通識', function(err, result){
 //     if(err)
