@@ -59,7 +59,7 @@ def convert_coscode(file_path, mycursor, connection):
 		   '欲抵免免修永久課號', '欲抵免免修課名', '學分數', '抵免或免修', '原課程向度', '學生選別', '欲抵免免修課程向度']
 	df = df[col]
 
-	df['欲抵免免修課程向度'] = df['欲抵免免修課程向度'].str.replace('院基本素養', '跨院基本素養')
+	df['欲抵免免修課程向度'] = df['欲抵免免修課程向度'].astype(str).str.replace('院基本素養', '跨院基本素養')
 
 	output_path = os.getcwd() + "/temp_offset.csv"
 	df.to_csv(output_path, index = False, encoding = 'utf-8')
