@@ -41,7 +41,7 @@ def initialLog(calling_file, record_status, year, semester, mycursor, connection
     }
 
     calling_file = calling_file.split('/')[-1]
-    log_type = calling_file.split('_')[1].split('.')[0]
+    log_type = '_'.join(calling_file.split('_')[1:]).split('.')[0]
     if log_type in type_mapping:
         log_type = type_mapping[log_type]
     else:
