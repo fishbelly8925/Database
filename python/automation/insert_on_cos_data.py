@@ -7,7 +7,7 @@ import checkFile
 import connect
 
 def validateCSV(file_path, unique_id):
-    needed_column = ['學號', '學年度', '學期', '當期課號', '開課系所', '永久課號', '學生選別', 'scr_summaryno', '學分數']
+    needed_column = ['學號', '學年度', '學期', '當期課號', '開課單位', '永久課號', '選別', 'scr_summaryno', '學分數']
     record_status = 1
     validate_flag = True
     df = pd.read_csv(file_path, dtype={'學號': object, '當期課號': object})
@@ -47,6 +47,7 @@ def validateCSV(file_path, unique_id):
                  
     return validate_flag
 
+
 def deleteLastCourse(mycursor, connection):
     record_status = None
     code = None
@@ -63,6 +64,7 @@ def deleteLastCourse(mycursor, connection):
         code, message = error.args
         record_status = 0
     return record_status, code, message, affect_count
+
 
 def insertDB(file_path, mycursor, connection):
     record_status = None
@@ -125,21 +127,50 @@ def insertDB(file_path, mycursor, connection):
 
     return record_status, code, message, affect_count
 
+
+def parseXLSX(file_path, output_path, selected_year, selected_semester):
+    df = pd.read_csv(file_path, dtype={'學號': object, '當期課號': object})
+    concat_year_semester = str(selected_year) + str(selected_semester)
+    df = df[df['學期'] == int(concat_year_semester)].reset_index(drop=True)
+    df_parse = df.copy()
+    df_parse = df_parse.drop(columns=['班別', '姓名', '摘要', '備註'])
+    # Processing to fit table columns
+    year = []
+    semester = []
+    year = [selected_year] * len(df)
+    semester = [selected_semester] * len(df)
+    scr_summaryno = [None] * len(df)
+
+    df_parse['學年度'] = year
+    df_parse['學期'] = semester
+    df_parse['scr_summaryno'] = scr_summaryno
+    # # Swap columns
+    columns_order = ['學號', '學年度', '學期', '當期課號', '開課單位', '永久課號', '選別', 'scr_summaryno', '學分數']
+    cols = list(df.columns)
+    df_parse = df_parse[columns_order]
+    print(df_parse.head())
+    df_parse.to_csv(output_path, index = False, encoding = 'utf-8')
+
+
 if __name__ == '__main__':
     """./original/108-2-new_on_cos_data.csv"""
     file_path = sys.argv[1]
+    csv_path = file_path + '_parsed.csv'
     year = file_path.split('/')[-1].split('-')[0]
     semester = file_path.split('/')[-1].split('-')[1]
     global calling_file
     calling_file = __file__
     mycursor, connection = connect.connect2db()
 
+    # Parse csv to fit format
+    parseXLSX(file_path, csv_path, year, semester)
+
     #Insert pending status (2) into database
     record_status = 2
     unique_id = checkFile.initialLog(calling_file, record_status, year, semester, mycursor, connection)
 
     #Check csv file
-    validate_flag = validateCSV(file_path, unique_id)
+    validate_flag = validateCSV(csv_path, unique_id)
 
     if validate_flag == True:
         #Delete last semester's on cos data
@@ -149,7 +180,7 @@ if __name__ == '__main__':
             checkFile.recordLog(unique_id, record_status, message, mycursor, connection)
         elif record_status == 1:
             #Import this semester's on cos data
-            record_status, code, message, affect_count = insertDB(file_path, mycursor, connection)
+            record_status, code, message, affect_count = insertDB(csv_path, mycursor, connection)
             if record_status == 0:
                 message = "匯入當期課程錯誤：" + message
                 checkFile.recordLog(unique_id, record_status, message, mycursor, connection)
