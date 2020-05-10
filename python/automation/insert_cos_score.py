@@ -143,7 +143,7 @@ def parseXLSX(file_path, output_path):
     score_level = []
     for i in range(len(df)):
         year.append(df['學期'][i] // 10)
-        semester.append(df['學期'][0] % 10)
+        semester.append(df['學期'][i] % 10)
         brief.append(df['摘要'][i])
         # Parse score level by score
         if df['成績'][i].isnumeric():
