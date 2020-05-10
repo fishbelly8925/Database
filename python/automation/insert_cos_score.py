@@ -130,9 +130,10 @@ def insertDB(file_path, mycursor, connection):
     return record_status, code, message, affect_count
 
 
-def parseXLSX(file_path, output_path):
+def parseXLSX(file_path, output_path, selected_year, selected_semester):
     df = pd.read_csv(file_path, dtype={'學號': object, '當期課號': object})
-    df = df[df['備註']!='未送達'].reset_index(drop=True)
+    concat_year_semester = str(selected_year) + str(selected_semester)
+    df = df[df['學期'] != int(concat_year_semester)].reset_index(drop=True)
     df_parse = df.copy()
     df_parse = df_parse.drop(columns=['班別', '姓名', '摘要', '備註'])
     # Processing to fit table columns
@@ -208,6 +209,7 @@ def parseXLSX(file_path, output_path):
     # Swap columns
     columns_order = ['學號', '學年度', '學期', '當期課號', '開課單位', '課名', '永久課號', '課程向度', '選別', '學分數', '評分方式', '評分狀態', '成績', '等級成績', 'GP']
     cols = list(df.columns)
+    print(df_parse[df_parse['學期']!=2])
     df_parse = df_parse[columns_order]
     df_parse.to_csv(output_path, index = False, encoding = 'utf-8')
 
@@ -216,9 +218,9 @@ if __name__ == "__main__":
     """./original/108-2-cos_score.csv"""
     file_path = sys.argv[1]
     csv_path = file_path + '_parsed.csv'
-    parseXLSX(file_path, csv_path)
     year = file_path.split('/')[-1].split('-')[0]
     semester = file_path.split('/')[-1].split('-')[1]
+    parseXLSX(file_path, csv_path, year, semester)
     global calling_file
     calling_file = __file__
     mycursor, connection = connect.connect2db()
