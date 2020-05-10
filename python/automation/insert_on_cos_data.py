@@ -65,6 +65,23 @@ def deleteLastCourse(mycursor, connection):
         record_status = 0
     return record_status, code, message, affect_count
 
+def preValidateCSV(file_path, unique_id, mycursor, connection):
+    #since score has NaN, so its type will be float64
+    needed_column = ['學號', '班別', '姓名', '學期', '當期課號', '永久課號', '課名',\
+                     '學分數', '開課單位', '選別', '摘要', '評分方式', '成績', '備註', 'GP']
+    record_status = 1
+    validate_flag = True
+    df = pd.read_csv(file_path, dtype={'學號': object, '當期課號': object})
+    csv_column = df.keys().tolist()
+
+    all_include = set(needed_column).issubset(csv_column)
+    if all_include == False:
+        record_status = 0
+        error_column = str(set(needed_column) - set(csv_column))
+        message = "錯誤：名稱有誤 : " + error_column
+        validate_flag = False
+        checkFile.recordLog(unique_id, record_status, message, mycursor, connection)
+    return validate_flag
 
 def insertDB(file_path, mycursor, connection):
     record_status = None
@@ -128,7 +145,7 @@ def insertDB(file_path, mycursor, connection):
     return record_status, code, message, affect_count
 
 
-def parseXLSX(file_path, output_path, selected_year, selected_semester):
+def convertData(file_path, output_path, selected_year, selected_semester):
     df = pd.read_csv(file_path, dtype={'學號': object, '當期課號': object})
     concat_year_semester = str(selected_year) + str(selected_semester)
     df = df[df['學期'] == int(concat_year_semester)].reset_index(drop=True)
@@ -154,7 +171,7 @@ def parseXLSX(file_path, output_path, selected_year, selected_semester):
 if __name__ == '__main__':
     """./original/108-2-new_on_cos_data.csv"""
     file_path = sys.argv[1]
-    csv_path = file_path + '_parsed_on_cos_data.csv'
+    csv_path = '.'.join(file_path.split('.')[:-1]) + '_parsed_on_cos_data.csv'
     year = file_path.split('/')[-1].split('-')[0]
     semester = file_path.split('/')[-1].split('-')[1]
     global calling_file
@@ -165,11 +182,15 @@ if __name__ == '__main__':
     record_status = 2
     unique_id = checkFile.initialLog(calling_file, record_status, year, semester, mycursor, connection)
 
-    # Parse csv to fit format
-    parseXLSX(file_path, csv_path, year, semester)
+    # Pre Check csv file
+    validate_flag = preValidateCSV(file_path, unique_id, mycursor, connection)
 
-    #Check csv file
-    validate_flag = validateCSV(csv_path, unique_id, mycursor, connection)
+    if validate_flag:
+        # Parse csv to fit format
+        convertData(file_path, csv_path, year, semester)
+
+        #Check csv file
+        validate_flag = validateCSV(csv_path, unique_id, mycursor, connection)
 
     if validate_flag == True:
         #Delete last semester's on cos data

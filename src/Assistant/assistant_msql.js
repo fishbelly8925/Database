@@ -175,7 +175,6 @@ module.exports = {
                 if(data['data_type'] == '課程成績資料')
                 {
                     program_name = 'insert_on_cos_data.py';
-                    data_path_base+data['semester']+'-on_cos_data.csv';
                     exec('python3 '+program_path+program_name+' '+data_path);
                 }
             }

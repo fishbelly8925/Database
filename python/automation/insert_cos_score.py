@@ -129,8 +129,26 @@ def insertDB(file_path, mycursor, connection):
 
     return record_status, code, message, affect_count
 
+def preValidateCSV(file_path, unique_id, mycursor, connection):
+    #since score has NaN, so its type will be float64
+    needed_column = ['學號', '班別', '姓名', '學期', '當期課號', '永久課號', '課名',\
+                     '學分數', '開課單位', '選別', '摘要', '評分方式', '成績', '備註', 'GP']
+    record_status = 1
+    validate_flag = True
+    df = pd.read_csv(file_path, dtype={'學號': object, '當期課號': object})
+    csv_column = df.keys().tolist()
 
-def parseXLSX(file_path, output_path, selected_year, selected_semester, unique_id, mycursor, connection):
+    all_include = set(needed_column).issubset(csv_column)
+    if all_include == False:
+        record_status = 0
+        error_column = str(set(needed_column) - set(csv_column))
+        message = "錯誤：名稱有誤 : " + error_column
+        validate_flag = False
+        checkFile.recordLog(unique_id, record_status, message, mycursor, connection)
+    return validate_flag
+
+
+def convertData(file_path, output_path, selected_year, selected_semester, unique_id, mycursor, connection):
     validate_flag = True
     record_status = 1
     df = pd.read_csv(file_path, dtype={'學號': object, '當期課號': object})
@@ -148,6 +166,7 @@ def parseXLSX(file_path, output_path, selected_year, selected_semester, unique_i
         year.append(df['學期'][i] // 10)
         semester.append(df['學期'][i] % 10)
         brief.append(df['摘要'][i])
+
         # Parse score level by score
         if df['成績'][i].isnumeric():
             if int(df['成績'][i]) >= 90 and int(df['成績'][i]) <= 100:
@@ -188,7 +207,8 @@ def parseXLSX(file_path, output_path, selected_year, selected_semester, unique_i
                 validate_flag = False
                 record_status = 0
                 checkFile.recordLog(unique_id, record_status, message, mycursor, connection)
-                return validate_flag               
+                return validate_flag   
+            
         # Parse pass fail by score
         if df['成績'][i].isnumeric():
             if int(df['成績'][i]) >= 60:
@@ -219,13 +239,14 @@ def parseXLSX(file_path, output_path, selected_year, selected_semester, unique_i
             validate_flag = False
             record_status = 0
             checkFile.recordLog(unique_id, record_status, message, mycursor, connection)
-            return validate_flag                  
+            return validate_flag        
 
     df_parse['學年度'] = year
     df_parse['學期'] = semester
     df_parse['課程向度'] = brief
     df_parse['評分狀態'] = pass_fail
     df_parse['等級成績'] =  score_level
+
     # Swap columns
     columns_order = ['學號', '學年度', '學期', '當期課號', '開課單位', '課名', '永久課號', '課程向度', '選別', '學分數', '評分方式', '評分狀態', '成績', '等級成績', 'GP']
     cols = list(df.columns)
@@ -237,7 +258,7 @@ def parseXLSX(file_path, output_path, selected_year, selected_semester, unique_i
 if __name__ == "__main__":
     """./original/108-2-cos_score.csv"""
     file_path = sys.argv[1]
-    csv_path = file_path + '_parsed_cos_score.csv'
+    csv_path = '.'.join(file_path.split('.')[:-1]) + '_parsed_cos_score.csv'
     year = file_path.split('/')[-1].split('-')[0]
     semester = file_path.split('/')[-1].split('-')[1]
     global calling_file
@@ -248,8 +269,12 @@ if __name__ == "__main__":
     record_status = 2
     unique_id = checkFile.initialLog(calling_file, record_status, year, semester, mycursor, connection)
 
-    # Parse csv to fit format
-    validate_flag = parseXLSX(file_path, csv_path, year, semester, unique_id, mycursor, connection)
+    # Pre Check csv file
+    validate_flag = preValidateCSV(file_path, unique_id, mycursor, connection)
+
+    if validate_flag:
+        # Parse csv to fit format
+        validate_flag = convertData(file_path, csv_path, year, semester, unique_id, mycursor, connection)
 
     if validate_flag == True:
         #Check csv file
