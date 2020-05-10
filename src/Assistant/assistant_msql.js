@@ -138,14 +138,13 @@ module.exports = {
         // data => {file_name: 'yoyoabc.csv', data_type: "課程成績資料", semester: '108-2'}
         // "課程成績資料" => "cos_score"
         // "新老師資料"   => "new_teacher_info"
-        // "當期修課資料" => "on_cos_data"
         // "學生資料"    => "student"
         // "抵免免修資料"    => "offset"
         // "英文換修資料" => "en_certificate"
         var type_mapping = {
             "課程成績資料": "cos_score",
             "新老師資料": "new_teacher_info",
-            "當期修課資料": "on_cos_data",
+            // "當期修課資料": "on_cos_data",
             "學生資料": "student",
             "抵免免修資料": "offset",
             "英文換修資料":"en_certificate"
@@ -165,12 +164,21 @@ module.exports = {
         var data_path = data_path_base+data['semester']+'-'+type_mapping[data['data_type']]+'.csv';
 
         let convart_file_name = data_path_base+data['semester']+'-'+data['data_type']+'.xlsx'
+
         if(data_path_base+data['file_name'] != convart_file_name)
             exec_sync('cp '+data_path_base+data['file_name']+' '+convart_file_name)
        
         exec('python3 '+program_path+convertProgram+' '+convart_file_name+' '+data_path, function(error, stdout, stderr) {
             if(error == null)
+            {
                 exec('python3 '+program_path+program_name+' '+data_path);
+                if(data['data_type'] == '課程成績資料')
+                {
+                    program_name = 'insert_on_cos_data.py';
+                    data_path_base+data['semester']+'-on_cos_data.csv';
+                    exec('python3 '+program_path+program_name+' '+data_path);
+                }
+            }
         });
     },
     ShowAllDataLog: function(callback){
