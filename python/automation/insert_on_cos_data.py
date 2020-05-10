@@ -6,7 +6,7 @@ import numpy as np
 import checkFile
 import connect
 
-def validateCSV(file_path, unique_id):
+def validateCSV(file_path, unique_id, mycursor, connection):
     needed_column = ['學號', '學年度', '學期', '當期課號', '開課單位', '永久課號', '選別', 'scr_summaryno', '學分數']
     record_status = 1
     validate_flag = True
@@ -148,29 +148,28 @@ def parseXLSX(file_path, output_path, selected_year, selected_semester):
     columns_order = ['學號', '學年度', '學期', '當期課號', '開課單位', '永久課號', '選別', 'scr_summaryno', '學分數']
     cols = list(df.columns)
     df_parse = df_parse[columns_order]
-    print(df_parse.head())
     df_parse.to_csv(output_path, index = False, encoding = 'utf-8')
 
 
 if __name__ == '__main__':
     """./original/108-2-new_on_cos_data.csv"""
     file_path = sys.argv[1]
-    csv_path = file_path + '_parsed.csv'
+    csv_path = file_path + '_parsed_on_cos_data.csv'
     year = file_path.split('/')[-1].split('-')[0]
     semester = file_path.split('/')[-1].split('-')[1]
     global calling_file
     calling_file = __file__
     mycursor, connection = connect.connect2db()
 
-    # Parse csv to fit format
-    parseXLSX(file_path, csv_path, year, semester)
-
     #Insert pending status (2) into database
     record_status = 2
     unique_id = checkFile.initialLog(calling_file, record_status, year, semester, mycursor, connection)
 
+    # Parse csv to fit format
+    parseXLSX(file_path, csv_path, year, semester)
+
     #Check csv file
-    validate_flag = validateCSV(csv_path, unique_id)
+    validate_flag = validateCSV(csv_path, unique_id, mycursor, connection)
 
     if validate_flag == True:
         #Delete last semester's on cos data
