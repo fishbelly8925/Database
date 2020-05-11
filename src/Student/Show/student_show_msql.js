@@ -154,7 +154,7 @@ module.exports = {
                         pool.release(c);
                         return;
                     }
-
+                    // console.log(data)
                     // check for sql
                     var orig = [];
                     var temp_data = [];
@@ -184,6 +184,7 @@ module.exports = {
                             continue;
                         }
                     }
+
                     // Check course "Mentor's Hours" (the offset of this course could have two type, see 0513407's case)
                     var result = [];
                     var year_sem_arr = [];
@@ -197,14 +198,10 @@ module.exports = {
                                 // console.log("重複課程3：", orig[i]['cos_cname'], '-', orig[i]['cos_year'], '-', orig[i]['semester'])
                                 continue;
                             }
-                                
                             else
                             {
-                                if(orig[i]['tname'] != null)
-                                {
-                                    year_sem_arr.push(orig[i]['cos_year']+'-'+orig[i]['semester']);
-                                    result.push(orig[i]);
-                                }
+                                year_sem_arr.push(orig[i]['cos_year']+'-'+orig[i]['semester']);
+                                result.push(orig[i]);
                             }
                         }
                     
