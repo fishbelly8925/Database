@@ -37,15 +37,15 @@ var m = require('./msql.js');
 //     console.log(JSON.parse(result));
 // }); // ShowUserTotalCredit 回傳某學生總學分數
 
-m.ShowUserAllScore('0512204', function(err, result){
-    if(err)
-        throw err;
-    console.log(JSON.parse(result));
-    // var a = JSON.parse(result)
-    // for(let i = 0; i<a.length ; i+= 1)
-    //     if(a[i]['cos_cname'] == '導師時間')
-    //         console.log(a[i])
-}); // ShowUserAllScore 列出此學生通過的課
+// m.ShowUserAllScore('0816201', function(err, result){
+//     if(err)
+//         throw err;
+//     console.log(JSON.parse(result));
+//     // var a = JSON.parse(result)
+//     // for(let i = 0; i<a.length ; i+= 1)
+//     //     if(a[i]['cos_cname'] == '導師時間')
+//     //         console.log(a[i])
+// }); // ShowUserAllScore 列出此學生通過的課
 
 // m.ShowUserPartScore('0516003', '通識', function(err, result){
 //     if(err)

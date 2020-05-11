@@ -342,13 +342,13 @@ exports.ShowStudentMentor = "\
     where student_id = :id";
 
 exports.ShowUserOnCos_single = "\
-    select on_cn.student_id, on_cn.year, on_cn.semester, on_cn.code, on_cn.cos_code, \
-        on_cn.cos_type, on_cn.scr_summaryno, on_cn.cos_credit, on_cn.cos_cname, \
+    select on_cn.student_id, on_cn.year as cos_year, on_cn.semester, on_cn.code, on_cn.cos_code, \
+        on_cn.cos_type, on_cn.cos_credit, on_cn.cos_cname, \
         on_cn.cos_ename, on_cn.cos_dep, cd.brief, cd.brief_new, cd.cos_typeext\
     from \
     (\
         select onc.student_id, onc.year, onc.semester, LPAD(onc.code,4,'0') as code, onc.cos_code, onc.cos_type, \
-            onc.scr_summaryno, onc.cos_credit, cn.cos_cname, cn.cos_ename, onc.cos_dep\
+            onc.cos_credit, cn.cos_cname, cn.cos_ename, onc.cos_dep\
         from on_cos_data as onc, cos_name as cn\
         where cn.unique_id = concat(onc.year, '-', onc.semester, '-', LPAD(onc.code,4,'0'))\
             and onc.student_id = :id\
@@ -357,13 +357,13 @@ exports.ShowUserOnCos_single = "\
     cd.unique_id = concat(on_cn.year, '-', on_cn.semester, '-', on_cn.code)";
 
 exports.ShowUserOnCos_all = "\
-    select on_cn.student_id, on_cn.year, on_cn.semester, on_cn.code, on_cn.cos_code, \
-        on_cn.cos_type, on_cn.scr_summaryno, on_cn.cos_credit, on_cn.cos_cname, \
+    select on_cn.student_id, on_cn.year as cos_year, on_cn.semester, on_cn.code, on_cn.cos_code, \
+        on_cn.cos_type, on_cn.cos_credit, on_cn.cos_cname, \
         on_cn.cos_ename, on_cn.cos_dep, cd.brief, cd.brief_new, cd.cos_typeext\
     from \
     (\
         select onc.student_id, onc.year, onc.semester,  LPAD(onc.code,4,'0') as code, onc.cos_code, onc.cos_type, \
-            onc.scr_summaryno, onc.cos_credit, cn.cos_cname, cn.cos_ename, onc.cos_dep\
+            onc.cos_credit, cn.cos_cname, cn.cos_ename, onc.cos_dep\
         from on_cos_data as onc, cos_name as cn\
         where cn.unique_id = concat(onc.year, '-', onc.semester, '-',  LPAD(onc.code,4,'0'))\
     ) as on_cn, cos_data as cd\
