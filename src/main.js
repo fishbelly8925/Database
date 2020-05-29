@@ -37,14 +37,11 @@ var m = require('./msql.js');
 //     console.log(JSON.parse(result));
 // }); // ShowUserTotalCredit 回傳某學生總學分數
 
-// m.ShowUserAllScore('0816201', function(err, result){
+// m.ShowUserAllScore('0516310', function(err, result){
 //     if(err)
 //         throw err;
 //     console.log(JSON.parse(result));
-//     // var a = JSON.parse(result)
-//     // for(let i = 0; i<a.length ; i+= 1)
-//     //     if(a[i]['cos_cname'] == '導師時間')
-//     //         console.log(a[i])
+//     var a = JSON.parse(result)
 // }); // ShowUserAllScore 列出此學生通過的課
 
 // m.ShowUserPartScore('0516003', '通識', function(err, result){
@@ -508,12 +505,12 @@ var m = require('./msql.js');
 // });
 // // 輸入一二三四，顯示某年級所有學生,1表示本系生，0表示外系生
 
-// m.ShowStudentGraduate({student_id: '0516075'}, function(err, result){
-// 	if(err)
-// 		throw err;
-// 	console.log(JSON.parse(result));
-// });
-// // 顯示某學生畢業預審
+m.ShowStudentGraduate({student_id: '0516003'}, function(err, result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+});
+// 顯示某學生畢業預審
 
 // data_CreateStudentGraduate = {
 // 	student_id: '0516202',

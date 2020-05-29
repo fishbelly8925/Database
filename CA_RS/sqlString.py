@@ -18,12 +18,6 @@ findAllCos = "\
         and cos_cname not like '%導師時間%'\
         and cos_cname not like '跨領域專題%'\
         and cos_cname not like '服務學習%'\
-		and ( unique_id like '107%'\
-			or unique_id like '106%'\
-			or unique_id like '105%'\
-			or unique_id like '104%'\
-			or unique_id like '103%'\
-			)\
 	order by cos_cname; "
 
 findGradAvgStd = "\

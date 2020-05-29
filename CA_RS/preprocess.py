@@ -11,13 +11,13 @@ from sklearn.cluster import SpectralClustering
 from sklearn.cluster import KMeans
 
 ##############################
-Number_Of_Cluster = 30
+Number_Of_Cluster = 40
 
 skip_year_sem = None ## for eval mode
-# skip_year_sem = {
-#     'year':107,
-#     'semester':2
-# } ## for test mode
+skip_year_sem = {
+    'year':109,
+    'semester':1
+} ## for test mode
 ##############################
 
 def show_cluster_res(data, std_list, cluster, num_to_cos, method):

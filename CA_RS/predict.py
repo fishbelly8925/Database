@@ -8,9 +8,9 @@ import csv
 Top_K = 15
 Type = 'eval' ### test, eval
 cur_setting = {
-    'year': 108,
-    'semester': 2
-}   
+    'year': 109,
+    'semester': 1
+}
 
 with open('./num_to_cos.json', 'r') as f1,\
     open('./cos_to_num.json', 'r') as f2, \
