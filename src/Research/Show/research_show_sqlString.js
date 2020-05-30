@@ -1,6 +1,6 @@
 exports.ShowGradeTeacherResearchStudent="\
     select r.teacher_id,r.intro, s.sname, r.student_id, r.class_detail, r.research_title, r.first_second, r.score, r.semester, r.comment, r.add_status,\
-    if(substring(s.program,1,1)='A' or substring(s.program,1,1)='B' or substring(s.program,1,1)='C' or substring(s.program,1,1)='D',1,0) as status, r.replace_pro \
+    if(substring(s.program, 1, 1)='A' or substring(s.program, 1, 1)='B' or substring(s.program, 1, 1)='C' or substring(s.program, 1, 1)='D',1,0) as status, r.replace_pro \
     from \
     (\
         select r.intro, t.teacher_id, r.student_id, r.class_detail, r.score, r.research_title, r.first_second, r.semester, r.comment, r.add_status, r.replace_pro \
@@ -27,16 +27,10 @@ exports.ShowSingleTeacherInfoResearchCnt="\
         (\
             select student_id \
             from student \
-            where student_id NOT IN \
-            (\
-                select student_id \
-                from student \
-                where student_id LIKE '__4____' \
-            )\
-            and (substring(program,1,1) = 'A'\
-            or substring(program,1,1) = 'B'\
-            or substring(program,1,1) = 'C'\
-            or substring(program,1,1) = 'D')\
+            where (substring(program, 1, 1) = 'A'\
+            or substring(program, 1, 1) = 'B'\
+            or substring(program, 1, 1) = 'C'\
+            or substring(program, 1, 1) = 'D')\
         )and r.student_id NOT IN\
         (\
             select cs.student_id\
@@ -62,7 +56,7 @@ exports.ShowSingleTeacherInfoResearchCnt="\
             select t.teacher_id, ti.phone, t.tname, ti.email, ti.expertise, ti.info\
             from teacher_info as ti right join teacher as t on ti.tname = t.tname and t.teacher_id = :teacher_id\
         ) as t\
-        on t.tname=tp.tname\
+        on t.tname = tp.tname\
     ) as t\
    on o.tname = t.tname\
    where t.teacher_id = :teacher_id";
@@ -82,16 +76,10 @@ exports.ShowAllTeacherInfoResearchCnt="\
         (\
             select student_id \
             from student \
-            where student_id NOT IN \
-            (\
-                select student_id \
-                from student \
-                where student_id LIKE '__4____' \
-            )\
-            and (substring(program,1,1) = 'A'\
-            or substring(program,1,1) = 'B'\
-            or substring(program,1,1) = 'C'\
-            or substring(program,1,1) = 'D')\
+            where (substring(program, 1, 1) = 'A'\
+            or substring(program, 1, 1) = 'B'\
+            or substring(program, 1, 1) = 'C'\
+            or substring(program, 1, 1) = 'D')\
         )and r.student_id NOT IN\
         (\
             select cs.student_id\

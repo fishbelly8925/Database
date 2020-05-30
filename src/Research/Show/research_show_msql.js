@@ -9,30 +9,25 @@ module.exports = {
     ShowGradeTeacherResearchStudent: function(teacher_id, grade, callback){
         const resource = pool.acquire();
         resource.then(function(c){
-            var sql_ShowGradeTeacherResearchStudent=c.prepare(s.ShowGradeTeacherResearchStudent);
+            var sql_ShowGradeTeacherResearchStudent = c.prepare(s.ShowGradeTeacherResearchStudent);
             c.query(sql_ShowGradeTeacherResearchStudent({teacher_id,grade}), function(err, result){
                 if(err){
                     callback(err, undefined);
                     pool.release(c);
                     return;
                 }
-                if(result.length==0)
-                {
+                if(result.length == 0){
                     callback(null, "[]");
                     pool.release(c);
                     return;
                 }
-                var year=parseInt(result[0]['student_id'].substring(0, 2));
+                var year = parseInt(result[0]['student_id'].substring(0, 2));
                 var idx;
-                for(idx in result)
-                {
-                    if(idx=='info')
-                    {
-                        idx=result.length;
+                for(idx in result){
+                    if(idx == 'info'){
+                        idx = result.length;
                         break;
                     }
-                    // if(year-parseInt(result[idx]['student_id'].substring(0, 2))>2)
-                    //     break
                 }
                 callback(null, JSON.stringify(result.slice(0, idx)));
                 pool.release(c);
@@ -41,23 +36,23 @@ module.exports = {
     },    
     ShowTeacherInfoResearchCnt: function(data, callback){
         if(typeof(data) === 'string')
-            data=JSON.parse(data);
-        const resource=pool.acquire();
+            data = JSON.parse(data);
+        const resource = pool.acquire();
 
         if(data['teacher_id'] == '')
             resource.then(function(c){
-                var sql_ShowAllTeacherInfoResearchCnt=c.prepare(s.ShowAllTeacherInfoResearchCnt);
+                var sql_ShowAllTeacherInfoResearchCnt = c.prepare(s.ShowAllTeacherInfoResearchCnt);
                 c.query(sql_ShowAllTeacherInfoResearchCnt(data), function(err, result){
                     if(err){
                         callback(err, undefined);
                         pool.release(c);
                         return;
                     }
-                    var gradeCnt, temp={}, i, res=[];
-                    result=JSON.parse(JSON.stringify(result));
+                    var gradeCnt, temp = {}, i, res = [];
+                    result = JSON.parse(JSON.stringify(result));
                     for(i in result){
-                        gradeCnt={grade:result[i].year, scount:result[i].scount};
-                        if(i==0){
+                        gradeCnt = {grade:result[i].year, scount:result[i].scount};
+                        if(i == 0){
                             temp = {
                                 tname: result[i].tname,
                                 teacher_id: result[i].teacher_id, 
@@ -69,7 +64,7 @@ module.exports = {
                                 gradeCnt: [gradeCnt]
                             };
                         }
-                        else if(result[i].tname===temp.tname){
+                        else if(result[i].tname === temp.tname){
                             temp.gradeCnt.push(gradeCnt);
                         }
                         else{   
@@ -86,7 +81,7 @@ module.exports = {
                             };
                         }
                     }
-                    if(res[res.length-1].tname!==temp.tname)
+                    if(res[res.length-1].tname !== temp.tname)
                         res.push(temp);
                     callback(null, JSON.stringify(res));
                     pool.release(c);
@@ -94,18 +89,18 @@ module.exports = {
             });
         else
             resource.then(function(c){
-                var sql_ShowSingleTeacherInfoResearchCnt=c.prepare(s.ShowSingleTeacherInfoResearchCnt);
+                var sql_ShowSingleTeacherInfoResearchCnt = c.prepare(s.ShowSingleTeacherInfoResearchCnt);
                 c.query(sql_ShowSingleTeacherInfoResearchCnt(data), function(err, result){
                     if(err){
                         callback(err, undefined);
                         pool.release(c);
                         return;
                     }
-                    var gradeCnt, temp={}, i, res=[];
-                    result=JSON.parse(JSON.stringify(result));
+                    var gradeCnt, temp = {}, i, res = [];
+                    result = JSON.parse(JSON.stringify(result));
                     for(i in result){
-                        gradeCnt={grade:result[i].year, scount:result[i].scount};
-                        if(i==0){
+                        gradeCnt = {grade:result[i].year, scount:result[i].scount};
+                        if(i == 0){
                             temp = {
                                 tname: result[i].tname,
                                 teacher_id: result[i].teacher_id, 
@@ -117,7 +112,7 @@ module.exports = {
                                 gradeCnt: [gradeCnt]
                             };
                         }
-                        else if(result[i].tname===temp.tname){
+                        else if(result[i].tname === temp.tname){
                             temp.gradeCnt.push(gradeCnt);
                         }
                         else{   
@@ -136,7 +131,7 @@ module.exports = {
                     }
                     if(res.length == 0)
                         res.push(temp);
-                    else if(res[res.length-1].tname!==temp.tname)
+                    else if(res[res.length-1].tname !== temp.tname)
                         res.push(temp);
                     callback(null, JSON.stringify(res));
                     pool.release(c);
