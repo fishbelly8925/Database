@@ -181,7 +181,7 @@ exports.ShowResearchScoreComment="\
 
 exports.ShowTeacherResearchApplyFormList="\
     select a.student_id, s.sname, s.program,a.research_title, a.teacher_id, a.tname, a.first_second, a.agree, s.phone, s.email, a.semester,\
-    if(substring(s.program,1,1)='A' or substring(s.program,1,1)='B' or substring(s.program,1,1)='C' or substring(s.program,1,1)='D',1,0) as status\
+    if(substring(s.program, 1, 1)='A' or substring(s.program, 1, 1)='B' or substring(s.program, 1, 1)='C' or substring(s.program, 1, 1)='D', 1, 0) as status\
     from \
     (\
         select t.teacher_id, r.student_id, r.research_title, r.tname, r.agree, r.first_second, r.semester\
@@ -200,7 +200,7 @@ exports.ShowStudentResearchApplyForm="\
     select a.student_id, s.sname, a.research_title, a.tname, a.agree, a.first_second, s.phone, s.email, a.semester,s.status\
     from research_apply_form as a, \
     (\
-        select sname, student_id, phone, email,if(substring(program,1,1)='A' or substring(program,1,1)='B' or substring(program,1,1)='C' or substring(program,1,1)='D',1,0) as status\
+        select sname, student_id, phone, email,if(substring(program, 1, 1)='A' or substring(program, 1, 1)='B' or substring(program, 1, 1)='C' or substring(program, 1, 1)='D', 1, 0) as status\
         from student\
         where student_id = :student_id\
     ) as s\

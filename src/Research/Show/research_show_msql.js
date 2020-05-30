@@ -139,9 +139,9 @@ module.exports = {
             });
     }, 
     ShowGivenGradeStudentResearch:function(grade, callback){
-        const resource=pool.acquire();
+        const resource = pool.acquire();
         resource.then(function(c){
-            var sql_ShowGivenGradeStudentResearch=c.prepare(s.ShowGivenGradeStudentResearch);
+            var sql_ShowGivenGradeStudentResearch = c.prepare(s.ShowGivenGradeStudentResearch);
             c.query(sql_ShowGivenGradeStudentResearch({grade}), function(err, result){
                 if(err)
                 {
@@ -155,11 +155,11 @@ module.exports = {
         });
     }, 
     ShowStudentResearchInfo:function(student_id, callback){
-        if(typeof(data)==='string')
-            data=JSON.parse(data);
-        const resource=pool.acquire();
+        if(typeof(data) === 'string')
+            data = JSON.parse(data);
+        const resource = pool.acquire();
         resource.then(function(c){
-            var sql_ShowStudentResearchInfo=c.prepare(s.ShowStudentResearchInfo);
+            var sql_ShowStudentResearchInfo = c.prepare(s.ShowStudentResearchInfo);
             c.query(sql_ShowStudentResearchInfo({student_id}), function(err, result){
                 if(err)
                 {
@@ -173,11 +173,11 @@ module.exports = {
         });
     }, 
     ShowResearchGroup:function(data, callback){
-        if(typeof(data)==='string')
-            data=JSON.parse(data);
-        const resource=pool.acquire();
+        if(typeof(data) === 'string')
+            data = JSON.parse(data);
+        const resource = pool.acquire();
         resource.then(function(c){
-            var sql_ShowResearchGroup=c.prepare(s.ShowResearchGroup);
+            var sql_ShowResearchGroup = c.prepare(s.ShowResearchGroup);
             c.query(sql_ShowResearchGroup(data), function(err, result){
                 if(err)
                 {
@@ -192,10 +192,10 @@ module.exports = {
     }, 
     ShowResearchFilePath:function(data, callback){
         if(typeof(data) === 'string')
-            data=JSON.parse(data);
-        const resource=pool.acquire();
+            data = JSON.parse(data);
+        const resource = pool.acquire();
         resource.then(function(c){
-            var sql_ShowResearchFilePath=c.prepare(s.ShowResearchFilePath);
+            var sql_ShowResearchFilePath = c.prepare(s.ShowResearchFilePath);
             c.query(sql_ShowResearchFilePath(data), function(err, result){
                 if(err)
                 {
@@ -210,10 +210,10 @@ module.exports = {
     },
     ShowResearchScoreComment:function(data, callback){
         if(typeof(data) === 'string')
-            data=JSON.parse(data);
-        const resource=pool.acquire();
+            data = JSON.parse(data);
+        const resource = pool.acquire();
         resource.then(function(c){
-            var sql_ShowResearchScoreComment=c.prepare(s.ShowResearchScoreComment);
+            var sql_ShowResearchScoreComment = c.prepare(s.ShowResearchScoreComment);
             c.query(sql_ShowResearchScoreComment(data), function(err, result){
                 if(err)
                 {
@@ -227,9 +227,9 @@ module.exports = {
         });
     }, 
     ShowTeacherResearchApplyFormList:function(teacher_id, callback){
-        const resource=pool.acquire();
+        const resource = pool.acquire();
         resource.then(function(c){
-            var sql_ShowTeacherResearchApplyFormList=c.prepare(s.ShowTeacherResearchApplyFormList);
+            var sql_ShowTeacherResearchApplyFormList = c.prepare(s.ShowTeacherResearchApplyFormList);
             c.query(sql_ShowTeacherResearchApplyFormList({teacher_id}), function(err, result){
                 if(err)
                 {
@@ -243,9 +243,9 @@ module.exports = {
         });
     }, 
     ShowStudentResearchApplyForm:function(student_id, callback){
-        const resource=pool.acquire();
+        const resource = pool.acquire();
         resource.then(function(c){
-            var sql_ShowStudentResearchApplyForm=c.prepare(s.ShowStudentResearchApplyForm);
+            var sql_ShowStudentResearchApplyForm = c.prepare(s.ShowStudentResearchApplyForm);
             c.query(sql_ShowStudentResearchApplyForm({student_id}), function(err, result){
                 if(err)
                 {
@@ -273,11 +273,11 @@ module.exports = {
             })
         })
     },
-    ShowStudentResearchList: function(data,callback){
+    ShowStudentResearchList: function(data, callback){
         const resource = pool.acquire();
         resource.then(function(c){
             var sql_ShowStudentResearchList = c.prepare(s.ShowStudentResearchList);
-            c.query(sql_ShowStudentResearchList(data), function(err,result){
+            c.query(sql_ShowStudentResearchList(data), function(err, result){
                 if(err){
                     callback(err, undefined);
                     pool.release(c);
@@ -304,11 +304,11 @@ module.exports = {
         })
     },
     ShowResearchTitleNumber: function(data, callback){
-        if(typeof(data)==='string')
-            data=JSON.parse(data);
-        const resource=pool.acquire();
+        if(typeof(data) === 'string')
+            data = JSON.parse(data);
+        const resource = pool.acquire();
         resource.then(function(c){
-            var sql_ShowResearchTitleNumber=c.prepare(s.ShowResearchTitleNumber);
+            var sql_ShowResearchTitleNumber = c.prepare(s.ShowResearchTitleNumber);
             c.query(sql_ShowResearchTitleNumber(data), function(err, result){
                 if(err)
                 {

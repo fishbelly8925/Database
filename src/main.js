@@ -192,7 +192,7 @@ var m = require('./msql.js');
 // })
 // // 設定推薦課程的星星等級，如果已經存在就覆寫
 
-// m.ShowGradeTeacherResearchStudent('T9229','',function(err, result){
+// m.ShowGradeTeacherResearchStudent('T7920', '02', function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
@@ -241,28 +241,28 @@ var m = require('./msql.js');
 // m.DeleteResearchApplyForm({research_title:'我是專題標題2~', tname:'彭文志', first_second:2, semester:'106-2'});
 // // delete research apply form
 
-// m.ShowTeacherResearchApplyFormList('T9229', function(err, result){
+// m.ShowTeacherResearchApplyFormList('T9303', function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
 // });
-// // 回傳該教授的學生專題申請清單，1表示本系生，0表示外系生
+// // 回傳該教授的學生專題申請清單，status: 1表示本系生，0表示外系生，agree: 0預設 1接受 2審核中 3拒絕
 
-// m.ShowStudentResearchApplyForm('0416004', function(err, result){
+// m.ShowStudentResearchApplyForm('0411276', function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
 // }); 
-// //回傳此學生專題申請清單，1表示本系生，0表示外系生
+// //回傳此學生專題申請清單，1表示本系生，0表示外系生，agree: 0預設 1接受 2審核中 3拒絕
 
-// m.ShowGivenGradeStudentResearch('03', function(err, result){
+// m.ShowGivenGradeStudentResearch('05', function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
 // });
 // // 輸入系級，回傳該系級所有學生的專題資訊
 
-// m.ShowStudentResearchInfo('0516001', function(err, result){
+// m.ShowStudentResearchInfo('0410835', function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
@@ -343,7 +343,7 @@ var m = require('./msql.js');
 // 	console.log(JSON.parse(result));
 // }); // 輸入學生學號，回傳該學生每學期平均,有無被21,學期平均,各科成績
 
-// m.ShowStudentResearchStatus('0413328', function(err, result){
+// m.ShowStudentResearchStatus('0516075', function(err, result){
 //     if(err)
 //         throw err;
 // 	console.log(JSON.parse(result));
@@ -505,12 +505,12 @@ var m = require('./msql.js');
 // });
 // // 輸入一二三四，顯示某年級所有學生,1表示本系生，0表示外系生
 
-m.ShowStudentGraduate({student_id: '0516003'}, function(err, result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-});
-// 顯示某學生畢業預審
+// m.ShowStudentGraduate({student_id: '0516003'}, function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// });
+// // 顯示某學生畢業預審
 
 // data_CreateStudentGraduate = {
 // 	student_id: '0516202',
@@ -614,10 +614,10 @@ m.ShowStudentGraduate({student_id: '0516003'}, function(err, result){
 // 	console.log(JSON.parse(result));
 // }); // 回傳當學期的專題是一或二
 
-// m.ShowResearchTitleNumber({tname:'彭文志', research_title:'testttt', semester:'106-2'}, function(err, result){
+// m.ShowResearchTitleNumber({tname:'彭文志', research_title:'讓電腦看懂羽球', semester:'107-1'}, function(err, result){
 // 	if(err)
 // 		throw err;
-// 	console.log(JSON.parse(result)[0]['count']);
+// 	console.log(JSON.parse(result));
 // });
 // // 查詢該學期該教授的此題目，目前有幾筆
 
