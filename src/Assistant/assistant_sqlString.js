@@ -4,17 +4,7 @@ exports.SetEnCertificate = '\
 
 exports.SetGraduateSubmitStatus = '\
     update student \
-    set graduate_submit = \
-            if(:graduate_submit != 4, :graduate_submit, \
-                (\
-                    select a.graduate_submit \
-                    from (\
-                        select student_id, graduate_submit \
-                        from student \
-                        where student_id = :id\
-                    ) as a \
-                )\
-			)\
+    set graduate_submit = :graduate_submit\
     where student_id = :id';
 
 exports.SetSubmitTypeStatus = '\
@@ -32,7 +22,10 @@ exports.SetRejectReason = '\
     where student_id = :id';
 exports.CreateApplyPeriod = '\
     insert into apply_period \
-    values (:semester,:type,:begin,:end)';
+    values (:semester, :type, :begin, :end) \
+    on duplicate key update \
+    begin = :begin,\
+    end = :end';
 exports.SetApplyPeriod = '\
     update apply_period \
     set begin = :begin, end = :end \

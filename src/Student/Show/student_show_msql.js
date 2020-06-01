@@ -171,15 +171,15 @@ module.exports = {
                         orig.push(data[i]);
                     }
                 }
-                for(let i = 0; i < temp_data.length; i++){
-                    if(temp_data[i]['tname'] != ''){
-                        orig.push(temp_data[i]);
-                    }
-                    else{
-                        // console.log("重複課程2：", temp_data[i]['cos_cname'], '-', temp_data[i]['cos_year'], '-', temp_data[i]['semester'])
-                        continue;
-                    }
-                }
+                // for(let i = 0; i < temp_data.length; i++){
+                //     if(temp_data[i]['tname'] != ''){
+                //         orig.push(temp_data[i]);
+                //     }
+                //     else{
+                //         // console.log("重複課程2：", temp_data[i]['cos_cname'], '-', temp_data[i]['cos_year'], '-', temp_data[i]['semester'])
+                //         continue;
+                //     }
+                // }
 
                 // Check course "Mentor's Hours" (the offset of this course could have two type, see 0513407's case)
                 var result = [];

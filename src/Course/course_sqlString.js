@@ -1,8 +1,7 @@
 exports.ShowCosScoreDetail = "\
-    select \
-    cos_code, avg(score) as avg,\
-    avg(case when score>=60 then score end) as Pavg, count(*) as member,\
-    count(case when score>=60 then 1 end) as passed, max(score) as max\
+    select cos_code, avg(score) as avg, avg(case when score>=60 then score end) as Pavg, \
+        count(*) as member, count(case when score>=60 then 1 end) as passed, \
+        max(score) as max\
     from cos_score \
     where cos_code = :cos_code\
     and concat(cos_year, '-' , semester, '-', cos_id) = :unique_id";

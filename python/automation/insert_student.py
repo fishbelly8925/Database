@@ -33,7 +33,7 @@ def validateCSV(file_path, unique_id):
         validate_flag = False
         checkFile.recordLog(unique_id, record_status, message, mycursor, connection)
         return validate_flag
-                 
+
     return validate_flag
 
 def convert_data(file_path):
@@ -102,8 +102,14 @@ def insertDB(file_path, mycursor, connection):
             select student_id
             from temp_student
         )
-        and study_status != "畢業"
-        and study_status != "休學";
+        and 
+        (
+            (
+                study_status != "畢業"
+                and study_status != "休學"
+            )
+            or study_status is NULL
+        );
     '''
     dump_sql5 = '''
         drop temporary table temp_student;

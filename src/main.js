@@ -4,11 +4,11 @@
 
 var m = require('./msql.js');
 
-// m.ShowUserInfo('0516003', function(err, result){
-//     if(err)
-//         throw err;
-//     console.log(JSON.parse(result));
-// }); // ShowUserInfo 回傳學生資料
+m.ShowUserInfo('0516003', function(err, result){
+    if(err)
+        throw err;
+    console.log(JSON.parse(result));
+}); // ShowUserInfo 回傳學生資料
 
 // //m.SetUserEmail('0516003', 'da2bct@test');
 // // SetUserEmail(學號, email) 更新此學號學生之email
@@ -37,11 +37,11 @@ var m = require('./msql.js');
 //     console.log(JSON.parse(result));
 // }); // ShowUserTotalCredit 回傳某學生總學分數
 
-// m.ShowUserAllScore('0516310', function(err, result){
+// m.ShowUserAllScore('0716037', function(err, result){
 //     if(err)
 //         throw err;
-//     console.log(JSON.parse(result));
-//     var a = JSON.parse(result)
+//     // console.log(JSON.parse(result));
+//     // var a = JSON.parse(result)
 // }); // ShowUserAllScore 列出此學生通過的課
 
 // m.ShowUserPartScore('0516003', '通識', function(err, result){
@@ -86,15 +86,15 @@ var m = require('./msql.js');
 // 通過英檢免試申請(換修) → 一學分都不能底！ 可以修二外當大一英文或進階英文 -> 2
 // 通過英檢中高級初試(本校團測場次)　→ 一學分都不能底！ 可以修二外當大一英文或進階英文 -> 3
 // 自行報考通過 → 一學分都不能底！ 可以修二外當大一英文或進階英文 -> 4
-// 1 → 英文一定要修滿八學分 不能用二外抵 -> 0
+// NULL → 英文一定要修滿八學分 不能用二外抵 -> 0
 
-// m.SetGraduateSubmitStatus({id:'0516045', graduate_submit: 2, submit_type: 3, net_media: 2, reject_reason:'reject test'}, function(err,result){
-// 	if(err)
-// 		throw err;
-// 	console.log(JSON.parse(result));
-// });
-// // SetGraduateSubmitStatus 設定某學生的畢業預審確認狀態(0未送審, 1送審中, 2審核通過, 3審核不通過)(0舊制,1 新制,2 不變更,3 null)
-// // 設定學生選擇網路、多媒體net_media(0網路, 1多媒體, 2資工組, 3資電組, 其他值不更改)
+m.SetGraduateSubmitStatus({id:'0516003', graduate_submit: 1, submit_type: 1, net_media: 1, reject_reason:'reject tesf'}, function(err,result){
+	if(err)
+        throw err;
+	console.log(JSON.parse(result));
+});
+// SetGraduateSubmitStatus 設定某學生的畢業預審確認狀態(0未送審, 1送審中, 2審核通過, 3審核不通過)(0舊制,1 新制,2 不變更,3 null)
+// 設定學生選擇網路、多媒體net_media(0網路, 1多媒體, 2資工組, 3資電組, 其他值不更data改)
 
 // m.SetUserOAuth('0516003', '456', 3);
 // // SetUserOAuth   1:set gmail   2:set fb_id   3:set github_id
@@ -505,7 +505,11 @@ var m = require('./msql.js');
 // });
 // // 輸入一二三四，顯示某年級所有學生,1表示本系生，0表示外系生
 
+<<<<<<< HEAD
 // m.ShowStudentGraduate({student_id: '0516003'}, function(err, result){
+=======
+// m.ShowStudentGraduate({student_id: '0716003'}, function(err, result){
+>>>>>>> union SetGraduateSubmitStatus return record
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
@@ -515,35 +519,35 @@ var m = require('./msql.js');
 // data_CreateStudentGraduate = {
 // 	student_id: '0516202',
 // 	graduate_status: 1,
-//     total_credit: 100,
-//     en_course: 2,
-//     pro: 1,
-//     other: 1,
-//     net: ['網通', '網成社', '計網概'],
-//     media: ['多媒體', '計圖學'],
-//     old_total: 1,
-//     old_contemp: 1,
-//     old_culture: 1,
-//     old_history: 1,
-//     old_citizen: 1,
-//     old_group: 1,
-//     old_science: 1,
-//     new_total: 1,
-//     new_core_total: 1,
-//     new_core_society: 1,
-//     new_core_humanity: 1,
-//     en_total: 1,
-//     new_basic: 1,
-//     new_cross: 1,
-//     en_basic: 1,
-//     en_advanced: 1,
-//     en_uncertified: 0,
-//     pe: 1,
-//     service: 0,
-//     art: 1,
-//     mentor: 1,
-//     compulse: ['計算機a', '計算機1', '計算機2'],
-//     current: ['計算機a', '計算機1', '計算機2']
+// 	total_credit: 100,
+// 	en_course: 2,
+// 	pro: 1,
+// 	other: 1,
+// 	net: ['網通', '網成社', '計網概'],
+// 	media: ['多媒體', '計圖學'],
+// 	old_total: 1,
+// 	old_contemp: 1,
+// 	old_culture: 1,
+// 	old_history: 1,
+// 	old_citizen: 1,
+// 	old_group: 1,
+// 	old_science: 1,
+// 	new_total: 1,
+// 	new_core_total: 1,
+// 	new_core_society: 1,
+// 	new_core_humanity: 1,
+// 	en_total: 1,
+// 	new_basic: 1,
+// 	new_cross: 1,
+// 	en_basic: 1,
+// 	en_advanced: 1,
+// 	en_uncertified: 0,
+// 	pe: 1,
+// 	service: 0,
+// 	art: 1,
+// 	mentor: 1,
+// 	compulse: ['計算機a', '計算機1', '計算機2'],
+// 	current: ['計算機a', '計算機1', '計算機2']
 // }
 
 // m.CreateStudentGraduate(data_CreateStudentGraduate, function(err, result){
@@ -554,37 +558,37 @@ var m = require('./msql.js');
 // // 建立某學生畢業預審
 
 // data_SetStudentGraduate = {
-//     student_id: '0516202',
-//     graduate_status: 1,
-//     total_credit: 100,
-//     en_course: 2,
-//     pro: 1,
-//     other: 1,
-//     net: ['網通', '網成社', '計網概'],
-//     media: ['多媒體'],
-//     old_total: 1,
-//     old_contemp: 1,
-//     old_culture: 1,
-//     old_history: 1,
-//     old_citizen: 1,
-//     old_group: 1,
-//     old_science: 1,
-//     new_total: 1,
-//     new_core_total: 1,
-//     new_core_society: 1,
-//     new_core_humanity: 1,
-//     new_basic: 1,
-//     new_cross: 1,
-//     en_total: 1,
-//     en_basic: 1,
-//     en_advanced: 1,
+// 	student_id: '0516202',
+// 	graduate_status: 1,
+// 	total_credit: 100,
+// 	en_course: 2,
+// 	pro: 1,
+// 	other: 1,
+// 	net: ['網通', '網成社', '計網概'],
+// 	media: ['多媒體'],
+// 	old_total: 1,
+// 	old_contemp: 1,
+// 	old_culture: 1,
+// 	old_history: 1,
+// 	old_citizen: 1,
+// 	old_group: 1,
+// 	old_science: 1,
+// 	new_total: 1,
+// 	new_core_total: 1,
+// 	new_core_society: 1,
+// 	new_core_humanity: 1,
+// 	new_basic: 1,
+// 	new_cross: 1,
+// 	en_total: 1,
+// 	en_basic: 1,
+// 	en_advanced: 1,
 // 	en_uncertified: 2,
-//     pe: 1,
-//     service: 2,
-//     art: 1,
-//     mentor: 1,
+// 	pe: 1,
+// 	service: 2,
+// 	art: 1,
+// 	mentor: 1,
 // 	compulse: ['計算機a', '計算機b', '計算機c'],
-//     current: ['計算機a', '計算機1', '計算機2']
+// 	current: ['計算機a', '計算機1', '計算機2']
 // }
 
 // m.SetStudentGraduate(data_SetStudentGraduate, function(err, result){
@@ -599,7 +603,7 @@ var m = require('./msql.js');
 // 		throw err;
 // 	console.log(JSON.parse(result));
 // });
-// // 顯示某年及所有學號
+// // 顯示某年級所有學號
 
 // m.ShowStudentHotCos({student_id: '0516205'}, function(err, result){
 // 	if(err)
@@ -694,7 +698,7 @@ var m = require('./msql.js');
 // m.DeleteDataLog({id: 17}, function(err, result){
 //     if(err)
 //         throw err;
-//     console.log(result);
+//     console.log(JSON.parse(result));
 // })
 // // 刪除指定自動化結果 log
 // // id: unique_id (int)
@@ -702,7 +706,7 @@ var m = require('./msql.js');
 // m.DeleteAllDataLog(function(err, result){
 //     if(err)
 //         throw err;
-//     console.log(result);
+//     console.log(JSON.parse(result));
 // })
 // // 刪除所有自動化結果 log
 
