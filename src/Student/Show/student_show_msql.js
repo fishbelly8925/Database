@@ -185,6 +185,9 @@ module.exports = {
                 var result = [];
                 var year_sem_arr = [];
                 for(let i=0; i<orig.length; i+=1)
+                {
+                    if(orig[i]['cos_cname'] == '計算機概論與程式設計')
+                        orig[i]['cos_credit'] = '0'
                     if(orig[i]['cos_cname_old'] != '導師時間')
                         result.push(orig[i])
                     else
@@ -200,7 +203,9 @@ module.exports = {
                             result.push(orig[i]);
                         }
                     }
+                }
                     
+                
                 callback(null, JSON.stringify(result));
                 pool.release(c);
             })

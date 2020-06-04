@@ -213,6 +213,7 @@ exports.ShowUserAllScore = "\
         o.cos_code_old=''\
         or ISNULL(o.cos_code_old)\
     )";
+
 exports.ShowUserPartScore = "\
     select DISTINCT\
         if(ISNULL(c.cos_code), a.cos_code, c.cos_code) as cos_code,\
