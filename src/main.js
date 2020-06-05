@@ -37,7 +37,7 @@ var m = require('./msql.js');
 //     console.log(JSON.parse(result));
 // }); // ShowUserTotalCredit 回傳某學生總學分數
 
-m.ShowUserAllScore('0616069', function(err, result){
+m.ShowUserAllScore('0516003', function(err, result){
     if(err)
         throw err;
     console.log(JSON.parse(result));

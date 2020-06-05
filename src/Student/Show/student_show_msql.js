@@ -144,67 +144,28 @@ module.exports = {
         const resource = pool.acquire();
         resource.then(function(c) {
             var sql_ShowUserAllScore = c.prepare(s.ShowUserAllScore);
-            c.query(sql_ShowUserAllScore({ id: id}), function(err, data) {
+            c.query(sql_ShowUserAllScore({ id: id}), function(err, result) {
                 if (err){
                     callback(err, undefined);
                     pool.release(c);
                     return;
                 }
-                // console.log(data)
-                // check for sql
-                var orig = [];
-                var temp_data = [];
-                var code_arr = [];
-                for(let i = 0; i < data.length; i += 1){
-                    if(code_arr.includes(data[i]['cos_code'] + '-' + data[i]['cos_code_old'])){
-                        if(data[i]['offset_type'] == null){   //for 大一體育＆藝文賞析教育
-                            orig.push(data[i]);
-                        }
-                        else{
-                            // console.log("重複課程1：", data[i]['cos_cname'], '-', data[i]['cos_year'], '-', data[i]['semester'])
-                            temp_data.push(data[i]);
-                            continue;
-                        }
-                    }
-                    else{
-                        code_arr.push(data[i]['cos_code'] + '-' + data[i]['cos_code_old']);
-                        orig.push(data[i]);
-                    }
-                }
-                // for(let i = 0; i < temp_data.length; i++){
-                //     if(temp_data[i]['tname'] != ''){
-                //         orig.push(temp_data[i]);
-                //     }
-                //     else{
-                //         // console.log("重複課程2：", temp_data[i]['cos_cname'], '-', temp_data[i]['cos_year'], '-', temp_data[i]['semester'])
-                //         continue;
-                //     }
-                // }
 
-                // Check course "Mentor's Hours" (the offset of this course could have two type, see 0513407's case)
-                var result = [];
-                var year_sem_arr = [];
-                for(let i=0; i<orig.length; i+=1)
+                for(let i=0; i<result.length; i+=1)
                 {
-                    if((id == '0516074' || id == '0616069' || id == '0816035') && orig[i]['cos_cname'] == '計算機概論與程式設計')
-                        orig[i]['cos_credit'] = '0'
-                    if(orig[i]['cos_cname_old'] != '導師時間')
-                        result.push(orig[i])
-                    else
+                    result[i]['brief_new'] = '';
+                    if(typeof(result[i]['brief']) == 'string')
                     {
-                        if(year_sem_arr.includes(orig[i]['cos_year']+'-'+orig[i]['semester']))
+                        if(result[i]['brief'].substring(0, 2) == '核心' || 
+                                result[i]['brief'].substring(0, 3) == '校基本' || 
+                                result[i]['brief'].substring(0, 2) == '外院' || 
+                                result[i]['brief'].substring(0, 2) == '跨院')
                         {
-                            // console.log("重複課程3：", orig[i]['cos_cname'], '-', orig[i]['cos_year'], '-', orig[i]['semester'])
-                            continue;
-                        }
-                        else
-                        {
-                            year_sem_arr.push(orig[i]['cos_year']+'-'+orig[i]['semester']);
-                            result.push(orig[i]);
+                            result[i]['brief_new'] = result[i]['brief'];
+                            result[i]['brief'] = '';
                         }
                     }
                 }
-                    
                 
                 callback(null, JSON.stringify(result));
                 pool.release(c);

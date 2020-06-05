@@ -62,116 +62,93 @@ exports.findAssistant = "\
 // exports.ShowUserAllScore = "\
 //     select if(ISNULL(b.cos_code), a.cos_code, b.cos_code) as cos_code,\
 //             if(ISNULL(b.cos_cname), a.cos_cname, b.cos_cname) as cos_cname,\
-//             a.cos_ename, b.cos_code_old, b.cos_cname_old, a.cos_ename, a.pass_fail, a.cos_type,\
+//             a.cos_ename, b.cos_code_old, b.cos_cname_old, a.pass_fail, a.cos_type,\
 //             if(a.score_type='通過不通過', NULL, a.score) as score,\
 //             if(a.score_type='通過不通過', NULL, a.score_level) as score_level,\
 //             if((a.cos_typeext='' && a.brief like '體育%'), '體育', a.cos_typeext) as cos_typeext,\
-//             a.type, a.cos_dep, \
-//             if(a.brief like '軍訓%', '軍訓', a.brief) as brief, a.brief_new, \
-//             if(a.brief_new like '%跨院基本素養%', \
-//                 if(exists\
-//                     (select * \
-//                     from cross_brief as cb\
-//                     where cb.cos_code = if(ISNULL(b.cos_code), a.cos_code, b.cos_code)), 1, 2), 0) as brief_status, \
-//             a.cos_credit, a.cos_year, a.semester, b.offset_type, a.tname\
+//             a.cos_dep, \
+//             if(a.brief like '軍訓%', '軍訓', a.brief) as brief, a.brief_new,\
+//             a.cos_credit, a.cos_year, a.semester, b.offset_type\
 //     from \
 //     (\
-//         select a.student_id, a.program, a.cos_code, a.cos_dep, a.cos_year, a.semester, a.cos_cname, a.cos_ename, a.cos_type, a.score_type, a.pass_fail, a.score_level, a.score, a.unique_id, a.type, a.brief, a.brief_new, a.cos_credit, a.cos_typeext, tcr.tname\
+//         select a.cos_code, a.cos_dep, a.cos_credit, a.cos_year, a.semester, a.cos_cname, a.cos_ename, a.cos_type, a.score_type, a.pass_fail, a.score_level, a.score, a.unique_id, if(ISNULL(cd.brief),'',cd.brief) as brief, if(ISNULL(cd.brief_new),'',cd.brief_new) as brief_new, cd.cos_typeext\
 //         from \
 //         (\
-//             select a.student_id, a.program, a.cos_code, a.cos_dep, a.cos_year, a.semester, a.cos_cname, a.cos_ename, a.cos_type, a.score_type, a.pass_fail, a.score_level, a.score, a.unique_id, a.type, if(ISNULL(d.brief),'',d.brief) as brief, if(ISNULL(d.brief_new),'',d.brief_new) as brief_new, a.cos_credit, d.teacher_id, d.cos_typeext\
-//             from \
+//             select a.cos_code, a.cos_dep, a.cos_credit, a.cos_year, a.semester, a.cos_cname, n.cos_ename, a.cos_type, a.score_type, a.pass_fail, a.score_level, a.score, a.unique_id\
+//             from\
 //             (\
-//                 select a.student_id, a.program, a.cos_code, a.cos_dep, a.cos_credit, a.cos_year, a.semester, a.cos_cname, a.cos_ename, a.cos_type, a.score_type, a.pass_fail, a.score_level, a.score, a.unique_id, t.type\
+//                 select sc.cos_code, sc.cos_dep, sc.cos_credit, sc.cos_year, sc.semester, sc.cos_cname, sc.cos_type, sc.score_type, sc.pass_fail, sc.score_level, sc.score, sc.unique_id\
 //                 from \
 //                 (\
-//                     select a.student_id, a.program, a.cos_code, a.cos_dep, a.cos_credit, a.cos_year, a.semester, a.cos_cname, n.cos_ename, a.cos_type, a.score_type, a.pass_fail, a.score_level, a.score, a.unique_id\
-//                     from\
-//                     (\
-//                         select std.student_id, std.program, sc.cos_code, sc.cos_dep, sc.cos_credit, sc.cos_year, sc.semester, sc.cos_cname, sc.cos_type, sc.score_type, sc.pass_fail, sc.score_level, sc.score, sc.unique_id\
-//                         from \
-//                         (\
-//                             select cos_code, cos_credit, cos_year, semester, cos_cname, cos_type, score_type, pass_fail, score_level, score, cos_dep,\
-//                                     case semester when '3' then concat(cos_year, '-', 'X', '-', cos_id) \
-//                                                     else concat(cos_year, '-', semester, '-', cos_id) \
-//                                     end as unique_id \
-//                             from cos_score \
-//                             where student_id = :id\
-//                             and pass_fail='通過'\
-//                         ) as sc, student as std\
-//                         where std.student_id = :id \
-//                     ) as a\
-//                     left outer join \
-//                     (\
-//                         select cos_ename, unique_id \
-//                         from cos_name\
-//                     ) as n\
-//                     on n.unique_id = a.unique_id \
-//                 ) as a \
-//                 left outer join cos_type as t\
-//                 on t.school_year = :enroll_year\
-//                 and a.program like concat(t.program, '%')\
-//                 and a.cos_cname like concat(t.cos_cname, '%')\
+//                     select cos_code, cos_credit, cos_year, semester, cos_cname, cos_type, score_type, pass_fail, score_level, score, cos_dep,\
+//                         case semester\
+//                         when '3'\
+//                             then concat(cos_year, '-', 'X', '-', cos_id) \
+//                             else concat(cos_year, '-', semester, '-', cos_id) \
+//                         end as unique_id \
+//                     from cos_score \
+//                     where student_id = :id\
+//                     and pass_fail='通過'\
+//                 ) as sc, student as std\
+//                 where std.student_id = :id \
 //             ) as a\
-//             left outer join cos_data as d\
-//             on a.unique_id = d.unique_id\
+//             left outer join \
+//             (\
+//                 select cos_ename, unique_id \
+//                 from cos_name\
+//             ) as n\
+//             on n.unique_id = a.unique_id \
 //         ) as a\
-//         left outer join teacher_cos_relation as tcr\
-//         on a.teacher_id = tcr.teacher_id\
+//         left outer join cos_data as cd\
+//         on a.unique_id = cd.unique_id\
 //     ) as a \
 //     left outer join\
 //     (\
-//         select o.student_id, o.offset_type, o.cos_code_old, o.cos_cname_old, o.cos_code, o.cos_cname \
-//         from (select distinct * from offset where student_id = :id) as o \
-//         where o.student_id = :id\
+//         select distinct o.offset_type, o.cos_code_old, o.cos_cname_old, o.cos_code, o.cos_cname  \
+//         from offset as o\
+//         where student_id = :id\
 //     ) as b\
-//     on a.student_id = b.student_id\
-//     and a.cos_code = b.cos_code_old\
+//     on a.cos_code = b.cos_code_old\
 //     and a.cos_cname = b.cos_cname_old\
 //     union\
-//     select k.cos_code as cos_code, k.cos_cname as cos_cname, k.cos_ename as cos_ename,\
-//             k.cos_code_old as cos_code_old, k.cos_cname_old as cos_cname_old, k.cos_ename as cos_ename, k.pass_fail as pass_fail,\
-//             k.cos_type as cos_type, k.score as score, k.score_level as score_level, k.cos_typeext as cos_typeext,\
-//             k.type as type, k.cos_dep as cos_dep, k.brief as brief, k.brief_new as brief_new,\
-//             k.brief_status as brief_status, k.cos_credit as cos_credit, k.cos_year as cos_year,\
-//             k.semester as semester, k.offset_type as offset_type, k.tname as tname\
-//     from\
-//         (\
-//             select distinct o.cos_code as cos_code, o.cos_cname as cos_cname, '' as cos_ename,\
-//                 if(ISNULL(o.cos_code_old), null, o.cos_code_old) as cos_code_old, if(ISNULL(o.cos_cname_old), null, o.cos_cname_old) as cos_cname_old, '' as pass_fail,\
-//                 o.cos_type as cos_type, '' as score, '' as score_level, '' as cos_typeext,\
-//                 '' as type, '' as cos_dep, o.brief as brief, o.brief_new as brief_new,\
-//                 if(o.brief_new like '%跨院基本素養%', 0, 0) as brief_status, o.credit as cos_credit, o.apply_year as cos_year,\
-//                 o.apply_semester as semester, o.offset_type as offset_type, '' as tname\
-//             from offset as o, cos_name as cn\
-//             where o.student_id = :id\
-//         ) as k\
-//     "
+//     select o.cos_code, o.cos_cname, '' as cos_ename,\
+//         if(ISNULL(o.cos_code_old), null, o.cos_code_old) as cos_code_old, \
+//         if(ISNULL(o.cos_cname_old), null, o.cos_cname_old) as cos_cname_old, \
+//         '' as pass_fail, o.cos_type, '' as score, '' as score_level, \
+//         '' as cos_typeext, '' as cos_dep, o.brief, o.brief_new as brief_new,\
+//         o.credit as cos_credit, o.apply_year as cos_year,\
+//         o.apply_semester as semester, o.offset_type as offset_type\
+//     from offset as o\
+//     where o.student_id = :id\
+//     and (\
+//         o.cos_code_old=''\
+//         or ISNULL(o.cos_code_old)\
+//     )";
 
 exports.ShowUserAllScore = "\
     select if(ISNULL(b.cos_code), a.cos_code, b.cos_code) as cos_code,\
-            if(ISNULL(b.cos_cname), a.cos_cname, b.cos_cname) as cos_cname,\
-            a.cos_ename, b.cos_code_old, b.cos_cname_old, a.pass_fail, a.cos_type,\
-            if(a.score_type='通過不通過', NULL, a.score) as score,\
-            if(a.score_type='通過不通過', NULL, a.score_level) as score_level,\
-            if((a.cos_typeext='' && a.brief like '體育%'), '體育', a.cos_typeext) as cos_typeext,\
-            a.cos_dep, \
-            if(a.brief like '軍訓%', '軍訓', a.brief) as brief, a.brief_new,\
-            a.cos_credit, a.cos_year, a.semester, b.offset_type\
+        if(ISNULL(b.cos_cname), a.cos_cname, b.cos_cname) as cos_cname,\
+        a.cos_ename, b.cos_cname_old, a.pass_fail, a.cos_type,\
+        if(a.score_type='通過不通過', NULL, a.score) as score,\
+        if(a.score_type='通過不通過', NULL, a.score_level) as score_level,\
+        if((a.cos_typeext='' && a.brief like '體育%'), '體育', a.cos_typeext) as cos_typeext,\
+        a.cos_dep, \
+        if(a.brief like '軍訓%', '軍訓', a.brief) as brief,\
+        if(a.cos_credit<b.cos_credit, a.cos_credit, b.cos_credit) as cos_credit, \
+        a.cos_year, a.semester, b.offset_type\
     from \
     (\
-        select a.cos_code, a.cos_dep, a.cos_credit, a.cos_year, a.semester, a.cos_cname, a.cos_ename, a.cos_type, a.score_type, a.pass_fail, a.score_level, a.score, a.unique_id, if(ISNULL(cd.brief),'',cd.brief) as brief, if(ISNULL(cd.brief_new),'',cd.brief_new) as brief_new, cd.cos_typeext\
+        select a.cos_code, a.cos_dep, a.cos_credit, a.cos_year, a.semester, a.cos_cname, a.cos_ename, a.cos_type, a.score_type, a.pass_fail, a.score_level, a.score, a.unique_id, a.brief, cd.cos_typeext\
         from \
         (\
-            select a.cos_code, a.cos_dep, a.cos_credit, a.cos_year, a.semester, a.cos_cname, n.cos_ename, a.cos_type, a.score_type, a.pass_fail, a.score_level, a.score, a.unique_id\
+            select a.cos_code, a.cos_dep, a.cos_credit, a.cos_year, a.semester, a.cos_cname, n.cos_ename, a.cos_type, a.score_type, a.pass_fail, a.score_level, a.score, a.unique_id, a.brief\
             from\
             (\
-                select sc.cos_code, sc.cos_dep, sc.cos_credit, sc.cos_year, sc.semester, sc.cos_cname, sc.cos_type, sc.score_type, sc.pass_fail, sc.score_level, sc.score, sc.unique_id\
+                select sc.cos_code, sc.cos_dep, sc.cos_credit, sc.cos_year, sc.semester, sc.cos_cname, sc.cos_type, sc.score_type, sc.pass_fail, sc.score_level, sc.score, sc.unique_id, sc.brief\
                 from \
                 (\
-                    select cos_code, cos_credit, cos_year, semester, cos_cname, cos_type, score_type, pass_fail, score_level, score, cos_dep,\
-                        case semester\
-                        when '3'\
+                    select cos_code, cos_credit, cos_year, semester, cos_cname, cos_type, score_type, pass_fail, score_level, score, cos_dep, brief, \
+                        case semester when '3'\
                             then concat(cos_year, '-', 'X', '-', cos_id) \
                             else concat(cos_year, '-', semester, '-', cos_id) \
                         end as unique_id \
@@ -193,26 +170,40 @@ exports.ShowUserAllScore = "\
     ) as a \
     left outer join\
     (\
-        select distinct o.offset_type, o.cos_code_old, o.cos_cname_old, o.cos_code, o.cos_cname  \
+        select case semester_old when '3'\
+                then concat(cos_year_old, '-', 'X', '-', cos_id_old) \
+                else concat(cos_year_old, '-', semester_old, '-', cos_id_old) \
+            end as unique_id_old, \
+            o.cos_cname_old, o.cos_code, o.cos_cname, o.offset_type, o.cos_credit\
         from offset as o\
-        where student_id = :id\
+        where o.student_id = :id\
+        and o.offset_type = '免修'\
+        and o.cos_year_old != 0\
     ) as b\
-    on a.cos_code = b.cos_code_old\
-    and a.cos_cname = b.cos_cname_old\
+    on a.unique_id = b.unique_id_old\
     union\
-    select o.cos_code, o.cos_cname, '' as cos_ename,\
-        if(ISNULL(o.cos_code_old), null, o.cos_code_old) as cos_code_old, \
-        if(ISNULL(o.cos_cname_old), null, o.cos_cname_old) as cos_cname_old, \
-        '' as pass_fail, o.cos_type, '' as score, '' as score_level, \
-        '' as cos_typeext, '' as cos_dep, o.brief, o.brief_new as brief_new,\
-        o.credit as cos_credit, o.apply_year as cos_year,\
-        o.apply_semester as semester, o.offset_type as offset_type\
+    select o.cos_code, o.cos_cname, '' as cos_ename, o.cos_cname_old, \
+        '通過' as pass_fail, o.cos_type,\
+        NULL as score, NULL as score_level,\
+        if(o.brief like '體育%', '體育', '') as cos_typeext,\
+        '' as cos_dep, if(o.brief like '軍訓%', '軍訓', o.brief) as brief,\
+        0 as cos_credit, \
+        '' as cos_year, '' as semester, o.offset_type\
     from offset as o\
     where o.student_id = :id\
-    and (\
-        o.cos_code_old=''\
-        or ISNULL(o.cos_code_old)\
-    )";
+    and o.offset_type = '免修'\
+    and o.cos_year_old = 0\
+    union\
+    select o.cos_code, o.cos_cname, '' as cos_ename, o.cos_cname_old, \
+        '通過' as pass_fail, o.cos_type,\
+        NULL as score, NULL as score_level,\
+        if(o.brief like '體育%', '體育', '') as cos_typeext,\
+        '' as cos_dep, if(o.brief like '軍訓%', '軍訓', o.brief) as brief,\
+        o.cos_credit, \
+        '' as cos_year, '' as semester, o.offset_type\
+    from offset as o\
+    where o.student_id = :id\
+    and o.offset_type = '抵免';"
 
 exports.ShowUserPartScore = "\
     select DISTINCT\
