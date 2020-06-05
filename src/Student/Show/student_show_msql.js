@@ -172,22 +172,22 @@ module.exports = {
             })
         })
     },
-    ShowUserPartScore: function(id, category, callback) {
-        const resource = pool.acquire();
-        resource.then(function(c) {
-            var sql_PassSpecify = c.prepare(s.ShowUserPartScore);
-            var year = '1' + id[0] + id[1];
-            c.query(sql_PassSpecify({id, year, category}), function(err, result) {
-                if (err){
-                    callback(err, undefined);
-                    pool.release(c);
-                    return;
-                }
-                callback(null, JSON.stringify(result));
-                pool.release(c);
-            })
-        })
-    },
+    // ShowUserPartScore: function(id, category, callback) {
+    //     const resource = pool.acquire();
+    //     resource.then(function(c) {
+    //         var sql_PassSpecify = c.prepare(s.ShowUserPartScore);
+    //         var year = '1' + id[0] + id[1];
+    //         c.query(sql_PassSpecify({id, year, category}), function(err, result) {
+    //             if (err){
+    //                 callback(err, undefined);
+    //                 pool.release(c);
+    //                 return;
+    //             }
+    //             callback(null, JSON.stringify(result));
+    //             pool.release(c);
+    //         })
+    //     })
+    // },
     ShowRecommendCos:function(id, callback){
         const resource = pool.acquire();
         resource.then(function(c){
@@ -328,40 +328,41 @@ module.exports = {
             });
     },
     ShowUserOffset: function(id, callback) {
-        const resource = pool.acquire();
-        resource.then(function(c){
-            if (id != 'all') {
-                var sql_ShowUserOffset = c.prepare(s.ShowUserOffsetSingle);
-                c.query(sql_ShowUserOffset({ id: id }), function(err, result) {
-                    if (err){
-                        callback(err, undefined);
-                        pool.release(c);
-                        return;
-                    }
-                    for(let i in result){
-                        if(typeof(result[i]['cos_cname'])==='string')
-                            result[i]['cos_cname'] = parseOffsetCos(result[i]['cos_cname']);
-                    }
-                    callback(null, JSON.stringify(result));
-                    pool.release(c);
-                });
-            } else {
-                var sql_ShowUserOffset = c.prepare(s.ShowUserOffsetAll);
-                c.query(sql_ShowUserOffset({}), function(err, result) {
-                    if (err){
-                        callback(err, undefined);
-                        pool.release(c);
-                        return;
-                    }
-                    for(let i in result){
-                        if(typeof(result[i]['cos_cname'])==='string')
-                            result[i]['cos_cname'] = parseOffsetCos(result[i]['cos_cname']);
-                    }
-                    callback(null, JSON.stringify(result));
-                    pool.release(c);
-                });
-            }
-        });
+        callback(null, null);
+        // const resource = pool.acquire();
+        // resource.then(function(c){
+        //     if (id != 'all') {
+        //         var sql_ShowUserOffset = c.prepare(s.ShowUserOffsetSingle);
+        //         c.query(sql_ShowUserOffset({ id: id }), function(err, result) {
+        //             if (err){
+        //                 callback(err, undefined);
+        //                 pool.release(c);
+        //                 return;
+        //             }
+        //             for(let i in result){
+        //                 if(typeof(result[i]['cos_cname'])==='string')
+        //                     result[i]['cos_cname'] = parseOffsetCos(result[i]['cos_cname']);
+        //             }
+        //             callback(null, JSON.stringify(result));
+        //             pool.release(c);
+        //         });
+        //     } else {
+        //         var sql_ShowUserOffset = c.prepare(s.ShowUserOffsetAll);
+        //         c.query(sql_ShowUserOffset({}), function(err, result) {
+        //             if (err){
+        //                 callback(err, undefined);
+        //                 pool.release(c);
+        //                 return;
+        //             }
+        //             for(let i in result){
+        //                 if(typeof(result[i]['cos_cname'])==='string')
+        //                     result[i]['cos_cname'] = parseOffsetCos(result[i]['cos_cname']);
+        //             }
+        //             callback(null, JSON.stringify(result));
+        //             pool.release(c);
+        //         });
+        //     }
+        // });
     },
     ShowGraduateStudentList: function(id, callback) {
         const resource = pool.acquire();
