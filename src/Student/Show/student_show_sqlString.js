@@ -134,7 +134,7 @@ exports.ShowUserAllScore = "\
         if((a.cos_typeext='' && a.brief like '體育%'), '體育', a.cos_typeext) as cos_typeext,\
         a.cos_dep, \
         if(a.brief like '軍訓%', '軍訓', a.brief) as brief,\
-        if(a.cos_credit<b.cos_credit, a.cos_credit, b.cos_credit) as cos_credit, \
+        if(b.cos_credit is NULL or a.cos_credit<b.cos_credit, a.cos_credit, b.cos_credit) as cos_credit,\
         a.cos_year, a.semester, b.offset_type\
     from \
     (\
@@ -171,9 +171,9 @@ exports.ShowUserAllScore = "\
     left outer join\
     (\
         select case semester_old when '3'\
-                then concat(cos_year_old, '-', 'X', '-', cos_id_old) \
-                else concat(cos_year_old, '-', semester_old, '-', cos_id_old) \
-            end as unique_id_old, \
+                    then concat(cos_year_old, '-', 'X', '-', cos_id_old) \
+                    else concat(cos_year_old, '-', semester_old, '-', cos_id_old) \
+                end as unique_id_old, \
             o.cos_cname_old, o.cos_code, o.cos_cname, o.offset_type, o.cos_credit\
         from offset as o\
         where o.student_id = :id\

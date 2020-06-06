@@ -37,11 +37,11 @@ var m = require('./msql.js');
 //     console.log(JSON.parse(result));
 // }); // ShowUserTotalCredit 回傳某學生總學分數
 
-// m.ShowUserAllScore('0516003', function(err, result){
-//     if(err)
-//         throw err;
-//     console.log(JSON.parse(result));
-// }); // ShowUserAllScore 列出此學生通過的課
+m.ShowUserAllScore('0513407', function(err, result){
+    if(err)
+        throw err;
+    console.log(JSON.parse(result));
+}); // ShowUserAllScore 列出此學生通過的課
 
 // m.ShowCosGroup('0516003', function(err, result){
 //     if(err)
@@ -55,11 +55,11 @@ var m = require('./msql.js');
 // 	   console.log(JSON.parse(result));
 // }); // ShowGraduateRule 列出此學生畢業標準
 
-m.ShowUserOffset('0513311', function(err, result){
-    if(err)
-        throw err;
-	   console.log(JSON.parse(result));
-}); // ShowUserOffset 個人抵免資料 (輸入all顯示全部)
+// m.ShowUserOffset('0513311', function(err, result){
+//     if(err)
+//         throw err;
+// 	   console.log(JSON.parse(result));
+// }); // ShowUserOffset 個人抵免資料 (輸入all顯示全部)
 
 // m.ShowUserOnCos('0516003', function(err, result){
 // 	if(err)
