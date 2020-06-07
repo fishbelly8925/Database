@@ -7,7 +7,7 @@ import checkFile
 import connect
 
 def validateCSV(file_path, unique_id, mycursor, connection):
-    needed_column = ['學號', '學年度', '學期', '當期課號', '開課單位', '永久課號', '選別', 'scr_summaryno', '學分數']
+    needed_column = ['學號', '學年度', '學期', '當期課號', '開課單位', '永久課號', '選別', '摘要', '學分數']
     record_status = 1
     validate_flag = True
     df = pd.read_csv(file_path, dtype={'學號': object, '當期課號': object})
@@ -98,7 +98,7 @@ def insertDB(file_path, mycursor, connection):
             cos_dep varchar(20),
             cos_code varchar(20),
             cos_type varchar(20),
-            scr_summaryno varchar(10),
+            brief varchar(20),
             cos_credit float,
             primary key(student_id, year, semester, code)
         )DEFAULT CHARSET=utf8mb4;
@@ -119,7 +119,7 @@ def insertDB(file_path, mycursor, connection):
         cos_dep = values(cos_dep), 
         cos_code = values(cos_code),
         cos_type = values(cos_type),
-        scr_summaryno = values(scr_summaryno),
+        brief = values(brief),
         cos_credit = values(cos_credit)
         ;
     '''
@@ -149,20 +149,19 @@ def convertData(file_path, output_path, selected_year, selected_semester):
     df = pd.read_csv(file_path, dtype={'學號': object, '當期課號': object})
     concat_year_semester = str(selected_year) + str(selected_semester)
     df = df[df['學期'] == int(concat_year_semester)].reset_index(drop=True)
+    df = df[df['備註'] != '停修'].reset_index(drop=True)
     df_parse = df.copy()
-    df_parse = df_parse.drop(columns=['班別', '姓名', '摘要', '備註'])
+    df_parse = df_parse.drop(columns=['班別', '姓名', '備註'])
     # Processing to fit table columns
     year = []
     semester = []
     year = [selected_year] * len(df)
     semester = [selected_semester] * len(df)
-    scr_summaryno = [None] * len(df)
 
     df_parse['學年度'] = year
     df_parse['學期'] = semester
-    df_parse['scr_summaryno'] = scr_summaryno
     # # Swap columns
-    columns_order = ['學號', '學年度', '學期', '當期課號', '開課單位', '永久課號', '選別', 'scr_summaryno', '學分數']
+    columns_order = ['學號', '學年度', '學期', '當期課號', '開課單位', '永久課號', '選別', '摘要', '學分數']
     cols = list(df.columns)
     df_parse = df_parse[columns_order]
     df_parse.to_csv(output_path, index = False, encoding = 'utf-8')
