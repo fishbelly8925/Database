@@ -309,6 +309,23 @@ module.exports = {
                         pool.release(c);
                         return;
                     }
+
+                    for(let i=0; i<result.length; i+=1)
+                    {
+                        result[i]['brief_new'] = '';
+                        if(typeof(result[i]['brief']) == 'string')
+                        {
+                            if(result[i]['brief'].substring(0, 2) == '核心' || 
+                                    result[i]['brief'].substring(0, 3) == '校基本' || 
+                                    result[i]['brief'].substring(0, 2) == '外院' || 
+                                    result[i]['brief'].substring(0, 2) == '跨院')
+                            {
+                                result[i]['brief_new'] = result[i]['brief'];
+                                result[i]['brief'] = '';
+                            }
+                        }
+                    }
+
                     callback(null, JSON.stringify(result));
                     pool.release(c);
                 });
@@ -322,6 +339,23 @@ module.exports = {
                         pool.release(c);
                         return;
                     }
+
+                    for(let i=0; i<result.length; i+=1)
+                    {
+                        result[i]['brief_new'] = '';
+                        if(typeof(result[i]['brief']) == 'string')
+                        {
+                            if(result[i]['brief'].substring(0, 2) == '核心' || 
+                                    result[i]['brief'].substring(0, 3) == '校基本' || 
+                                    result[i]['brief'].substring(0, 2) == '外院' || 
+                                    result[i]['brief'].substring(0, 2) == '跨院')
+                            {
+                                result[i]['brief_new'] = result[i]['brief'];
+                                result[i]['brief'] = '';
+                            }
+                        }
+                    }
+
                     callback(null, JSON.stringify(result));
                     pool.release(c);
                 });
