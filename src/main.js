@@ -37,11 +37,11 @@ var m = require('./msql.js');
 //     console.log(JSON.parse(result));
 // }); // ShowUserTotalCredit 回傳某學生總學分數
 
-m.ShowUserAllScore('0716023', function(err, result){
-    if(err)
-        throw err;
-    console.log(JSON.parse(result));
-}); // ShowUserAllScore 列出此學生通過的課
+// m.ShowUserAllScore('0716023', function(err, result){
+//     if(err)
+//         throw err;
+//     console.log(JSON.parse(result));
+// }); // ShowUserAllScore 列出此學生通過的課
 
 // m.ShowCosGroup('0516003', function(err, result){
 //     if(err)
@@ -61,11 +61,11 @@ m.ShowUserAllScore('0716023', function(err, result){
 // 	   console.log(JSON.parse(result));
 // }); // ShowUserOffset 個人抵免資料 (輸入all顯示全部)
 
-// m.ShowUserOnCos('0516003', function(err, result){
+// m.ShowUserOnCos('0716003', function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
-// }); // ShowUserOnCos 大四個人當期修課資料 (輸入all顯示全部)
+// }); // ShowUserOnCos 個人當期修課資料 (輸入all顯示全部)
 
 // m.ShowGraduateStudentList('05', function(err, result){
 // 	if(err)
