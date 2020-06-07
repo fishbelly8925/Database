@@ -198,7 +198,14 @@ exports.ShowUserAllScore = "\
         '通過' as pass_fail, o.cos_type,\
         NULL as score, NULL as score_level,\
         if(o.brief like '體育%', '體育', '') as cos_typeext, '' as cos_dep,\
-        if((o.brief is null), '', if(o.brief like '軍訓%', '軍訓', o.brief)) as brief,\
+        if(\
+            (\
+                o.brief is null and \
+                (o.cos_cname like '校基本%' or o.cos_cname like '外院基本' or o.cos_cname like '核心-%')\
+            ), o.cos_cname, if(\
+                o.brief is null, '', if(o.brief like '軍訓%', '軍訓', o.brief)\
+            )\
+        ) as brief,\
         o.cos_credit, \
         '' as cos_year, '' as semester, o.offset_type\
     from offset as o\
