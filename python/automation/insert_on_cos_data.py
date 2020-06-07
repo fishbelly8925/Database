@@ -7,7 +7,7 @@ import checkFile
 import connect
 
 def validateCSV(file_path, unique_id, mycursor, connection):
-    needed_column = ['學號', '學年度', '學期', '當期課號', '開課單位', '永久課號', '選別', '摘要', '學分數']
+    needed_column = ['學號', '學年度', '學期', '當期課號', '開課單位', '永久課號', '課名', '選別', '摘要', '學分數']
     record_status = 1
     validate_flag = True
     df = pd.read_csv(file_path, dtype={'學號': object, '當期課號': object})
@@ -97,6 +97,7 @@ def insertDB(file_path, mycursor, connection):
             code varchar(10),
             cos_dep varchar(20),
             cos_code varchar(20),
+            cos_cname varchar(50),
             cos_type varchar(20),
             brief varchar(20),
             cos_credit float,
@@ -118,6 +119,7 @@ def insertDB(file_path, mycursor, connection):
         on duplicate key update
         cos_dep = values(cos_dep), 
         cos_code = values(cos_code),
+        cos_cname = values(cos_cname),
         cos_type = values(cos_type),
         brief = values(brief),
         cos_credit = values(cos_credit)
@@ -161,7 +163,7 @@ def convertData(file_path, output_path, selected_year, selected_semester):
     df_parse['學年度'] = year
     df_parse['學期'] = semester
     # # Swap columns
-    columns_order = ['學號', '學年度', '學期', '當期課號', '開課單位', '永久課號', '選別', '摘要', '學分數']
+    columns_order = ['學號', '學年度', '學期', '當期課號', '開課單位', '永久課號', '課名', '選別', '摘要', '學分數']
     cols = list(df.columns)
     df_parse = df_parse[columns_order]
     df_parse.to_csv(output_path, index = False, encoding = 'utf-8')
