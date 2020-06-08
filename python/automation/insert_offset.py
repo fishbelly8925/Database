@@ -57,6 +57,7 @@ def convert_coscode(file_path, mycursor, connection, unique_id):
 				print(msg)
 
 	df['修課永久課號'] = cos_code_old
+	df['修課年度'] = year
 
 	try:
 		df['原課程向度'] = df['原課程向度'].astype(str).str.replace('院基本素養', '外院基本能力')
