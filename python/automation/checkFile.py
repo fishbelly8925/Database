@@ -56,8 +56,7 @@ def initialLog(calling_file, record_status, year, semester, mycursor, connection
     return mycursor.lastrowid
 
 def convertExcelToCsv(input_path, output_path):
-    ost = '抵免'
-    convert_type = ost in output_path
+    convert_type = '抵免' in output_path or 'offset' in output_path
     df = None
     if convert_type == False:
         check_column = '當期課號'
@@ -68,7 +67,8 @@ def convertExcelToCsv(input_path, output_path):
         else:
             df = pd.read_excel(input_path, dtype={'學號': object})
     else:
-        df = pd.read_excel(input_path, encoding = 'utf-8', dtype = {'學號':object, '原修課學年度':object, '原修課學期':object, '原修課當期課號':object})
+        df = pd.read_excel(input_path, encoding = 'utf-8', dtype = {'學號':object, '修課年度':object, '修課學期':object, '修課當期課號':object})
+        
     df.to_csv(output_path, index=False)
 
 if __name__ == '__main__':

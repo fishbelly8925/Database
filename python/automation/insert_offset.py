@@ -9,8 +9,8 @@ import os
 import time
 
 def validateCSV(file_path, unique_id):
-	needed_column = ['學號', '申請年度', '申請學期', '原修課學年度', '原修課學期', '原修課當期課號', '原修課課名', 
-					'欲抵免免修永久課號', '欲抵免免修課名', '學分數', '抵免或免修', '原課程向度', '學生選別', '欲抵免免修課程向度']
+	needed_column = ['學號', '申請年度', '申請學期', '修課年度', '修課學期', '修課當期課號', '修課課名', 
+					 '欲抵免免修永久課號', '欲抵免免修課名', '學分數', '抵免或免修', '原課程向度', '學生選別']
 	record_status = 1
 	validate_flag = True
 	df = pd.read_csv(file_path, encoding = 'utf-8')
@@ -29,46 +29,49 @@ def validateCSV(file_path, unique_id):
 
 def convert_coscode(file_path, mycursor, connection, unique_id):
 
-	df = pd.read_csv(file_path, encoding = 'utf-8', dtype = {'學號':object, '原修課學年度':object, '原修課學期':object, '原修課當期課號':object})
-
-	# insert "原修課永久課號"
+	df = pd.read_csv(file_path, encoding = 'utf-8', dtype = {'學號':object, '修課年度':object, '修課學期':object, '修課當期課號':object})
+	
+	# insert "修課永久課號"
 	col_name=df.columns.tolist()
-	col_name.insert(5, "原修課永久課號")
+	col_name.insert(6, "修課永久課號")
 	df = df.reindex(columns = col_name)
 
-	year = df['原修課學年度'].tolist()
-	semester = df['原修課學期'].tolist()
-	code = df['原修課當期課號'].tolist()
+	year = df['修課年度'].tolist()
+	semester = df['修課學期'].tolist()
+	code = df['修課當期課號'].tolist()
 	offset_type = df['抵免或免修'].tolist()
-	cos_code_old = df['原修課永久課號'].tolist()
+	cos_code_old = df['修課永久課號'].tolist()
 
 	for i in range(len(year)):
 		if(offset_type[i] == '抵免'):
 			continue
 		elif(offset_type[i] == '免修'):
+			year[i] = str(year[i]).replace('.0', '')		# 以防裡面有轉換失敗產生的小數
 			item = str(year[i]) + '-' + str(semester[i]) + '-' + str(code[i])
 			mycursor.execute("select cos_code from cos_name where unique_id = '%s';" %item)
 			tmp = mycursor.fetchall()
 			if tmp != ():
 				cos_code_old[i] = tmp[0][0]
 			else:
-				msg = item + " 沒有找到原修課永久課號"
+				msg = item + " 沒有找到修課永久課號"
 				print(msg)
-	df['原修課永久課號'] = cos_code_old
 
-	col = ['學號', '申請年度', '申請學期', '原修課永久課號', '原修課課名', 
-		   '欲抵免免修永久課號', '欲抵免免修課名', '學分數', '抵免或免修', '原課程向度', '學生選別', '欲抵免免修課程向度']
-	df = df[col]
+	df['修課永久課號'] = cos_code_old
 
 	try:
-		df['欲抵免免修課程向度'] = df['欲抵免免修課程向度'].astype(str).str.replace('院基本素養', '跨院基本素養')
+		df['原課程向度'] = df['原課程向度'].astype(str).str.replace('院基本素養', '外院基本能力')
+		df['原課程向度'] = df['原課程向度'].astype(str).str.replace('跨院基本素養', '外院基本能力')
+		df['原課程向度'] = df['原課程向度'].astype(str).str.replace('校基本素養', '校基本能力')
+		df['原課程向度'] = df['原課程向度'].astype(str).str.replace('nan', '')
+		col = ['學號', '申請年度', '申請學期', '修課年度', '修課學期', '修課當期課號', '修課永久課號', '修課課名', 
+		       '欲抵免免修永久課號', '欲抵免免修課名', '學分數', '抵免或免修', '原課程向度', '學生選別']
+		df = df[col]
 	except Exception as e:
 		record_status = 0
 		msg = '錯誤：欄位資料可能有錯，'
 		msg += str(e)
 		checkFile.recordLog(unique_id, record_status, msg, mycursor, connection)
 		exit(0)
-
 
 	output_path = os.getcwd() + "/temp_offset.csv"
 	df.to_csv(output_path, index = False, encoding = 'utf-8')
@@ -81,19 +84,37 @@ def insert2db(file_path, mycursor, connection):
 	message = None
 	affect_count = None
 
-	sql1 =  """create table temp_offset(
+	# sql1 =  """create table temp_offset(
+	# 			student_id varchar(10),
+	# 			apply_year varchar(10),
+	# 			apply_semester varchar(10),
+	# 			cos_code_old varchar(10),
+	# 			cos_cname_old varchar(50),
+	# 			cos_code varchar(10),
+	# 			cos_cname varchar(50),
+	# 			credit int(11),
+	# 			offset_type varchar(20),
+	# 			brief varchar(50),
+	# 			cos_type varchar(50),
+	# 			brief_new varchar(50)
+	# 		)DEFAULT CHARSET=utf8mb4;
+	# 		"""
+
+	sql1 =  """create temporary table temp_offset(
 				student_id varchar(10),
 				apply_year varchar(10),
 				apply_semester varchar(10),
+				cos_year_old varchar(10),
+				semester_old varchar(10),
+				cos_id_old varchar(10),
 				cos_code_old varchar(10),
 				cos_cname_old varchar(50),
-				cos_code varchar(10),
-				cos_cname varchar(50),
-				credit int(11),
+				cos_code varchar(10) not null,
+				cos_cname varchar(50) not null,
+				cos_credit float,
 				offset_type varchar(20),
 				brief varchar(50),
-				cos_type varchar(50),
-				brief_new varchar(50)
+				cos_type varchar(20)
 			)DEFAULT CHARSET=utf8mb4;
 			"""
 
@@ -112,19 +133,21 @@ def insert2db(file_path, mycursor, connection):
 				student_id = ost.student_id,
 				apply_year = ost.apply_year,
 				apply_semester = ost.apply_semester,
+				cos_year_old = ost.cos_year_old,
+				semester_old = ost.semester_old,
+				cos_id_old = ost.cos_id_old,
 				cos_code_old = ost.cos_code_old,
 				cos_cname_old = ost.cos_cname_old,
 				cos_code = ost.cos_code,
 				cos_cname = ost.cos_cname,
-				credit = ost.credit,
+				cos_credit = ost.cos_credit,
 				offset_type = ost.offset_type,
 				brief = ost.brief,
-				cos_type = ost.cos_type,
-				brief_new = ost.brief_new
+				cos_type = ost.cos_type
 				;
 			"""
 
-	sql4 =  """drop table temp_offset;
+	sql4 =  """drop temporary table temp_offset;
 			"""
 
 	try:
