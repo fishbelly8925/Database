@@ -160,8 +160,7 @@ module.exports = {
                     {
                         if(data[i]['brief'].substring(0, 2) == '核心' || 
                                 data[i]['brief'].substring(0, 3) == '校基本' || 
-                                data[i]['brief'].substring(0, 2) == '外院' || 
-                                data[i]['brief'].substring(0, 2) == '跨院')
+                                data[i]['brief'].substring(0, 3) == '院基本')
                         {
                             data[i]['brief_new'] = data[i]['brief'];
                             data[i]['brief'] = '';
@@ -183,6 +182,7 @@ module.exports = {
                         }
                         placement_cos_cname.push(data[i]['cos_cname'])
                     }
+                    
                     result.push(data[i])
                 }
                 

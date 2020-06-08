@@ -182,7 +182,7 @@ exports.ShowUserAllScore = "\
         and o.cos_year_old != 0\
     ) as b\
     on a.unique_id = b.unique_id_old\
-    union\
+    union all\
     select o.cos_code, o.cos_cname, '' as cos_ename, o.cos_cname_old, \
         '通過' as pass_fail, o.cos_type,\
         NULL as score, NULL as score_level,\
@@ -194,7 +194,7 @@ exports.ShowUserAllScore = "\
     where o.student_id = :id\
     and o.offset_type = '免修'\
     and o.cos_year_old = 0\
-    union\
+    union all\
     select o.cos_code, o.cos_cname, '' as cos_ename, o.cos_cname_old, \
         '通過' as pass_fail, o.cos_type,\
         NULL as score, NULL as score_level,\
