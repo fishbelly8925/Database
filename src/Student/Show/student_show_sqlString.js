@@ -125,8 +125,9 @@ exports.findAssistant = "\
 //         or ISNULL(o.cos_code_old)\
 //     )";
 
+// 第一行會select distinct是因為可能會有學生重複送免修單
 exports.ShowUserAllScore = "\
-    select if(ISNULL(b.cos_code), a.cos_code, b.cos_code) as cos_code,\
+    select distinct if(ISNULL(b.cos_code), a.cos_code, b.cos_code) as cos_code,\
         if(ISNULL(b.cos_cname), a.cos_cname, b.cos_cname) as cos_cname,\
         a.cos_ename, b.cos_cname_old, a.pass_fail, a.cos_type,\
         if(a.score_type='通過不通過', NULL, a.score) as score,\
@@ -200,7 +201,7 @@ exports.ShowUserAllScore = "\
         if(o.brief like '體育%', '體育', '') as cos_typeext, '' as cos_dep,\
         if(\
             (\
-                o.brief is null and \
+                o.brief='' and \
                 (o.cos_cname like '校基本%' or o.cos_cname like '外院基本' or o.cos_cname like '核心-%')\
             ), o.cos_cname, if(\
                 o.brief is null, '', if(o.brief like '軍訓%', '軍訓', o.brief)\

@@ -144,27 +144,46 @@ module.exports = {
         const resource = pool.acquire();
         resource.then(function(c) {
             var sql_ShowUserAllScore = c.prepare(s.ShowUserAllScore);
-            c.query(sql_ShowUserAllScore({ id: id}), function(err, result) {
+            c.query(sql_ShowUserAllScore({ id: id}), function(err, data) {
                 if (err){
                     callback(err, undefined);
                     pool.release(c);
                     return;
                 }
 
-                for(let i=0; i<result.length; i+=1)
+                let placement_cos_cname = []
+                var result = []
+                for(let i=0; i<data.length; i+=1)
                 {
-                    result[i]['brief_new'] = '';
-                    if(typeof(result[i]['brief']) == 'string')
+                    data[i]['brief_new'] = '';
+                    if(typeof(data[i]['brief']) == 'string')
                     {
-                        if(result[i]['brief'].substring(0, 2) == '核心' || 
-                                result[i]['brief'].substring(0, 3) == '校基本' || 
-                                result[i]['brief'].substring(0, 2) == '外院' || 
-                                result[i]['brief'].substring(0, 2) == '跨院')
+                        if(data[i]['brief'].substring(0, 2) == '核心' || 
+                                data[i]['brief'].substring(0, 3) == '校基本' || 
+                                data[i]['brief'].substring(0, 2) == '外院' || 
+                                data[i]['brief'].substring(0, 2) == '跨院')
                         {
-                            result[i]['brief_new'] = result[i]['brief'];
-                            result[i]['brief'] = '';
+                            data[i]['brief_new'] = data[i]['brief'];
+                            data[i]['brief'] = '';
                         }
                     }
+                    if(data[i]['offset_type'] == '免修')
+                    {
+                        if(data[i]['cos_cname'] != '導師時間' && 
+                                data[i]['cos_cname'] != '生涯規劃及導師時間' && 
+                                placement_cos_cname.includes(data[i]['cos_cname']))
+                        {
+                            for(let j=0; j<result.length; j+=1)
+                                if(result[j]['cos_cname'] == data[i]['cos_cname'])
+                                {
+                                    result[j]['score'] += ', ' + data[i]['score']
+                                    break
+                                }
+                            continue
+                        }
+                        placement_cos_cname.push(data[i]['cos_cname'])
+                    }
+                    result.push(data[i])
                 }
                 
                 callback(null, JSON.stringify(result));
