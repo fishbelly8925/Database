@@ -176,7 +176,7 @@ module.exports = {
                             for(let j=0; j<result.length; j+=1)
                                 if(result[j]['cos_cname'] == data[i]['cos_cname'])
                                 {
-                                    result[j]['score'] += ', ' + data[i]['score']
+                                    result[j]['score'] += ',' + data[i]['score']
                                     break
                                 }
                             continue
