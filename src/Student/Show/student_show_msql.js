@@ -159,8 +159,8 @@ module.exports = {
                     if(typeof(data[i]['brief']) == 'string')
                     {
                         if(data[i]['brief'].substring(0, 2) == '核心' || 
-                                data[i]['brief'].substring(0, 3) == '校基本' || 
-                                data[i]['brief'].substring(0, 3) == '院基本')
+                                data[i]['brief'].substring(0, 3) == '校基本' ||
+                                data[i]['brief'].substring(0, 4) == '外院基本')
                         {
                             data[i]['brief_new'] = data[i]['brief'];
                             data[i]['brief'] = '';

@@ -202,7 +202,7 @@ exports.ShowUserAllScore = "\
         if(\
             (\
                 o.brief='' and \
-                (o.cos_cname like '校基本%' or o.cos_cname like '外院基本' or o.cos_cname like '核心-%')\
+                (o.cos_cname like '校基本%' or o.cos_cname like '外院基本%' or o.cos_cname like '核心-%')\
             ), o.cos_cname, if(\
                 o.brief is null, '', if(o.brief like '軍訓%', '軍訓', o.brief)\
             )\
