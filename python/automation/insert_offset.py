@@ -56,11 +56,14 @@ def convert_coscode(file_path, mycursor, connection, unique_id):
 				msg = item + " 沒有找到修課永久課號"
 				print(msg)
 
+
+
 	df['修課永久課號'] = cos_code_old
 	df['修課年度'] = year
 
 	try:
-		df['原課程向度'] = df['原課程向度'].astype(str).str.replace('院基本素養', '外院基本能力')
+		df['欲抵免免修課名'] = df['欲抵免免修課名'].astype(str).str.replace('院基本素養', '外院基本能力')
+		df['欲抵免免修課名'] = df['欲抵免免修課名'].astype(str).str.replace('校基本素養', '校基本能力')
 		df['原課程向度'] = df['原課程向度'].astype(str).str.replace('跨院基本素養', '外院基本能力')
 		df['原課程向度'] = df['原課程向度'].astype(str).str.replace('校基本素養', '校基本能力')
 		df['原課程向度'] = df['原課程向度'].astype(str).str.replace('nan', '')
