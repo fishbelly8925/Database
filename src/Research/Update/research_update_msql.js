@@ -7,7 +7,7 @@ var pool = psw.dbpsw();
 
 module.exports = { 
     SetResearchAddStatus:function(data, callback){
-        if(typeof(data)==='string')
+        if(typeof(data) === 'string')
             data = JSON.parse(data);
         const resource = pool.acquire();
         resource.then(function(c){
@@ -24,7 +24,7 @@ module.exports = {
         });
     },
     SetResearchInfo:function(data, callback){
-        if(typeof(data)==='string')
+        if(typeof(data) === 'string')
             data = JSON.parse(data);
         const resource = pool.acquire();
         resource.then(function(c){
@@ -71,7 +71,7 @@ module.exports = {
         });
     }, 
     SetResearchScoreComment:function(data, callback){
-        if(typeof(data)==='string')
+        if(typeof(data) === 'string')
             data = JSON.parse(data);
         const resource = pool.acquire();
         resource.then(function(c){
@@ -97,10 +97,10 @@ module.exports = {
     }, 
     CreateNewResearch:function(data, callback){
         if(typeof(data) === 'string')
-            data=JSON.parse(data);
-        const resource=pool.acquire();
+            data = JSON.parse(data);
+        const resource = pool.acquire();
         resource.then(function(c){
-            var sql_CreateNewResearch=c.prepare(s.CreateNewResearch);
+            var sql_CreateNewResearch = c.prepare(s.CreateNewResearch);
             c.query(sql_CreateNewResearch(data), function(err, result){
                 if(err)
                 {
@@ -113,18 +113,19 @@ module.exports = {
             });                   
         });
     }, 
-    ChangeResearch:function(data){
+    ChangeResearch:function(data, callback){
         if(typeof(data) === 'string')
-            data=JSON.parse(data);
-        const resource=pool.acquire();
+            data = JSON.parse(data);
+        const resource = pool.acquire();
         resource.then(function(c){
-            var sql_ChangeResearch=c.prepare(s.ChangeResearch);
-            c.query(sql_ChangeResearch(data), function(err){
-                if(err)
-                {
-                    pool.release(c);
+            var sql_ChangeResearch = c.prepare(s.ChangeResearch);
+            c.query(sql_ChangeResearch(data), function(err, result){
+                if(err){
+                    callback(err, undefined);
+                    pool.release(c); 
                     throw err;
                 }
+                callback(null, JSON.stringify(result));
                 pool.release(c);
             });
         });

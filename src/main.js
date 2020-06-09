@@ -291,7 +291,11 @@ var m = require('./msql.js');
 // });
 // // 申請專題同意後，新增此學生專題資料到資料庫
 
-// m.ChangeResearch({ student_id:'0516003', tname : '彭文志', research_title : 'testyeeeee', first_second:2, semester: '106-1'});
+// m.ChangeResearch({ student_id:'0516003', tname : '彭文志new', research_title : 'tesdtttt+_10', first_second:1, semester: '106-2'}, function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// });
 // // 申請換專題，修改此學生專題資料
 
 // m.DeleteResearch({ student_id:'0516003', first_second:2, semester: '106-1'}, function(err, result){
