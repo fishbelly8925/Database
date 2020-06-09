@@ -315,11 +315,11 @@ module.exports = {
         });
     }, 
     SetResearchApplyFormStatus:function(data){
-        if(typeof(data)==='string')
-            data=JSON.parse(data);
-        const resource=pool.acquire();
+        if(typeof(data) === 'string')
+            data = JSON.parse(data);
+        const resource = pool.acquire();
         resource.then(function(c){
-            var sql_SetResearchApplyFormStatus=c.prepare(s.SetResearchApplyFormStatus);
+            var sql_SetResearchApplyFormStatus = c.prepare(s.SetResearchApplyFormStatus);
             c.query(sql_SetResearchApplyFormStatus(data), function(err, result){
                 if(err)
                 {
@@ -331,11 +331,11 @@ module.exports = {
         });
     }, 
     DeleteResearchApplyForm:function(data){
-        if(typeof(data)==='string')
-            data=JSON.parse(data);
-        const resource=pool.acquire();
+        if(typeof(data) === 'string')
+            data = JSON.parse(data);
+        const resource = pool.acquire();
         resource.then(function(c){
-            var sql_DeleteResearchApplyForm=c.prepare(s.DeleteResearchApplyForm);
+            var sql_DeleteResearchApplyForm = c.prepare(s.DeleteResearchApplyForm);
             c.query(sql_DeleteResearchApplyForm(data), function(err){
                 if(err)
                 {
@@ -347,11 +347,11 @@ module.exports = {
         });
     },
     SetResearchReplace:function(data, callback){
-        if(typeof(data)==='string')
-            data=JSON.parse(data);
-        const resource=pool.acquire();
+        if(typeof(data) === 'string')
+            data = JSON.parse(data);
+        const resource = pool.acquire();
         resource.then(function(c){
-            var sql_SetResearchReplace=c.prepare(s.SetResearchReplace);
+            var sql_SetResearchReplace = c.prepare(s.SetResearchReplace);
             c.query(sql_SetResearchReplace(data), function(err, result){
                 if(err)
                 {

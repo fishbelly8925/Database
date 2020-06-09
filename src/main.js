@@ -611,7 +611,7 @@ var m = require('./msql.js');
 // });
 // // 查詢該學期該教授的此題目，目前有幾筆
 
-// m.SetResearchReplace({student_id: '0516001', research_title:'testttt+_9', semester:'106-2', replace_pro: '1'}, function(err, result){
+// m.SetResearchReplace({student_id: '0516003', research_title:'testttt+_9', semester:'106-2', replace_pro: '1'}, function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
