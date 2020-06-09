@@ -37,11 +37,11 @@ var m = require('./msql.js');
 //     console.log(JSON.parse(result));
 // }); // ShowUserTotalCredit 回傳某學生總學分數
 
-m.ShowUserAllScore('0716023', function(err, result){
-    if(err)
-        throw err;
-    console.log(JSON.parse(result));
-}); // ShowUserAllScore 列出此學生通過的課
+// m.ShowUserAllScore('0716023', function(err, result){
+//     if(err)
+//         throw err;
+//     console.log(JSON.parse(result));
+// }); // ShowUserAllScore 列出此學生通過的課
 
 // m.ShowCosGroup('0516003', function(err, result){
 //     if(err)
@@ -270,9 +270,10 @@ m.ShowUserAllScore('0716023', function(err, result){
 // });
 // // 用教授名稱、專題名稱、專題一二查詢所有同組專題生的學號
 
-// m.SetResearchInfo({tname:'林文杰', research_title:'Many Worlds Browsing in Unity', first_second:2, semester:'106-2', new_title:'Many Worlds Browsing in Unity_new', new_file:'base64 string file', new_photo:'base64 testphoto', new_filename:'testnew filename', new_intro:'c'}, function(err){
+// m.SetResearchInfo({tname:'彭文志', research_title:'讓電腦看懂羽球', first_second:2, semester:'107-2', new_title:'讓電腦看懂羽球NEW', new_file:'base64 string file', new_photo:'base64 testphoto', new_filename:'testnew filename', new_intro:'c'}, function(err, result){
 // 	if(err)
-// 		throw err;
+//         throw err;
+//     console.log(JSON.parse(result));
 // });
 // // 用教授名稱、專題名稱、專題一二更新專題資訊(標題、網址、介紹)
 

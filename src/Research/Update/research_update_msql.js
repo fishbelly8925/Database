@@ -8,13 +8,12 @@ var pool = psw.dbpsw();
 module.exports = { 
     SetResearchAddStatus:function(data, callback){
         if(typeof(data)==='string')
-            data=JSON.parse(data);
-        const resource=pool.acquire();
+            data = JSON.parse(data);
+        const resource = pool.acquire();
         resource.then(function(c){
-            var sql_SetResearchAddStatus=c.prepare(s.SetResearchAddStatus);
+            var sql_SetResearchAddStatus = c.prepare(s.SetResearchAddStatus);
             c.query(sql_SetResearchAddStatus(data), function(err, result){
-                if(err)
-                {
+                if(err){
                     callback(err, undefined);
                     pool.release(c); 
                     throw err;
@@ -26,33 +25,46 @@ module.exports = {
     },
     SetResearchInfo:function(data, callback){
         if(typeof(data)==='string')
-            data=JSON.parse(data);
-        const resource=pool.acquire();
+            data = JSON.parse(data);
+        const resource = pool.acquire();
         resource.then(function(c){
-            var sql_setResearchTitle=c.prepare(s.setResearchTitle);
-            var sql_setResearchFile=c.prepare(s.setResearchFile);
-            var sql_setResearchPhoto=c.prepare(s.setResearchPhoto);
-            var sql_setResearchFilename=c.prepare(s.setResearchFilename);
-            var sql_setResearchIntro=c.prepare(s.setResearchIntro);
+            var sql_setResearchTitle = c.prepare(s.setResearchTitle);
+            var sql_setResearchFile = c.prepare(s.setResearchFile);
+            var sql_setResearchPhoto = c.prepare(s.setResearchPhoto);
+            var sql_setResearchFilename = c.prepare(s.setResearchFilename);
+            var sql_setResearchIntro = c.prepare(s.setResearchIntro);
 
             c.query(sql_setResearchTitle({research_title: data['research_title'], tname: data['tname'], first_second:data['first_second'], semester:data['semester'], new_title: data['new_title']}), function(err, result){
-                if(err)
+                if(err){
+                    callback(err, undefined);
+                    pool.release(c); 
                     throw err;
+                }
                 c.query(sql_setResearchFile({research_title: data['new_title'], tname: data['tname'], first_second:data['first_second'], semester:data['semester'], new_file: data['new_file']}), function(err, result){
-                    if(err)
+                    if(err){
+                        callback(err, undefined);
+                        pool.release(c); 
                         throw err;
+                    }
                     c.query(sql_setResearchPhoto({research_title: data['new_title'], tname: data['tname'], first_second:data['first_second'], semester:data['semester'], new_photo: data['new_photo']}), function(err, result){
-                        if(err)
-                            throw err;  
+                        if(err){
+                            callback(err, undefined);
+                            pool.release(c); 
+                            throw err;
+                        }
                     });
                     c.query(sql_setResearchFilename({research_title: data['new_title'], tname: data['tname'], first_second:data['first_second'], semester:data['semester'], new_filename: data['new_filename']}), function(err, result){
-                        if(err)
-                            throw err;  
+                        if(err){
+                            callback(err, undefined);
+                            pool.release(c); 
+                            throw err;
+                        }
                     });
                     c.query(sql_setResearchIntro({research_title: data['new_title'], tname: data['tname'], first_second:data['first_second'], semester:data['semester'], new_intro: data['new_intro']}), function(err, result){
                         if(err)
                             throw err;
-                        pool.release(c);    
+                        callback(null, JSON.stringify(result));
+                        pool.release(c);
                     });
                 });
             });
