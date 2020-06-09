@@ -70,24 +70,27 @@ module.exports = {
             });
         });
     }, 
-    SetResearchScoreComment:function(data){
+    SetResearchScoreComment:function(data, callback){
         if(typeof(data)==='string')
-            data=JSON.parse(data);
-        const resource=pool.acquire();
+            data = JSON.parse(data);
+        const resource = pool.acquire();
         resource.then(function(c){
-            var sql_setResearchScore=c.prepare(s.setResearchScore);
-            var sql_setResearchComment=c.prepare(s.setResearchComment);
-            c.query(sql_setResearchScore(data), function(err){
-                if(err)
-                {
+            var sql_setResearchScore = c.prepare(s.setResearchScore);
+            var sql_setResearchComment = c.prepare(s.setResearchComment);
+            c.query(sql_setResearchScore(data), function(err, result){
+                if(err){
+                    callback(err, undefined);
+                    pool.release(c); 
                     throw err;
                 }
             });
-            c.query(sql_setResearchComment(data), function(err){
-                if(err)
-                {
+            c.query(sql_setResearchComment(data), function(err, result){
+                if(err){
+                    callback(err, undefined);
+                    pool.release(c); 
                     throw err;
                 }
+                callback(null, JSON.stringify(result));
                 pool.release(c);
             });
         });

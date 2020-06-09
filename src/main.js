@@ -277,7 +277,11 @@ var m = require('./msql.js');
 // });
 // // 用教授名稱、專題名稱、專題一二更新專題資訊(標題、網址、介紹)
 
-// m.SetResearchScoreComment({student_id:'283u291', tname:'彭文志', research_title:'聊天機器人', first_second:2, semester:'106-2', new_score:88, new_comment:'Yee!'});
+// m.SetResearchScoreComment({student_id:'0516075', tname:'彭文志', research_title:'讓電腦看懂羽球', first_second:1, semester:'107-1', new_score:88, new_comment:'Yee!'}, function(err, result){
+//     if(err)
+//         throw err;
+//     console.log(JSON.parse(result));
+// });
 // // 更新專題成績、評語
 
 // m.CreateNewResearch({ student_id:'0516001', tname : '彭文志', research_title : 'tesdtttt+_10', first_second:1, semester: '106-2'}, function(err, result){
