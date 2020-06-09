@@ -270,18 +270,10 @@ var m = require('./msql.js');
 // });
 // // 用教授名稱、專題名稱、專題一二查詢所有同組專題生的學號
 
-// m.SetResearchInfo({tname:'彭文志', research_title:'讓電腦看懂羽球', first_second:2, semester:'107-2', new_title:'讓電腦看懂羽球NEW', new_file:'base64 string file', new_photo:'base64 testphoto', new_filename:'testnew filename', new_intro:'c'}, function(err, result){
-// 	if(err)
-//         throw err;
-//     console.log(JSON.parse(result));
-// });
+// m.SetResearchInfo({tname:'彭文志', research_title:'讓電腦看懂羽球', first_second:2, semester:'107-2', new_title:'讓電腦看懂羽球NEW', new_file:'base64 string file', new_photo:'base64 testphoto', new_filename:'testnew filename', new_intro:'c'});
 // // 用教授名稱、專題名稱、專題一二更新專題資訊(標題、網址、介紹)
 
-// m.SetResearchScoreComment({student_id:'0516075', tname:'彭文志', research_title:'讓電腦看懂羽球', first_second:1, semester:'107-1', new_score:88, new_comment:'Yee!'}, function(err, result){
-//     if(err)
-//         throw err;
-//     console.log(JSON.parse(result));
-// });
+// m.SetResearchScoreComment({student_id:'0516075', tname:'彭文志', research_title:'讓電腦看懂羽球', first_second:1, semester:'107-1', new_score:88, new_comment:'Yee!'});
 // // 更新專題成績、評語
 
 // m.CreateNewResearch({ student_id:'0516001', tname : '彭文志', research_title : 'tesdtttt+_10', first_second:1, semester: '106-2'}, function(err, result){
@@ -291,11 +283,7 @@ var m = require('./msql.js');
 // });
 // // 申請專題同意後，新增此學生專題資料到資料庫
 
-// m.ChangeResearch({ student_id:'0516003', tname : '彭文志new', research_title : 'tesdtttt+_10', first_second:1, semester: '106-2'}, function(err, result){
-// 	if(err)
-// 		throw err;
-// 	console.log(JSON.parse(result));
-// });
+// m.ChangeResearch({ student_id:'0516003', tname : '彭文志new', research_title : 'tesdtttt+_10', first_second:1, semester: '106-2'});
 // // 申請換專題，修改此學生專題資料
 
 // m.DeleteResearch({ student_id:'0516003', first_second:2, semester: '106-1'}, function(err, result){

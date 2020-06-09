@@ -23,7 +23,7 @@ module.exports = {
             });
         });
     },
-    SetResearchInfo:function(data, callback){
+    SetResearchInfo:function(data){
         if(typeof(data) === 'string')
             data = JSON.parse(data);
         const resource = pool.acquire();
@@ -35,62 +35,42 @@ module.exports = {
             var sql_setResearchIntro = c.prepare(s.setResearchIntro);
 
             c.query(sql_setResearchTitle({research_title: data['research_title'], tname: data['tname'], first_second:data['first_second'], semester:data['semester'], new_title: data['new_title']}), function(err, result){
-                if(err){
-                    callback(err, undefined);
-                    pool.release(c); 
+                if(err)
                     throw err;
-                }
                 c.query(sql_setResearchFile({research_title: data['new_title'], tname: data['tname'], first_second:data['first_second'], semester:data['semester'], new_file: data['new_file']}), function(err, result){
-                    if(err){
-                        callback(err, undefined);
-                        pool.release(c); 
+                    if(err)
                         throw err;
-                    }
                     c.query(sql_setResearchPhoto({research_title: data['new_title'], tname: data['tname'], first_second:data['first_second'], semester:data['semester'], new_photo: data['new_photo']}), function(err, result){
-                        if(err){
-                            callback(err, undefined);
-                            pool.release(c); 
+                        if(err)
                             throw err;
-                        }
                     });
                     c.query(sql_setResearchFilename({research_title: data['new_title'], tname: data['tname'], first_second:data['first_second'], semester:data['semester'], new_filename: data['new_filename']}), function(err, result){
-                        if(err){
-                            callback(err, undefined);
-                            pool.release(c); 
+                        if(err)
                             throw err;
-                        }
                     });
                     c.query(sql_setResearchIntro({research_title: data['new_title'], tname: data['tname'], first_second:data['first_second'], semester:data['semester'], new_intro: data['new_intro']}), function(err, result){
                         if(err)
                             throw err;
-                        callback(null, JSON.stringify(result));
                         pool.release(c);
                     });
                 });
             });
         });
     }, 
-    SetResearchScoreComment:function(data, callback){
+    SetResearchScoreComment:function(data){
         if(typeof(data) === 'string')
             data = JSON.parse(data);
         const resource = pool.acquire();
         resource.then(function(c){
             var sql_setResearchScore = c.prepare(s.setResearchScore);
             var sql_setResearchComment = c.prepare(s.setResearchComment);
-            c.query(sql_setResearchScore(data), function(err, result){
-                if(err){
-                    callback(err, undefined);
-                    pool.release(c); 
+            c.query(sql_setResearchScore(data), function(err){
+                if(err)
                     throw err;
-                }
             });
-            c.query(sql_setResearchComment(data), function(err, result){
-                if(err){
-                    callback(err, undefined);
-                    pool.release(c); 
+            c.query(sql_setResearchComment(data), function(err){
+                if(err)
                     throw err;
-                }
-                callback(null, JSON.stringify(result));
                 pool.release(c);
             });
         });
@@ -113,32 +93,27 @@ module.exports = {
             });                   
         });
     }, 
-    ChangeResearch:function(data, callback){
+    ChangeResearch:function(data){
         if(typeof(data) === 'string')
             data = JSON.parse(data);
         const resource = pool.acquire();
         resource.then(function(c){
             var sql_ChangeResearch = c.prepare(s.ChangeResearch);
-            c.query(sql_ChangeResearch(data), function(err, result){
-                if(err){
-                    callback(err, undefined);
-                    pool.release(c); 
+            c.query(sql_ChangeResearch(data), function(err){
+                if(err)
                     throw err;
-                }
-                callback(null, JSON.stringify(result));
                 pool.release(c);
             });
         });
     }, 
     DeleteResearch:function(data, callback){
-        if(typeof(data)==='string')
-            data=JSON.parse(data);
-        const resource=pool.acquire();
+        if(typeof(data) === 'string')
+            data = JSON.parse(data);
+        const resource = pool.acquire();
         resource.then(function(c){
-            var sql_DeleteResearch=c.prepare(s.DeleteResearch);
+            var sql_DeleteResearch = c.prepare(s.DeleteResearch);
             c.query(sql_DeleteResearch(data), function(err, result){
-                if(err)
-                {
+                if(err){
                     callback(err, undefined);
                     pool.release(c); 
                     throw err;
@@ -150,10 +125,10 @@ module.exports = {
     },
     SetResearchTitle:function(data){
         if(typeof(data) === 'string')
-            data=JSON.parse(data);
-        const resource=pool.acquire();
+            data = JSON.parse(data);
+        const resource = pool.acquire();
         resource.then(function(c){
-            var sql_SetResearchTitle=c.prepare(s.SetResearchTitle);
+            var sql_SetResearchTitle = c.prepare(s.SetResearchTitle);
             c.query(sql_SetResearchTitle(data), function(err){
                 if(err)
                     throw err;
@@ -162,9 +137,9 @@ module.exports = {
         });
     }, 
     SetFirstSecond:function(data, callback){
-        if(typeof(data)==='string')
-            data=JSON.parse(data);
-        const resource=pool.acquire();
+        if(typeof(data) === 'string')
+            data = JSON.parse(data);
+        const resource = pool.acquire();
         resource.then(function(c){
             var sql_SetFirstSecond=c.prepare(s.SetFirstSecond);
             c.query(sql_SetFirstSecond(data), function(err, result){
