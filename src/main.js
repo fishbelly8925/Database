@@ -221,7 +221,7 @@ var m = require('./msql.js');
 // 	console.log(JSON.parse(result));
 // }); // 回傳教授id, 名字對應表
 
-// m.CreateResearchApplyForm({phone:'0900', student_id:'', research_title:'testttt_14', tname:'彭文志', first_second:2, email:'wawawa@crayonSinJang', semester:'106-2', program:'應數系', name:'王小明'}, function(err,result){
+// m.CreateResearchApplyForm({phone:'0900', student_id:'0516003', research_title:'testttt_14', tname:'彭文志', first_second:2, email:'wawawa@crayonSinJang', semester:'106-2', program:'應數系', name:'王小明'}, function(err,result){
 // 	if(err)
 // 		throw err;
 // 		//老師名字若不存在，就會拋出ERROR
@@ -294,8 +294,8 @@ var m = require('./msql.js');
 // // 讓助理可以刪掉CPE未過但被教授同意的人的專題
 
 // m.CreateResearchFile({research_title:'名字呦>wO', tname:'教授喔Ow<', file_name:'檔名喔>w<', first_second:2, file_path:'路徑喔OwO', file_type:'型態喔OAO'});
-// 建立專題檔案路徑紀錄
-// {research_title, tname, file_name, file_path, file_type}
+// // 建立專題檔案路徑紀錄
+// // {research_title, tname, file_name, file_path, file_type}
 
 // m.ShowResearchFilePath({research_title:'名字呦>wO', tname:'教授喔Ow<', first_second:2}, function(err, result){
 // 	if(err)

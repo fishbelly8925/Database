@@ -141,7 +141,7 @@ module.exports = {
             data = JSON.parse(data);
         const resource = pool.acquire();
         resource.then(function(c){
-            var sql_SetFirstSecond=c.prepare(s.SetFirstSecond);
+            var sql_SetFirstSecond = c.prepare(s.SetFirstSecond);
             c.query(sql_SetFirstSecond(data), function(err, result){
                 if(err)
                 {
@@ -156,10 +156,10 @@ module.exports = {
     }, 
     CreateResearchFile:function(data){
         if(typeof(data) === 'string')
-            data=JSON.parse(data);
-        const resource=pool.acquire();
+            data = JSON.parse(data);
+        const resource = pool.acquire();
         resource.then(function(c){
-            var sql_CreateResearchFile=c.prepare(s.CreateResearchFile);
+            var sql_CreateResearchFile = c.prepare(s.CreateResearchFile);
             c.query(sql_CreateResearchFile(data), function(err){
                 if(err)
                 {
@@ -171,16 +171,16 @@ module.exports = {
         });
     }, 
     CreateResearchApplyForm:function(data, callback){
-        if(typeof(data)==='string')
-            data=JSON.parse(data);
-        const resource=pool.acquire();
+        if(typeof(data) === 'string')
+            data = JSON.parse(data);
+        const resource = pool.acquire();
         resource.then(function(c){
-            var sql_CheckStudentProgram=c.prepare(s.CheckStudentProgram);
-            var sql_CreateOtherMajorStudent=c.prepare(s.CreateOtherMajorStudent);
-            var sql_AddPhoneEmail=c.prepare(s.AddPhoneEmail);
-            var sql_CreateResearchApplyForm=c.prepare(s.CreateResearchApplyForm);
-            var sql_CheckCPE=c.prepare(s.CheckCPE);
-            var sql_CheckResearchOne=c.prepare(s.CheckResearchOne);
+            var sql_CheckStudentProgram = c.prepare(s.CheckStudentProgram);
+            var sql_CreateOtherMajorStudent = c.prepare(s.CreateOtherMajorStudent);
+            var sql_AddPhoneEmail = c.prepare(s.AddPhoneEmail);
+            var sql_CreateResearchApplyForm = c.prepare(s.CreateResearchApplyForm);
+            var sql_CheckCPE = c.prepare(s.CheckCPE);
+            var sql_CheckResearchOne = c.prepare(s.CheckResearchOne);
 
             if(data['first_second'] == 1)
                 c.query(sql_CheckStudentProgram(data), function(err, result){
