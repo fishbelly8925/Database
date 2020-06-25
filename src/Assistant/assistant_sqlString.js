@@ -26,10 +26,7 @@ exports.CreateApplyPeriod = '\
     on duplicate key update \
     begin = :begin,\
     end = :end';
-exports.SetApplyPeriod = '\
-    update apply_period \
-    set begin = :begin, end = :end \
-    where semester = :semester and type = :type';
+
 exports.ShowApplyPeriod = '\
     select type, begin, end \
     from apply_period \

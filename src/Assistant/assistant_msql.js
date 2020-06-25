@@ -151,22 +151,6 @@ module.exports = {
             })  
         })
     },
-    SetApplyPeriod: function(data, callback){
-        const resource=pool.acquire();
-        resource.then(function(c) {
-            var sql_SetApplyPeriod = c.prepare(s.SetApplyPeriod);
-            c.query(sql_SetApplyPeriod(data), function(err, result){
-                if(err)
-                {
-                    callback(err, undefined);
-                    pool.release(c);
-                    return ;
-                }
-                callback(null, JSON.stringify(result));
-                pool.release(c);
-            })  
-        })
-    },
     ShowApplyPeriod: function(data, callback){
         var period = {
             offset: {
