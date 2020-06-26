@@ -27,8 +27,13 @@ exports.CreateApplyPeriod = '\
     begin = :begin,\
     end = :end';
 
+exports.DeleteApplyPeriod = '\
+    delete from apply_period\
+    where semester = :semester\
+    and type = :type';
+
 exports.ShowApplyPeriod = '\
-    select type, begin, end \
+    select semester, type, begin, end \
     from apply_period \
     where semester = :semester';
 
