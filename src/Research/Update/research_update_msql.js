@@ -1,5 +1,5 @@
 var CONST = require('../../constant.js')
-
+var CryptoJS = require("crypto-js");
 var psw = require(CONST.FILE_PATH);
 var s = require('./research_update_sqlString.js');
 
@@ -93,6 +93,40 @@ module.exports = {
             });                   
         });
     }, 
+    CreateNewGroupResearch:function(data, callback) {
+        if(typeof(data) === 'string')
+            data = JSON.parse(data);
+        group_size = Object.keys(data['student_id']).length
+        var student_list = [];
+        var unique_seed = '';
+        for(var i = 0; i < group_size; i++){
+            student_list.push(data['student_id'][i]);
+            unique_seed += data['student_id'][i]
+        }
+        unique_seed += (data['tname'] + data['research_title'] + data['first_second'] + data['semester']);
+        // MD5 hash to generate unique id
+        var unique_id = CryptoJS.MD5(unique_seed).toString();
+        const resource = pool.acquire();
+        resource.then(function(c){
+            var sql_CreateNewResearch = c.prepare(s.CreateNewResearch);
+            for(var i = 0; i < group_size; i++){
+                var new_data = data;
+                new_data['student_id'] = student_list[i];
+                new_data['unique_id'] = unique_id;
+                console.log(new_data);
+                c.query(sql_CreateNewResearch(new_data), function(err, result){
+                    if(err)
+                    {
+                        callback(err, undefined);
+                        pool.release(c);
+                        throw err;
+                    }
+                    callback(null, JSON.stringify(result));
+                });
+            }
+            pool.release(c);  
+        });
+    },   
     ChangeResearch:function(data){
         if(typeof(data) === 'string')
             data = JSON.parse(data);

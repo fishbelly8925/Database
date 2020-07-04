@@ -283,6 +283,13 @@ var m = require('./msql.js');
 // });
 // // 申請專題同意後，新增此學生專題資料到資料庫
 
+m.CreateNewGroupResearch({ student_id:['0516001', '0616078'], tname : '彭文志', research_title : 'tesdtttt+_10', first_second:1, semester: '106-2'}, function(err, result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+});
+// 申請專題同意後，新增此組所有學生專題資料到資料庫並給予組別unique_id
+
 // m.ChangeResearch({ student_id:'0516003', tname : '彭文志new', research_title : 'tesdtttt+_10', first_second:1, semester: '106-2'});
 // // 申請換專題，修改此學生專題資料
 
@@ -625,19 +632,19 @@ var m = require('./msql.js');
 // }); 
 // // 創建申請的期限 type: offset, research, graduation
 
-m.DeleteApplyPeriod({semester: '108-1', type:'research'}, function(err, result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-}); 
-// 刪除申請的期限 type: offset, research, graduation
+// m.DeleteApplyPeriod({semester: '108-1', type:'research'}, function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); 
+// // 刪除申請的期限 type: offset, research, graduation
 
-m.ShowApplyPeriod({semester: '108-1'}, function(err, result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-}); 
-// 顯示申請的期限 offset, research, graduation
+// m.ShowApplyPeriod({semester: '108-1'}, function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); 
+// // 顯示申請的期限 offset, research, graduation
 
 // m.CreateBulletinMsg({cont_type: 0, content: "這是一個測試公告yoyoyoyoyoyo", link: "this is a link yo"}, function(err, result){
 // 	// "link" 可以不放

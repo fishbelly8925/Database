@@ -83,9 +83,9 @@ exports.CheckCPE="\
 
 exports.CreateNewResearch="\
     insert into research_student\
-    (student_id, tname, research_title, first_second, semester)\
+    (student_id, tname, research_title, first_second, semester, unique_id)\
     values\
-    (:student_id, :tname, :research_title, :first_second, :semester)";
+    (:student_id, :tname, :research_title, :first_second, :semester, :unique_id)";
 
 exports.ChangeResearch="\
     insert into research_student\
