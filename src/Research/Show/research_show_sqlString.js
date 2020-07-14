@@ -181,7 +181,7 @@ exports.ShowResearchScoreComment="\
 
 exports.ShowTeacherResearchApplyFormList="\
     select a.student_id, s.sname, s.program,a.research_title, a.teacher_id, a.tname, a.first_second, a.agree, s.phone, s.email, a.semester,\
-    if(substring(s.program, 1, 1)='A' or substring(s.program, 1, 1)='B' or substring(s.program, 1, 1)='C' or substring(s.program, 1, 1)='D', 1, 0) as status\
+    if(substring(s.program, 1, 1)='A' or substring(s.program, 1, 1)='B' or substring(s.program, 1, 1)='C' or substring(s.program, 1, 1)='D', 1, 0) as status, rs.replace_pro\
     from \
     (\
         select t.teacher_id, r.student_id, r.research_title, r.tname, r.agree, r.first_second, r.semester\
@@ -191,9 +191,11 @@ exports.ShowTeacherResearchApplyFormList="\
     (\
         select sname, student_id, phone, email, program \
         from student\
-    ) as s\
+    ) as s, \
+    research_student as rs\
     where s.student_id = a.student_id \
     and a.teacher_id = :teacher_id \
+    and rs.student_id = a.student_id \
     order by a.research_title";
 
 exports.ShowStudentResearchApplyForm="\
