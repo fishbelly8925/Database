@@ -185,11 +185,11 @@ var m = require('./msql.js');
 // })
 // // 設定推薦課程的星星等級，如果已經存在就覆寫
 
-// m.ShowGradeTeacherResearchStudent('T7920', '02', function(err, result){
-// 	if(err)
-// 		throw err;
-// 	console.log(JSON.parse(result));
-// }); // ShowTeacherResearchStudent(teacher_id, callback) 回傳某教授指定系級的專題生和專題題目，1表示本系生，0表示外系生
+m.ShowGradeTeacherResearchStudent('T9229', '', function(err, result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+}); // ShowGradeTeacherResearchStudent(teacher_id, callback) 回傳某教授指定系級的專題生和專題題目，1表示本系生，0表示外系生，沒有系級則回傳全部
 
 // m.SetTeacherPhoto({tname: '彭文志2', photo: 'base64 string2'}, function(err, result){
 // 	if(err)
@@ -234,7 +234,7 @@ var m = require('./msql.js');
 // m.DeleteResearchApplyForm({research_title:'我是專題標題2~', tname:'彭文志', first_second:2, semester:'106-2'});
 // // delete research apply form
 
-// m.ShowTeacherResearchApplyFormList('T9303', function(err, result){
+// m.ShowTeacherResearchApplyFormList('T7837', function(err, result){
 // 	if(err)
 // 		throw err;
 // 	console.log(JSON.parse(result));
@@ -283,11 +283,11 @@ var m = require('./msql.js');
 // });
 // // 申請專題同意後，新增此學生專題資料到資料庫
 
-m.CreateNewGroupResearch({ student_id:['0516001', '0616078'], tname : '彭文志', research_title : 'tesdtttt+_10', first_second:1, semester: '106-2'}, function(err, result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-});
+// m.CreateNewGroupResearch({ student_id:['0516001', '0616078'], tname : '彭文志', research_title : 'tesdtttt+_10', first_second:1, semester: '106-2'}, function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// });
 // 申請專題同意後，新增此組所有學生專題資料到資料庫並給予組別unique_id
 
 // m.ChangeResearch({ student_id:'0516003', tname : '彭文志new', research_title : 'tesdtttt+_10', first_second:1, semester: '106-2'});
