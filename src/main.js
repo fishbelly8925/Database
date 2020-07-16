@@ -185,11 +185,11 @@ var m = require('./msql.js');
 // })
 // // 設定推薦課程的星星等級，如果已經存在就覆寫
 
-m.ShowGradeTeacherResearchStudent('T9229', '', function(err, result){
-	if(err)
-		throw err;
-	console.log(JSON.parse(result));
-}); // ShowGradeTeacherResearchStudent(teacher_id, callback) 回傳某教授指定系級的專題生和專題題目，1表示本系生，0表示外系生，沒有系級則回傳全部
+// m.ShowGradeTeacherResearchStudent('T9229', '', function(err, result){
+// 	if(err)
+// 		throw err;
+// 	console.log(JSON.parse(result));
+// }); // ShowGradeTeacherResearchStudent(teacher_id, callback) 回傳某教授指定系級的專題生和專題題目，1表示本系生，0表示外系生，沒有系級則回傳全部
 
 // m.SetTeacherPhoto({tname: '彭文志2', photo: 'base64 string2'}, function(err, result){
 // 	if(err)
@@ -263,12 +263,12 @@ m.ShowGradeTeacherResearchStudent('T9229', '', function(err, result){
 // // 用學號查詢專題的標題、網址、介紹、年度，1表示本系生，0表示外系生
 // // 0410835 電機系
 
-// m.ShowResearchGroup({tname:'彭文志', research_title:'聊天機器人', first_second:2, semester:'106-2'}, function(err, result){
-// 	if(err)
-// 		throw err;
-// 	console.log(JSON.parse(result));
-// });
-// // 用教授名稱、專題名稱、專題一二查詢所有同組專題生的學號
+m.ShowResearchGroup({tname:'吳凱強', research_title:'107-2尚未決定', first_second:1, semester:'107-2'}, function(err, result){
+	if(err)
+		throw err;
+	console.log(JSON.parse(result));
+});
+// 用教授名稱、專題名稱、專題一二查詢所有同組專題生的學號
 
 // m.SetResearchInfo({tname:'彭文志', research_title:'讓電腦看懂羽球', first_second:2, semester:'107-2', new_title:'讓電腦看懂羽球NEW', new_file:'base64 string file', new_photo:'base64 testphoto', new_filename:'testnew filename', new_intro:'c'});
 // // 用教授名稱、專題名稱、專題一二更新專題資訊(標題、網址、介紹)
@@ -288,7 +288,7 @@ m.ShowGradeTeacherResearchStudent('T9229', '', function(err, result){
 // 		throw err;
 // 	console.log(JSON.parse(result));
 // });
-// 申請專題同意後，新增此組所有學生專題資料到資料庫並給予組別unique_id
+// // 申請專題同意後，新增此組所有學生專題資料到資料庫並給予組別unique_id
 
 // m.ChangeResearch({ student_id:'0516003', tname : '彭文志new', research_title : 'tesdtttt+_10', first_second:1, semester: '106-2'});
 // // 申請換專題，修改此學生專題資料

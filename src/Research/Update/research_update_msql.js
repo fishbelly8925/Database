@@ -101,7 +101,10 @@ module.exports = {
         var unique_seed = '';
         for(var i = 0; i < group_size; i++){
             student_list.push(data['student_id'][i]);
-            unique_seed += data['student_id'][i]
+        }
+        student_list.sort()
+        for(var i = 0; i < group_size; i++){
+            unique_seed += student_list[i]
         }
         unique_seed += (data['tname'] + data['research_title'] + data['first_second'] + data['semester']);
         // MD5 hash to generate unique id
@@ -113,7 +116,7 @@ module.exports = {
                 var new_data = data;
                 new_data['student_id'] = student_list[i];
                 new_data['unique_id'] = unique_id;
-                console.log(new_data);
+                // console.log(new_data);
                 c.query(sql_CreateNewResearch(new_data), function(err, result){
                     if(err)
                     {
